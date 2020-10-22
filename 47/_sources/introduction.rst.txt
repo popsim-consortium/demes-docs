@@ -1,0 +1,45 @@
+============
+Introduction
+============
+
+.. note::
+   `Demes` is a work-in-progress, as is its documentation. If you find an error
+   in the documentation or a bug in the software, or would like to help, please
+   head to `Github <https://github.com/grahamgower/demes>`_ to open an issue or
+   start a pull request.
+
+Welcome to the documentation for `Demes`, a package for defining, parsing, and
+sharing demographic models for population genetic simulations.
+
+Motivation
+----------
+
+Simulation is central to population genetics studies, and there are many great
+software out there for simulting sequencing data or computing expectations of
+diversity statistics under a wide range of demographic scenarios. This requires
+specifying the demographic model we want to simulate under. Generally, each
+simulation software has its own syntax and style for defining the demography -
+learning curves for new software can be steep and mistakes are easy to make,
+especially for complex demographic scenarios.
+
+`Demes` aims to make defining demographic models more intuitive, less prone
+to error or ambiguity, and interchangeable between simulation platforms.
+Demographic models, which define populations, their properties, and
+relationships between them, are written in `YAML <https://yaml.org/>`_. Models
+are then human-readable, and they may also be parsed and passed to a simulation
+engine that supports `demes` input.
+
+Getting started
+---------------
+
+- installation
+- point to tutorial (specifying demography in YAML, using the Python API, etc)
+
+Software support for `demes`
+----------------------------
+
+- `msprime <https://msprime.readthedocs.io/en/stable/>`_
+- `fwdpy11 <https://fwdpy11.readthedocs.io/en/stable/>`_ (in the works)
+- `stdpopsim <https://stdpopsim.readthedocs.io/en/stable/>`_
+- `moments <https://bitbucket.org/simongravel/moments/>`_
+
