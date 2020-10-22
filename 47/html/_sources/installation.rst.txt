@@ -1,0 +1,14 @@
+============
+Installation
+============
+
+Requirements
+------------
+
+
+Installing
+----------
+
+.. note::
+   To be made availabe through bioconda upon release.
+
