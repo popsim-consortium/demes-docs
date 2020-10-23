@@ -1,3 +1,5 @@
+.. _sec_introduction:
+
 ============
 Introduction
 ============
@@ -32,8 +34,17 @@ engine that supports `demes` input.
 Getting started
 ---------------
 
-- installation
-- point to tutorial (specifying demography in YAML, using the Python API, etc)
+- To get `demes` up and running, see the
+  :ref:`Installation section <sec_installation>`
+- In the :ref:`Tutorial section <sec_tutorial>`, you can find an introduction
+  to writing demographic models using YAML, along with some bite-sized examples
+  (:ref:`demographic models in YAML <sec_tutorial_yaml_demography>`), 
+  manipulating and working with demography objects within python
+  (:ref:`Python API <sec_tutorial_python_api>`), and adding features and
+  attributes to demographic models, populations, or population epochs
+  (:ref:`deme attributes <sec_tutorial_attributes>`).
+- For a gallery of demographic models defined using `demes`, see
+  :ref:`Examples <sec_examples>`.
 
 Software support for `demes`
 ----------------------------

@@ -1,0 +1,10 @@
+.. _sec_examples:
+
+========
+Examples
+========
+
+This page will hold common examples - can we pull them directly
+from the examples directory to prevent having to reimplement them
+here, and allow us to test their correctness or at least their
+import-ability?

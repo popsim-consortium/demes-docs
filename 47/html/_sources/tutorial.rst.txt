@@ -1,15 +1,27 @@
+.. _sec_tutorial:
+
 ============
 Tutorial
 ============
 
+.. _sec_tutorial_yaml_demography:
+
 Defining a demography in YAML
 -----------------------------
 
+An introduction to the YAML description.
+
+.. _sec_tutorial_python_api:
 
 Using the Python API
 --------------------
 
+Working directly with the Python API.
+
+.. _sec_tutorial_attributes:
 
 Deme attributes
 ---------------
+
+Additional features: selfing, cloning, migration rate changes, ...
 
