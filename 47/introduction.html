@@ -92,6 +92,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="convert.html">Conversion functions</a></li>
 </ul>
@@ -160,7 +161,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<span id="sec-introduction"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><cite>Demes</cite> is a work-in-progress, as is its documentation. If you find an error
@@ -168,7 +169,7 @@ in the documentation or a bug in the software, or would like to help, please
 head to <a class="reference external" href="https://github.com/grahamgower/demes">Github</a> to open an issue or
 start a pull request.</p>
 </div>
-<p>Welcome to the documentation for <cite>Demes</cite>, a package for defining, parsing, and
+<p>Welcome to the documentation for <code class="docutils literal notranslate"><span class="pre">Demes</span></code>, a package for defining, parsing, and
 sharing demographic models for population genetic simulations.</p>
 <div class="section" id="motivation">
 <h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
@@ -179,18 +180,27 @@ specifying the demographic model we want to simulate under. Generally, each
 simulation software has its own syntax and style for defining the demography -
 learning curves for new software can be steep and mistakes are easy to make,
 especially for complex demographic scenarios.</p>
-<p><cite>Demes</cite> aims to make defining demographic models more intuitive, less prone
+<p><code class="docutils literal notranslate"><span class="pre">Demes</span></code> aims to make defining demographic models more intuitive, less prone
 to error or ambiguity, and interchangeable between simulation platforms.
 Demographic models, which define populations, their properties, and
 relationships between them, are written in <a class="reference external" href="https://yaml.org/">YAML</a>. Models
 are then human-readable, and they may also be parsed and passed to a simulation
-engine that supports <cite>demes</cite> input.</p>
+engine that supports <code class="docutils literal notranslate"><span class="pre">demes</span></code> input.</p>
 </div>
 <div class="section" id="getting-started">
 <h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>installation</p></li>
-<li><p>point to tutorial (specifying demography in YAML, using the Python API, etc)</p></li>
+<li><p>To get <code class="docutils literal notranslate"><span class="pre">demes</span></code> up and running, see the
+<a class="reference internal" href="installation.html#sec-installation"><span class="std std-ref">Installation section</span></a></p></li>
+<li><p>In the <a class="reference internal" href="tutorial.html#sec-tutorial"><span class="std std-ref">Tutorial section</span></a>, you can find an introduction
+to writing demographic models using YAML, along with some bite-sized examples
+(<a class="reference internal" href="tutorial.html#sec-tutorial-yaml-demography"><span class="std std-ref">demographic models in YAML</span></a>),
+manipulating and working with demography objects within python
+(<a class="reference internal" href="tutorial.html#sec-tutorial-python-api"><span class="std std-ref">Python API</span></a>), and adding features and
+attributes to demographic models, populations, or population epochs
+(<a class="reference internal" href="tutorial.html#sec-tutorial-attributes"><span class="std std-ref">deme attributes</span></a>).</p></li>
+<li><p>For a gallery of demographic models defined using <code class="docutils literal notranslate"><span class="pre">demes</span></code>, see
+<a class="reference internal" href="examples.html#sec-examples"><span class="std std-ref">Examples</span></a>.</p></li>
 </ul>
 </div>
 <div class="section" id="software-support-for-demes">

@@ -36,7 +36,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="API" href="api.html" />
+    <link rel="next" title="Examples" href="examples.html" />
     <link rel="prev" title="Installation" href="installation.html" /> 
 </head>
 
@@ -92,6 +92,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#deme-attributes">Deme attributes</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="convert.html">Conversion functions</a></li>
 </ul>
@@ -160,15 +161,43 @@
            <div itemprop="articleBody">
             
   <div class="section" id="tutorial">
-<h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
+<span id="sec-tutorial"></span><h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="defining-a-demography-in-yaml">
-<h2>Defining a demography in YAML<a class="headerlink" href="#defining-a-demography-in-yaml" title="Permalink to this headline">¶</a></h2>
+<span id="sec-tutorial-yaml-demography"></span><h2>Defining a demography in YAML<a class="headerlink" href="#defining-a-demography-in-yaml" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><em>what is YAML? and why is it appropriate for this task?</em></p>
+</div>
+<p>A demographic model description contains enough information about
+the demes (or populations) present, their attributes and relationships,
+and general demographic features (e.g. rate of self-fertilization) to
+be able to unambiguously recreate and simulate under that demograhy.
+Thus, a <code class="docutils literal notranslate"><span class="pre">demes</span></code> model contains “global” attributes, <cite>demes</cite>, and
+migration rates and mass migration events between demes.</p>
+<p>A minimal YAML description of a demography requires the following:</p>
+<ol class="arabic simple">
+<li><p><cite>description</cite>: A description or identification of the demographic model.</p></li>
+<li><p><cite>time_units</cite>: The time units for any demographic events.</p></li>
+<li><p><cite>demes</cite>: a list of (at least one) deme, which must include information
+about its initial size.</p></li>
+</ol>
+<p>For example, the simplest demography of a single population of constant
+size (<em>N_e</em> = 1,000) would be written as</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Minimal deme graph. Single population of constant size.</span>
+<span class="nt">time_units</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">generations</span>
+<span class="nt">demes</span><span class="p">:</span>
+  <span class="nt">deme</span><span class="p">:</span>
+    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="using-the-python-api">
-<h2>Using the Python API<a class="headerlink" href="#using-the-python-api" title="Permalink to this headline">¶</a></h2>
+<span id="sec-tutorial-python-api"></span><h2>Using the Python API<a class="headerlink" href="#using-the-python-api" title="Permalink to this headline">¶</a></h2>
+<p>Working directly with the Python API.</p>
 </div>
 <div class="section" id="deme-attributes">
-<h2>Deme attributes<a class="headerlink" href="#deme-attributes" title="Permalink to this headline">¶</a></h2>
+<span id="sec-tutorial-attributes"></span><h2>Deme attributes<a class="headerlink" href="#deme-attributes" title="Permalink to this headline">¶</a></h2>
+<p>Additional features: selfing, cloning, migration rate changes, …</p>
 </div>
 </div>
 
@@ -180,7 +209,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="api.html" class="btn btn-neutral float-right" title="API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

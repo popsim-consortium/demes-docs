@@ -1,15 +1,51 @@
-============
+.. _sec_tutorial:
+
+========
 Tutorial
-============
+========
+
+.. _sec_tutorial_yaml_demography:
 
 Defining a demography in YAML
 -----------------------------
 
+.. note::
+   *what is YAML? and why is it appropriate for this task?*
+
+A demographic model description contains enough information about
+the demes (or populations) present, their attributes and relationships,
+and general demographic features (e.g. rate of self-fertilization) to
+be able to unambiguously recreate and simulate under that demograhy.
+Thus, a ``demes`` model contains "global" attributes, `demes`, and
+migration rates and mass migration events between demes.
+
+A minimal YAML description of a demography requires the following:
+
+#.  `description`: A description or identification of the demographic model.
+#. `time_units`: The time units for any demographic events.
+#. `demes`: a list of (at least one) deme, which must include information
+   about its initial size.
+
+For example, the simplest demography of a single population of constant
+size (*N_e* = 1,000) would be written as
+
+.. literalinclude:: ../examples/minimal.yml
+   :language: yaml
+
+
+
+
+.. _sec_tutorial_python_api:
 
 Using the Python API
 --------------------
 
+Working directly with the Python API.
+
+.. _sec_tutorial_attributes:
 
 Deme attributes
 ---------------
+
+Additional features: selfing, cloning, migration rate changes, ...
 

@@ -13,6 +13,7 @@ Welcome to demes' documentation!
    introduction
    installation
    tutorial
+   examples
    api
    convert
 
