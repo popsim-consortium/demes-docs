@@ -10,7 +10,7 @@ Defining a demography in YAML
 -----------------------------
 
 .. note::
-   *what is YAML? and why is it appropriate for this task?*
+   What is YAML? And why is it appropriate for this task?
 
 A demographic model description contains enough information about
 the demes (or populations) present, their attributes and relationships,
@@ -22,16 +22,59 @@ migration rates and mass migration events between demes.
 A minimal YAML description of a demography requires the following:
 
 #.  `description`: A description or identification of the demographic model.
-#. `time_units`: The time units for any demographic events.
+#. `time_units`: The time units for any demographic events. (*Discussion of
+   time measurement goes here?*
 #. `demes`: a list of (at least one) deme, which must include information
    about its initial size.
 
 For example, the simplest demography of a single population of constant
-size (*N_e* = 1,000) would be written as
+size (say, :math:`N_e=1000`) would be written as
 
-.. literalinclude:: ../examples/minimal.yml
+.. literalinclude:: ./tutorial_examples/minimal.yml
    :language: yaml
+   :caption: A minimal YAML demography.
+   :name: minimal-demography
 
+.. note::
+   We need to discuss time conventions, and the  measurement and flow of time.
+
+Since we did not specify a `start_time` or `end_time` of the deme's
+existence, by defult it spans all time from :math:`\infty` to 0 (recall
+that time is measured by `time_units` in the past, and 0 corresponds
+to "now"). 
+
+Defining epochs
+^^^^^^^^^^^^^^^
+
+A `deme` can be made to have more interesting demographic history, such as
+size changes or non-constant size functions. This is done by defining
+`epochs` that span the time that a deme exists. When defining an epoch,
+we specify its `start_time` and `end_time`, along with its `initial_size`
+and `final_size` (or just `initial_size` if the population size is constant
+over that epoch).
+
+For example, the same minimal demography :ref:`above <minimal-demography>`
+could be written by specifying a single epoch for 
+
+Multiple demes
+^^^^^^^^^^^^^^
+
+Population splits and branches
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Continuous migration
+^^^^^^^^^^^^^^^^^^^^
+
+Pulse migration events
+^^^^^^^^^^^^^^^^^^^^^^
+
+Admixture events
+^^^^^^^^^^^^^^^^
+
+.. note::
+   **A note on model robustness and ambiguity**
+
+   This is the note.
 
 
 

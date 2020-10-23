@@ -30,6 +30,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -87,7 +88,15 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#defining-a-demography-in-yaml">Defining a demography in YAML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#defining-a-demography-in-yaml">Defining a demography in YAML</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#defining-epochs">Defining epochs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiple-demes">Multiple demes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#population-splits-and-branches">Population splits and branches</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#continuous-migration">Continuous migration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pulse-migration-events">Pulse migration events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#admixture-events">Admixture events</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#using-the-python-api">Using the Python API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#deme-attributes">Deme attributes</a></li>
 </ul>
@@ -166,7 +175,7 @@
 <span id="sec-tutorial-yaml-demography"></span><h2>Defining a demography in YAML<a class="headerlink" href="#defining-a-demography-in-yaml" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><em>what is YAML? and why is it appropriate for this task?</em></p>
+<p>What is YAML? And why is it appropriate for this task?</p>
 </div>
 <p>A demographic model description contains enough information about
 the demes (or populations) present, their attributes and relationships,
@@ -177,18 +186,61 @@ migration rates and mass migration events between demes.</p>
 <p>A minimal YAML description of a demography requires the following:</p>
 <ol class="arabic simple">
 <li><p><cite>description</cite>: A description or identification of the demographic model.</p></li>
-<li><p><cite>time_units</cite>: The time units for any demographic events.</p></li>
+<li><p><cite>time_units</cite>: The time units for any demographic events. (<em>Discussion of
+time measurement goes here?</em></p></li>
 <li><p><cite>demes</cite>: a list of (at least one) deme, which must include information
 about its initial size.</p></li>
 </ol>
 <p>For example, the simplest demography of a single population of constant
-size (<em>N_e</em> = 1,000) would be written as</p>
+size (say, <span class="math notranslate nohighlight">\(N_e=1000\)</span>) would be written as</p>
+<div class="literal-block-wrapper docutils container" id="minimal-demography">
+<div class="code-block-caption"><span class="caption-text">A minimal YAML demography.</span><a class="headerlink" href="#minimal-demography" title="Permalink to this code">¶</a></div>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Minimal deme graph. Single population of constant size.</span>
 <span class="nt">time_units</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">generations</span>
 <span class="nt">demes</span><span class="p">:</span>
   <span class="nt">deme</span><span class="p">:</span>
     <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
 </pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We need to discuss time conventions, and the  measurement and flow of time.</p>
+</div>
+<p>Since we did not specify a <cite>start_time</cite> or <cite>end_time</cite> of the deme’s
+existence, by defult it spans all time from <span class="math notranslate nohighlight">\(\infty\)</span> to 0 (recall
+that time is measured by <cite>time_units</cite> in the past, and 0 corresponds
+to “now”).</p>
+<div class="section" id="defining-epochs">
+<h3>Defining epochs<a class="headerlink" href="#defining-epochs" title="Permalink to this headline">¶</a></h3>
+<p>A <cite>deme</cite> can be made to have more interesting demographic history, such as
+size changes or non-constant size functions. This is done by defining
+<cite>epochs</cite> that span the time that a deme exists. When defining an epoch,
+we specify its <cite>start_time</cite> and <cite>end_time</cite>, along with its <cite>initial_size</cite>
+and <cite>final_size</cite> (or just <cite>initial_size</cite> if the population size is constant
+over that epoch).</p>
+<p>For example, the same minimal demography <a class="reference internal" href="#minimal-demography"><span class="std std-ref">above</span></a>
+could be written by specifying a single epoch for</p>
+</div>
+<div class="section" id="multiple-demes">
+<h3>Multiple demes<a class="headerlink" href="#multiple-demes" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="population-splits-and-branches">
+<h3>Population splits and branches<a class="headerlink" href="#population-splits-and-branches" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="continuous-migration">
+<h3>Continuous migration<a class="headerlink" href="#continuous-migration" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="pulse-migration-events">
+<h3>Pulse migration events<a class="headerlink" href="#pulse-migration-events" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="admixture-events">
+<h3>Admixture events<a class="headerlink" href="#admixture-events" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>A note on model robustness and ambiguity</strong></p>
+<p>This is the note.</p>
+</div>
 </div>
 </div>
 <div class="section" id="using-the-python-api">
