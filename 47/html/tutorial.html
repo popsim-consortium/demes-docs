@@ -164,7 +164,22 @@
 <span id="sec-tutorial"></span><h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="defining-a-demography-in-yaml">
 <span id="sec-tutorial-yaml-demography"></span><h2>Defining a demography in YAML<a class="headerlink" href="#defining-a-demography-in-yaml" title="Permalink to this headline">¶</a></h2>
-<p>An introduction to the YAML description.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>what is YAML? and why is it appropriate for this task?*</p>
+</div>
+<p>A demographic model description contains enough information about
+the demes (or populations) present, their attributes and relationships,
+and general demographic features (e.g. rate of self-fertilization) to
+be able to unambiguously recreate and simulate under that demograhy.
+Thus, a <code class="docutils literal notranslate"><span class="pre">demes</span></code> model contains “global” attributes, <cite>demes</cite>, and
+migration rates and mass migration events between demes.</p>
+<p>In addition to deme and migration descriptions, every demography
+requires the following:
+1. <cite>description</cite>:
+2. <cite>time_units</cite>:
+3. If <cite>time_units</cite> are not “generations”, we also need to specify
+the</p>
 </div>
 <div class="section" id="using-the-python-api">
 <span id="sec-tutorial-python-api"></span><h2>Using the Python API<a class="headerlink" href="#using-the-python-api" title="Permalink to this headline">¶</a></h2>

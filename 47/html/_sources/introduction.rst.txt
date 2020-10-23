@@ -10,7 +10,7 @@ Introduction
    head to `Github <https://github.com/grahamgower/demes>`_ to open an issue or
    start a pull request.
 
-Welcome to the documentation for `Demes`, a package for defining, parsing, and
+Welcome to the documentation for ``Demes``, a package for defining, parsing, and
 sharing demographic models for population genetic simulations.
 
 Motivation
@@ -24,17 +24,17 @@ simulation software has its own syntax and style for defining the demography -
 learning curves for new software can be steep and mistakes are easy to make,
 especially for complex demographic scenarios.
 
-`Demes` aims to make defining demographic models more intuitive, less prone
+``Demes`` aims to make defining demographic models more intuitive, less prone
 to error or ambiguity, and interchangeable between simulation platforms.
 Demographic models, which define populations, their properties, and
 relationships between them, are written in `YAML <https://yaml.org/>`_. Models
 are then human-readable, and they may also be parsed and passed to a simulation
-engine that supports `demes` input.
+engine that supports ``demes`` input.
 
 Getting started
 ---------------
 
-- To get `demes` up and running, see the
+- To get ``demes`` up and running, see the
   :ref:`Installation section <sec_installation>`
 - In the :ref:`Tutorial section <sec_tutorial>`, you can find an introduction
   to writing demographic models using YAML, along with some bite-sized examples
@@ -43,7 +43,7 @@ Getting started
   (:ref:`Python API <sec_tutorial_python_api>`), and adding features and
   attributes to demographic models, populations, or population epochs
   (:ref:`deme attributes <sec_tutorial_attributes>`).
-- For a gallery of demographic models defined using `demes`, see
+- For a gallery of demographic models defined using ``demes``, see
   :ref:`Examples <sec_examples>`.
 
 Software support for `demes`
