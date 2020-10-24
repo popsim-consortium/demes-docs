@@ -245,6 +245,48 @@ must be between 0 and 1, and both demes must exist at the specified
 Admixture events
 ^^^^^^^^^^^^^^^^
 
+Finally, a new deme can be formed through the merger or admixture of
+two or more parental demes. The parental demes could continue to exist
+beyond the time of admixture, or they could each end at that time, so
+that the new deme is a complete merger of its parents.
+``Demes`` allows both cases - we only require that each parental deme
+exists or has its `end_time` at the time of admixture.
+
+To specify an admixture event, we specify the admixed deme's `ancestors`
+as a comma-separated list of parental demes, and their `proportions` as
+a comma-separated list of admixture proportions from the parental demes.
+`proportions` must sum to 1, and the length and order must match the
+demes listed in `ancestors`.
+
+.. code-block:: yaml
+
+   demes:
+     parental1:
+       initial_size: 1000
+       end_time: 100
+     parental2:
+       initial_size: 2000
+       end_time: 100
+     merged_deme:
+       ancestors: parental1, parental2
+       proportions: 0.7, 0.3
+       initial_size: 3000
+       final_size: 5000
+
+Here, two demes merge to form a single deme 100 time units ago, which
+then grows exponentially from 3,000 to 5,000 at present time.
+
+For a more complete example, the
+:ref:`Browning et al. (2011) <browning-america>`  model of admixture
+in the Americas includes three source demes that recently admix, and all
+demes persist until present time.
+
+.. literalinclude:: ./tutorial_examples/browning_america.yml
+   :language: yaml
+   :linenos:
+   :caption: The Browning et al. (2011) American admixture model.
+   :name: browning-america
+
 .. note::
    **A note on model robustness and ambiguity**
 
