@@ -19,7 +19,7 @@ Motivation
 Simulation is central to population genetics studies, and there are many great
 software out there for simulating sequencing data or computing expectations of
 diversity statistics under a wide range of demographic scenarios. This requires
-specifying the demographic model we want to simulate under. Generally, each
+writing a formal description of the demographic model. Generally, each
 simulation software has its own syntax and style for defining the demography -
 learning curves for new software can be steep and mistakes are easy to make,
 especially for complex demographic scenarios.
