@@ -10,18 +10,24 @@ Requirements
 ``Demes`` uses `srictyaml <https://github.com/crdoconnor/strictyaml>`_ to 
 read YAML-defined demographic models.
 
-Dependencies should be installed automatically when installing ``demes``
-via pip or conda.
+Installation
+------------
 
-Conda
------
+Currently, ``demes`` is most useful for simulation software developers who
+want to support demographic models imported from ``demes`` descriptions.
 
-.. note::
-   To be made availabe through bioconda (or similar) upon release.
+Installation instructions for developers:
 
-Pip
----
+.. code-block::
 
-.. note::
-   Fill in when ready.
+   ## Clone the repository
+   $ git clone https://github.com/grahamgower/demes.git
+   $ cd demes
+   
+   ## Install the developer dependencies
+   $ python -m pip install -r requirements.txt
+   
+   ## Run the test suite
+   $ python -m pytest -v tests
+
 

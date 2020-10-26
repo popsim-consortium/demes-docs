@@ -31,6 +31,27 @@ relationships between them, are written in `YAML <https://yaml.org/>`_. Models
 are then human-readable, and they may also be parsed and passed to a simulation
 engine that supports ``demes`` input.
 
+For example, the follow YAML file implements a simple two-epoch demographic
+histor for a single deme (population), where the deme doubles in size 100
+generations ago:
+
+.. code-block:: yaml
+
+   description: Single-population two-epoch demography.
+   time_units: generations
+   demes:
+     D:
+       description: A deme (named D) that doubles in size
+       epochs:
+       - initial_size: 1000
+         end_time: 100
+       - initial_size: 2000
+         end_time: 0
+
+The :ref:`tutorial <sec_tutorial_yaml_demography>` describes in detail all the
+components of a YAML demographic model and how to specify more complex
+scenarios, and more illustrative examples can be seen :ref:`here <sec_examples>`.
+
 Getting started
 ---------------
 
@@ -46,10 +67,3 @@ Getting started
 - For a gallery of demographic models defined using ``demes``, see
   :ref:`Examples <sec_examples>`.
 
-Software support for `demes`
-----------------------------
-
-- `msprime <https://msprime.readthedocs.io/en/stable/>`_
-- `fwdpy11 <https://fwdpy11.readthedocs.io/en/stable/>`_ (in the works)
-- `stdpopsim <https://stdpopsim.readthedocs.io/en/stable/>`_
-- `moments <https://bitbucket.org/simongravel/moments/>`_

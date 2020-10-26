@@ -88,8 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#conda">Conda</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pip">Pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
@@ -167,21 +166,22 @@
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">Demes</span></code> uses <a class="reference external" href="https://github.com/crdoconnor/strictyaml">srictyaml</a> to
 read YAML-defined demographic models.</p>
-<p>Dependencies should be installed automatically when installing <code class="docutils literal notranslate"><span class="pre">demes</span></code>
-via pip or conda.</p>
 </div>
-<div class="section" id="conda">
-<h2>Conda<a class="headerlink" href="#conda" title="Permalink to this headline">¶</a></h2>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>To be made availabe through bioconda (or similar) upon release.</p>
-</div>
-</div>
-<div class="section" id="pip">
-<h2>Pip<a class="headerlink" href="#pip" title="Permalink to this headline">¶</a></h2>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Fill in when ready.</p>
+<div class="section" id="id1">
+<h2>Installation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Currently, <code class="docutils literal notranslate"><span class="pre">demes</span></code> is most useful for simulation software developers who
+want to support demographic models imported from <code class="docutils literal notranslate"><span class="pre">demes</span></code> descriptions.</p>
+<p>Installation instructions for developers:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>## Clone the repository
+$ git clone https://github.com/grahamgower/demes.git
+$ cd demes
+
+## Install the developer dependencies
+$ python -m pip install -r requirements.txt
+
+## Run the test suite
+$ python -m pytest -v tests
+</pre></div>
 </div>
 </div>
 </div>
@@ -207,7 +207,7 @@ via pip or conda.</p>
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2020, Graham Gower
+        &copy; Copyright 2020, PopSim Consortium
 
     </p>
   </div>

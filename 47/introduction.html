@@ -88,7 +88,6 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#motivation">Motivation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting started</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#software-support-for-demes">Software support for <cite>demes</cite></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
@@ -187,6 +186,24 @@ Demographic models, which define populations, their properties, and
 relationships between them, are written in <a class="reference external" href="https://yaml.org/">YAML</a>. Models
 are then human-readable, and they may also be parsed and passed to a simulation
 engine that supports <code class="docutils literal notranslate"><span class="pre">demes</span></code> input.</p>
+<p>For example, the follow YAML file implements a simple two-epoch demographic
+histor for a single deme (population), where the deme doubles in size 100
+generations ago:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Single-population two-epoch demography.</span>
+<span class="nt">time_units</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">generations</span>
+<span class="nt">demes</span><span class="p">:</span>
+  <span class="nt">D</span><span class="p">:</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">A deme (named D) that doubles in size</span>
+    <span class="nt">epochs</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
+      <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
+    <span class="p p-Indicator">-</span> <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2000</span>
+      <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="tutorial.html#sec-tutorial-yaml-demography"><span class="std std-ref">tutorial</span></a> describes in detail all the
+components of a YAML demographic model and how to specify more complex
+scenarios, and more illustrative examples can be seen <a class="reference internal" href="examples.html#sec-examples"><span class="std std-ref">here</span></a>.</p>
 </div>
 <div class="section" id="getting-started">
 <h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
@@ -202,15 +219,6 @@ attributes to demographic models, populations, or population epochs
 (<a class="reference internal" href="tutorial.html#sec-tutorial-attributes"><span class="std std-ref">deme attributes</span></a>).</p></li>
 <li><p>For a gallery of demographic models defined using <code class="docutils literal notranslate"><span class="pre">demes</span></code>, see
 <a class="reference internal" href="examples.html#sec-examples"><span class="std std-ref">Examples</span></a>.</p></li>
-</ul>
-</div>
-<div class="section" id="software-support-for-demes">
-<h2>Software support for <cite>demes</cite><a class="headerlink" href="#software-support-for-demes" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://msprime.readthedocs.io/en/stable/">msprime</a></p></li>
-<li><p><a class="reference external" href="https://fwdpy11.readthedocs.io/en/stable/">fwdpy11</a> (in the works)</p></li>
-<li><p><a class="reference external" href="https://stdpopsim.readthedocs.io/en/stable/">stdpopsim</a></p></li>
-<li><p><a class="reference external" href="https://bitbucket.org/simongravel/moments/">moments</a></p></li>
 </ul>
 </div>
 </div>
@@ -236,7 +244,7 @@ attributes to demographic models, populations, or population epochs
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2020, Graham Gower
+        &copy; Copyright 2020, PopSim Consortium
 
     </p>
   </div>
