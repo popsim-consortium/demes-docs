@@ -247,6 +247,43 @@ If None, the names will be pop0, pop1, …, popN.</p></li>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt id="demes.convert.SFS">
+<code class="sig-prename descclassname">demes.convert.</code><code class="sig-name descname">SFS</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">g</span></em>, <em class="sig-param"><span class="n">sampled_demes</span></em>, <em class="sig-param"><span class="n">sample_sizes</span></em>, <em class="sig-param"><span class="n">sample_times</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">Ne</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">unsampled_n</span><span class="o">=</span><span class="default_value">4</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/convert/moments_.html#SFS"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.convert.SFS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes a deme graph and computes the site frequency spectrum using <code class="docutils literal notranslate"><span class="pre">moments</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>g</strong> – A demes graph from which to compute the SFS.</p></li>
+<li><p><strong>sampled_demes</strong> – A list of deme IDs to take samples from. We can repeat
+demes, as long as the sampling of repeated deme IDs occurs at distinct
+times.</p></li>
+<li><p><strong>sample_sizes</strong> – A list of the same length as <code class="docutils literal notranslate"><span class="pre">sampled_demes</span></code>,
+giving the sample sizes for each sampled deme.</p></li>
+<li><p><strong>sample_times</strong> – If None, assumes all sampling occurs at the end of the
+existence of the sampled deme. If there are
+ancient samples, <code class="docutils literal notranslate"><span class="pre">sample_times</span></code> must be a list of same length as
+<code class="docutils literal notranslate"><span class="pre">sampled_demes</span></code>, giving the sampling times for each sampled
+deme. Sampling times are given in time units of the original deme graph,
+so might not necessarily be generations (e.g. if <code class="docutils literal notranslate"><span class="pre">g.time_units</span></code> is years)</p></li>
+<li><p><strong>Ne</strong> – reference population size. If none is given, we use the initial
+size of the root deme.</p></li>
+<li><p><strong>unsampled_n</strong> – The default sample size of unsampled demes, which must be
+greater than or equal to 4.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <code class="docutils literal notranslate"><span class="pre">moments</span></code> site frequency spectrum, with dimension equal to the
+length of <code class="docutils literal notranslate"><span class="pre">sampled_demes</span></code>, and shape equal to <code class="docutils literal notranslate"><span class="pre">sample_sizes</span></code> plus one
+in each dimension, indexing the allele frequency in each deme from 0
+to n[i], where i is the deme index.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">moments.Spectrum</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 
