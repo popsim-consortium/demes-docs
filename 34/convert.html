@@ -255,8 +255,9 @@ If None, the names will be pop0, pop1, …, popN.</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>g</strong> – A demes graph from which to compute the SFS.</p></li>
-<li><p><strong>sampled_demes</strong> – A list of demes to take samples from. We can repeat
-demes, as long as the sampling occurs at distinct times.</p></li>
+<li><p><strong>sampled_demes</strong> – A list of deme IDs to take samples from. We can repeat
+demes, as long as the sampling of repeated deme IDs occurs at distinct
+times.</p></li>
 <li><p><strong>sample_sizes</strong> – A list of the same length as <code class="docutils literal notranslate"><span class="pre">sampled_demes</span></code>,
 giving the sample sizes for each sampled deme.</p></li>
 <li><p><strong>sample_times</strong> – If None, assumes all sampling occurs at the end of the

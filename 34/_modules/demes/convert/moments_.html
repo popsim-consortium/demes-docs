@@ -171,8 +171,9 @@
 <span class="sd">    Takes a deme graph and computes the site frequency spectrum using ``moments``.</span>
 
 <span class="sd">    :param g: A demes graph from which to compute the SFS.</span>
-<span class="sd">    :param sampled_demes: A list of demes to take samples from. We can repeat</span>
-<span class="sd">        demes, as long as the sampling occurs at distinct times.</span>
+<span class="sd">    :param sampled_demes: A list of deme IDs to take samples from. We can repeat</span>
+<span class="sd">        demes, as long as the sampling of repeated deme IDs occurs at distinct</span>
+<span class="sd">        times.</span>
 <span class="sd">    :param sample_sizes: A list of the same length as ``sampled_demes``,</span>
 <span class="sd">        giving the sample sizes for each sampled deme.</span>
 <span class="sd">    :param sample_times: If None, assumes all sampling occurs at the end of the</span>
