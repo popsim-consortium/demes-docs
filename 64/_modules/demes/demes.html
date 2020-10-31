@@ -1079,14 +1079,16 @@
                 <span class="ow">or</span> <span class="n">migration</span><span class="o">.</span><span class="n">start_time</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="p">[</span><span class="n">migration</span><span class="o">.</span><span class="n">dest</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span>
             <span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Migration between </span><span class="si">{</span><span class="n">migration</span><span class="o">.</span><span class="n">source</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">migration</span><span class="o">.</span><span class="n">dest</span><span class="si">}</span><span class="s2"> starts before both demes exist.&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Migration between </span><span class="si">{</span><span class="n">migration</span><span class="o">.</span><span class="n">source</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">migration</span><span class="o">.</span><span class="n">dest</span><span class="si">}</span><span class="s2"> &quot;</span>
+                    <span class="s2">&quot;starts before both demes exist.&quot;</span>
                 <span class="p">)</span>
             <span class="k">if</span> <span class="p">(</span>
                 <span class="n">migration</span><span class="o">.</span><span class="n">end_time</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="p">[</span><span class="n">migration</span><span class="o">.</span><span class="n">source</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span>
                 <span class="ow">or</span> <span class="n">migration</span><span class="o">.</span><span class="n">end_time</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="p">[</span><span class="n">migration</span><span class="o">.</span><span class="n">dest</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span>
             <span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Migration between </span><span class="si">{</span><span class="n">migration</span><span class="o">.</span><span class="n">source</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">migration</span><span class="o">.</span><span class="n">dest</span><span class="si">}</span><span class="s2"> ends ends after time both demes exist.&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Migration between </span><span class="si">{</span><span class="n">migration</span><span class="o">.</span><span class="n">source</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">migration</span><span class="o">.</span><span class="n">dest</span><span class="si">}</span><span class="s2"> &quot;</span>
+                    <span class="s2">&quot;ends after time both demes exist.&quot;</span>
                 <span class="p">)</span>
         <span class="k">for</span> <span class="n">pulse</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pulses</span><span class="p">:</span>
             <span class="k">if</span> <span class="p">(</span>
@@ -1096,7 +1098,8 @@
                 <span class="ow">or</span> <span class="n">pulse</span><span class="o">.</span><span class="n">time</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="p">[</span><span class="n">pulse</span><span class="o">.</span><span class="n">dest</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span>
             <span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Pulse from </span><span class="si">{</span><span class="n">pulse</span><span class="o">.</span><span class="n">source</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">pulse</span><span class="o">.</span><span class="n">dest</span><span class="si">}</span><span class="s2"> falls outside of time that both demes exist.&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Pulse from </span><span class="si">{</span><span class="n">pulse</span><span class="o">.</span><span class="n">source</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">pulse</span><span class="o">.</span><span class="n">dest</span><span class="si">}</span><span class="s2"> falls outside of &quot;</span>
+                    <span class="s2">&quot;time that both demes exist.&quot;</span>
                 <span class="p">)</span></div>
 
 <div class="viewcode-block" id="DemeGraph.in_generations"><a class="viewcode-back" href="../../api.html#demes.DemeGraph.in_generations">[docs]</a>    <span class="k">def</span> <span class="nf">in_generations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
