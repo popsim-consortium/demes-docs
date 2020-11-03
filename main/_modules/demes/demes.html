@@ -164,6 +164,8 @@
 <span class="kn">import</span> <span class="nn">attr</span>
 <span class="kn">from</span> <span class="nn">attr.validators</span> <span class="kn">import</span> <span class="n">optional</span>
 
+<span class="kn">from</span> <span class="nn">.script</span> <span class="kn">import</span> <span class="n">dumps</span><span class="p">,</span> <span class="n">loads</span>
+
 <span class="n">Number</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
 <span class="n">ID</span> <span class="o">=</span> <span class="nb">str</span>
 <span class="n">Time</span> <span class="o">=</span> <span class="n">Number</span>
@@ -1064,6 +1066,12 @@
                     <span class="p">)</span>
         <span class="k">for</span> <span class="n">deme_from</span><span class="p">,</span> <span class="n">demes_to</span> <span class="ow">in</span> <span class="n">splits_to_add</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">deme_from</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">demes_to</span><span class="p">),</span> <span class="bp">self</span><span class="p">[</span><span class="n">deme_from</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="DemeGraph.validate"><a class="viewcode-back" href="../../api.html#demes.DemeGraph.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Validates the demographic model.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">loads</span><span class="p">(</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="DemeGraph.in_generations"><a class="viewcode-back" href="../../api.html#demes.DemeGraph.in_generations">[docs]</a>    <span class="k">def</span> <span class="nf">in_generations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
