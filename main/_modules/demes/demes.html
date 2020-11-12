@@ -160,6 +160,7 @@
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">collections</span>
 <span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">operator</span>
 
 <span class="kn">import</span> <span class="nn">attr</span>
 <span class="kn">from</span> <span class="nn">attr.validators</span> <span class="kn">import</span> <span class="n">optional</span>
@@ -173,6 +174,8 @@
 <span class="n">Rate</span> <span class="o">=</span> <span class="nb">float</span>
 <span class="n">Proportion</span> <span class="o">=</span> <span class="nb">float</span>
 
+<span class="n">_ISCLOSE_REL_TOL</span> <span class="o">=</span> <span class="mf">1e-9</span>
+<span class="n">_ISCLOSE_ABS_TOL</span> <span class="o">=</span> <span class="mf">1e-12</span>
 
 <span class="c1"># Validator functions.</span>
 
@@ -197,50 +200,13 @@
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;must have 0 &lt;= </span><span class="si">{</span><span class="n">attribute</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> &lt;= 1&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">eq_can_be_function</span><span class="p">(</span><span class="n">attrs_cls</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Class decorator for attrs classes that mimics the functionality of the</span>
-<span class="sd">    not-yet-merged https://github.com/python-attrs/attrs/pull/627</span>
-<span class="sd">    This makes it possible to pass an `eq=some_func` arg to attr.ib(),</span>
-<span class="sd">    which will be used when comparing that attribute during object</span>
-<span class="sd">    equality tests.</span>
-
-<span class="sd">    TODO: Remove this when the attrs pr makes its way into a release.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Compare two objects for equality.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">NotImplemented</span>
-        <span class="k">for</span> <span class="n">attrib</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__attrs_attrs__</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">attrib</span><span class="o">.</span><span class="n">eq</span><span class="p">:</span>
-                <span class="n">a1</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attrib</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-                <span class="n">a2</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">attrib</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">attrib</span><span class="o">.</span><span class="n">eq</span><span class="p">):</span>
-                    <span class="k">if</span> <span class="ow">not</span> <span class="n">attrib</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">):</span>
-                        <span class="k">return</span> <span class="kc">False</span>
-                <span class="c1"># Bizarrely, nan!=nan but (nan,)==(nan,). We don&#39;t expect to be</span>
-                <span class="c1"># doing nan comparisons here, but the latter behaviour matches</span>
-                <span class="c1"># attrs (and makes more sense generally).</span>
-                <span class="k">elif</span> <span class="p">(</span><span class="n">a1</span><span class="p">,)</span> <span class="o">!=</span> <span class="p">(</span><span class="n">a2</span><span class="p">,):</span>
-                    <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">return</span> <span class="kc">True</span>
-
-    <span class="n">attrs_cls</span><span class="o">.</span><span class="fm">__eq__</span> <span class="o">=</span> <span class="fm">__eq__</span>
-    <span class="k">return</span> <span class="n">attrs_cls</span>
-
-
-<span class="c1"># Because we overload the ``eq`` parameter to attrib, allowing it to be a</span>
-<span class="c1"># callable, mypy complains about the type. So we introduce a wrapper here</span>
-<span class="c1"># and tell mypy to ignore the types.</span>
-<span class="c1"># TODO: remove this once we remove the ``eq_can_be_function`` decorator.</span>
-<span class="k">def</span> <span class="nf">attrib</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># type: ignore</span>
-    <span class="k">return</span> <span class="n">attr</span><span class="o">.</span><span class="n">attrib</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Number</span><span class="p">],</span> <span class="n">b</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Number</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+    <span class="n">a</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Number</span><span class="p">],</span>
+    <span class="n">b</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Number</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
+    <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wrapper around math.isclose() that handles None.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -248,12 +214,48 @@
         <span class="k">return</span> <span class="p">(</span><span class="n">a</span><span class="p">,)</span> <span class="o">==</span> <span class="p">(</span><span class="n">b</span><span class="p">,)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span>
-            <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">typing</span><span class="o">.</span><span class="n">SupportsFloat</span><span class="p">,</span> <span class="n">a</span><span class="p">),</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">typing</span><span class="o">.</span><span class="n">SupportsFloat</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+            <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">a</span><span class="p">),</span>
+            <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span>
+            <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span>
+            <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">,</span>
         <span class="p">)</span>
 
 
-<div class="viewcode-block" id="Epoch"><a class="viewcode-back" href="../../api.html#demes.Epoch">[docs]</a><span class="nd">@eq_can_be_function</span>
-<span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">isclose_deme_proportions</span><span class="p">(</span>
+    <span class="n">a_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]],</span>
+    <span class="n">a_proportions</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Proportion</span><span class="p">]],</span>
+    <span class="n">b_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]],</span>
+    <span class="n">b_proportions</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Proportion</span><span class="p">]],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
+    <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns true if (a_ids, a_proportions) and (b_ids, b_proportions)</span>
+<span class="sd">    are semantically equivalent. The order of ids is ignored, and proportions</span>
+<span class="sd">    are checked for numerical closeness.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="kc">None</span> <span class="ow">in</span> <span class="p">(</span><span class="n">a_ids</span><span class="p">,</span> <span class="n">b_ids</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">a_ids</span><span class="p">,</span> <span class="n">a_proportions</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="n">b_ids</span><span class="p">,</span> <span class="n">b_proportions</span><span class="p">)</span>
+
+    <span class="n">a_ids</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">],</span> <span class="n">a_ids</span><span class="p">)</span>
+    <span class="n">a_proportions</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">Proportion</span><span class="p">],</span> <span class="n">a_proportions</span><span class="p">)</span>
+    <span class="n">b_ids</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">],</span> <span class="n">b_ids</span><span class="p">)</span>
+    <span class="n">b_proportions</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">Number</span><span class="p">],</span> <span class="n">b_proportions</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">a_ids</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">b_ids</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">a_proportions</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">b_proportions</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">a_ids</span><span class="p">,</span> <span class="n">a_proportions</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">b_ids</span><span class="p">,</span> <span class="n">b_proportions</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">a_id</span><span class="p">,</span> <span class="n">a_proportion</span><span class="p">),</span> <span class="p">(</span><span class="n">b_id</span><span class="p">,</span> <span class="n">b_proportion</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">a_id</span> <span class="o">!=</span> <span class="n">b_id</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">isclose</span><span class="p">(</span>
+            <span class="n">a_proportion</span><span class="p">,</span> <span class="n">b_proportion</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+        <span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+
+<div class="viewcode-block" id="Epoch"><a class="viewcode-back" href="../../api.html#demes.Epoch">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Epoch</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Population size parameters for a deme in a specified time period.</span>
@@ -275,22 +277,20 @@
 <span class="sd">    :ivar cloning_rate: An optional cloning rate for this epoch.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">start_time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">optional</span><span class="p">(</span><span class="n">non_negative</span><span class="p">),</span> <span class="n">eq</span><span class="o">=</span><span class="n">isclose</span>
+    <span class="n">start_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Time</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">optional</span><span class="p">(</span><span class="n">non_negative</span><span class="p">))</span>
+    <span class="n">end_time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
+    <span class="n">initial_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Size</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">optional</span><span class="p">([</span><span class="n">positive</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
     <span class="p">)</span>
-    <span class="n">end_time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">],</span> <span class="n">eq</span><span class="o">=</span><span class="n">isclose</span><span class="p">)</span>
-    <span class="n">initial_size</span><span class="p">:</span> <span class="n">Size</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">optional</span><span class="p">([</span><span class="n">positive</span><span class="p">,</span> <span class="n">finite</span><span class="p">]),</span> <span class="n">eq</span><span class="o">=</span><span class="n">isclose</span>
+    <span class="n">final_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Size</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">optional</span><span class="p">([</span><span class="n">positive</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
     <span class="p">)</span>
-    <span class="n">final_size</span><span class="p">:</span> <span class="n">Size</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">optional</span><span class="p">([</span><span class="n">positive</span><span class="p">,</span> <span class="n">finite</span><span class="p">]),</span> <span class="n">eq</span><span class="o">=</span><span class="n">isclose</span>
+    <span class="n">size_function</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">selfing_rate</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Proportion</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">optional</span><span class="p">(</span><span class="n">unit_interval</span><span class="p">)</span>
     <span class="p">)</span>
-    <span class="n">size_function</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-    <span class="n">selfing_rate</span><span class="p">:</span> <span class="n">Proportion</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">optional</span><span class="p">(</span><span class="n">unit_interval</span><span class="p">),</span> <span class="n">eq</span><span class="o">=</span><span class="n">isclose</span>
-    <span class="p">)</span>
-    <span class="n">cloning_rate</span><span class="p">:</span> <span class="n">Proportion</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">optional</span><span class="p">(</span><span class="n">unit_interval</span><span class="p">),</span> <span class="n">eq</span><span class="o">=</span><span class="n">isclose</span>
+    <span class="n">cloning_rate</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Proportion</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">optional</span><span class="p">(</span><span class="n">unit_interval</span><span class="p">)</span>
     <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -315,11 +315,38 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The time span of the epoch.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span>
+
+    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">other</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
+        <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
+            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+            <span class="p">)</span>
+            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">initial_size</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">initial_size</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+            <span class="p">)</span>
+            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">final_size</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">final_size</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+            <span class="p">)</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">size_function</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">size_function</span>
+            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">selfing_rate</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">selfing_rate</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+            <span class="p">)</span>
+            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cloning_rate</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">cloning_rate</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Migration"><a class="viewcode-back" href="../../api.html#demes.Migration">[docs]</a><span class="nd">@eq_can_be_function</span>
-<span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="Migration"><a class="viewcode-back" href="../../api.html#demes.Migration">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Migration</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameters for continuous migration from one deme to another.</span>
@@ -335,19 +362,36 @@
 <span class="sd">        the given time.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">source</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">()</span>
-    <span class="n">dest</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">()</span>
-    <span class="n">start_time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="n">non_negative</span><span class="p">,</span> <span class="n">eq</span><span class="o">=</span><span class="n">isclose</span><span class="p">)</span>
-    <span class="n">end_time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">],</span> <span class="n">eq</span><span class="o">=</span><span class="n">isclose</span><span class="p">)</span>
-    <span class="n">rate</span><span class="p">:</span> <span class="n">Rate</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">],</span> <span class="n">eq</span><span class="o">=</span><span class="n">isclose</span><span class="p">)</span>
+    <span class="n">source</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">dest</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">start_time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="n">non_negative</span><span class="p">)</span>
+    <span class="n">end_time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
+    <span class="n">rate</span><span class="p">:</span> <span class="n">Rate</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">dest</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;source and dest cannot be the same deme&quot;</span><span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;source and dest cannot be the same deme&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">other</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
+        <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">source</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">dest</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">dest</span>
+            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+            <span class="p">)</span>
+            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rate</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">rate</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
+        <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Pulse"><a class="viewcode-back" href="../../api.html#demes.Pulse">[docs]</a><span class="nd">@eq_can_be_function</span>
-<span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="Pulse"><a class="viewcode-back" href="../../api.html#demes.Pulse">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Pulse</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameters for a pulse of migration from one deme to another.</span>
@@ -363,17 +407,33 @@
 <span class="sd">        the source deme.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">source</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">()</span>
-    <span class="n">dest</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">()</span>
-    <span class="n">time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">],</span> <span class="n">eq</span><span class="o">=</span><span class="n">isclose</span><span class="p">)</span>
-    <span class="n">proportion</span><span class="p">:</span> <span class="n">Proportion</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="n">unit_interval</span><span class="p">,</span> <span class="n">eq</span><span class="o">=</span><span class="n">isclose</span><span class="p">)</span>
+    <span class="n">source</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">dest</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
+    <span class="n">proportion</span><span class="p">:</span> <span class="n">Proportion</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="n">unit_interval</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">dest</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;source and dest cannot be the same deme&quot;</span><span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;source and dest cannot be the same deme&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">other</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
+        <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">source</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">dest</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">dest</span>
+            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">proportion</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">proportion</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
 
 
-<span class="nd">@eq_can_be_function</span>
 <span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Split</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -387,9 +447,9 @@
 <span class="sd">    :ivar time: The split time.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">parent</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">()</span>
-    <span class="n">children</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">()</span>
-    <span class="n">time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">],</span> <span class="n">eq</span><span class="o">=</span><span class="n">isclose</span><span class="p">)</span>
+    <span class="n">parent</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">children</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
@@ -398,8 +458,21 @@
             <span class="k">if</span> <span class="n">child</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;child and parent cannot be the same deme&quot;</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">other</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
+        <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">parent</span>
+            <span class="ow">and</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">children</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
+        <span class="p">)</span>
 
-<span class="nd">@eq_can_be_function</span>
+
 <span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Branch</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -411,16 +484,29 @@
 <span class="sd">    :ivar time: The branch time.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">parent</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">()</span>
-    <span class="n">child</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">()</span>
-    <span class="n">time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">],</span> <span class="n">eq</span><span class="o">=</span><span class="n">isclose</span><span class="p">)</span>
+    <span class="n">parent</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">child</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;child and parent cannot be the same deme&quot;</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">other</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
+        <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">parent</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">child</span>
+            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
+        <span class="p">)</span>
 
-<span class="nd">@eq_can_be_function</span>
+
 <span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Merge</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -433,10 +519,10 @@
 <span class="sd">    :ivar time: The merge time.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">parents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">()</span>
-    <span class="n">proportions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Proportion</span><span class="p">]</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">()</span>
-    <span class="n">child</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">()</span>
-    <span class="n">time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">],</span> <span class="n">eq</span><span class="o">=</span><span class="n">isclose</span><span class="p">)</span>
+    <span class="n">parents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">proportions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Proportion</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">child</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
@@ -454,8 +540,28 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot repeat parents in merge&quot;</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">other</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
+        <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
+            <span class="ow">and</span> <span class="n">isclose_deme_proportions</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span>
+                <span class="n">other</span><span class="o">.</span><span class="n">parents</span><span class="p">,</span>
+                <span class="n">other</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span>
+                <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span>
+                <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">child</span>
+            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
+        <span class="p">)</span>
 
-<span class="nd">@eq_can_be_function</span>
+
 <span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Admix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -468,10 +574,10 @@
 <span class="sd">    :ivar time: The admixture time.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">parents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">()</span>
-    <span class="n">proportions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Proportion</span><span class="p">]</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">()</span>
-    <span class="n">child</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">()</span>
-    <span class="n">time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">],</span> <span class="n">eq</span><span class="o">=</span><span class="n">isclose</span><span class="p">)</span>
+    <span class="n">parents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">proportions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Proportion</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">child</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
@@ -489,9 +595,29 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot repeat parents in admixure&quot;</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">other</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
+        <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
+            <span class="ow">and</span> <span class="n">isclose_deme_proportions</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span>
+                <span class="n">other</span><span class="o">.</span><span class="n">parents</span><span class="p">,</span>
+                <span class="n">other</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span>
+                <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span>
+                <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">child</span>
+            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
+        <span class="p">)</span>
 
-<div class="viewcode-block" id="Deme"><a class="viewcode-back" href="../../api.html#demes.Deme">[docs]</a><span class="nd">@eq_can_be_function</span>
-<span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Deme"><a class="viewcode-back" href="../../api.html#demes.Deme">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Deme</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A collection of individuals that are exchangeable at any fixed time.</span>
@@ -510,16 +636,16 @@
 <span class="sd">    :ivar cloning_rate: An optional cloning rate for this deme.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="nb">id</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">()</span>
-    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">()</span>
-    <span class="n">ancestors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">()</span>
-    <span class="n">proportions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Proportion</span><span class="p">]</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">()</span>
-    <span class="n">epochs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Epoch</span><span class="p">]</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">()</span>
-    <span class="n">selfing_rate</span><span class="p">:</span> <span class="n">Proportion</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">optional</span><span class="p">([</span><span class="n">unit_interval</span><span class="p">]),</span> <span class="n">eq</span><span class="o">=</span><span class="n">isclose</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">ancestors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">proportions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Proportion</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">epochs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Epoch</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">selfing_rate</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Proportion</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">optional</span><span class="p">([</span><span class="n">unit_interval</span><span class="p">])</span>
     <span class="p">)</span>
-    <span class="n">cloning_rate</span><span class="p">:</span> <span class="n">Proportion</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">optional</span><span class="p">([</span><span class="n">unit_interval</span><span class="p">]),</span> <span class="n">eq</span><span class="o">=</span><span class="n">isclose</span>
+    <span class="n">cloning_rate</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Proportion</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">optional</span><span class="p">([</span><span class="n">unit_interval</span><span class="p">])</span>
     <span class="p">)</span>
 
     <span class="nd">@epochs</span><span class="o">.</span><span class="n">validator</span>
@@ -540,6 +666,36 @@
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ancestors and proportions must have same length&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> cannot be its own ancestor&quot;</span><span class="p">)</span>
+        <span class="c1"># if selfing or cloning rates are not given, set them to deme&#39;s default rate</span>
+        <span class="n">epoch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">epoch</span><span class="o">.</span><span class="n">selfing_rate</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">epoch</span><span class="o">.</span><span class="n">selfing_rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selfing_rate</span>
+        <span class="k">if</span> <span class="n">epoch</span><span class="o">.</span><span class="n">cloning_rate</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">epoch</span><span class="o">.</span><span class="n">cloning_rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cloning_rate</span>
+
+    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">other</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
+        <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">id</span>
+            <span class="ow">and</span> <span class="n">isclose_deme_proportions</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span>
+                <span class="n">other</span><span class="o">.</span><span class="n">ancestors</span><span class="p">,</span>
+                <span class="n">other</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span>
+                <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span>
+                <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span>
+                <span class="n">e1</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">e2</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">e1</span><span class="p">,</span> <span class="n">e2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">epochs</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
 
 <div class="viewcode-block" id="Deme.add_epoch"><a class="viewcode-back" href="../../api.html#demes.Deme.add_epoch">[docs]</a>    <span class="k">def</span> <span class="nf">add_epoch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">:</span> <span class="n">Epoch</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -613,8 +769,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span></div>
 
 
-<div class="viewcode-block" id="DemeGraph"><a class="viewcode-back" href="../../api.html#demes.DemeGraph">[docs]</a><span class="nd">@eq_can_be_function</span>
-<span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="DemeGraph"><a class="viewcode-back" href="../../api.html#demes.DemeGraph">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">DemeGraph</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A directed graph that describes a demography. Vertices are demes and edges</span>
@@ -649,24 +804,24 @@
 <span class="sd">        Use :meth:`pulse` instead.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">sorted_eq</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-        <span class="c1"># Order-agnostic equality check.</span>
-        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-
-    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">time_units</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">()</span>
-    <span class="n">generation_time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">optional</span><span class="p">([</span><span class="n">positive</span><span class="p">,</span> <span class="n">finite</span><span class="p">]))</span>
-    <span class="n">default_Ne</span><span class="p">:</span> <span class="n">Size</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">optional</span><span class="p">([</span><span class="n">positive</span><span class="p">,</span> <span class="n">finite</span><span class="p">]))</span>
-    <span class="n">doi</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">demes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Deme</span><span class="p">]</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">eq</span><span class="o">=</span><span class="n">sorted_eq</span><span class="p">)</span>
-    <span class="n">migrations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Migration</span><span class="p">]</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">eq</span><span class="o">=</span><span class="n">sorted_eq</span><span class="p">)</span>
-    <span class="n">pulses</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Pulse</span><span class="p">]</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">eq</span><span class="o">=</span><span class="n">sorted_eq</span><span class="p">)</span>
-    <span class="n">splits</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Split</span><span class="p">]</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">branches</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Branch</span><span class="p">]</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">mergers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Merge</span><span class="p">]</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">admixtures</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Admix</span><span class="p">]</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">selfing_rate</span><span class="p">:</span> <span class="n">Proportion</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eq</span><span class="o">=</span><span class="n">isclose</span><span class="p">)</span>
-    <span class="n">cloning_rate</span><span class="p">:</span> <span class="n">Proportion</span> <span class="o">=</span> <span class="n">attrib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eq</span><span class="o">=</span><span class="n">isclose</span><span class="p">)</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">time_units</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">generation_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Time</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">optional</span><span class="p">([</span><span class="n">positive</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
+    <span class="p">)</span>
+    <span class="n">default_Ne</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Size</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">optional</span><span class="p">([</span><span class="n">positive</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
+    <span class="p">)</span>
+    <span class="n">doi</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">demes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Deme</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">migrations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Migration</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">pulses</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Pulse</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">splits</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Split</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">branches</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Branch</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">mergers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Merge</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">admixtures</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Admix</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">selfing_rate</span><span class="p">:</span> <span class="n">Proportion</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">cloning_rate</span><span class="p">:</span> <span class="n">Proportion</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_deme_map</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">ID</span><span class="p">,</span> <span class="n">Deme</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
@@ -682,6 +837,33 @@
 <span class="sd">        Check if the deme graph contains a deme with the specified id.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">deme_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deme_map</span>
+
+    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">other</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
+        <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">sorted_eq</span><span class="p">(</span><span class="n">aa</span><span class="p">,</span> <span class="n">bb</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+            <span class="c1"># Order-agnostic equality check.</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">aa</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bb</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">aa</span><span class="p">),</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">bb</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">a</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_units</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">time_units</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation_time</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">generation_time</span>
+            <span class="ow">and</span> <span class="n">sorted_eq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">demes</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">sorted_eq</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">migrations</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">migrations</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+            <span class="p">)</span>
+            <span class="ow">and</span> <span class="n">sorted_eq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pulses</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">pulses</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
+        <span class="p">)</span>
 
 <div class="viewcode-block" id="DemeGraph.deme"><a class="viewcode-back" href="../../api.html#demes.DemeGraph.deme">[docs]</a>    <span class="k">def</span> <span class="nf">deme</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>

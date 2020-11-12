@@ -155,6 +155,7 @@
             
   <h1>Source code for demes.convert.msprime_</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">import</span> <span class="nn">typing</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">collections</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
@@ -189,11 +190,11 @@
     <span class="p">]</span>
     <span class="n">pop_id</span> <span class="o">=</span> <span class="p">{</span><span class="n">deme</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">j</span> <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">deme</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">deme_graph</span><span class="o">.</span><span class="n">demes</span><span class="p">)}</span>
 
-    <span class="k">def</span> <span class="nf">growth_rate</span><span class="p">(</span><span class="n">epoch</span><span class="p">:</span> <span class="n">demes</span><span class="o">.</span><span class="n">Epoch</span><span class="p">):</span>
-        <span class="n">initial_size</span> <span class="o">=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">final_size</span>
-        <span class="n">final_size</span> <span class="o">=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">initial_size</span>
+    <span class="k">def</span> <span class="nf">growth_rate</span><span class="p">(</span><span class="n">epoch</span><span class="p">:</span> <span class="n">demes</span><span class="o">.</span><span class="n">Epoch</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="n">initial_size</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">epoch</span><span class="o">.</span><span class="n">final_size</span><span class="p">)</span>
+        <span class="n">final_size</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">epoch</span><span class="o">.</span><span class="n">initial_size</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">initial_size</span> <span class="o">==</span> <span class="n">final_size</span><span class="p">:</span>
-            <span class="n">growth_rate</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">growth_rate</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">epoch</span><span class="o">.</span><span class="n">size_function</span> <span class="o">!=</span> <span class="s2">&quot;exponential&quot;</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
@@ -216,9 +217,9 @@
         <span class="k">if</span> <span class="n">deme</span><span class="o">.</span><span class="n">end_time</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="c1"># If this deme doesn&#39;t exist at time=0, invalidate Ne.</span>
             <span class="n">initial_size</span> <span class="o">=</span> <span class="n">Ne_invalid</span>
-            <span class="n">_growth_rate</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">_growth_rate</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">initial_size</span> <span class="o">=</span> <span class="n">deme</span><span class="o">.</span><span class="n">epochs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">final_size</span>
+            <span class="n">initial_size</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">deme</span><span class="o">.</span><span class="n">epochs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">final_size</span><span class="p">)</span>
             <span class="n">_growth_rate</span> <span class="o">=</span> <span class="n">growth_rate</span><span class="p">(</span><span class="n">deme</span><span class="o">.</span><span class="n">epochs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
         <span class="n">population_configurations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
             <span class="n">msprime</span><span class="o">.</span><span class="n">PopulationConfiguration</span><span class="p">(</span>
@@ -251,7 +252,9 @@
                         <span class="n">population_id</span><span class="o">=</span><span class="n">pop_id</span><span class="p">[</span><span class="n">deme</span><span class="o">.</span><span class="n">id</span><span class="p">],</span>
                     <span class="p">)</span>
                 <span class="p">)</span>
-            <span class="k">if</span> <span class="n">epoch</span> <span class="o">==</span> <span class="n">deme</span><span class="o">.</span><span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">epoch</span><span class="o">.</span><span class="n">start_time</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">epoch</span> <span class="o">==</span> <span class="n">deme</span><span class="o">.</span><span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span>
+                <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">epoch</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span>
+            <span class="p">):</span>
                 <span class="c1"># If this deme doesn&#39;t exist at time=inf, invalidate Ne when</span>
                 <span class="c1"># the deme ceases to exist.</span>
                 <span class="n">demographic_events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
