@@ -92,7 +92,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery.html">Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="convert.html">Conversion functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
@@ -165,7 +165,7 @@
 <span id="sec-introduction"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><cite>Demes</cite> is a work-in-progress, as is its documentation. If you find an error
+<p><code class="docutils literal notranslate"><span class="pre">Demes</span></code> is a work-in-progress, as is its documentation. If you find an error
 in the documentation or a bug in the software, or would like to help, please
 head to <a class="reference external" href="https://github.com/grahamgower/demes">Github</a> to open an issue or
 start a pull request.</p>
@@ -183,28 +183,37 @@ learning curves for new software can be steep and mistakes are easy to make,
 especially for complex demographic scenarios.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Demes</span></code> aims to make defining demographic models more intuitive, less prone
 to error or ambiguity, and interchangeable between simulation platforms.
-Demographic models, which define populations, their properties, and
-relationships between them, are written in <a class="reference external" href="https://yaml.org/">YAML</a>. Models
-are then human-readable, and they may also be parsed and passed to a simulation
-engine that supports <code class="docutils literal notranslate"><span class="pre">demes</span></code> input.</p>
-<p>For example, the follow YAML file implements a simple two-epoch demographic
-histor for a single deme (population), where the deme doubles in size 100
-generations ago:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Single-population two-epoch demography.</span>
+Demographic models, which define populations (or <cite>demes</cite>), their properties, and
+relationships between them, are written in <a class="reference external" href="https://yaml.org/">YAML</a>. This means
+that models are human-readable, and that they may then be parsed and passed to any
+simulation engine that supports <code class="docutils literal notranslate"><span class="pre">demes</span></code> input.</p>
+<p>For example, the following YAML file implements a simple two-epoch demographic
+history for a single deme, where the deme doubles in size 100 generations ago:</p>
+<div class="highlight-yaml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Single-population two-epoch demography.</span>
 <span class="nt">time_units</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">generations</span>
 <span class="nt">demes</span><span class="p">:</span>
-  <span class="nt">D</span><span class="p">:</span>
-    <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">A deme (named D) that doubles in size</span>
+  <span class="nt">Deme_name</span><span class="p">:</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">A deme that doubles in size 100 generations ago.</span>
     <span class="nt">epochs</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
       <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
     <span class="p p-Indicator">-</span> <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2000</span>
       <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 <p>The <a class="reference internal" href="tutorial.html#sec-tutorial-yaml-demography"><span class="std std-ref">tutorial</span></a> describes in detail all the
 components of a YAML demographic model and how to specify more complex
-scenarios, and more illustrative examples can be seen <a class="reference internal" href="examples.html#sec-examples"><span class="std std-ref">here</span></a>.</p>
+scenarios, and more illustrative examples can be found in the
+<a class="reference internal" href="gallery.html#sec-gallery"><span class="std std-ref">Gallery</span></a>.</p>
 </div>
 <div class="section" id="getting-started">
 <h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
@@ -218,8 +227,8 @@ manipulating and working with demography objects within python
 (<a class="reference internal" href="tutorial.html#sec-tutorial-python-api"><span class="std std-ref">Python API</span></a>), and adding features and
 attributes to demographic models, populations, or population epochs
 (<a class="reference internal" href="tutorial.html#sec-tutorial-attributes"><span class="std std-ref">deme attributes</span></a>).</p></li>
-<li><p>For a gallery of demographic models defined using <code class="docutils literal notranslate"><span class="pre">demes</span></code>, see
-<a class="reference internal" href="examples.html#sec-examples"><span class="std std-ref">Examples</span></a>.</p></li>
+<li><p>For examples of demographic models defined using <code class="docutils literal notranslate"><span class="pre">demes</span></code>, head to the
+<a class="reference internal" href="gallery.html#sec-gallery"><span class="std std-ref">Gallery</span></a>.</p></li>
 </ul>
 </div>
 </div>
