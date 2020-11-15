@@ -13,6 +13,8 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/thebelab.css" type="text/css" />
 
   
   
@@ -30,6 +32,9 @@
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/thebelab-helper.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
@@ -91,8 +96,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../gallery.html">Gallery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">Python API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../convert.html">Conversion functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../schema.html">YAML schema</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../development.html">Development</a></li>
 </ul>
 
@@ -776,24 +782,27 @@
 <div class="viewcode-block" id="DemeGraph"><a class="viewcode-back" href="../../api.html#demes.DemeGraph">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">DemeGraph</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A directed graph that describes a demography. Vertices are demes and edges</span>
-<span class="sd">    correspond to ancestor/descendent relations. Edges are directed from</span>
-<span class="sd">    ancestors to descendants.</span>
+<span class="sd">    The DemeGraph class provides a high-level API for constructing a demographic</span>
+<span class="sd">    model. The methods on this class ensure validity of a  model at all stages</span>
+<span class="sd">    of construction. They also allow omission of detail, when there is a single</span>
+<span class="sd">    unambiguous interpretation (or a very sensible default). The semantics</span>
+<span class="sd">    exactly match those for loading the ``yaml`` file, as the :func:`.load`</span>
+<span class="sd">    function uses this API internally.</span>
 
-<span class="sd">    :ivar description: A human readable description of the demography.</span>
-<span class="sd">    :ivar time_units: The units of time used for the demography. This is</span>
+<span class="sd">    :ivar str description: A human readable description of the demography.</span>
+<span class="sd">    :ivar str time_units: The units of time used for the demography. This is</span>
 <span class="sd">        commonly ``years`` or ``generations``, but can be any string.</span>
 <span class="sd">        This field is intended to be useful for documenting a demography,</span>
 <span class="sd">        but the actual value provided here should not be relied upon.</span>
-<span class="sd">    :ivar generation_time: The generation time of demes, in units given</span>
+<span class="sd">    :ivar float generation_time: The generation time of demes, in units given</span>
 <span class="sd">        by the ``time_units`` parameter. Concretely, dividing all times</span>
 <span class="sd">        by ``generation_time`` will convert the deme graph to have time</span>
 <span class="sd">        units in generations.  If ``generation_time`` is ``None``, the units</span>
 <span class="sd">        are assumed to be in generations already.</span>
 <span class="sd">        See also: :meth:`.in_generations`.</span>
-<span class="sd">    :ivar default_Ne: The default population size to use when creating new</span>
+<span class="sd">    :ivar float default_Ne: The default population size to use when creating new</span>
 <span class="sd">        demes with :meth:`.deme`. May be ``None``.</span>
-<span class="sd">    :ivar doi: If the deme graph describes a published demography, the DOI</span>
+<span class="sd">    :ivar str doi: If the deme graph describes a published demography, the DOI</span>
 <span class="sd">        should be be given here. May be ``None``.</span>
 <span class="sd">    :ivar demes: A list of demes in the demography.</span>
 <span class="sd">        Not intended to be passed when the deme graph is instantiated.</span>
@@ -806,6 +815,7 @@
 <span class="sd">    :ivar pulses: A list of migration pulses for the demography.</span>
 <span class="sd">        Not intended to be passed when the deme graph is instantiated.</span>
 <span class="sd">        Use :meth:`pulse` instead.</span>
+<span class="sd">    :vartype pulses: list of :class:`.Pulse`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
