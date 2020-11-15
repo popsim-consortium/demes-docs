@@ -184,7 +184,9 @@
 <span class="sd">    :return: A deme graph.</span>
 <span class="sd">    :rtype: .DemeGraph</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">yaml</span> <span class="o">=</span> <span class="n">strictyaml</span><span class="o">.</span><span class="n">dirty_load</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">deme_graph_schema</span><span class="p">,</span> <span class="n">allow_flow_style</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">yaml</span> <span class="o">=</span> <span class="n">strictyaml</span><span class="o">.</span><span class="n">dirty_load</span><span class="p">(</span>
+        <span class="n">string</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">deme_graph_schema</span><span class="p">,</span> <span class="n">allow_flow_style</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
     <span class="n">d</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">data</span>  <span class="c1"># data dict</span>
     <span class="n">g</span> <span class="o">=</span> <span class="n">demes</span><span class="o">.</span><span class="n">DemeGraph</span><span class="p">(</span>
         <span class="n">description</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">),</span>
