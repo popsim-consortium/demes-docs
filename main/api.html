@@ -380,8 +380,6 @@ by <code class="docutils literal notranslate"><span class="pre">generation_time<
 units in generations.  If <code class="docutils literal notranslate"><span class="pre">generation_time</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, the units
 are assumed to be in generations already.
 See also: <a class="reference internal" href="#demes.DemeGraph.in_generations" title="demes.DemeGraph.in_generations"><code class="xref py py-meth docutils literal notranslate"><span class="pre">in_generations()</span></code></a>.</p></li>
-<li><p><strong>default_Ne</strong> (<em>float</em>) – The default population size to use when creating new
-demes with <a class="reference internal" href="#demes.DemeGraph.deme" title="demes.DemeGraph.deme"><code class="xref py py-meth docutils literal notranslate"><span class="pre">deme()</span></code></a>. May be <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
 <li><p><strong>doi</strong> (<em>str</em>) – If the deme graph describes a published demography, the DOI
 should be be given here. May be <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
 <li><p><strong>demes</strong> (list of <a class="reference internal" href="#demes.Deme" title="demes.Deme"><code class="xref py py-class docutils literal notranslate"><span class="pre">Deme</span></code></a>) – A list of demes in the demography.
@@ -444,31 +442,45 @@ implicit values removed.</p>
 <dl class="py method">
 <dt id="demes.DemeGraph.deme">
 <code class="sig-name descname">deme</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em>, <em class="sig-param"><span class="n">description</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ancestors</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">proportions</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start_time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">initial_size</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">final_size</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">epochs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">selfing_rate</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cloning_rate</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#DemeGraph.deme"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.DemeGraph.deme" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add a deme to the graph.</p>
+<dd><p>Add a deme to the graph, with lifetime <code class="docutils literal notranslate"><span class="pre">(start_time,</span> <span class="pre">end_time]</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> (<em>str</em>) – A string identifier for the deme.</p></li>
-<li><p><strong>ancestors</strong> (<em>list</em>) – A list of ancestors of this deme. May be <code class="docutils literal notranslate"><span class="pre">None</span></code>.
-If <code class="docutils literal notranslate"><span class="pre">len(ancestors)</span> <span class="pre">&gt;</span> <span class="pre">1</span></code>, must also give <code class="docutils literal notranslate"><span class="pre">proportions</span></code>.</p></li>
-<li><p><strong>proportions</strong> (<em>list</em>) – A list of proportions of ancestory for <code class="docutils literal notranslate"><span class="pre">ancestors</span></code>.
-Proportions must sum to 1.</p></li>
-<li><p><strong>start_time</strong> – The time at which this deme begins existing.</p></li>
-<li><p><strong>end_time</strong> – The time at which this deme stops existing.
-If the deme has an ancestor the <code class="docutils literal notranslate"><span class="pre">end_time</span></code> will be set to the
-ancestor’s <code class="docutils literal notranslate"><span class="pre">start_time</span></code>.</p></li>
-<li><p><strong>initial_size</strong> – The initial population size of the deme. If <code class="docutils literal notranslate"><span class="pre">None</span></code>,
-this is taken from the deme graph’s <code class="docutils literal notranslate"><span class="pre">default_Ne</span></code> field.</p></li>
+<li><p><strong>ancestors</strong> (<em>list of str</em>) – List of string identifiers for the deme’s ancestors.
+This may be <code class="docutils literal notranslate"><span class="pre">None</span></code>, indicating the deme has no ancestors.
+If the deme has multiple ancestors, the <code class="docutils literal notranslate"><span class="pre">proportions</span></code> parameter
+must also be provided.</p></li>
+<li><p><strong>proportions</strong> (<em>list of float</em>) – A list of ancestry proportions for <code class="docutils literal notranslate"><span class="pre">ancestors</span></code>.
+This list has the same length as <code class="docutils literal notranslate"><span class="pre">ancestors</span></code>, and must sum to <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.
+May be omitted if the deme has only one, or zero, ancestors.</p></li>
+<li><p><strong>start_time</strong> (<em>float</em>) – <p>The time at which this deme begins existing,
+in units of <code class="docutils literal notranslate"><span class="pre">time_units</span></code> before the present.</p>
+<ul>
+<li><p>If the deme has zero ancestors, and <code class="docutils literal notranslate"><span class="pre">start_time</span></code> is not specified,
+the start time will be set to <code class="docutils literal notranslate"><span class="pre">inf</span></code>.</p></li>
+<li><p>If the deme has one ancestor, and <code class="docutils literal notranslate"><span class="pre">start_time</span></code> is not specified,
+the <code class="docutils literal notranslate"><span class="pre">start_time</span></code> will be set to the ancestor’s <code class="docutils literal notranslate"><span class="pre">end_time</span></code>.</p></li>
+<li><p>If the deme has multiple ancestors, the <code class="docutils literal notranslate"><span class="pre">start_time</span></code> must be
+provided.</p></li>
+</ul>
+</p></li>
+<li><p><strong>end_time</strong> (<em>float</em>) – The time at which this deme stops existing,
+in units of <code class="docutils literal notranslate"><span class="pre">time_units</span></code> before the present.
+If not specified, defaults to <code class="docutils literal notranslate"><span class="pre">0.0</span></code> (the present).</p></li>
+<li><p><strong>initial_size</strong> – The initial population size of the deme.
+This must be provided.</p></li>
 <li><p><strong>final_size</strong> – The final population size of the deme. If <code class="docutils literal notranslate"><span class="pre">None</span></code>,
 the deme has a constant <code class="docutils literal notranslate"><span class="pre">initial_size</span></code> population size.</p></li>
-<li><p><strong>epochs</strong> – Additional epochs that define population size changes for
-the deme.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Variables</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>selfing_rate</strong> – An optional selfing rate for this deme.</p></li>
-<li><p><strong>cloning_rate</strong> – An optional cloning rate for this deme.</p></li>
+<li><p><strong>selfing_rate</strong> (<em>float</em>) – The default selfing rate for this deme.
+May be <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>cloning_rate</strong> (<em>float</em>) – The default cloning rate for this deme.
+May be <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>epochs</strong> – Epochs that define population sizes, selfing rates, and
+cloning rates, for the deme over various time periods.
+If not specified, a single epoch will be created for the deme that
+spans from <code class="docutils literal notranslate"><span class="pre">start_time</span></code> to <code class="docutils literal notranslate"><span class="pre">end_time</span></code>, using the <code class="docutils literal notranslate"><span class="pre">initial_size</span></code>,
+<code class="docutils literal notranslate"><span class="pre">final_size</span></code>, <code class="docutils literal notranslate"><span class="pre">selfing_rate</span></code> and <code class="docutils literal notranslate"><span class="pre">cloning_rate</span></code> provided.</p></li>
 </ul>
 </dd>
 </dl>
@@ -490,6 +502,47 @@ uses the successors/predecessors that are determined by ancestor relationships.<
 <dt id="demes.DemeGraph.in_generations">
 <code class="sig-name descname">in_generations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#DemeGraph.in_generations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.DemeGraph.in_generations" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a copy of the demes graph with times in units of generations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="demes.DemeGraph.isclose">
+<code class="sig-name descname">isclose</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">rel_tol</span><span class="o">=</span><span class="default_value">1e-09</span></em>, <em class="sig-param"><span class="n">abs_tol</span><span class="o">=</span><span class="default_value">1e-12</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/demes/demes.html#DemeGraph.isclose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.DemeGraph.isclose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the deme graph and <code class="docutils literal notranslate"><span class="pre">other</span></code> implement essentially
+the same demographic model. Numerical values are compared using the
+<code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code> function, from which this method takes its name.
+Furthermore, the following implementation details are ignored during
+the comparison:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The deme graph’s <code class="docutils literal notranslate"><span class="pre">description</span></code> and <code class="docutils literal notranslate"><span class="pre">doi</span></code> attributes.</p></li>
+<li><p>The order in which <code class="docutils literal notranslate"><span class="pre">migrations</span></code> were specified.</p></li>
+<li><p>The order in which admixture <code class="docutils literal notranslate"><span class="pre">pulses</span></code> were specified.</p></li>
+<li><p>The order in which <code class="docutils literal notranslate"><span class="pre">demes</span></code> were specified.</p></li>
+<li><p>The order in which a deme’s <code class="docutils literal notranslate"><span class="pre">ancestors</span></code> were specified.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">selfing_rate</span></code> and <code class="docutils literal notranslate"><span class="pre">cloning_rate</span></code> attributes of the deme
+graph, or of the demes (if any). Theses attributes are considered
+conveniences, and are propagated to the relevant demes’
+epochs. The <code class="docutils literal notranslate"><span class="pre">selfing_rate</span></code> and <code class="docutils literal notranslate"><span class="pre">cloning_rate</span></code> attributes of
+each epoch <em>are</em> evaluated for equality between the two models.</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>other</strong> (<a class="reference internal" href="#demes.DemeGraph" title="demes.DemeGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">DemeGraph</span></code></a>) – The deme graph to compare against.</p></li>
+<li><p><strong>rel_tol</strong> (<em>float</em>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code>.</p></li>
+<li><p><strong>abs_tol</strong> (<em>float</em>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the two graphs implement the same model, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -608,21 +661,25 @@ pairs of demes in this list.</p></li>
 <dl class="py class">
 <dt id="demes.Deme">
 <em class="property">class </em><code class="sig-prename descclassname">demes.</code><code class="sig-name descname">Deme</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">description</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">ancestors</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">proportions</span><span class="p">:</span> <span class="n">List<span class="p">[</span>float<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">epochs</span><span class="p">:</span> <span class="n">List<span class="p">[</span>demes.demes.Epoch<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">selfing_rate</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cloning_rate</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Deme"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Deme" title="Permalink to this definition">¶</a></dt>
-<dd><p>A collection of individuals that are exchangeable at any fixed time.</p>
+<dd><p>A collection of individuals that are exchangeable at any fixed time.
+This class is not intended to be instantiated directly. It is instead
+recommended to add demes to a <a class="reference internal" href="#demes.DemeGraph" title="demes.DemeGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">DemeGraph</span></code></a> object using the
+<a class="reference internal" href="#demes.DemeGraph.deme" title="demes.DemeGraph.deme"><code class="xref py py-meth docutils literal notranslate"><span class="pre">DemeGraph.deme()</span></code></a> method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>id</strong> – A string identifier for the deme.</p></li>
-<li><p><strong>description</strong> – An optional description of the deme.</p></li>
-<li><p><strong>ancestors</strong> – List of ancestors to the deme.
-If the deme has no ancestors, this should be <code class="docutils literal notranslate"><span class="pre">None</span></code>, and cannot
-be used with <code class="docutils literal notranslate"><span class="pre">ancestor</span></code>.</p></li>
-<li><p><strong>proportions</strong> – List of proportions if <code class="docutils literal notranslate"><span class="pre">ancestors</span></code> is given.</p></li>
+<li><p><strong>id</strong> (<em>str</em>) – A string identifier for the deme.</p></li>
+<li><p><strong>description</strong> (<em>str</em>) – A description of the deme. May be <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>ancestors</strong> (<em>list of str</em>) – List of string identifiers for the deme’s ancestors.
+This may be <code class="docutils literal notranslate"><span class="pre">None</span></code>, indicating the deme has no ancestors.</p></li>
+<li><p><strong>proportions</strong> (<em>list of float</em>) – If <code class="docutils literal notranslate"><span class="pre">ancestors</span></code> is not <code class="docutils literal notranslate"><span class="pre">None</span></code>, this indicates the
+proportions of ancestry from each ancestor. This list has the same
+length as <code class="docutils literal notranslate"><span class="pre">ancestors</span></code>, and must sum to 1.</p></li>
 <li><p><strong>epochs</strong> (list of <a class="reference internal" href="#demes.Epoch" title="demes.Epoch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Epoch</span></code></a>) – A list of epochs, which define the population size(s) of
 the deme. The deme must be initially created with exactly one epoch.
 Additional epochs may be added with <a class="reference internal" href="#demes.Deme.add_epoch" title="demes.Deme.add_epoch"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_epoch()</span></code></a></p></li>
-<li><p><strong>selfing_rate</strong> – An optional selfing rate for this deme.</p></li>
-<li><p><strong>cloning_rate</strong> – An optional cloning rate for this deme.</p></li>
+<li><p><strong>selfing_rate</strong> (<em>float</em>) – An optional selfing rate for this deme.</p></li>
+<li><p><strong>cloning_rate</strong> (<em>float</em>) – An optional cloning rate for this deme.</p></li>
 </ul>
 </dd>
 </dl>
@@ -632,10 +689,10 @@ Additional epochs may be added with <a class="reference internal" href="#demes.D
 <dd><p>Add an epoch to the deme’s epoch list.
 Epochs must be non overlapping and added in time-decreasing order, i.e.
 starting with the most ancient epoch and adding epochs sequentially toward
-present.</p>
+the present.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>epoch</strong> (<a class="reference internal" href="#demes.Epoch" title="demes.Epoch"><em>Epoch</em></a>) – The epoch to add.</p>
+<dd class="field-odd"><p><strong>epoch</strong> (<a class="reference internal" href="#demes.Epoch" title="demes.Epoch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Epoch</span></code></a>) – The epoch to add.</p>
 </dd>
 </dl>
 </dd></dl>

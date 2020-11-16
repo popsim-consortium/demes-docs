@@ -631,19 +631,25 @@
 <span class="k">class</span> <span class="nc">Deme</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A collection of individuals that are exchangeable at any fixed time.</span>
+<span class="sd">    This class is not intended to be instantiated directly. It is instead</span>
+<span class="sd">    recommended to add demes to a :class:`.DemeGraph` object using the</span>
+<span class="sd">    :meth:`DemeGraph.deme` method.</span>
 
-<span class="sd">    :ivar id: A string identifier for the deme.</span>
-<span class="sd">    :ivar description: An optional description of the deme.</span>
-<span class="sd">    :ivar ancestors: List of ancestors to the deme.</span>
-<span class="sd">        If the deme has no ancestors, this should be ``None``, and cannot</span>
-<span class="sd">        be used with ``ancestor``.</span>
-<span class="sd">    :ivar proportions: List of proportions if ``ancestors`` is given.</span>
+<span class="sd">    :ivar str id: A string identifier for the deme.</span>
+<span class="sd">    :ivar str description: A description of the deme. May be ``None``.</span>
+<span class="sd">    :ivar ancestors: List of string identifiers for the deme&#39;s ancestors.</span>
+<span class="sd">        This may be ``None``, indicating the deme has no ancestors.</span>
+<span class="sd">    :vartype ancestors: list of str</span>
+<span class="sd">    :ivar proportions: If ``ancestors`` is not ``None``, this indicates the</span>
+<span class="sd">        proportions of ancestry from each ancestor. This list has the same</span>
+<span class="sd">        length as ``ancestors``, and must sum to 1.</span>
+<span class="sd">    :vartype proportions: list of float</span>
 <span class="sd">    :ivar epochs: A list of epochs, which define the population size(s) of</span>
 <span class="sd">        the deme. The deme must be initially created with exactly one epoch.</span>
 <span class="sd">        Additional epochs may be added with :meth:`.add_epoch`</span>
 <span class="sd">    :vartype epochs: list of :class:`.Epoch`</span>
-<span class="sd">    :ivar selfing_rate: An optional selfing rate for this deme.</span>
-<span class="sd">    :ivar cloning_rate: An optional cloning rate for this deme.</span>
+<span class="sd">    :ivar float selfing_rate: An optional selfing rate for this deme.</span>
+<span class="sd">    :ivar float cloning_rate: An optional cloning rate for this deme.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nb">id</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
@@ -712,9 +718,10 @@
 <span class="sd">        Add an epoch to the deme&#39;s epoch list.</span>
 <span class="sd">        Epochs must be non overlapping and added in time-decreasing order, i.e.</span>
 <span class="sd">        starting with the most ancient epoch and adding epochs sequentially toward</span>
-<span class="sd">        present.</span>
+<span class="sd">        the present.</span>
 
-<span class="sd">        :param .Epoch epoch: The epoch to add.</span>
+<span class="sd">        :param epoch: The epoch to add.</span>
+<span class="sd">        :type epoch: :class:`.Epoch`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
         <span class="c1"># if the epoch start time is not given, it equals the previous epoch&#39;s end time</span>
@@ -800,8 +807,6 @@
 <span class="sd">        units in generations.  If ``generation_time`` is ``None``, the units</span>
 <span class="sd">        are assumed to be in generations already.</span>
 <span class="sd">        See also: :meth:`.in_generations`.</span>
-<span class="sd">    :ivar float default_Ne: The default population size to use when creating new</span>
-<span class="sd">        demes with :meth:`.deme`. May be ``None``.</span>
 <span class="sd">    :ivar str doi: If the deme graph describes a published demography, the DOI</span>
 <span class="sd">        should be be given here. May be ``None``.</span>
 <span class="sd">    :ivar demes: A list of demes in the demography.</span>
@@ -852,13 +857,41 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">deme_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deme_map</span>
 
-    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+<div class="viewcode-block" id="DemeGraph.isclose"><a class="viewcode-back" href="../../api.html#demes.DemeGraph.isclose">[docs]</a>    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if the deme graph and ``other`` implement essentially</span>
+<span class="sd">        the same demographic model. Numerical values are compared using the</span>
+<span class="sd">        :func:`math.isclose` function, from which this method takes its name.</span>
+<span class="sd">        Furthermore, the following implementation details are ignored during</span>
+<span class="sd">        the comparison:</span>
+
+<span class="sd">            - The deme graph&#39;s ``description`` and ``doi`` attributes.</span>
+<span class="sd">            - The order in which ``migrations`` were specified.</span>
+<span class="sd">            - The order in which admixture ``pulses`` were specified.</span>
+<span class="sd">            - The order in which ``demes`` were specified.</span>
+<span class="sd">            - The order in which a deme&#39;s ``ancestors`` were specified.</span>
+<span class="sd">            - The ``selfing_rate`` and ``cloning_rate`` attributes of the deme</span>
+<span class="sd">              graph, or of the demes (if any). Theses attributes are considered</span>
+<span class="sd">              conveniences, and are propagated to the relevant demes&#39;</span>
+<span class="sd">              epochs. The ``selfing_rate`` and ``cloning_rate`` attributes of</span>
+<span class="sd">              each epoch *are* evaluated for equality between the two models.</span>
+
+<span class="sd">        :param other: The deme graph to compare against.</span>
+<span class="sd">        :type other: :class:`.DemeGraph`</span>
+<span class="sd">        :param float rel_tol: The relative tolerance permitted for numerical</span>
+<span class="sd">            comparisons. See documentation for :func:`math.isclose`.</span>
+<span class="sd">        :param float abs_tol: The absolute tolerance permitted for numerical</span>
+<span class="sd">            comparisons. See documentation for :func:`math.isclose`.</span>
+<span class="sd">        :return: True if the two graphs implement the same model, False otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="k">def</span> <span class="nf">sorted_eq</span><span class="p">(</span><span class="n">aa</span><span class="p">,</span> <span class="n">bb</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
             <span class="c1"># Order-agnostic equality check.</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">aa</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bb</span><span class="p">):</span>
@@ -877,7 +910,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">migrations</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">migrations</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
             <span class="p">)</span>
             <span class="ow">and</span> <span class="n">sorted_eq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pulses</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">pulses</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
-        <span class="p">)</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="DemeGraph.deme"><a class="viewcode-back" href="../../api.html#demes.DemeGraph.deme">[docs]</a>    <span class="k">def</span> <span class="nf">deme</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -894,25 +927,44 @@
         <span class="n">cloning_rate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Add a deme to the graph.</span>
+<span class="sd">        Add a deme to the graph, with lifetime ``(start_time, end_time]``.</span>
 
 <span class="sd">        :param str id: A string identifier for the deme.</span>
-<span class="sd">        :param list ancestors: A list of ancestors of this deme. May be ``None``.</span>
-<span class="sd">            If ``len(ancestors) &gt; 1``, must also give ``proportions``.</span>
-<span class="sd">        :param list proportions: A list of proportions of ancestory for ``ancestors``.</span>
-<span class="sd">            Proportions must sum to 1.</span>
-<span class="sd">        :param start_time: The time at which this deme begins existing.</span>
-<span class="sd">        :param end_time: The time at which this deme stops existing.</span>
-<span class="sd">            If the deme has an ancestor the ``end_time`` will be set to the</span>
-<span class="sd">            ancestor&#39;s ``start_time``.</span>
-<span class="sd">        :param initial_size: The initial population size of the deme. If ``None``,</span>
-<span class="sd">            this is taken from the deme graph&#39;s ``default_Ne`` field.</span>
+<span class="sd">        :param ancestors: List of string identifiers for the deme&#39;s ancestors.</span>
+<span class="sd">            This may be ``None``, indicating the deme has no ancestors.</span>
+<span class="sd">            If the deme has multiple ancestors, the ``proportions`` parameter</span>
+<span class="sd">            must also be provided.</span>
+<span class="sd">        :type ancestors: list of str</span>
+<span class="sd">        :param list proportions: A list of ancestry proportions for ``ancestors``.</span>
+<span class="sd">            This list has the same length as ``ancestors``, and must sum to ``1.0``.</span>
+<span class="sd">            May be omitted if the deme has only one, or zero, ancestors.</span>
+<span class="sd">        :type proportions: list of float</span>
+<span class="sd">        :param float start_time: The time at which this deme begins existing,</span>
+<span class="sd">            in units of ``time_units`` before the present.</span>
+
+<span class="sd">            - If the deme has zero ancestors, and ``start_time`` is not specified,</span>
+<span class="sd">              the start time will be set to ``inf``.</span>
+<span class="sd">            - If the deme has one ancestor, and ``start_time`` is not specified,</span>
+<span class="sd">              the ``start_time`` will be set to the ancestor&#39;s ``end_time``.</span>
+<span class="sd">            - If the deme has multiple ancestors, the ``start_time`` must be</span>
+<span class="sd">              provided.</span>
+
+<span class="sd">        :param float end_time: The time at which this deme stops existing,</span>
+<span class="sd">            in units of ``time_units`` before the present.</span>
+<span class="sd">            If not specified, defaults to ``0.0`` (the present).</span>
+<span class="sd">        :param initial_size: The initial population size of the deme.</span>
+<span class="sd">            This must be provided.</span>
 <span class="sd">        :param final_size: The final population size of the deme. If ``None``,</span>
 <span class="sd">            the deme has a constant ``initial_size`` population size.</span>
-<span class="sd">        :param epochs: Additional epochs that define population size changes for</span>
-<span class="sd">            the deme.</span>
-<span class="sd">        :ivar selfing_rate: An optional selfing rate for this deme.</span>
-<span class="sd">        :ivar cloning_rate: An optional cloning rate for this deme.</span>
+<span class="sd">        :param float selfing_rate: The default selfing rate for this deme.</span>
+<span class="sd">            May be ``None``.</span>
+<span class="sd">        :param float cloning_rate: The default cloning rate for this deme.</span>
+<span class="sd">            May be ``None``.</span>
+<span class="sd">        :param epochs: Epochs that define population sizes, selfing rates, and</span>
+<span class="sd">            cloning rates, for the deme over various time periods.</span>
+<span class="sd">            If not specified, a single epoch will be created for the deme that</span>
+<span class="sd">            spans from ``start_time`` to ``end_time``, using the ``initial_size``,</span>
+<span class="sd">            ``final_size``, ``selfing_rate`` and ``cloning_rate`` provided.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">initial_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">initial_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_Ne</span>
