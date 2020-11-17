@@ -171,6 +171,7 @@
 <span class="kn">import</span> <span class="nn">collections</span>
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">operator</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="kn">import</span> <span class="nn">attr</span>
 <span class="kn">from</span> <span class="nn">attr.validators</span> <span class="kn">import</span> <span class="n">optional</span>
@@ -1129,8 +1130,8 @@
 <span class="sd">        so that the migration rate refers to the movement of individuals from</span>
 <span class="sd">        the ``source`` deme to the ``dest`` deme.</span>
 
-<span class="sd">        :param source: The source deme.</span>
-<span class="sd">        :param dest: The destination deme.</span>
+<span class="sd">        :param source: The ID of the source deme.</span>
+<span class="sd">        :param dest: The ID of the destination deme.</span>
 <span class="sd">        :param rate: The rate of migration per generation.</span>
 <span class="sd">        :param start_time: The time at which the migration rate is enabled.</span>
 <span class="sd">            If ``None``, the start time is defined by the earliest time at</span>
@@ -1166,8 +1167,8 @@
 <span class="sd">        Add a pulse of migration at a fixed time.</span>
 <span class="sd">        Source and destination demes follow the forwards-in-time convention.</span>
 
-<span class="sd">        :param source: The source deme.</span>
-<span class="sd">        :param dest: The destination deme.</span>
+<span class="sd">        :param source: The ID of the source deme.</span>
+<span class="sd">        :param dest: The ID of the destination deme.</span>
 <span class="sd">        :param proportion: At the instant after migration, this is the expected</span>
 <span class="sd">            proportion of individuals in the destination deme made up of individuals</span>
 <span class="sd">            from the source deme.</span>
@@ -1177,6 +1178,29 @@
             <span class="k">if</span> <span class="n">deme_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">deme_id</span><span class="si">}</span><span class="s2"> not in deme graph&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">check_time_intersection</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+
+        <span class="c1"># Check for models that have multiple pulses defined at the same time.</span>
+        <span class="c1"># E.g. chains of pulses like: deme0 -&gt; deme1; deme1 -&gt; deme2,</span>
+        <span class="c1"># where reversing the order of the pulse definitions changes the</span>
+        <span class="c1"># interpretation of the model. Such models are valid, but the behaviour</span>
+        <span class="c1"># may not be what the user expects.</span>
+        <span class="c1"># See https://github.com/grahamgower/demes/issues/46</span>
+        <span class="n">sources</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">dests</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">pulse</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pulses</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">pulse</span><span class="o">.</span><span class="n">time</span> <span class="o">==</span> <span class="n">time</span><span class="p">:</span>
+                <span class="n">sources</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pulse</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
+                <span class="n">dests</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pulse</span><span class="o">.</span><span class="n">dest</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">dests</span> <span class="ow">or</span> <span class="n">dest</span> <span class="ow">in</span> <span class="p">(</span><span class="n">sources</span> <span class="o">|</span> <span class="n">dests</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;Multiple pulses are defined for the same deme(s) at time &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">time</span><span class="si">}</span><span class="s2">. The ancestry proportions after this time will thus &quot;</span>
+                <span class="s2">&quot;depend on the order in which the pulses have been specified. &quot;</span>
+                <span class="s2">&quot;To avoid unexpected behaviour, the deme graph can instead &quot;</span>
+                <span class="s2">&quot;be structured to introduce a new deme at this time with &quot;</span>
+                <span class="s2">&quot;the desired ancestry proportions.&quot;</span>
+            <span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">pulses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
             <span class="n">Pulse</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">dest</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span> <span class="n">proportion</span><span class="o">=</span><span class="n">proportion</span><span class="p">)</span>
         <span class="p">)</span></div>
