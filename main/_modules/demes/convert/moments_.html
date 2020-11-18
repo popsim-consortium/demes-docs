@@ -217,7 +217,7 @@
         <span class="n">sample_times</span> <span class="o">=</span> <span class="p">[</span><span class="n">g</span><span class="p">[</span><span class="n">d</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">sampled_demes</span><span class="p">]</span>
 
     <span class="c1"># for any ancient samples, we need to add frozen branches</span>
-    <span class="c1"># with this, all &quot;sample times&quot; are at time 0, and ancient sampleddemes are frozen</span>
+    <span class="c1"># with this, all &quot;sample times&quot; are at time 0, and ancient sampled demes are frozen</span>
     <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sample_times</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
         <span class="n">g</span><span class="p">,</span> <span class="n">sampled_demes</span><span class="p">,</span> <span class="n">list_of_frozen_demes</span> <span class="o">=</span> <span class="n">augment_with_ancient_samples</span><span class="p">(</span>
             <span class="n">g</span><span class="p">,</span> <span class="n">sampled_demes</span><span class="p">,</span> <span class="n">sample_times</span>
@@ -234,13 +234,20 @@
         <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">g</span><span class="p">[</span><span class="n">d</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="ow">or</span> <span class="n">t</span> <span class="o">&gt;=</span> <span class="n">g</span><span class="p">[</span><span class="n">d</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;sample time for </span><span class="si">{deme}</span><span class="s2"> must be within its time span&quot;</span><span class="p">)</span>
 
+    <span class="c1"># get the list of demographic events from demes, which is a dictionary with</span>
+    <span class="c1"># lists of splits, admixtures, mergers, branches, and pulses</span>
+    <span class="n">demes_demo_events</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">list_demographic_events</span><span class="p">()</span>
+
     <span class="c1"># get the dict of events and event times that partition integration epochs, in</span>
     <span class="c1"># descending order. events include demographic events, such as splits and</span>
     <span class="c1"># mergers and admixtures, as well as changes in population sizes or migration</span>
     <span class="c1"># rates that require instantaneous changes in the size function or migration matrix.</span>
     <span class="c1"># get the list of demes present in each epoch, as a dictionary with non-overlapping</span>
     <span class="c1"># adjoint epoch time intervals</span>
-    <span class="n">demo_events</span><span class="p">,</span> <span class="n">demes_present</span> <span class="o">=</span> <span class="n">get_demographic_events</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">sampled_demes</span><span class="p">)</span>
+    <span class="n">demo_events</span><span class="p">,</span> <span class="n">demes_present</span> <span class="o">=</span> <span class="n">get_demographic_events</span><span class="p">(</span>
+        <span class="n">g</span><span class="p">,</span> <span class="n">demes_demo_events</span><span class="p">,</span> <span class="n">sampled_demes</span>
+    <span class="p">)</span>
+
     <span class="k">for</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">epoch_demes</span> <span class="ow">in</span> <span class="n">demes_present</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">epoch_demes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
@@ -311,12 +318,17 @@
             <span class="n">sd_frozen</span> <span class="o">=</span> <span class="n">sd</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;_sampled_</span><span class="si">{</span><span class="n">st</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="n">frozen_demes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sd_frozen</span><span class="p">)</span>
             <span class="n">sampled_demes</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">sd_frozen</span>
-            <span class="n">g</span><span class="o">.</span><span class="n">deme</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">sd_frozen</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="n">st</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-            <span class="n">g</span><span class="o">.</span><span class="n">branch</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="n">sd</span><span class="p">,</span> <span class="n">child</span><span class="o">=</span><span class="n">sd_frozen</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="n">st</span><span class="p">)</span>
+            <span class="n">g</span><span class="o">.</span><span class="n">deme</span><span class="p">(</span>
+                <span class="nb">id</span><span class="o">=</span><span class="n">sd_frozen</span><span class="p">,</span>
+                <span class="n">start_time</span><span class="o">=</span><span class="n">st</span><span class="p">,</span>
+                <span class="n">end_time</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                <span class="n">initial_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">ancestors</span><span class="o">=</span><span class="p">[</span><span class="n">sd</span><span class="p">],</span>
+            <span class="p">)</span>
     <span class="k">return</span> <span class="n">g</span><span class="p">,</span> <span class="n">sampled_demes</span><span class="p">,</span> <span class="n">frozen_demes</span>
 
 
-<span class="k">def</span> <span class="nf">get_demographic_events</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">sampled_demes</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">get_demographic_events</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">demes_demo_events</span><span class="p">,</span> <span class="n">sampled_demes</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns demographic events and present demes over each epoch.</span>
 <span class="sd">    Epochs are divided by any demographic event.</span>
@@ -369,19 +381,19 @@
     <span class="c1"># same time with same dest can be converted to an admixture event, and split the</span>
     <span class="c1"># dest deme into two demes)</span>
     <span class="n">demo_events</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">pulse</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">pulses</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">pulse</span> <span class="ow">in</span> <span class="n">demes_demo_events</span><span class="p">[</span><span class="s2">&quot;pulses&quot;</span><span class="p">]:</span>
         <span class="n">event</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;pulse&quot;</span><span class="p">,</span> <span class="n">pulse</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="n">pulse</span><span class="o">.</span><span class="n">dest</span><span class="p">,</span> <span class="n">pulse</span><span class="o">.</span><span class="n">proportion</span><span class="p">)</span>
         <span class="n">demo_events</span><span class="p">[</span><span class="n">pulse</span><span class="o">.</span><span class="n">time</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">branch</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">branches</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">branch</span> <span class="ow">in</span> <span class="n">demes_demo_events</span><span class="p">[</span><span class="s2">&quot;branches&quot;</span><span class="p">]:</span>
         <span class="n">event</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;branch&quot;</span><span class="p">,</span> <span class="n">branch</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">branch</span><span class="o">.</span><span class="n">child</span><span class="p">)</span>
         <span class="n">demo_events</span><span class="p">[</span><span class="n">branch</span><span class="o">.</span><span class="n">time</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">merge</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">mergers</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">merge</span> <span class="ow">in</span> <span class="n">demes_demo_events</span><span class="p">[</span><span class="s2">&quot;mergers&quot;</span><span class="p">]:</span>
         <span class="n">event</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;merge&quot;</span><span class="p">,</span> <span class="n">merge</span><span class="o">.</span><span class="n">parents</span><span class="p">,</span> <span class="n">merge</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span> <span class="n">merge</span><span class="o">.</span><span class="n">child</span><span class="p">)</span>
         <span class="n">demo_events</span><span class="p">[</span><span class="n">merge</span><span class="o">.</span><span class="n">time</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">admix</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">admixtures</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">admix</span> <span class="ow">in</span> <span class="n">demes_demo_events</span><span class="p">[</span><span class="s2">&quot;admixtures&quot;</span><span class="p">]:</span>
         <span class="n">event</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;admix&quot;</span><span class="p">,</span> <span class="n">admix</span><span class="o">.</span><span class="n">parents</span><span class="p">,</span> <span class="n">admix</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span> <span class="n">admix</span><span class="o">.</span><span class="n">child</span><span class="p">)</span>
         <span class="n">demo_events</span><span class="p">[</span><span class="n">admix</span><span class="o">.</span><span class="n">time</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">split</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">splits</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">split</span> <span class="ow">in</span> <span class="n">demes_demo_events</span><span class="p">[</span><span class="s2">&quot;splits&quot;</span><span class="p">]:</span>
         <span class="n">event</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;split&quot;</span><span class="p">,</span> <span class="n">split</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">split</span><span class="o">.</span><span class="n">children</span><span class="p">)</span>
         <span class="n">demo_events</span><span class="p">[</span><span class="n">split</span><span class="o">.</span><span class="n">time</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
 

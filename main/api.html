@@ -359,7 +359,7 @@ The keywords and structure of the string are defined by the
 
 <dl class="py class">
 <dt id="demes.DemeGraph">
-<em class="property">class </em><code class="sig-prename descclassname">demes.</code><code class="sig-name descname">DemeGraph</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">description</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">time_units</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">generation_time</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">doi</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">demes</span><span class="p">:</span> <span class="n">List<span class="p">[</span>demes.demes.Deme<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">NOTHING</span></em>, <em class="sig-param"><span class="n">migrations</span><span class="p">:</span> <span class="n">List<span class="p">[</span>demes.demes.Migration<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">NOTHING</span></em>, <em class="sig-param"><span class="n">pulses</span><span class="p">:</span> <span class="n">List<span class="p">[</span>demes.demes.Pulse<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">NOTHING</span></em>, <em class="sig-param"><span class="n">splits</span><span class="p">:</span> <span class="n">List<span class="p">[</span>demes.demes.Split<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">NOTHING</span></em>, <em class="sig-param"><span class="n">branches</span><span class="p">:</span> <span class="n">List<span class="p">[</span>demes.demes.Branch<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">NOTHING</span></em>, <em class="sig-param"><span class="n">mergers</span><span class="p">:</span> <span class="n">List<span class="p">[</span>demes.demes.Merge<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">NOTHING</span></em>, <em class="sig-param"><span class="n">admixtures</span><span class="p">:</span> <span class="n">List<span class="p">[</span>demes.demes.Admix<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">NOTHING</span></em>, <em class="sig-param"><span class="n">selfing_rate</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cloning_rate</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#DemeGraph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.DemeGraph" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">demes.</code><code class="sig-name descname">DemeGraph</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">description</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">time_units</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">generation_time</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">doi</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">demes</span><span class="p">:</span> <span class="n">List<span class="p">[</span>demes.demes.Deme<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">NOTHING</span></em>, <em class="sig-param"><span class="n">migrations</span><span class="p">:</span> <span class="n">List<span class="p">[</span>demes.demes.Migration<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">NOTHING</span></em>, <em class="sig-param"><span class="n">pulses</span><span class="p">:</span> <span class="n">List<span class="p">[</span>demes.demes.Pulse<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">NOTHING</span></em>, <em class="sig-param"><span class="n">selfing_rate</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cloning_rate</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#DemeGraph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.DemeGraph" title="Permalink to this definition">¶</a></dt>
 <dd><p>The DemeGraph class provides a high-level API for constructing a demographic
 model. The methods on this class ensure validity of a  model at all stages
 of construction. They also allow omission of detail, when there is a single
@@ -395,23 +395,6 @@ Use <a class="reference internal" href="#demes.DemeGraph.pulse" title="demes.Dem
 </dd>
 </dl>
 <dl class="py method">
-<dt id="demes.DemeGraph.admix">
-<code class="sig-name descname">admix</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">parents</span></em>, <em class="sig-param"><span class="n">proportions</span></em>, <em class="sig-param"><span class="n">child</span></em>, <em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#DemeGraph.admix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.DemeGraph.admix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add admixture event at a given time, where multiple parents contribute to
-a descendant deme, and the parent demes continue to exist beyond that time.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>parents</strong> (<em>list of str</em>) – The list of IDs for the ancestral demes.</p></li>
-<li><p><strong>proportions</strong> (<em>list of float</em>) – Proportions of ancestral demes contributing to descendant.</p></li>
-<li><p><strong>child</strong> (<em>str</em>) – The ID of the descendant deme.</p></li>
-<li><p><strong>time</strong> (<em>float</em>) – The time at which admixture occurs.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt id="demes.DemeGraph.asdict">
 <code class="sig-name descname">asdict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#DemeGraph.asdict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.DemeGraph.asdict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a dict representation of the deme graph.</p>
@@ -422,21 +405,6 @@ a descendant deme, and the parent demes continue to exist beyond that time.</p>
 <code class="sig-name descname">asdict_compact</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#DemeGraph.asdict_compact"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.DemeGraph.asdict_compact" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a dict representation of the deme graph, with default and
 implicit values removed.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="demes.DemeGraph.branch">
-<code class="sig-name descname">branch</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">child</span></em>, <em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#DemeGraph.branch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.DemeGraph.branch" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add branch event at a given time.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>parent</strong> (<em>str</em>) – The ID of the parent deme.</p></li>
-<li><p><strong>child</strong> (<em>str</em>) – The ID of the child deme.</p></li>
-<li><p><strong>time</strong> (<em>float</em>) – The time at which branch event occurs.</p></li>
-</ul>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -487,18 +455,6 @@ spans from <code class="docutils literal notranslate"><span class="pre">start_ti
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.DemeGraph.get_demographic_events">
-<code class="sig-name descname">get_demographic_events</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#DemeGraph.get_demographic_events"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.DemeGraph.get_demographic_events" title="Permalink to this definition">¶</a></dt>
-<dd><p>Loop through successors/predecessors to add splits, branches, mergers,
-and admixtures to the deme graph. If a deme has more than one predecessor,
-then it is a merger or an admixture event, which we differentiate by end and
-start times of those demes. If a deme has a single predecessor, we check
-whether it is a branch (start time != predecessor’s end time), or split.</p>
-<p>This is only used when we build a demography from a YAML file, since it
-uses the successors/predecessors that are determined by ancestor relationships.</p>
-</dd></dl>
-
-<dl class="py method">
 <dt id="demes.DemeGraph.in_generations">
 <code class="sig-name descname">in_generations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#DemeGraph.in_generations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.DemeGraph.in_generations" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a copy of the demes graph with times in units of generations.</p>
@@ -546,20 +502,15 @@ comparisons. See documentation for <code class="xref py py-func docutils literal
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.DemeGraph.merge">
-<code class="sig-name descname">merge</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">parents</span></em>, <em class="sig-param"><span class="n">proportions</span></em>, <em class="sig-param"><span class="n">child</span></em>, <em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#DemeGraph.merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.DemeGraph.merge" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add merger event at a given time, where multiple parents contribute to
-a descendant deme, and the parent demes cease to exist at that time.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>parents</strong> (<em>list of str</em>) – The list of IDs for the ancestral demes.</p></li>
-<li><p><strong>proportions</strong> (<em>list of float</em>) – Proportions of ancestral demes contributing to descendant.</p></li>
-<li><p><strong>child</strong> (<em>str</em>) – The ID of the descendant deme.</p></li>
-<li><p><strong>time</strong> (<em>float</em>) – The time at which merger occurs.</p></li>
-</ul>
-</dd>
-</dl>
+<dt id="demes.DemeGraph.list_demographic_events">
+<code class="sig-name descname">list_demographic_events</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#DemeGraph.list_demographic_events"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.DemeGraph.list_demographic_events" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loop through successors/predecessors to generate a list of splits, branches,
+mergers, and admixtures. If a deme has more than one predecessor,
+then it is a merger or an admixture event, which we differentiate by end and
+start times of those demes. If a deme has a single predecessor, we check
+whether it is a branch (start time != predecessor’s end time), or split.</p>
+<p>Returns a dictionary containing all discrete demographic events, including
+pulses that are listed as a DemeGraph attribute.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -606,22 +557,6 @@ Source and destination demes follow the forwards-in-time convention.</p>
 proportion of individuals in the destination deme made up of individuals
 from the source deme.</p></li>
 <li><p><strong>time</strong> – The time at which migrations occur.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="demes.DemeGraph.split">
-<code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">parent</span></em>, <em class="sig-param"><span class="n">children</span></em>, <em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#DemeGraph.split"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.DemeGraph.split" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add split event at a given time. Split events involve a parental deme
-whose end time equals the start time of all children demes.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>parent</strong> (<em>str</em>) – The ID of the parent deme.</p></li>
-<li><p><strong>children</strong> (<em>list of str</em>) – A list of IDs of the descendant demes.</p></li>
-<li><p><strong>time</strong> (<em>float</em>) – The time at which split occurs.</p></li>
 </ul>
 </dd>
 </dl>
