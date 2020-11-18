@@ -611,27 +611,12 @@ This may be <code class="docutils literal notranslate"><span class="pre">None</s
 proportions of ancestry from each ancestor. This list has the same
 length as <code class="docutils literal notranslate"><span class="pre">ancestors</span></code>, and must sum to 1.</p></li>
 <li><p><strong>epochs</strong> (list of <a class="reference internal" href="#demes.Epoch" title="demes.Epoch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Epoch</span></code></a>) – A list of epochs, which define the population size(s) of
-the deme. The deme must be initially created with exactly one epoch.
-Additional epochs may be added with <a class="reference internal" href="#demes.Deme.add_epoch" title="demes.Deme.add_epoch"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_epoch()</span></code></a></p></li>
+the deme. The deme must be created with all epochs listed.</p></li>
 <li><p><strong>selfing_rate</strong> (<em>float</em>) – An optional selfing rate for this deme.</p></li>
 <li><p><strong>cloning_rate</strong> (<em>float</em>) – An optional cloning rate for this deme.</p></li>
 </ul>
 </dd>
 </dl>
-<dl class="py method">
-<dt id="demes.Deme.add_epoch">
-<code class="sig-name descname">add_epoch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">epoch</span><span class="p">:</span> <span class="n">demes.demes.Epoch</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Deme.add_epoch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Deme.add_epoch" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add an epoch to the deme’s epoch list.
-Epochs must be non overlapping and added in time-decreasing order, i.e.
-starting with the most ancient epoch and adding epochs sequentially toward
-the present.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>epoch</strong> (<a class="reference internal" href="#demes.Epoch" title="demes.Epoch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Epoch</span></code></a>) – The epoch to add.</p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py method">
 <dt id="demes.Deme.end_time">
 <em class="property">property </em><code class="sig-name descname">end_time</code><a class="headerlink" href="#demes.Deme.end_time" title="Permalink to this definition">¶</a></dt>
