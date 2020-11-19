@@ -1037,7 +1037,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_deme_map</span><span class="p">[</span><span class="n">deme</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">deme</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">deme</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">check_time_intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deme1</span><span class="p">,</span> <span class="n">deme2</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_check_time_intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deme1</span><span class="p">,</span> <span class="n">deme2</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
         <span class="n">deme1</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">deme1</span><span class="p">]</span>
         <span class="n">deme2</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">deme2</span><span class="p">]</span>
         <span class="n">time_lo</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">deme1</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span> <span class="n">deme2</span><span class="o">.</span><span class="n">end_time</span><span class="p">)</span>
@@ -1094,15 +1094,15 @@
         <span class="k">for</span> <span class="n">deme_id</span> <span class="ow">in</span> <span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">deme_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">deme_id</span><span class="si">}</span><span class="s2"> not in deme graph&quot;</span><span class="p">)</span>
-        <span class="n">time_lo</span><span class="p">,</span> <span class="n">time_hi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_time_intersection</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">start_time</span><span class="p">)</span>
+        <span class="n">time_lo</span><span class="p">,</span> <span class="n">time_hi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_time_intersection</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">start_time</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">start_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">start_time</span> <span class="o">=</span> <span class="n">time_hi</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">check_time_intersection</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">start_time</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_check_time_intersection</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">start_time</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">end_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">end_time</span> <span class="o">=</span> <span class="n">time_lo</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">check_time_intersection</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">end_time</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_check_time_intersection</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">end_time</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">migrations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
             <span class="n">Migration</span><span class="p">(</span>
                 <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
@@ -1128,7 +1128,7 @@
         <span class="k">for</span> <span class="n">deme_id</span> <span class="ow">in</span> <span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">deme_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">deme_id</span><span class="si">}</span><span class="s2"> not in deme graph&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">check_time_intersection</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_time_intersection</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
 
         <span class="c1"># Check for models that have multiple pulses defined at the same time.</span>
         <span class="c1"># E.g. chains of pulses like: deme0 -&gt; deme1; deme1 -&gt; deme2,</span>
@@ -1378,7 +1378,7 @@
                 <span class="n">m_dict</span><span class="p">[(</span><span class="n">migration</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="n">migration</span><span class="o">.</span><span class="n">dest</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                     <span class="nb">dict</span><span class="p">(</span><span class="n">rate</span><span class="o">=</span><span class="n">migration</span><span class="o">.</span><span class="n">rate</span><span class="p">)</span>
                 <span class="p">)</span>
-                <span class="n">time_lo</span><span class="p">,</span> <span class="n">time_hi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_time_intersection</span><span class="p">(</span>
+                <span class="n">time_lo</span><span class="p">,</span> <span class="n">time_hi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_time_intersection</span><span class="p">(</span>
                     <span class="n">migration</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="n">migration</span><span class="o">.</span><span class="n">dest</span><span class="p">,</span> <span class="kc">None</span>
                 <span class="p">)</span>
                 <span class="k">if</span> <span class="n">migration</span><span class="o">.</span><span class="n">end_time</span> <span class="o">!=</span> <span class="n">time_lo</span><span class="p">:</span>
