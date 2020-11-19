@@ -175,6 +175,47 @@
 <span class="kn">from</span> <span class="nn">.schema</span> <span class="kn">import</span> <span class="n">deme_graph_schema</span>
 
 
+<span class="k">def</span> <span class="nf">loads_asdict</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load a YAML or JSON string into a dictionary of nested objects.</span>
+<span class="sd">    The keywords and structure of the string are defined by the</span>
+<span class="sd">    :ref:`schema &lt;sec_schema&gt;`.</span>
+
+<span class="sd">    :param str string: The string to be loaded.</span>
+<span class="sd">    :param str format: The format of the input string. Either &quot;yaml&quot; or &quot;json&quot;.</span>
+<span class="sd">    :return: A dictionary of nested objects, with the same data model as the</span>
+<span class="sd">        YAML or JSON input string.</span>
+<span class="sd">    :rtype: dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;json&quot;</span><span class="p">:</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;yaml&quot;</span><span class="p">:</span>
+        <span class="n">yaml</span> <span class="o">=</span> <span class="n">strictyaml</span><span class="o">.</span><span class="n">dirty_load</span><span class="p">(</span>
+            <span class="n">string</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">deme_graph_schema</span><span class="p">,</span> <span class="n">allow_flow_style</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">data</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unknown format: </span><span class="si">{</span><span class="nb">format</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">d</span>
+
+
+<span class="k">def</span> <span class="nf">load_asdict</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load a YAML or JSON file into a dictionary of nested objects.</span>
+<span class="sd">    The keywords and structure of the string are defined by the</span>
+<span class="sd">    :ref:`schema &lt;sec_schema&gt;`.</span>
+
+<span class="sd">    :param filename: The path to the file to be loaded.</span>
+<span class="sd">    :type filename: str or :class:`os.PathLike`</span>
+<span class="sd">    :param str format: The format of the input string. Either &quot;yaml&quot; or &quot;json&quot;.</span>
+<span class="sd">    :return: A dictionary of nested objects, with the same data model as the</span>
+<span class="sd">        YAML or JSON input string.</span>
+<span class="sd">    :rtype: dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">loads_asdict</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">)</span>
+
+
 <div class="viewcode-block" id="loads"><a class="viewcode-back" href="../../api.html#demes.loads">[docs]</a><span class="k">def</span> <span class="nf">loads</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load a graph from a YAML or JSON string.</span>
@@ -186,15 +227,7 @@
 <span class="sd">    :return: A graph.</span>
 <span class="sd">    :rtype: .Graph</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;json&quot;</span><span class="p">:</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;yaml&quot;</span><span class="p">:</span>
-        <span class="n">yaml</span> <span class="o">=</span> <span class="n">strictyaml</span><span class="o">.</span><span class="n">dirty_load</span><span class="p">(</span>
-            <span class="n">string</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">deme_graph_schema</span><span class="p">,</span> <span class="n">allow_flow_style</span><span class="o">=</span><span class="kc">True</span>
-        <span class="p">)</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">data</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unknown format: </span><span class="si">{</span><span class="nb">format</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">loads_asdict</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="o">.</span><span class="n">fromdict</span><span class="p">(</span><span class="n">d</span><span class="p">)</span></div>
 
 
@@ -210,8 +243,8 @@
 <span class="sd">    :return: A graph.</span>
 <span class="sd">    :rtype: .Graph</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">)</span></div>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">load_asdict</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="o">.</span><span class="n">fromdict</span><span class="p">(</span><span class="n">d</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="dumps"><a class="viewcode-back" href="../../api.html#demes.dumps">[docs]</a><span class="k">def</span> <span class="nf">dumps</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">,</span> <span class="n">compact</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
