@@ -172,26 +172,24 @@
 <span class="kn">from</span> <span class="nn">demes.convert</span> <span class="kn">import</span> <span class="n">to_msprime</span><span class="p">,</span> <span class="n">from_msprime</span>
 
 
-<div class="viewcode-block" id="to_stdpopsim"><a class="viewcode-back" href="../../../convert.html#demes.convert.to_stdpopsim">[docs]</a><span class="k">def</span> <span class="nf">to_stdpopsim</span><span class="p">(</span><span class="n">deme_graph</span><span class="p">:</span> <span class="n">demes</span><span class="o">.</span><span class="n">DemeGraph</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">stdpopsim</span><span class="o">.</span><span class="n">DemographicModel</span><span class="p">:</span>
+<div class="viewcode-block" id="to_stdpopsim"><a class="viewcode-back" href="../../../convert.html#demes.convert.to_stdpopsim">[docs]</a><span class="k">def</span> <span class="nf">to_stdpopsim</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">stdpopsim</span><span class="o">.</span><span class="n">DemographicModel</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert a demes graph to a stdpopsim demographic model.</span>
 
-<span class="sd">    :param deme_graph: the demes graph to convert.</span>
-<span class="sd">    :type deme_graph: :class:`demes.DemeGraph`</span>
+<span class="sd">    :param graph: the demes graph to convert.</span>
+<span class="sd">    :type graph: :class:`demes.Graph`</span>
 <span class="sd">    :return: A stdpopsim demographic model.</span>
 <span class="sd">    :rtype demographic_model: :class:`stdpopsim.DemographicModel`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">pc</span><span class="p">,</span> <span class="n">de</span><span class="p">,</span> <span class="n">mm</span> <span class="o">=</span> <span class="n">to_msprime</span><span class="p">(</span><span class="n">deme_graph</span><span class="p">)</span>
+    <span class="n">pc</span><span class="p">,</span> <span class="n">de</span><span class="p">,</span> <span class="n">mm</span> <span class="o">=</span> <span class="n">to_msprime</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">stdpopsim</span><span class="o">.</span><span class="n">DemographicModel</span><span class="p">(</span>
         <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Converted from demes.DemeGraph; see long_description.&quot;</span><span class="p">,</span>
-        <span class="n">long_description</span><span class="o">=</span><span class="n">deme_graph</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
-        <span class="n">citations</span><span class="o">=</span><span class="p">[</span>
-            <span class="n">stdpopsim</span><span class="o">.</span><span class="n">Citation</span><span class="p">(</span><span class="n">author</span><span class="o">=</span><span class="s2">&quot;Unknown&quot;</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="s2">&quot;1234&quot;</span><span class="p">,</span> <span class="n">doi</span><span class="o">=</span><span class="n">deme_graph</span><span class="o">.</span><span class="n">doi</span><span class="p">)</span>
-        <span class="p">],</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Converted from demes.Graph; see long_description.&quot;</span><span class="p">,</span>
+        <span class="n">long_description</span><span class="o">=</span><span class="n">graph</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+        <span class="n">citations</span><span class="o">=</span><span class="p">[</span><span class="n">stdpopsim</span><span class="o">.</span><span class="n">Citation</span><span class="p">(</span><span class="n">author</span><span class="o">=</span><span class="s2">&quot;Unknown&quot;</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="s2">&quot;1234&quot;</span><span class="p">,</span> <span class="n">doi</span><span class="o">=</span><span class="n">graph</span><span class="o">.</span><span class="n">doi</span><span class="p">)],</span>
         <span class="n">generation_time</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">populations</span><span class="o">=</span><span class="p">[</span>
-            <span class="n">stdpopsim</span><span class="o">.</span><span class="n">Population</span><span class="p">(</span><span class="n">deme</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">deme</span><span class="o">.</span><span class="n">description</span><span class="p">)</span> <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">deme_graph</span><span class="o">.</span><span class="n">demes</span>
+            <span class="n">stdpopsim</span><span class="o">.</span><span class="n">Population</span><span class="p">(</span><span class="n">deme</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">deme</span><span class="o">.</span><span class="n">description</span><span class="p">)</span> <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">demes</span>
         <span class="p">],</span>
         <span class="n">population_configurations</span><span class="o">=</span><span class="n">pc</span><span class="p">,</span>
         <span class="n">demographic_events</span><span class="o">=</span><span class="n">de</span><span class="p">,</span>
@@ -199,14 +197,14 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="from_stdpopsim"><a class="viewcode-back" href="../../../convert.html#demes.convert.from_stdpopsim">[docs]</a><span class="k">def</span> <span class="nf">from_stdpopsim</span><span class="p">(</span><span class="n">demographic_model</span><span class="p">:</span> <span class="n">stdpopsim</span><span class="o">.</span><span class="n">DemographicModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">demes</span><span class="o">.</span><span class="n">DemeGraph</span><span class="p">:</span>
+<div class="viewcode-block" id="from_stdpopsim"><a class="viewcode-back" href="../../../convert.html#demes.convert.from_stdpopsim">[docs]</a><span class="k">def</span> <span class="nf">from_stdpopsim</span><span class="p">(</span><span class="n">demographic_model</span><span class="p">:</span> <span class="n">stdpopsim</span><span class="o">.</span><span class="n">DemographicModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert a stdpopsim demographic model into a demes graph.</span>
 
 <span class="sd">    :param demographic_model: A stdpopsim demographic model.</span>
 <span class="sd">    :type demographic_model: :class:`stdpopsim.DemographicModel`</span>
 <span class="sd">    :return: A demes graph.</span>
-<span class="sd">    :rtype: :class:`demes.DemeGraph`</span>
+<span class="sd">    :rtype: :class:`demes.Graph`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">g</span> <span class="o">=</span> <span class="n">from_msprime</span><span class="p">(</span>
         <span class="n">population_configurations</span><span class="o">=</span><span class="n">demographic_model</span><span class="o">.</span><span class="n">population_configurations</span><span class="p">,</span>

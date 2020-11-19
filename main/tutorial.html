@@ -221,7 +221,7 @@ size (say, <span class="math notranslate nohighlight">\(N_e=1000\)</span>) would
 <p>Since we did not specify a <code class="docutils literal notranslate"><span class="pre">start_time</span></code> or <code class="docutils literal notranslate"><span class="pre">end_time</span></code> of the deme’s
 existence, by defult it spans all time from time <span class="math notranslate nohighlight">\(\infty\)</span> in the past
 to 0 (“now”).  See the <a class="reference internal" href="#sec-time-units"><span class="std std-ref">next section</span></a> that describes
-time conventions in a <code class="docutils literal notranslate"><span class="pre">DemeGraph</span></code>.</p>
+time conventions in a <code class="docutils literal notranslate"><span class="pre">Graph</span></code>.</p>
 <div class="section" id="time-units-and-conventions">
 <span id="sec-time-units"></span><h3>Time units and conventions<a class="headerlink" href="#time-units-and-conventions" title="Permalink to this headline">¶</a></h3>
 <p>Time flows from the past to the present. In population genetics terms, we
@@ -232,7 +232,7 @@ are moving <cite>from</cite> and <cite>to</cite>, respectively, forwards in time
 <p>We measure time in <code class="docutils literal notranslate"><span class="pre">time_units</span></code> in the past, so that <code class="docutils literal notranslate"><span class="pre">time</span> <span class="pre">=</span> <span class="pre">0</span></code> implies
 <cite>now</cite> (or rather, the final generation of the simulation). Thus, time counts
 down from as we advance from one generation from the next.</p>
-<p>When defining a <code class="docutils literal notranslate"><span class="pre">DemeGraph</span></code> in YAML, we must specify the <code class="docutils literal notranslate"><span class="pre">time_units</span></code>.
+<p>When defining a <code class="docutils literal notranslate"><span class="pre">Graph</span></code> in YAML, we must specify the <code class="docutils literal notranslate"><span class="pre">time_units</span></code>.
 Typically, we set <code class="docutils literal notranslate"><span class="pre">time_units:</span> <span class="pre">generations</span></code>, so that all times are specified
 in generations in the past. However, we allow the flexibility to use any unit
 of time, such as years, weeks, thousands of years, etc. In the case that the

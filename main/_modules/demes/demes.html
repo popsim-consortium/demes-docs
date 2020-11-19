@@ -633,8 +633,8 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A collection of individuals that are exchangeable at any fixed time.</span>
 <span class="sd">    This class is not intended to be instantiated directly. It is instead</span>
-<span class="sd">    recommended to add demes to a :class:`.DemeGraph` object using the</span>
-<span class="sd">    :meth:`DemeGraph.deme` method.</span>
+<span class="sd">    recommended to add demes to a :class:`.Graph` object using the</span>
+<span class="sd">    :meth:`Graph.deme` method.</span>
 
 <span class="sd">    :ivar str id: A string identifier for the deme.</span>
 <span class="sd">    :ivar str description: A description of the deme. May be ``None``.</span>
@@ -737,10 +737,10 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span></div>
 
 
-<div class="viewcode-block" id="DemeGraph"><a class="viewcode-back" href="../../api.html#demes.DemeGraph">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">DemeGraph</span><span class="p">:</span>
+<div class="viewcode-block" id="Graph"><a class="viewcode-back" href="../../api.html#demes.Graph">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Graph</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The DemeGraph class provides a high-level API for constructing a demographic</span>
+<span class="sd">    The Graph class provides a high-level API for constructing a demographic</span>
 <span class="sd">    model. The methods on this class ensure validity of a  model at all stages</span>
 <span class="sd">    of construction. They also allow omission of detail, when there is a single</span>
 <span class="sd">    unambiguous interpretation (or a very sensible default). The semantics</span>
@@ -754,22 +754,22 @@
 <span class="sd">        but the actual value provided here should not be relied upon.</span>
 <span class="sd">    :ivar float generation_time: The generation time of demes, in units given</span>
 <span class="sd">        by the ``time_units`` parameter. Concretely, dividing all times</span>
-<span class="sd">        by ``generation_time`` will convert the deme graph to have time</span>
+<span class="sd">        by ``generation_time`` will convert the graph to have time</span>
 <span class="sd">        units in generations.  If ``generation_time`` is ``None``, the units</span>
 <span class="sd">        are assumed to be in generations already.</span>
 <span class="sd">        See also: :meth:`.in_generations`.</span>
-<span class="sd">    :ivar str doi: If the deme graph describes a published demography, the DOI</span>
+<span class="sd">    :ivar str doi: If the graph describes a published demography, the DOI</span>
 <span class="sd">        should be be given here. May be ``None``.</span>
 <span class="sd">    :ivar demes: A list of demes in the demography.</span>
-<span class="sd">        Not intended to be passed when the deme graph is instantiated.</span>
+<span class="sd">        Not intended to be passed when the graph is instantiated.</span>
 <span class="sd">        Use :meth:`.deme` instead.</span>
 <span class="sd">    :vartype demes: list of :class:`.Deme`</span>
 <span class="sd">    :ivar migrations: A list of continuous migrations for the demography.</span>
-<span class="sd">        Not intended to be passed when the deme graph is instantiated.</span>
+<span class="sd">        Not intended to be passed when the graph is instantiated.</span>
 <span class="sd">        Use :meth:`migration` or :meth:`symmetric_migration` instead.</span>
 <span class="sd">    :vartype migrations: list of :class:`.Migration`</span>
 <span class="sd">    :ivar pulses: A list of migration pulses for the demography.</span>
-<span class="sd">        Not intended to be passed when the deme graph is instantiated.</span>
+<span class="sd">        Not intended to be passed when the graph is instantiated.</span>
 <span class="sd">        Use :meth:`pulse` instead.</span>
 <span class="sd">    :vartype pulses: list of :class:`.Pulse`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -797,11 +797,11 @@
 
     <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deme_id</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Check if the deme graph contains a deme with the specified id.</span>
+<span class="sd">        Check if the graph contains a deme with the specified id.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">deme_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deme_map</span>
 
-<div class="viewcode-block" id="DemeGraph.isclose"><a class="viewcode-back" href="../../api.html#demes.DemeGraph.isclose">[docs]</a>    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+<div class="viewcode-block" id="Graph.isclose"><a class="viewcode-back" href="../../api.html#demes.Graph.isclose">[docs]</a>    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -809,13 +809,13 @@
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns true if the deme graph and ``other`` implement essentially</span>
+<span class="sd">        Returns true if the graph and ``other`` implement essentially</span>
 <span class="sd">        the same demographic model. Numerical values are compared using the</span>
 <span class="sd">        :func:`math.isclose` function, from which this method takes its name.</span>
 <span class="sd">        Furthermore, the following implementation details are ignored during</span>
 <span class="sd">        the comparison:</span>
 
-<span class="sd">            - The deme graph&#39;s ``description`` and ``doi`` attributes.</span>
+<span class="sd">            - The graphs&#39; ``description`` and ``doi`` attributes.</span>
 <span class="sd">            - The order in which ``migrations`` were specified.</span>
 <span class="sd">            - The order in which admixture ``pulses`` were specified.</span>
 <span class="sd">            - The order in which ``demes`` were specified.</span>
@@ -826,8 +826,8 @@
 <span class="sd">              epochs. The ``selfing_rate`` and ``cloning_rate`` attributes of</span>
 <span class="sd">              each epoch *are* evaluated for equality between the two models.</span>
 
-<span class="sd">        :param other: The deme graph to compare against.</span>
-<span class="sd">        :type other: :class:`.DemeGraph`</span>
+<span class="sd">        :param other: The graph to compare against.</span>
+<span class="sd">        :type other: :class:`.Graph`</span>
 <span class="sd">        :param float rel_tol: The relative tolerance permitted for numerical</span>
 <span class="sd">            comparisons. See documentation for :func:`math.isclose`.</span>
 <span class="sd">        :param float abs_tol: The absolute tolerance permitted for numerical</span>
@@ -856,7 +856,7 @@
             <span class="ow">and</span> <span class="n">sorted_eq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pulses</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">pulses</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="DemeGraph.deme"><a class="viewcode-back" href="../../api.html#demes.DemeGraph.deme">[docs]</a>    <span class="k">def</span> <span class="nf">deme</span><span class="p">(</span>
+<div class="viewcode-block" id="Graph.deme"><a class="viewcode-back" href="../../api.html#demes.Graph.deme">[docs]</a>    <span class="k">def</span> <span class="nf">deme</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="nb">id</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1053,7 +1053,7 @@
                 <span class="p">)</span>
         <span class="k">return</span> <span class="n">time_lo</span><span class="p">,</span> <span class="n">time_hi</span>
 
-<div class="viewcode-block" id="DemeGraph.symmetric_migration"><a class="viewcode-back" href="../../api.html#demes.DemeGraph.symmetric_migration">[docs]</a>    <span class="k">def</span> <span class="nf">symmetric_migration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">demes</span><span class="o">=</span><span class="p">[],</span> <span class="n">rate</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.symmetric_migration"><a class="viewcode-back" href="../../api.html#demes.Graph.symmetric_migration">[docs]</a>    <span class="k">def</span> <span class="nf">symmetric_migration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">demes</span><span class="o">=</span><span class="p">[],</span> <span class="n">rate</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add continuous symmetric migrations between all pairs of demes in a list.</span>
 
@@ -1074,7 +1074,7 @@
                 <span class="n">end_time</span><span class="o">=</span><span class="n">end_time</span><span class="p">,</span>
             <span class="p">)</span></div>
 
-<div class="viewcode-block" id="DemeGraph.migration"><a class="viewcode-back" href="../../api.html#demes.DemeGraph.migration">[docs]</a>    <span class="k">def</span> <span class="nf">migration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.migration"><a class="viewcode-back" href="../../api.html#demes.Graph.migration">[docs]</a>    <span class="k">def</span> <span class="nf">migration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add continuous migration from one deme to another.</span>
 <span class="sd">        Source and destination demes follow the forwards-in-time convention,</span>
@@ -1093,7 +1093,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">deme_id</span> <span class="ow">in</span> <span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">deme_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">deme_id</span><span class="si">}</span><span class="s2"> not in deme graph&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">deme_id</span><span class="si">}</span><span class="s2"> not in graph&quot;</span><span class="p">)</span>
         <span class="n">time_lo</span><span class="p">,</span> <span class="n">time_hi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_time_intersection</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">start_time</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">start_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">start_time</span> <span class="o">=</span> <span class="n">time_hi</span>
@@ -1113,7 +1113,7 @@
             <span class="p">)</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="DemeGraph.pulse"><a class="viewcode-back" href="../../api.html#demes.DemeGraph.pulse">[docs]</a>    <span class="k">def</span> <span class="nf">pulse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">proportion</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.pulse"><a class="viewcode-back" href="../../api.html#demes.Graph.pulse">[docs]</a>    <span class="k">def</span> <span class="nf">pulse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">proportion</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a pulse of migration at a fixed time.</span>
 <span class="sd">        Source and destination demes follow the forwards-in-time convention.</span>
@@ -1127,7 +1127,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">deme_id</span> <span class="ow">in</span> <span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">deme_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">deme_id</span><span class="si">}</span><span class="s2"> not in deme graph&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">deme_id</span><span class="si">}</span><span class="s2"> not in graph&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_time_intersection</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
 
         <span class="c1"># Check for models that have multiple pulses defined at the same time.</span>
@@ -1147,7 +1147,7 @@
                 <span class="s2">&quot;Multiple pulses are defined for the same deme(s) at time &quot;</span>
                 <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">time</span><span class="si">}</span><span class="s2">. The ancestry proportions after this time will thus &quot;</span>
                 <span class="s2">&quot;depend on the order in which the pulses have been specified. &quot;</span>
-                <span class="s2">&quot;To avoid unexpected behaviour, the deme graph can instead &quot;</span>
+                <span class="s2">&quot;To avoid unexpected behaviour, the graph can instead &quot;</span>
                 <span class="s2">&quot;be structured to introduce a new deme at this time with &quot;</span>
                 <span class="s2">&quot;the desired ancestry proportions.&quot;</span>
             <span class="p">)</span>
@@ -1184,7 +1184,7 @@
                     <span class="n">pred</span><span class="p">[</span><span class="n">deme_info</span><span class="o">.</span><span class="n">id</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">pred</span>
 
-<div class="viewcode-block" id="DemeGraph.list_demographic_events"><a class="viewcode-back" href="../../api.html#demes.DemeGraph.list_demographic_events">[docs]</a>    <span class="k">def</span> <span class="nf">list_demographic_events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.list_demographic_events"><a class="viewcode-back" href="../../api.html#demes.Graph.list_demographic_events">[docs]</a>    <span class="k">def</span> <span class="nf">list_demographic_events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Loop through successors/predecessors to generate a list of splits, branches,</span>
 <span class="sd">        mergers, and admixtures. If a deme has more than one predecessor,</span>
@@ -1193,7 +1193,7 @@
 <span class="sd">        whether it is a branch (start time != predecessor&#39;s end time), or split.</span>
 
 <span class="sd">        Returns a dictionary containing all discrete demographic events, including</span>
-<span class="sd">        pulses that are listed as a DemeGraph attribute.</span>
+<span class="sd">        pulses that are listed as a Graph attribute.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">demo_events</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;pulses&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">pulses</span><span class="p">,</span>
@@ -1247,33 +1247,33 @@
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">demo_events</span></div>
 
-<div class="viewcode-block" id="DemeGraph.validate"><a class="viewcode-back" href="../../api.html#demes.DemeGraph.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.validate"><a class="viewcode-back" href="../../api.html#demes.Graph.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Validates the demographic model.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">loads</span><span class="p">(</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="DemeGraph.in_generations"><a class="viewcode-back" href="../../api.html#demes.DemeGraph.in_generations">[docs]</a>    <span class="k">def</span> <span class="nf">in_generations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.in_generations"><a class="viewcode-back" href="../../api.html#demes.Graph.in_generations">[docs]</a>    <span class="k">def</span> <span class="nf">in_generations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return a copy of the demes graph with times in units of generations.</span>
+<span class="sd">        Return a copy of the graph with times in units of generations.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">deme_graph</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">deme_graph</span><span class="o">.</span><span class="n">time_units</span> <span class="o">=</span> <span class="s2">&quot;generations&quot;</span>
+        <span class="n">graph</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">graph</span><span class="o">.</span><span class="n">time_units</span> <span class="o">=</span> <span class="s2">&quot;generations&quot;</span>
         <span class="n">generation_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation_time</span>
         <span class="k">if</span> <span class="n">generation_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">deme_graph</span><span class="o">.</span><span class="n">generation_time</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">deme_graph</span><span class="o">.</span><span class="n">demes</span><span class="p">:</span>
+            <span class="n">graph</span><span class="o">.</span><span class="n">generation_time</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">demes</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="n">deme</span><span class="o">.</span><span class="n">epochs</span><span class="p">:</span>
                     <span class="n">epoch</span><span class="o">.</span><span class="n">start_time</span> <span class="o">/=</span> <span class="n">generation_time</span>
                     <span class="n">epoch</span><span class="o">.</span><span class="n">end_time</span> <span class="o">/=</span> <span class="n">generation_time</span>
-            <span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="n">deme_graph</span><span class="o">.</span><span class="n">migrations</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">migrations</span><span class="p">:</span>
                 <span class="n">migration</span><span class="o">.</span><span class="n">start_time</span> <span class="o">/=</span> <span class="n">generation_time</span>
                 <span class="n">migration</span><span class="o">.</span><span class="n">end_time</span> <span class="o">/=</span> <span class="n">generation_time</span>
-            <span class="k">for</span> <span class="n">pulse</span> <span class="ow">in</span> <span class="n">deme_graph</span><span class="o">.</span><span class="n">pulses</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">pulse</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">pulses</span><span class="p">:</span>
                 <span class="n">pulse</span><span class="o">.</span><span class="n">time</span> <span class="o">/=</span> <span class="n">generation_time</span>
-        <span class="k">return</span> <span class="n">deme_graph</span></div>
+        <span class="k">return</span> <span class="n">graph</span></div>
 
-<div class="viewcode-block" id="DemeGraph.fromdict"><a class="viewcode-back" href="../../api.html#demes.DemeGraph.fromdict">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Graph.fromdict"><a class="viewcode-back" href="../../api.html#demes.Graph.fromdict">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">fromdict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a graph from a dict representation. The inverse of asdict().</span>
@@ -1303,9 +1303,9 @@
             <span class="n">g</span><span class="o">.</span><span class="n">pulse</span><span class="p">(</span><span class="o">**</span><span class="n">pulse_dict</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">g</span></div>
 
-<div class="viewcode-block" id="DemeGraph.asdict"><a class="viewcode-back" href="../../api.html#demes.DemeGraph.asdict">[docs]</a>    <span class="k">def</span> <span class="nf">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.asdict"><a class="viewcode-back" href="../../api.html#demes.Graph.asdict">[docs]</a>    <span class="k">def</span> <span class="nf">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return a dict representation of the deme graph.</span>
+<span class="sd">        Return a dict representation of the graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">def</span> <span class="nf">filt</span><span class="p">(</span><span class="n">_attrib</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
@@ -1325,9 +1325,9 @@
             <span class="n">d</span><span class="p">[</span><span class="s2">&quot;migrations&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;asymmetric&quot;</span><span class="p">:</span> <span class="n">migrations</span><span class="p">}</span>
         <span class="k">return</span> <span class="n">d</span></div>
 
-<div class="viewcode-block" id="DemeGraph.asdict_compact"><a class="viewcode-back" href="../../api.html#demes.DemeGraph.asdict_compact">[docs]</a>    <span class="k">def</span> <span class="nf">asdict_compact</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.asdict_compact"><a class="viewcode-back" href="../../api.html#demes.Graph.asdict_compact">[docs]</a>    <span class="k">def</span> <span class="nf">asdict_compact</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return a dict representation of the deme graph, with default and</span>
+<span class="sd">        Return a dict representation of the graph, with default and</span>
 <span class="sd">        implicit values removed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
