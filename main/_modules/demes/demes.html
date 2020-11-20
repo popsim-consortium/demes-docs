@@ -176,8 +176,6 @@
 <span class="kn">import</span> <span class="nn">attr</span>
 <span class="kn">from</span> <span class="nn">attr.validators</span> <span class="kn">import</span> <span class="n">optional</span>
 
-<span class="kn">from</span> <span class="nn">.load_dump</span> <span class="kn">import</span> <span class="n">dumps</span><span class="p">,</span> <span class="n">loads</span>
-
 <span class="n">Number</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
 <span class="n">ID</span> <span class="o">=</span> <span class="nb">str</span>
 <span class="n">Time</span> <span class="o">=</span> <span class="n">Number</span>
@@ -761,16 +759,13 @@
 <span class="sd">    :ivar str doi: If the graph describes a published demography, the DOI</span>
 <span class="sd">        should be be given here. May be ``None``.</span>
 <span class="sd">    :ivar demes: A list of demes in the demography.</span>
-<span class="sd">        Not intended to be passed when the graph is instantiated.</span>
-<span class="sd">        Use :meth:`.deme` instead.</span>
+<span class="sd">        Use :meth:`.deme` to add a deme.</span>
 <span class="sd">    :vartype demes: list of :class:`.Deme`</span>
 <span class="sd">    :ivar migrations: A list of continuous migrations for the demography.</span>
-<span class="sd">        Not intended to be passed when the graph is instantiated.</span>
-<span class="sd">        Use :meth:`migration` or :meth:`symmetric_migration` instead.</span>
+<span class="sd">        Use :meth:`migration` or :meth:`symmetric_migration` to add migrations.</span>
 <span class="sd">    :vartype migrations: list of :class:`.Migration`</span>
 <span class="sd">    :ivar pulses: A list of migration pulses for the demography.</span>
-<span class="sd">        Not intended to be passed when the graph is instantiated.</span>
-<span class="sd">        Use :meth:`pulse` instead.</span>
+<span class="sd">        Use :meth:`pulse` to add a pulse.</span>
 <span class="sd">    :vartype pulses: list of :class:`.Pulse`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -780,9 +775,9 @@
         <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">optional</span><span class="p">([</span><span class="n">positive</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
     <span class="p">)</span>
     <span class="n">doi</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-    <span class="n">demes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Deme</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
-    <span class="n">migrations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Migration</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
-    <span class="n">pulses</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Pulse</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">demes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Deme</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">migrations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Migration</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">pulses</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Pulse</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">selfing_rate</span><span class="p">:</span> <span class="n">Proportion</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
     <span class="n">cloning_rate</span><span class="p">:</span> <span class="n">Proportion</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
@@ -1053,7 +1048,7 @@
                 <span class="p">)</span>
         <span class="k">return</span> <span class="n">time_lo</span><span class="p">,</span> <span class="n">time_hi</span>
 
-<div class="viewcode-block" id="Graph.symmetric_migration"><a class="viewcode-back" href="../../api.html#demes.Graph.symmetric_migration">[docs]</a>    <span class="k">def</span> <span class="nf">symmetric_migration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">demes</span><span class="o">=</span><span class="p">[],</span> <span class="n">rate</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.symmetric_migration"><a class="viewcode-back" href="../../api.html#demes.Graph.symmetric_migration">[docs]</a>    <span class="k">def</span> <span class="nf">symmetric_migration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">demes</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add continuous symmetric migrations between all pairs of demes in a list.</span>
 
@@ -1063,8 +1058,8 @@
 <span class="sd">        :param start_time: The time at which the migration rate is enabled.</span>
 <span class="sd">        :param end_time: The time at which the migration rate is disabled.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">demes</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;must specify two or more demes&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">demes</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">demes</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;must specify a list of two or more deme IDs&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">source</span><span class="p">,</span> <span class="n">dest</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">permutations</span><span class="p">(</span><span class="n">demes</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">migration</span><span class="p">(</span>
                 <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
@@ -1074,7 +1069,7 @@
                 <span class="n">end_time</span><span class="o">=</span><span class="n">end_time</span><span class="p">,</span>
             <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Graph.migration"><a class="viewcode-back" href="../../api.html#demes.Graph.migration">[docs]</a>    <span class="k">def</span> <span class="nf">migration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.migration"><a class="viewcode-back" href="../../api.html#demes.Graph.migration">[docs]</a>    <span class="k">def</span> <span class="nf">migration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add continuous migration from one deme to another.</span>
 <span class="sd">        Source and destination demes follow the forwards-in-time convention,</span>
@@ -1251,7 +1246,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Validates the demographic model.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">loads</span><span class="p">(</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fromdict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">asdict</span><span class="p">())</span></div>
 
 <div class="viewcode-block" id="Graph.in_generations"><a class="viewcode-back" href="../../api.html#demes.Graph.in_generations">[docs]</a>    <span class="k">def</span> <span class="nf">in_generations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
