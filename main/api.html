@@ -330,7 +330,7 @@ The keywords and structure of the string are defined by the
 
 <dl class="py function">
 <dt id="demes.dump">
-<code class="sig-prename descclassname">demes.</code><code class="sig-name descname">dump</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">graph</span></em>, <em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">'yaml'</span></em>, <em class="sig-param"><span class="n">compact</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#dump"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.dump" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">demes.</code><code class="sig-name descname">dump</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">graph</span></em>, <em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">'yaml'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#dump"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.dump" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dump the specified graph to a file.
 The keywords and structure of the file are defined by the
 <a class="reference internal" href="schema.html#sec-schema"><span class="std std-ref">schema</span></a>.</p>
@@ -347,7 +347,7 @@ The keywords and structure of the file are defined by the
 
 <dl class="py function">
 <dt id="demes.dumps">
-<code class="sig-prename descclassname">demes.</code><code class="sig-name descname">dumps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">graph</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">'yaml'</span></em>, <em class="sig-param"><span class="n">compact</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#dumps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.dumps" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">demes.</code><code class="sig-name descname">dumps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">graph</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">'yaml'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#dumps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.dumps" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dump the specified graph to a YAML or JSON string.
 The keywords and structure of the string are defined by the
 <a class="reference internal" href="schema.html#sec-schema"><span class="std std-ref">schema</span></a>.</p>
@@ -356,9 +356,6 @@ The keywords and structure of the string are defined by the
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<a class="reference internal" href="#demes.Graph" title="demes.Graph"><em>Graph</em></a>) – The graph to dump.</p></li>
 <li><p><strong>format</strong> (<em>str</em>) – The format of the output file. Either “yaml” or “json”.</p></li>
-<li><p><strong>compact</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, a compact representation of the graph
-will be returned, where default and implicit values are removed.
-If <code class="docutils literal notranslate"><span class="pre">False</span></code>, the complete graph will be returned.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -408,13 +405,6 @@ Use <a class="reference internal" href="#demes.Graph.pulse" title="demes.Graph.p
 <dt id="demes.Graph.asdict">
 <code class="sig-name descname">asdict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.asdict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Graph.asdict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a dict representation of the graph.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="demes.Graph.asdict_compact">
-<code class="sig-name descname">asdict_compact</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.asdict_compact"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Graph.asdict_compact" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a dict representation of the graph, with default and
-implicit values removed.</p>
 </dd></dl>
 
 <dl class="py method">
