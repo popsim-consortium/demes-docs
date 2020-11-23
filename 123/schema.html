@@ -176,7 +176,6 @@
 <span class="kn">from</span> <span class="nn">strictyaml</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">CommaSeparated</span><span class="p">,</span>
     <span class="n">Map</span><span class="p">,</span>
-    <span class="n">MapPattern</span><span class="p">,</span>
     <span class="n">Float</span><span class="p">,</span>
     <span class="n">Int</span><span class="p">,</span>
     <span class="n">Optional</span><span class="p">,</span>
@@ -223,6 +222,7 @@
 
 <span class="n">deme_schema</span> <span class="o">=</span> <span class="n">Map</span><span class="p">(</span>
     <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">Str</span><span class="p">(),</span>
         <span class="n">Optional</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">):</span> <span class="n">Str</span><span class="p">(),</span>
         <span class="n">Optional</span><span class="p">(</span><span class="s2">&quot;ancestors&quot;</span><span class="p">):</span> <span class="n">CommaSeparated</span><span class="p">(</span><span class="n">Str</span><span class="p">()),</span>
         <span class="n">Optional</span><span class="p">(</span><span class="s2">&quot;proportions&quot;</span><span class="p">):</span> <span class="n">CommaSeparated</span><span class="p">(</span><span class="n">Float</span><span class="p">()),</span>
@@ -241,8 +241,8 @@
         <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="n">Str</span><span class="p">(),</span>
         <span class="s2">&quot;time_units&quot;</span><span class="p">:</span> <span class="n">Str</span><span class="p">(),</span>
         <span class="n">Optional</span><span class="p">(</span><span class="s2">&quot;generation_time&quot;</span><span class="p">):</span> <span class="n">Number</span><span class="p">,</span>
-        <span class="n">Optional</span><span class="p">(</span><span class="s2">&quot;doi&quot;</span><span class="p">):</span> <span class="n">Str</span><span class="p">(),</span>
-        <span class="s2">&quot;demes&quot;</span><span class="p">:</span> <span class="n">MapPattern</span><span class="p">(</span><span class="n">Str</span><span class="p">(),</span> <span class="n">deme_schema</span><span class="p">),</span>
+        <span class="n">Optional</span><span class="p">(</span><span class="s2">&quot;doi&quot;</span><span class="p">):</span> <span class="n">Seq</span><span class="p">(</span><span class="n">Str</span><span class="p">()),</span>
+        <span class="s2">&quot;demes&quot;</span><span class="p">:</span> <span class="n">Seq</span><span class="p">(</span><span class="n">deme_schema</span><span class="p">),</span>
         <span class="n">Optional</span><span class="p">(</span><span class="s2">&quot;migrations&quot;</span><span class="p">):</span> <span class="n">Map</span><span class="p">(</span>
             <span class="p">{</span>
                 <span class="n">Optional</span><span class="p">(</span><span class="s2">&quot;symmetric&quot;</span><span class="p">):</span> <span class="n">Seq</span><span class="p">(</span><span class="n">symmetric_migration_schema</span><span class="p">),</span>
