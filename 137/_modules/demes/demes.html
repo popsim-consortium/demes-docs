@@ -1031,12 +1031,7 @@
         <span class="k">return</span> <span class="n">time_lo</span><span class="p">,</span> <span class="n">time_hi</span>
 
 <div class="viewcode-block" id="Graph.symmetric_migration"><a class="viewcode-back" href="../../api.html#demes.Graph.symmetric_migration">[docs]</a>    <span class="k">def</span> <span class="nf">symmetric_migration</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="o">*</span><span class="p">,</span>
-        <span class="n">demes</span><span class="p">,</span>
-        <span class="n">rate</span><span class="p">,</span>
-        <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">demes</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Migration</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add continuous symmetric migrations between all pairs of demes in a list.</span>
@@ -1065,13 +1060,7 @@
         <span class="k">return</span> <span class="n">migrations</span></div>
 
 <div class="viewcode-block" id="Graph.migration"><a class="viewcode-back" href="../../api.html#demes.Graph.migration">[docs]</a>    <span class="k">def</span> <span class="nf">migration</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="o">*</span><span class="p">,</span>
-        <span class="n">source</span><span class="p">,</span>
-        <span class="n">dest</span><span class="p">,</span>
-        <span class="n">rate</span><span class="p">,</span>
-        <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Migration</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add continuous migration from one deme to another.</span>
