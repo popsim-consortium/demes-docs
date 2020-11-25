@@ -230,6 +230,10 @@ pulses via the methods available on this class.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[Migration(source=&#39;CEU&#39;, dest=&#39;CHB&#39;, start_time=21200.0, end_time=0, rate=9.6e-05),
+ Migration(source=&#39;CHB&#39;, dest=&#39;CEU&#39;, start_time=21200.0, end_time=0, rate=9.6e-05)]
+</pre></div>
+</div>
 </div>
 </div>
 <p>We can check that our implementation matches the example from the gallery
@@ -268,6 +272,10 @@ with migration between adjacent demes, can be done with the following code.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[Migration(source=&#39;deme9&#39;, dest=&#39;deme0&#39;, start_time=inf, end_time=0, rate=1e-05),
+ Migration(source=&#39;deme0&#39;, dest=&#39;deme9&#39;, start_time=inf, end_time=0, rate=1e-05)]
+</pre></div>
+</div>
 </div>
 </div>
 <p>The graph can then be written out to a new <code class="docutils literal notranslate"><span class="pre">yaml</span></code> file using the
@@ -409,7 +417,7 @@ Use <a class="reference internal" href="#demes.Graph.pulse" title="demes.Graph.p
 
 <dl class="py method">
 <dt id="demes.Graph.deme">
-<code class="sig-name descname">deme</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">description</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ancestors</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">proportions</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">epochs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start_time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">initial_size</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">final_size</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">selfing_rate</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cloning_rate</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.deme"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Graph.deme" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">deme</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">description</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ancestors</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">proportions</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">epochs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start_time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">initial_size</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">final_size</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">selfing_rate</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cloning_rate</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; demes.demes.Deme<a class="reference internal" href="_modules/demes/demes.html#Graph.deme"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Graph.deme" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a deme to the graph, with lifetime <code class="docutils literal notranslate"><span class="pre">(start_time,</span> <span class="pre">end_time]</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -450,6 +458,12 @@ If not specified, a single epoch will be created for the deme that
 spans from <code class="docutils literal notranslate"><span class="pre">start_time</span></code> to <code class="docutils literal notranslate"><span class="pre">end_time</span></code>, using the <code class="docutils literal notranslate"><span class="pre">initial_size</span></code>,
 <code class="docutils literal notranslate"><span class="pre">final_size</span></code>, <code class="docutils literal notranslate"><span class="pre">selfing_rate</span></code> and <code class="docutils literal notranslate"><span class="pre">cloning_rate</span></code> provided.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Newly created deme.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#demes.Deme" title="demes.Deme"><code class="xref py py-class docutils literal notranslate"><span class="pre">Deme</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -521,7 +535,7 @@ pulses that are listed as a Graph attribute.</p>
 
 <dl class="py method">
 <dt id="demes.Graph.migration">
-<code class="sig-name descname">migration</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">source</span></em>, <em class="sig-param"><span class="n">dest</span></em>, <em class="sig-param"><span class="n">rate</span></em>, <em class="sig-param"><span class="n">start_time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_time</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Graph.migration" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">migration</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">source</span></em>, <em class="sig-param"><span class="n">dest</span></em>, <em class="sig-param"><span class="n">rate</span></em>, <em class="sig-param"><span class="n">start_time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_time</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; demes.demes.Migration<a class="reference internal" href="_modules/demes/demes.html#Graph.migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Graph.migration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add continuous migration from one deme to another.
 Source and destination demes follow the forwards-in-time convention,
 so that the migration rate refers to the movement of individuals from
@@ -540,6 +554,12 @@ If <code class="docutils literal notranslate"><span class="pre">None</span></cod
 the demes coexist.</p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Newly created migration.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#demes.Migration" title="demes.Migration"><code class="xref py py-class docutils literal notranslate"><span class="pre">Migration</span></code></a></p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -551,7 +571,7 @@ the demes coexist.</p></li>
 
 <dl class="py method">
 <dt id="demes.Graph.pulse">
-<code class="sig-name descname">pulse</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">source</span></em>, <em class="sig-param"><span class="n">dest</span></em>, <em class="sig-param"><span class="n">proportion</span></em>, <em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.pulse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Graph.pulse" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">pulse</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">source</span></em>, <em class="sig-param"><span class="n">dest</span></em>, <em class="sig-param"><span class="n">proportion</span></em>, <em class="sig-param"><span class="n">time</span></em><span class="sig-paren">)</span> &#x2192; demes.demes.Pulse<a class="reference internal" href="_modules/demes/demes.html#Graph.pulse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Graph.pulse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a pulse of migration at a fixed time.
 Source and destination demes follow the forwards-in-time convention.</p>
 <dl class="field-list simple">
@@ -565,6 +585,12 @@ from the source deme.</p></li>
 <li><p><strong>time</strong> – The time at which migrations occur.</p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Newly created pulse.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#demes.Pulse" title="demes.Pulse"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pulse</span></code></a></p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -576,7 +602,7 @@ from the source deme.</p></li>
 
 <dl class="py method">
 <dt id="demes.Graph.symmetric_migration">
-<code class="sig-name descname">symmetric_migration</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">demes</span></em>, <em class="sig-param"><span class="n">rate</span></em>, <em class="sig-param"><span class="n">start_time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_time</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.symmetric_migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Graph.symmetric_migration" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">symmetric_migration</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">demes</span></em>, <em class="sig-param"><span class="n">rate</span></em>, <em class="sig-param"><span class="n">start_time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_time</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>demes.demes.Migration<span class="p">]</span><a class="reference internal" href="_modules/demes/demes.html#Graph.symmetric_migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Graph.symmetric_migration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add continuous symmetric migrations between all pairs of demes in a list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -587,6 +613,12 @@ pairs of demes in this list.</p></li>
 <li><p><strong>start_time</strong> – The time at which the migration rate is enabled.</p></li>
 <li><p><strong>end_time</strong> – The time at which the migration rate is disabled.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of newly created migrations.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of <a class="reference internal" href="#demes.Migration" title="demes.Migration"><code class="xref py py-class docutils literal notranslate"><span class="pre">Migration</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
