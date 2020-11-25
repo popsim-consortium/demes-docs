@@ -908,7 +908,7 @@
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ancestor deme </span><span class="si">{</span><span class="n">ancestor</span><span class="si">}</span><span class="s2"> not in graph&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ancestors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">proportions</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">proportions</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">]</span>
-        <span class="c1"># set the start time to first epoch&#39;s start time, to inf or to </span>
+        <span class="c1"># set the start time to first epoch&#39;s start time, to inf or to</span>
         <span class="c1"># the ancestor&#39;s end time, if not given</span>
         <span class="k">if</span> <span class="n">start_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">epochs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1335,6 +1335,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">custom_attributes</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;custom_attributes must be a list of attributes&quot;</span><span class="p">)</span>
+
         <span class="k">def</span> <span class="nf">simplify_epochs</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
             <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Remove epoch start times if implied by previous epoch&#39;s end time</span>
