@@ -1408,17 +1408,9 @@
                     <span class="k">del</span> <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;end_time&quot;</span><span class="p">]</span>
                 <span class="k">if</span> <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">time_hi</span><span class="p">:</span>
                     <span class="k">del</span> <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span>
-
-                <span class="n">k</span> <span class="o">=</span> <span class="p">[</span><span class="n">migration</span><span class="p">[</span><span class="s2">&quot;rate&quot;</span><span class="p">]]</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">k</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">migration</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">])</span>
-                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-                    <span class="n">k</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">k</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">migration</span><span class="p">[</span><span class="s2">&quot;end_time&quot;</span><span class="p">])</span>
-                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-                    <span class="n">k</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-                <span class="n">k</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+                <span class="n">k</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+                    <span class="n">migration</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;rate&quot;</span><span class="p">,</span> <span class="s2">&quot;start_time&quot;</span><span class="p">,</span> <span class="s2">&quot;end_time&quot;</span><span class="p">)</span>
+                <span class="p">)</span>
                 <span class="n">rate_sets</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="p">[])</span>
                 <span class="n">rate_sets</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">))</span>
 
