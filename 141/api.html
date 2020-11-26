@@ -434,6 +434,48 @@ are not <code class="docutils literal notranslate"><span class="pre">selfing_rat
 </dd></dl>
 
 <dl class="py method">
+<dt id="demes.Graph.assert_close">
+<code class="sig-name descname">assert_close</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">rel_tol</span><span class="o">=</span><span class="default_value">1e-09</span></em>, <em class="sig-param"><span class="n">abs_tol</span><span class="o">=</span><span class="default_value">1e-12</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/demes/demes.html#Graph.assert_close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Graph.assert_close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the graph and <code class="docutils literal notranslate"><span class="pre">other</span></code> implement essentially
+the same demographic model and raises AssertionError otherwise.
+Numerical values are compared using the
+<code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code> function, from which this method takes its name.
+Furthermore, the following implementation details are ignored during
+the comparison:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The graphs’ <code class="docutils literal notranslate"><span class="pre">description</span></code> and <code class="docutils literal notranslate"><span class="pre">doi</span></code> attributes.</p></li>
+<li><p>The order in which <code class="docutils literal notranslate"><span class="pre">migrations</span></code> were specified.</p></li>
+<li><p>The order in which admixture <code class="docutils literal notranslate"><span class="pre">pulses</span></code> were specified.</p></li>
+<li><p>The order in which <code class="docutils literal notranslate"><span class="pre">demes</span></code> were specified.</p></li>
+<li><p>The order in which a deme’s <code class="docutils literal notranslate"><span class="pre">ancestors</span></code> were specified.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">selfing_rate</span></code> and <code class="docutils literal notranslate"><span class="pre">cloning_rate</span></code> attributes of the deme
+graph, or of the demes (if any). Theses attributes are considered
+conveniences, and are propagated to the relevant demes’
+epochs. The <code class="docutils literal notranslate"><span class="pre">selfing_rate</span></code> and <code class="docutils literal notranslate"><span class="pre">cloning_rate</span></code> attributes of
+each epoch <em>are</em> evaluated for equality between the two models.</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>other</strong> (<a class="reference internal" href="#demes.Graph" title="demes.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a>) – The graph to compare against.</p></li>
+<li><p><strong>rel_tol</strong> (<em>float</em>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code>.</p></li>
+<li><p><strong>abs_tol</strong> (<em>float</em>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the two graphs implement the same model, raises                 AssertionError otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="demes.Graph.deme">
 <code class="sig-name descname">deme</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">description</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ancestors</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">proportions</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">epochs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start_time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">initial_size</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">final_size</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">selfing_rate</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cloning_rate</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; demes.demes.Deme<a class="reference internal" href="_modules/demes/demes.html#Graph.deme"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Graph.deme" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a deme to the graph, with lifetime <code class="docutils literal notranslate"><span class="pre">(start_time,</span> <span class="pre">end_time]</span></code>.</p>
@@ -672,9 +714,59 @@ the deme. The deme must be created with all epochs listed.</p></li>
 </dd>
 </dl>
 <dl class="py method">
+<dt id="demes.Deme.assert_close">
+<code class="sig-name descname">assert_close</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">rel_tol</span><span class="o">=</span><span class="default_value">1e-09</span></em>, <em class="sig-param"><span class="n">abs_tol</span><span class="o">=</span><span class="default_value">1e-12</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/demes/demes.html#Deme.assert_close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Deme.assert_close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the deme is equal to the <code class="docutils literal notranslate"><span class="pre">other</span></code> deme and raises
+AssertionError otherwise.
+Compares values of the following objects:
+<code class="docutils literal notranslate"><span class="pre">id</span></code>, <code class="docutils literal notranslate"><span class="pre">ancestors</span></code>, <code class="docutils literal notranslate"><span class="pre">proportions</span></code>, epochs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>other</strong> (<a class="reference internal" href="#demes.Deme" title="demes.Deme"><code class="xref py py-class docutils literal notranslate"><span class="pre">Deme</span></code></a>) – The deme to compare against.</p></li>
+<li><p><strong>ret_tol</strong> (<em>float</em>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></p></li>
+<li><p><strong>abs_tol</strong> (<em>float</em>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the two demes are equivalent, raises AssertionError                 otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="demes.Deme.end_time">
 <em class="property">property </em><code class="sig-name descname">end_time</code><a class="headerlink" href="#demes.Deme.end_time" title="Permalink to this definition">¶</a></dt>
 <dd><p>The end time of the deme’s existence.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="demes.Deme.isclose">
+<code class="sig-name descname">isclose</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">rel_tol</span><span class="o">=</span><span class="default_value">1e-09</span></em>, <em class="sig-param"><span class="n">abs_tol</span><span class="o">=</span><span class="default_value">1e-12</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/demes/demes.html#Deme.isclose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Deme.isclose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the deme is equal to the <code class="docutils literal notranslate"><span class="pre">other</span></code> deme.
+For more information see <a class="reference internal" href="#demes.Deme.assert_close" title="demes.Deme.assert_close"><code class="xref py py-meth docutils literal notranslate"><span class="pre">assert_close()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>other</strong> (<a class="reference internal" href="#demes.Deme" title="demes.Deme"><code class="xref py py-class docutils literal notranslate"><span class="pre">Deme</span></code></a>) – The deme to compare against.</p></li>
+<li><p><strong>ret_tol</strong> (<em>float</em>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></p></li>
+<li><p><strong>abs_tol</strong> (<em>float</em>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the two demes are equivalent, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -717,6 +809,57 @@ simulators might not understand the size_function provided.</p></li>
 </dd>
 </dl>
 <dl class="py method">
+<dt id="demes.Epoch.assert_close">
+<code class="sig-name descname">assert_close</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">rel_tol</span><span class="o">=</span><span class="default_value">1e-09</span></em>, <em class="sig-param"><span class="n">abs_tol</span><span class="o">=</span><span class="default_value">1e-12</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/demes/demes.html#Epoch.assert_close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Epoch.assert_close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the epoch and <code class="docutils literal notranslate"><span class="pre">other</span></code> epoch implement essentially
+the same epoch and raises AssertionError otherwise.
+Compares values of the following attributes:
+<code class="docutils literal notranslate"><span class="pre">start_time</span></code>, <code class="docutils literal notranslate"><span class="pre">end_time</span></code>, <code class="docutils literal notranslate"><span class="pre">initial_size</span></code>, <code class="docutils literal notranslate"><span class="pre">final_size</span></code>,
+<code class="docutils literal notranslate"><span class="pre">size_function</span></code>, <code class="docutils literal notranslate"><span class="pre">selfing_rate</span></code>, <code class="docutils literal notranslate"><span class="pre">cloning_rate</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>other</strong> (<a class="reference internal" href="#demes.Epoch" title="demes.Epoch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Epoch</span></code></a>) – The epoch to compare against.</p></li>
+<li><p><strong>ret_tol</strong> (<em>float</em>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></p></li>
+<li><p><strong>abs_tol</strong> (<em>float</em>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the two epochs are equivalent, raises AssertionError                 otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="demes.Epoch.isclose">
+<code class="sig-name descname">isclose</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">rel_tol</span><span class="o">=</span><span class="default_value">1e-09</span></em>, <em class="sig-param"><span class="n">abs_tol</span><span class="o">=</span><span class="default_value">1e-12</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/demes/demes.html#Epoch.isclose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Epoch.isclose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the epoch and <code class="docutils literal notranslate"><span class="pre">other</span></code> epoch implement essentially
+the same epoch. For more information see <a class="reference internal" href="#demes.Epoch.assert_close" title="demes.Epoch.assert_close"><code class="xref py py-meth docutils literal notranslate"><span class="pre">assert_close()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>other</strong> (<a class="reference internal" href="#demes.Epoch" title="demes.Epoch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Epoch</span></code></a>) – The epoch to compare against.</p></li>
+<li><p><strong>ret_tol</strong> (<em>float</em>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></p></li>
+<li><p><strong>abs_tol</strong> (<em>float</em>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the two epochs are equivalent, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="demes.Epoch.time_span">
 <em class="property">property </em><code class="sig-name descname">time_span</code><a class="headerlink" href="#demes.Epoch.time_span" title="Permalink to this definition">¶</a></dt>
 <dd><p>The time span of the epoch.</p>
@@ -743,6 +886,56 @@ the given time.</p></li>
 </ul>
 </dd>
 </dl>
+<dl class="py method">
+<dt id="demes.Migration.assert_close">
+<code class="sig-name descname">assert_close</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">rel_tol</span><span class="o">=</span><span class="default_value">1e-09</span></em>, <em class="sig-param"><span class="n">abs_tol</span><span class="o">=</span><span class="default_value">1e-12</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/demes/demes.html#Migration.assert_close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Migration.assert_close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the migration is equal to the <code class="docutils literal notranslate"><span class="pre">other</span></code> migration and
+raises AssertionError otherwise.
+Compares values of the following attributes:
+<code class="docutils literal notranslate"><span class="pre">source</span></code>, <code class="docutils literal notranslate"><span class="pre">dest</span></code>, <code class="docutils literal notranslate"><span class="pre">start_time</span></code>, <code class="docutils literal notranslate"><span class="pre">end_time</span></code>, <code class="docutils literal notranslate"><span class="pre">rate</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>other</strong> (<a class="reference internal" href="#demes.Migration" title="demes.Migration"><code class="xref py py-class docutils literal notranslate"><span class="pre">Migration</span></code></a>) – The migration to compare against.</p></li>
+<li><p><strong>ret_tol</strong> (<em>float</em>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></p></li>
+<li><p><strong>abs_tol</strong> (<em>float</em>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the two migrations are equivalent, raises                 AssertionError otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="demes.Migration.isclose">
+<code class="sig-name descname">isclose</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">rel_tol</span><span class="o">=</span><span class="default_value">1e-09</span></em>, <em class="sig-param"><span class="n">abs_tol</span><span class="o">=</span><span class="default_value">1e-12</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/demes/demes.html#Migration.isclose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Migration.isclose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the migration is equal to the <code class="docutils literal notranslate"><span class="pre">other</span></code> migration.
+For more information see <a class="reference internal" href="#demes.Migration.assert_close" title="demes.Migration.assert_close"><code class="xref py py-meth docutils literal notranslate"><span class="pre">assert_close()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>other</strong> (<a class="reference internal" href="#demes.Migration" title="demes.Migration"><code class="xref py py-class docutils literal notranslate"><span class="pre">Migration</span></code></a>) – The migration to compare against.</p></li>
+<li><p><strong>ret_tol</strong> (<em>float</em>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></p></li>
+<li><p><strong>abs_tol</strong> (<em>float</em>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the two epochs are equivalent, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -764,6 +957,56 @@ the source deme.</p></li>
 </ul>
 </dd>
 </dl>
+<dl class="py method">
+<dt id="demes.Pulse.assert_close">
+<code class="sig-name descname">assert_close</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">rel_tol</span><span class="o">=</span><span class="default_value">1e-09</span></em>, <em class="sig-param"><span class="n">abs_tol</span><span class="o">=</span><span class="default_value">1e-12</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/demes/demes.html#Pulse.assert_close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Pulse.assert_close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the pulse is equal to the <code class="docutils literal notranslate"><span class="pre">other</span></code> pulse and raises
+AssertionError otherwise.
+Compares values of the following attributes:
+<code class="docutils literal notranslate"><span class="pre">source</span></code>, <code class="docutils literal notranslate"><span class="pre">dest</span></code>, <code class="docutils literal notranslate"><span class="pre">time</span></code>, <code class="docutils literal notranslate"><span class="pre">proportion</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>other</strong> (<a class="reference internal" href="#demes.Pulse" title="demes.Pulse"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pulse</span></code></a>) – The pulse to compare against.</p></li>
+<li><p><strong>ret_tol</strong> (<em>float</em>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></p></li>
+<li><p><strong>abs_tol</strong> (<em>float</em>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the two pulses are equivalent, raises AssertionError                 otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="demes.Pulse.isclose">
+<code class="sig-name descname">isclose</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">rel_tol</span><span class="o">=</span><span class="default_value">1e-09</span></em>, <em class="sig-param"><span class="n">abs_tol</span><span class="o">=</span><span class="default_value">1e-12</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/demes/demes.html#Pulse.isclose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Pulse.isclose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the pulse is equal to the <code class="docutils literal notranslate"><span class="pre">other</span></code> pulse.
+For more information see <a class="reference internal" href="#demes.Pulse.assert_close" title="demes.Pulse.assert_close"><code class="xref py py-meth docutils literal notranslate"><span class="pre">assert_close()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>other</strong> (<a class="reference internal" href="#demes.Pulse" title="demes.Pulse"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pulse</span></code></a>) – The pulse to compare against.</p></li>
+<li><p><strong>ret_tol</strong> (<em>float</em>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></p></li>
+<li><p><strong>abs_tol</strong> (<em>float</em>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the two pulses are equivalent, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>
