@@ -338,7 +338,7 @@ The keywords and structure of the string are defined by the
 
 <dl class="py function">
 <dt id="demes.dump">
-<code class="sig-prename descclassname">demes.</code><code class="sig-name descname">dump</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">graph</span></em>, <em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">'yaml'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#dump"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.dump" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">demes.</code><code class="sig-name descname">dump</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">graph</span></em>, <em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">'yaml'</span></em>, <em class="sig-param"><span class="n">simplified</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#dump"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.dump" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dump the specified graph to a file.
 The keywords and structure of the file are defined by the
 <a class="reference internal" href="schema.html#sec-schema"><span class="std std-ref">schema</span></a>.</p>
@@ -348,6 +348,8 @@ The keywords and structure of the file are defined by the
 <li><p><strong>graph</strong> (<a class="reference internal" href="#demes.Graph" title="demes.Graph"><em>Graph</em></a>) – The graph to dump.</p></li>
 <li><p><strong>filename</strong> (str or <code class="xref py py-class docutils literal notranslate"><span class="pre">os.PathLike</span></code>) – Path to the output file.</p></li>
 <li><p><strong>format</strong> (<em>str</em>) – The format of the output file. Either “yaml” or “json”.</p></li>
+<li><p><strong>simplified</strong> (<em>bool</em>) – If True, outputs a simplified graph. If False, outputs
+a redundant graph.</p></li>
 </ul>
 </dd>
 </dl>
@@ -355,7 +357,7 @@ The keywords and structure of the file are defined by the
 
 <dl class="py function">
 <dt id="demes.dumps">
-<code class="sig-prename descclassname">demes.</code><code class="sig-name descname">dumps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">graph</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">'yaml'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#dumps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.dumps" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">demes.</code><code class="sig-name descname">dumps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">graph</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">'yaml'</span></em>, <em class="sig-param"><span class="n">simplified</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#dumps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.dumps" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dump the specified graph to a YAML or JSON string.
 The keywords and structure of the string are defined by the
 <a class="reference internal" href="schema.html#sec-schema"><span class="std std-ref">schema</span></a>.</p>
@@ -364,6 +366,8 @@ The keywords and structure of the string are defined by the
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<a class="reference internal" href="#demes.Graph" title="demes.Graph"><em>Graph</em></a>) – The graph to dump.</p></li>
 <li><p><strong>format</strong> (<em>str</em>) – The format of the output file. Either “yaml” or “json”.</p></li>
+<li><p><strong>simplified</strong> (<em>bool</em>) – If True, returns a simplified graph. If False, returns
+a complete redundant graph.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -413,6 +417,20 @@ Use <a class="reference internal" href="#demes.Graph.pulse" title="demes.Graph.p
 <dt id="demes.Graph.asdict">
 <code class="sig-name descname">asdict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.asdict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Graph.asdict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a dict representation of the graph.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="demes.Graph.asdict_simplified">
+<code class="sig-name descname">asdict_simplified</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">custom_attributes</span><span class="o">=</span><span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.asdict_simplified"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Graph.asdict_simplified" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a simplified dict representation of the graph.</p>
+<p>This function removes redundancies in the graph. Specifically, we …
+continue docs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>custom_attributes</strong> – List of additional attributes to simplify, which
+are not <code class="docutils literal notranslate"><span class="pre">selfing_rate</span></code> or <code class="docutils literal notranslate"><span class="pre">cloning_rate</span></code>.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -675,7 +693,7 @@ the deme. The deme must be created with all epochs listed.</p></li>
 
 <dl class="py class">
 <dt id="demes.Epoch">
-<em class="property">class </em><code class="sig-prename descclassname">demes.</code><code class="sig-name descname">Epoch</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">start_time</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_time</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">initial_size</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">final_size</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">size_function</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">selfing_rate</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cloning_rate</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Epoch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Epoch" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">demes.</code><code class="sig-name descname">Epoch</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">start_time</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_time</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">initial_size</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">final_size</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">size_function</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">selfing_rate</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cloning_rate</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Epoch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Epoch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Population size parameters for a deme in a specified time period.
 Times follow the forwards-in-time convention (time values increase
 from the present towards the past). The start time of the epoch is
