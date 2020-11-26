@@ -327,33 +327,95 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span>
 
-    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+<div class="viewcode-block" id="Epoch.assert_close"><a class="viewcode-back" href="../../api.html#demes.Epoch.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">(</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if the epoch and ``other`` epoch implement essentially</span>
+<span class="sd">        the same epoch and raises AssertionError otherwise.</span>
+<span class="sd">        Compares values of the following attributes:</span>
+<span class="sd">        ``start_time``, ``end_time``, ``initial_size``, ``final_size``,</span>
+<span class="sd">        ``size_function``, ``selfing_rate``, ``cloning_rate``.</span>
+
+<span class="sd">        :param other: The epoch to compare against.</span>
+<span class="sd">        :type other: :class:`.Epoch`</span>
+<span class="sd">        :param ret_tol: The relative tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`</span>
+<span class="sd">        :type ret_tol: float</span>
+<span class="sd">        :param abs_tol: The absolute tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`.</span>
+<span class="sd">        :type abs_tol: float</span>
+
+<span class="sd">        :return: True if the two epochs are equivalent, raises AssertionError\</span>
+<span class="sd">                 otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
-            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
-            <span class="p">)</span>
-            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">initial_size</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">initial_size</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
-            <span class="p">)</span>
-            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">final_size</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">final_size</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
-            <span class="p">)</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">size_function</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">size_function</span>
-            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">selfing_rate</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">selfing_rate</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
-            <span class="p">)</span>
-            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">cloning_rate</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">cloning_rate</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
-            <span class="p">)</span>
-        <span class="p">)</span></div>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed as other epoch is not instance of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s2"> type.&quot;</span>
+        <span class="k">assert</span> <span class="n">isclose</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for start_time </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">start_time</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
+        <span class="k">assert</span> <span class="n">isclose</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for end_time </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">end_time</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
+        <span class="k">assert</span> <span class="n">isclose</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initial_size</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">initial_size</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+        <span class="p">),</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Failed for initial_size &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">initial_size</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">initial_size</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
+        <span class="p">)</span>
+        <span class="k">assert</span> <span class="n">isclose</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">final_size</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">final_size</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for final_size </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">final_size</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">final_size</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">size_function</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">size_function</span>
+        <span class="k">assert</span> <span class="n">isclose</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selfing_rate</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">selfing_rate</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+        <span class="p">),</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Failed for selfing_rate &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">selfing_rate</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">selfing_rate</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
+        <span class="p">)</span>
+        <span class="k">assert</span> <span class="n">isclose</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cloning_rate</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">cloning_rate</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+        <span class="p">),</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Failed for cloning_rate &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cloning_rate</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">cloning_rate</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Epoch.isclose"><a class="viewcode-back" href="../../api.html#demes.Epoch.isclose">[docs]</a>    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">other</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
+        <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if the epoch and ``other`` epoch implement essentially</span>
+<span class="sd">        the same epoch. For more information see :meth:`assert_close`.</span>
+
+<span class="sd">        :param other: The epoch to compare against.</span>
+<span class="sd">        :type other: :class:`.Epoch`</span>
+<span class="sd">        :param ret_tol: The relative tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`</span>
+<span class="sd">        :type ret_tol: float</span>
+<span class="sd">        :param abs_tol: The absolute tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`.</span>
+<span class="sd">        :type abs_tol: float</span>
+
+
+<span class="sd">        :return: True if the two epochs are equivalent, False otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div></div>
 
 
 <div class="viewcode-block" id="Migration"><a class="viewcode-back" href="../../api.html#demes.Migration">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -382,23 +444,77 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">dest</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;source and dest cannot be the same deme&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+<div class="viewcode-block" id="Migration.assert_close"><a class="viewcode-back" href="../../api.html#demes.Migration.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">(</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if the migration is equal to the ``other`` migration and</span>
+<span class="sd">        raises AssertionError otherwise.</span>
+<span class="sd">        Compares values of the following attributes:</span>
+<span class="sd">        ``source``, ``dest``, ``start_time``, ``end_time``, ``rate``.</span>
+
+<span class="sd">        :param other: The migration to compare against.</span>
+<span class="sd">        :type other: :class:`.Migration`</span>
+<span class="sd">        :param ret_tol: The relative tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`</span>
+<span class="sd">        :type ret_tol: float</span>
+<span class="sd">        :param abs_tol: The absolute tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`.</span>
+<span class="sd">        :type abs_tol: float</span>
+
+<span class="sd">        :return: True if the two migrations are equivalent, raises\</span>
+<span class="sd">                 AssertionError otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">source</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">dest</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">dest</span>
-            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
-            <span class="p">)</span>
-            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rate</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">rate</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
-        <span class="p">)</span></div>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed as other migration is not instance of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s2"> type.&quot;</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">source</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">dest</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">dest</span>
+        <span class="k">assert</span> <span class="n">isclose</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for start_time </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">start_time</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
+        <span class="k">assert</span> <span class="n">isclose</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for end_time </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">end_time</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
+        <span class="k">assert</span> <span class="n">isclose</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rate</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">rate</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for rate </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rate</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">rate</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Migration.isclose"><a class="viewcode-back" href="../../api.html#demes.Migration.isclose">[docs]</a>    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">other</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
+        <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if the migration is equal to the ``other`` migration.</span>
+<span class="sd">        For more information see :meth:`assert_close`.</span>
+
+<span class="sd">        :param other: The migration to compare against.</span>
+<span class="sd">        :type other: :class:`.Migration`</span>
+<span class="sd">        :param ret_tol: The relative tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`</span>
+<span class="sd">        :type ret_tol: float</span>
+<span class="sd">        :param abs_tol: The absolute tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`.</span>
+<span class="sd">        :type abs_tol: float</span>
+
+<span class="sd">        :return: True if the two epochs are equivalent, False otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div></div>
 
 
 <div class="viewcode-block" id="Pulse"><a class="viewcode-back" href="../../api.html#demes.Pulse">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -426,22 +542,74 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">dest</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;source and dest cannot be the same deme&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+<div class="viewcode-block" id="Pulse.assert_close"><a class="viewcode-back" href="../../api.html#demes.Pulse.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">(</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if the pulse is equal to the ``other`` pulse and raises</span>
+<span class="sd">        AssertionError otherwise.</span>
+<span class="sd">        Compares values of the following attributes:</span>
+<span class="sd">        ``source``, ``dest``, ``time``, ``proportion``.</span>
+
+<span class="sd">        :param other: The pulse to compare against.</span>
+<span class="sd">        :type other: :class:`.Pulse`</span>
+<span class="sd">        :param ret_tol: The relative tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`</span>
+<span class="sd">        :type ret_tol: float</span>
+<span class="sd">        :param abs_tol: The absolute tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`.</span>
+<span class="sd">        :type abs_tol: float</span>
+
+<span class="sd">        :return: True if the two pulses are equivalent, raises AssertionError\</span>
+<span class="sd">                 otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">source</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">dest</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">dest</span>
-            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">proportion</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">proportion</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
-            <span class="p">)</span>
-        <span class="p">)</span></div>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed as other pulse is not instance of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s2"> type.&quot;</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">source</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">dest</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">dest</span>
+        <span class="k">assert</span> <span class="n">isclose</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for time </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
+        <span class="k">assert</span> <span class="n">isclose</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">proportion</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">proportion</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for proportion </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">proportion</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">proportion</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Pulse.isclose"><a class="viewcode-back" href="../../api.html#demes.Pulse.isclose">[docs]</a>    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">other</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
+        <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if the pulse is equal to the ``other`` pulse.</span>
+<span class="sd">        For more information see :meth:`assert_close`.</span>
+
+<span class="sd">        :param other: The pulse to compare against.</span>
+<span class="sd">        :type other: :class:`.Pulse`</span>
+<span class="sd">        :param ret_tol: The relative tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`</span>
+<span class="sd">        :type ret_tol: float</span>
+<span class="sd">        :param abs_tol: The absolute tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`.</span>
+<span class="sd">        :type abs_tol: float</span>
+
+<span class="sd">        :return: True if the two pulses are equivalent, False otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div></div>
 
 
 <span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -468,6 +636,43 @@
             <span class="k">if</span> <span class="n">child</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;child and parent cannot be the same deme&quot;</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">other</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
+        <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
+        <span class="n">raise_ex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if the split is equal to the ``other`` split and raises</span>
+<span class="sd">        AssertionError otherwise.</span>
+<span class="sd">        Compares values of the following attributes:</span>
+<span class="sd">        ``parent``, ``children``, ``time``.</span>
+
+<span class="sd">        :param other: The split to compare against.</span>
+<span class="sd">        :type other: :class:`.Split`</span>
+<span class="sd">        :param ret_tol: The relative tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`</span>
+<span class="sd">        :type ret_tol: float</span>
+<span class="sd">        :param abs_tol: The absolute tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`.</span>
+<span class="sd">        :type abs_tol: float</span>
+
+<span class="sd">        :return: True if the two splits are equivalent, raises AssertionError\</span>
+<span class="sd">                 otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed as other split is not instance of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s2"> type.&quot;</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">parent</span>
+        <span class="k">assert</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">children</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">isclose</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for time </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
     <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
@@ -475,12 +680,32 @@
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">parent</span>
-            <span class="ow">and</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">children</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
-        <span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if the split is equal to the ``other`` split.</span>
+<span class="sd">        Compares values of the following attributes:</span>
+<span class="sd">        ``parent``, ``children``, ``time``.</span>
+
+<span class="sd">        :param other: The split to compare against.</span>
+<span class="sd">        :type other: :class:`.Split`</span>
+<span class="sd">        :param ret_tol: The relative tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`</span>
+<span class="sd">        :type ret_tol: float</span>
+<span class="sd">        :param abs_tol: The absolute tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`.</span>
+<span class="sd">        :type abs_tol: float</span>
+<span class="sd">        :param raise_ex: Determines if exception (ValueError) should be raised</span>
+<span class="sd">                         when splits are not close. The error will contain</span>
+<span class="sd">                         information about attributes that are not equal.</span>
+<span class="sd">        :type raise_ex: bool</span>
+
+<span class="sd">        :return: True if the two splits are equivalent, False otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
 
 
 <span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -502,6 +727,46 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;child and parent cannot be the same deme&quot;</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">other</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
+        <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if the branch is equal to the ``other`` branch and raises</span>
+<span class="sd">        AssertionError otherwise.</span>
+<span class="sd">        Compares values of the following attributes:</span>
+<span class="sd">        ``parent``, ``child``, ``time``.</span>
+
+<span class="sd">        :param other: The branch to compare against.</span>
+<span class="sd">        :type other: :class:`.Branch`</span>
+<span class="sd">        :param ret_tol: The relative tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`</span>
+<span class="sd">        :type ret_tol: float</span>
+<span class="sd">        :param abs_tol: The absolute tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`.</span>
+<span class="sd">        :type abs_tol: float</span>
+<span class="sd">        :param raise_ex: Determines if exception (ValueError) should be raised</span>
+<span class="sd">                         when branches are not close. The error will contain</span>
+<span class="sd">                         information about attributes that are not equal.</span>
+<span class="sd">        :type raise_ex: bool</span>
+
+<span class="sd">        :return: True if the two branches are equivalent, raises\</span>
+<span class="sd">                 AssertionError otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;failed as other branch is not instance of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s2"> type.&quot;</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">parent</span>
+        <span class="k">assert</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">)</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">child</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">isclose</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for time </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
     <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
@@ -509,12 +774,28 @@
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">parent</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">child</span>
-            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
-        <span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if the branch is equal to the ``other`` branch.</span>
+<span class="sd">        For more information see :meth:`assert_close`.</span>
+
+<span class="sd">        :param other: The branch to compare against.</span>
+<span class="sd">        :type other: :class:`.Branch`</span>
+<span class="sd">        :param ret_tol: The relative tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`</span>
+<span class="sd">        :type ret_tol: float</span>
+<span class="sd">        :param abs_tol: The absolute tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`.</span>
+<span class="sd">        :type abs_tol: float</span>
+
+<span class="sd">        :return: True if the two branches are equivalent, False otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
 
 
 <span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -550,6 +831,53 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot repeat parents in merge&quot;</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">other</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
+        <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if the merge is equal to the ``other`` merge and raises</span>
+<span class="sd">        AssertionError otherwise.</span>
+<span class="sd">        Compares values of the following attributes:</span>
+<span class="sd">        ``parents``, ``proportions``, ``child``, ``time``.</span>
+
+<span class="sd">        :param other: The merge to compare against.</span>
+<span class="sd">        :type other: :class:`.Merge`</span>
+<span class="sd">        :param ret_tol: The relative tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`</span>
+<span class="sd">        :type ret_tol: float</span>
+<span class="sd">        :param abs_tol: The absolute tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`.</span>
+<span class="sd">        :type abs_tol: float</span>
+
+<span class="sd">        :return: True if the two merges are equivalent, raises AssertionError\</span>
+<span class="sd">                 otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed as other merge is not instance of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s2"> type.&quot;</span>
+        <span class="k">assert</span> <span class="n">isclose_deme_proportions</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">parents</span><span class="p">,</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span>
+            <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span>
+            <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">,</span>
+        <span class="p">),</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Parents or corresponding proportions are different: &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;parents: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">parents</span><span class="si">}</span><span class="s2"> (other), &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;proportions: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">proportions</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
+        <span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">)</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">child</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">isclose</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for time </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
     <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
@@ -557,19 +885,28 @@
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
-            <span class="ow">and</span> <span class="n">isclose_deme_proportions</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span>
-                <span class="n">other</span><span class="o">.</span><span class="n">parents</span><span class="p">,</span>
-                <span class="n">other</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span>
-                <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span>
-                <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">child</span>
-            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
-        <span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if the merge is equal to the ``other`` merge.</span>
+<span class="sd">        For more information see :meth:`assert_close`.</span>
+
+<span class="sd">        :param other: The merge to compare against.</span>
+<span class="sd">        :type other: :class:`.Merge`</span>
+<span class="sd">        :param ret_tol: The relative tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`</span>
+<span class="sd">        :type ret_tol: float</span>
+<span class="sd">        :param abs_tol: The absolute tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`.</span>
+<span class="sd">        :type abs_tol: float</span>
+
+<span class="sd">        :return: True if the two merges are equivalent, False otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
 
 
 <span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -605,6 +942,61 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot repeat parents in admixure&quot;</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">other</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
+        <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
+        <span class="n">raise_ex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if the admixture is equal to the ``other`` admixture and</span>
+<span class="sd">        raises AssertionError otherwise.</span>
+<span class="sd">        Compares values of the following attributes:</span>
+<span class="sd">        ``parents``, ``proportions``, ``child``, ``time``.</span>
+
+<span class="sd">        :param other: The admixture to compare against.</span>
+<span class="sd">        :type other: :class:`.Admix`</span>
+<span class="sd">        :param ret_tol: The relative tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`</span>
+<span class="sd">        :type ret_tol: float</span>
+<span class="sd">        :param abs_tol: The absolute tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`.</span>
+<span class="sd">        :type abs_tol: float</span>
+<span class="sd">        :param raise_ex: Determines if exception (ValueError) should be raised</span>
+<span class="sd">                         when admixtures are not close. The error will contain</span>
+<span class="sd">                         information about attributes that are not equal.</span>
+<span class="sd">        :type raise_ex: bool</span>
+
+<span class="sd">        :return: True if the two admixtures are equivalent, raises\</span>
+<span class="sd">                 AssertionError otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed as other admixture is not instance of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s2"> type.&quot;</span>
+        <span class="k">assert</span> <span class="n">isclose_deme_proportions</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">parents</span><span class="p">,</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span>
+            <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span>
+            <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">,</span>
+        <span class="p">),</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Parents or corresponding proportions are different: &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;parents: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">parents</span><span class="si">}</span><span class="s2"> (other), &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;proportions: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">proportions</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
+        <span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">child</span><span class="p">)</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">child</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">isclose</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="p">,</span>
+            <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span>
+            <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">,</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for time </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
     <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
@@ -612,19 +1004,31 @@
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
-            <span class="ow">and</span> <span class="n">isclose_deme_proportions</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span>
-                <span class="n">other</span><span class="o">.</span><span class="n">parents</span><span class="p">,</span>
-                <span class="n">other</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span>
-                <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span>
-                <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">child</span>
-            <span class="ow">and</span> <span class="n">isclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
-        <span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if the admixture is equal to the ``other`` admixture.</span>
+<span class="sd">        For more information see :meth:`assert_close`.</span>
+
+<span class="sd">        :param other: The admixture to compare against.</span>
+<span class="sd">        :type other: :class:`.Admix`</span>
+<span class="sd">        :param ret_tol: The relative tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`</span>
+<span class="sd">        :type ret_tol: float</span>
+<span class="sd">        :param abs_tol: The absolute tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`.</span>
+<span class="sd">        :type abs_tol: float</span>
+<span class="sd">        :param raise_ex: Determines if exception (ValueError) should be raised</span>
+<span class="sd">                         when admixtures are not close. The error will contain</span>
+<span class="sd">                         information about attributes that are not equal.</span>
+<span class="sd">        :type raise_ex: bool</span>
+
+<span class="sd">        :return: True if the two admixtures are equivalent, False otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
 
 
 <div class="viewcode-block" id="Deme"><a class="viewcode-back" href="../../api.html#demes.Deme">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -676,29 +1080,83 @@
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="o">!=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">start_time</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Epoch start and end times must align&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+<div class="viewcode-block" id="Deme.assert_close"><a class="viewcode-back" href="../../api.html#demes.Deme.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">(</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if the deme is equal to the ``other`` deme and raises</span>
+<span class="sd">        AssertionError otherwise.</span>
+<span class="sd">        Compares values of the following objects:</span>
+<span class="sd">        ``id``, ``ancestors``, ``proportions``, epochs.</span>
+
+<span class="sd">        :param other: The deme to compare against.</span>
+<span class="sd">        :type other: :class:`.Deme`</span>
+<span class="sd">        :param ret_tol: The relative tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`</span>
+<span class="sd">        :type ret_tol: float</span>
+<span class="sd">        :param abs_tol: The absolute tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`.</span>
+<span class="sd">        :type abs_tol: float</span>
+
+<span class="sd">        :return: True if the two demes are equivalent, raises AssertionError\</span>
+<span class="sd">                 otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">id</span>
-            <span class="ow">and</span> <span class="n">isclose_deme_proportions</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span>
-                <span class="n">other</span><span class="o">.</span><span class="n">ancestors</span><span class="p">,</span>
-                <span class="n">other</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span>
-                <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span>
-                <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span>
-                <span class="n">e1</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">e2</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">e1</span><span class="p">,</span> <span class="n">e2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">epochs</span><span class="p">)</span>
-            <span class="p">)</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed as other deme is not instance of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s2"> type.&quot;</span>
+        <span class="k">assert</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">isclose_deme_proportions</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">ancestors</span><span class="p">,</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span>
+            <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span>
+            <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">,</span>
+        <span class="p">),</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Ancestors or corresponding proportions are different: &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;ancestors: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">ancestors</span><span class="si">}</span><span class="s2"> (other), &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;proportions: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">proportions</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
         <span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">epochs</span><span class="p">)):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">e1</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span><span class="n">e2</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">AssertionError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed for epochs (number </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Deme.isclose"><a class="viewcode-back" href="../../api.html#demes.Deme.isclose">[docs]</a>    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">other</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
+        <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if the deme is equal to the ``other`` deme.</span>
+<span class="sd">        For more information see :meth:`assert_close`.</span>
+
+<span class="sd">        :param other: The deme to compare against.</span>
+<span class="sd">        :type other: :class:`.Deme`</span>
+<span class="sd">        :param ret_tol: The relative tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`</span>
+<span class="sd">        :type ret_tol: float</span>
+<span class="sd">        :param abs_tol: The absolute tolerance permitted for numerical</span>
+<span class="sd">                        comparisons. See documentation for :func:`math.isclose`.</span>
+<span class="sd">        :type abs_tol: float</span>
+
+<span class="sd">        :return: True if the two demes are equivalent, False otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">start_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -784,6 +1242,82 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">deme_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deme_map</span>
 
+<div class="viewcode-block" id="Graph.assert_close"><a class="viewcode-back" href="../../api.html#demes.Graph.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">other</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
+        <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if the graph and ``other`` implement essentially</span>
+<span class="sd">        the same demographic model and raises AssertionError otherwise.</span>
+<span class="sd">        Numerical values are compared using the</span>
+<span class="sd">        :func:`math.isclose` function, from which this method takes its name.</span>
+<span class="sd">        Furthermore, the following implementation details are ignored during</span>
+<span class="sd">        the comparison:</span>
+
+<span class="sd">            - The graphs&#39; ``description`` and ``doi`` attributes.</span>
+<span class="sd">            - The order in which ``migrations`` were specified.</span>
+<span class="sd">            - The order in which admixture ``pulses`` were specified.</span>
+<span class="sd">            - The order in which ``demes`` were specified.</span>
+<span class="sd">            - The order in which a deme&#39;s ``ancestors`` were specified.</span>
+<span class="sd">            - The ``selfing_rate`` and ``cloning_rate`` attributes of the deme</span>
+<span class="sd">              graph, or of the demes (if any). Theses attributes are considered</span>
+<span class="sd">              conveniences, and are propagated to the relevant demes&#39;</span>
+<span class="sd">              epochs. The ``selfing_rate`` and ``cloning_rate`` attributes of</span>
+<span class="sd">              each epoch *are* evaluated for equality between the two models.</span>
+
+<span class="sd">        :param other: The graph to compare against.</span>
+<span class="sd">        :type other: :class:`.Graph`</span>
+<span class="sd">        :param float rel_tol: The relative tolerance permitted for numerical</span>
+<span class="sd">            comparisons. See documentation for :func:`math.isclose`.</span>
+<span class="sd">        :param float abs_tol: The absolute tolerance permitted for numerical</span>
+<span class="sd">            comparisons. See documentation for :func:`math.isclose`.</span>
+<span class="sd">        :return: True if the two graphs implement the same model, raises\</span>
+<span class="sd">                 AssertionError otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">sorted_eq</span><span class="p">(</span><span class="n">aa</span><span class="p">,</span> <span class="n">bb</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+            <span class="c1"># Order-agnostic equality check.</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">aa</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">bb</span><span class="p">)</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">aa</span><span class="p">),</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">bb</span><span class="p">)):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">a</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">AssertionError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Deme</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">Deme</span><span class="p">):</span>
+                        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;Failed for </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">b</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span>
+                        <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+                    <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed for </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed as other graph is not instance of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s2"> type.&quot;</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_units</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">time_units</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation_time</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">generation_time</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">sorted_eq</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">demes</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;demes&quot;</span>
+            <span class="p">)</span>
+            <span class="ow">and</span> <span class="n">sorted_eq</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">migrations</span><span class="p">,</span>
+                <span class="n">other</span><span class="o">.</span><span class="n">migrations</span><span class="p">,</span>
+                <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span>
+                <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;migrations&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="ow">and</span> <span class="n">sorted_eq</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pulses</span><span class="p">,</span>
+                <span class="n">other</span><span class="o">.</span><span class="n">pulses</span><span class="p">,</span>
+                <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span>
+                <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pulses&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
+
 <div class="viewcode-block" id="Graph.isclose"><a class="viewcode-back" href="../../api.html#demes.Graph.isclose">[docs]</a>    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
@@ -818,26 +1352,11 @@
 <span class="sd">        :return: True if the two graphs implement the same model, False otherwise.</span>
 <span class="sd">        :rtype: bool</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">def</span> <span class="nf">sorted_eq</span><span class="p">(</span><span class="n">aa</span><span class="p">,</span> <span class="n">bb</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-            <span class="c1"># Order-agnostic equality check.</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">aa</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bb</span><span class="p">):</span>
-                <span class="k">return</span> <span class="kc">False</span>
-            <span class="k">for</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">aa</span><span class="p">),</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">bb</span><span class="p">)):</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">a</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">):</span>
-                    <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span>
-
-        <span class="k">return</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_units</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">time_units</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation_time</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">generation_time</span>
-            <span class="ow">and</span> <span class="n">sorted_eq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">demes</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="n">sorted_eq</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">migrations</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">migrations</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
-            <span class="p">)</span>
-            <span class="ow">and</span> <span class="n">sorted_eq</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pulses</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">pulses</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
-        <span class="p">)</span></div>
+        <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
 
 <div class="viewcode-block" id="Graph.deme"><a class="viewcode-back" href="../../api.html#demes.Graph.deme">[docs]</a>    <span class="k">def</span> <span class="nf">deme</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
