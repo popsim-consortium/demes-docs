@@ -247,7 +247,7 @@
     <span class="k">return</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="o">.</span><span class="n">fromdict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="dumps"><a class="viewcode-back" href="../../api.html#demes.dumps">[docs]</a><span class="k">def</span> <span class="nf">dumps</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="dumps"><a class="viewcode-back" href="../../api.html#demes.dumps">[docs]</a><span class="k">def</span> <span class="nf">dumps</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Dump the specified graph to a YAML or JSON string.</span>
 <span class="sd">    The keywords and structure of the string are defined by the</span>
@@ -255,10 +255,15 @@
 
 <span class="sd">    :param .Graph graph: The graph to dump.</span>
 <span class="sd">    :param str format: The format of the output file. Either &quot;yaml&quot; or &quot;json&quot;.</span>
+<span class="sd">    :param bool simplified: If True, returns a simplified graph. If False, returns</span>
+<span class="sd">        a complete redundant graph.</span>
 <span class="sd">    :return: The YAML or JSON string.</span>
 <span class="sd">    :rtype: str</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">asdict</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">simplified</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">asdict_simplified</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">asdict</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;json&quot;</span><span class="p">:</span>
         <span class="n">string</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -271,7 +276,7 @@
     <span class="k">return</span> <span class="n">string</span></div>
 
 
-<div class="viewcode-block" id="dump"><a class="viewcode-back" href="../../api.html#demes.dump">[docs]</a><span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="dump"><a class="viewcode-back" href="../../api.html#demes.dump">[docs]</a><span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Dump the specified graph to a file.</span>
 <span class="sd">    The keywords and structure of the file are defined by the</span>
@@ -281,9 +286,11 @@
 <span class="sd">    :param filename: Path to the output file.</span>
 <span class="sd">    :type filename: str or :class:`os.PathLike`</span>
 <span class="sd">    :param str format: The format of the output file. Either &quot;yaml&quot; or &quot;json&quot;.</span>
+<span class="sd">    :param bool simplified: If True, outputs a simplified graph. If False, outputs</span>
+<span class="sd">        a redundant graph.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">dumps</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">))</span></div>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">dumps</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="n">simplified</span><span class="p">))</span></div>
 </pre></div>
 
            </div>
