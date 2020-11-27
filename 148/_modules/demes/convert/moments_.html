@@ -1,0 +1,1103 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>demes.convert.moments_ &mdash; demes 0.1.dev1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/thebelab.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/thebelab-helper.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> demes
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../convert.html">Conversion functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../schema.html">YAML schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../development.html">Development</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">demes</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>demes.convert.moments_</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for demes.convert.moments_</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">moments</span>
+
+
+<span class="c1"># This script contains functions to compute the sample SFS from a demography defined</span>
+<span class="c1"># using demes using moments. Moments can handle integrating up to five populations,</span>
+<span class="c1"># so the demography cannot have more than five populations at any given time.</span>
+
+
+<div class="viewcode-block" id="SFS"><a class="viewcode-back" href="../../../convert.html#demes.convert.SFS">[docs]</a><span class="k">def</span> <span class="nf">SFS</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">sampled_demes</span><span class="p">,</span> <span class="n">sample_sizes</span><span class="p">,</span> <span class="n">sample_times</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">Ne</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">unsampled_n</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes a deme graph and computes the site frequency spectrum using ``moments``.</span>
+
+<span class="sd">    :param g: A demes graph from which to compute the SFS.</span>
+<span class="sd">    :param sampled_demes: A list of deme IDs to take samples from. We can repeat</span>
+<span class="sd">        demes, as long as the sampling of repeated deme IDs occurs at distinct</span>
+<span class="sd">        times.</span>
+<span class="sd">    :param sample_sizes: A list of the same length as ``sampled_demes``,</span>
+<span class="sd">        giving the sample sizes for each sampled deme.</span>
+<span class="sd">    :param sample_times: If None, assumes all sampling occurs at the end of the</span>
+<span class="sd">        existence of the sampled deme. If there are</span>
+<span class="sd">        ancient samples, ``sample_times`` must be a list of same length as</span>
+<span class="sd">        ``sampled_demes``, giving the sampling times for each sampled</span>
+<span class="sd">        deme. Sampling times are given in time units of the original deme graph,</span>
+<span class="sd">        so might not necessarily be generations (e.g. if ``g.time_units`` is years)</span>
+<span class="sd">    :param Ne: reference population size. If none is given, we use the initial</span>
+<span class="sd">        size of the root deme.</span>
+<span class="sd">    :param unsampled_n: The default sample size of unsampled demes, which must be</span>
+<span class="sd">        greater than or equal to 4.</span>
+<span class="sd">    :return: A ``moments`` site frequency spectrum, with dimension equal to the</span>
+<span class="sd">        length of ``sampled_demes``, and shape equal to ``sample_sizes`` plus one</span>
+<span class="sd">        in each dimension, indexing the allele frequency in each deme from 0</span>
+<span class="sd">        to n[i], where i is the deme index.</span>
+<span class="sd">    :rtype: :class:`moments.Spectrum`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sampled_demes</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample_sizes</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;sampled_demes and sample_sizes must be same length&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">sample_times</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">sampled_demes</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample_times</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;sample_times must have same length as sampled_demes&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">sampled_demes</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">deme</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">g</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="n">deme</span><span class="si">}</span><span class="s2"> is not in demography&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">unsampled_n</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;unsampled_n must be greater than 3&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">sample_times</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">sample_times</span> <span class="o">=</span> <span class="p">[</span><span class="n">g</span><span class="p">[</span><span class="n">d</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">sampled_demes</span><span class="p">]</span>
+
+    <span class="c1"># for any ancient samples, we need to add frozen branches</span>
+    <span class="c1"># with this, all &quot;sample times&quot; are at time 0, and ancient sampled demes are frozen</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sample_times</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">g</span><span class="p">,</span> <span class="n">sampled_demes</span><span class="p">,</span> <span class="n">list_of_frozen_demes</span> <span class="o">=</span> <span class="n">augment_with_ancient_samples</span><span class="p">(</span>
+            <span class="n">g</span><span class="p">,</span> <span class="n">sampled_demes</span><span class="p">,</span> <span class="n">sample_times</span>
+        <span class="p">)</span>
+        <span class="n">sample_times</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">sample_times</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">list_of_frozen_demes</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">time_units</span> <span class="o">!=</span> <span class="s2">&quot;generations&quot;</span><span class="p">:</span>
+        <span class="n">g</span><span class="p">,</span> <span class="n">sample_times</span> <span class="o">=</span> <span class="n">convert_to_generations</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">sample_times</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sampled_demes</span><span class="p">,</span> <span class="n">sample_sizes</span><span class="p">,</span> <span class="n">sample_times</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;moments fails with sample sizes less than 4&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">g</span><span class="p">[</span><span class="n">d</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="ow">or</span> <span class="n">t</span> <span class="o">&gt;=</span> <span class="n">g</span><span class="p">[</span><span class="n">d</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;sample time for </span><span class="si">{deme}</span><span class="s2"> must be within its time span&quot;</span><span class="p">)</span>
+
+    <span class="c1"># get the list of demographic events from demes, which is a dictionary with</span>
+    <span class="c1"># lists of splits, admixtures, mergers, branches, and pulses</span>
+    <span class="n">demes_demo_events</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">list_demographic_events</span><span class="p">()</span>
+
+    <span class="c1"># get the dict of events and event times that partition integration epochs, in</span>
+    <span class="c1"># descending order. events include demographic events, such as splits and</span>
+    <span class="c1"># mergers and admixtures, as well as changes in population sizes or migration</span>
+    <span class="c1"># rates that require instantaneous changes in the size function or migration matrix.</span>
+    <span class="c1"># get the list of demes present in each epoch, as a dictionary with non-overlapping</span>
+    <span class="c1"># adjoint epoch time intervals</span>
+    <span class="n">demo_events</span><span class="p">,</span> <span class="n">demes_present</span> <span class="o">=</span> <span class="n">get_demographic_events</span><span class="p">(</span>
+        <span class="n">g</span><span class="p">,</span> <span class="n">demes_demo_events</span><span class="p">,</span> <span class="n">sampled_demes</span>
+    <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">epoch_demes</span> <span class="ow">in</span> <span class="n">demes_present</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">epoch_demes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Moments cannot integrate more than five demes at a time. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Epoch </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2"> has demes </span><span class="si">{</span><span class="n">epoch_demes</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">)</span>
+
+    <span class="c1"># get the list of size functions, migration matrices, and frozen attributes from</span>
+    <span class="c1"># the deme graph and event times, matching the integration times</span>
+    <span class="n">nu_funcs</span><span class="p">,</span> <span class="n">mig_mats</span><span class="p">,</span> <span class="n">Ts</span><span class="p">,</span> <span class="n">frozen_pops</span> <span class="o">=</span> <span class="n">get_integration_parameters</span><span class="p">(</span>
+        <span class="n">g</span><span class="p">,</span> <span class="n">demes_present</span><span class="p">,</span> <span class="n">list_of_frozen_demes</span><span class="p">,</span> <span class="n">Ne</span><span class="o">=</span><span class="n">Ne</span>
+    <span class="p">)</span>
+
+    <span class="c1"># get the sample sizes within each deme, given sample sizes</span>
+    <span class="n">deme_sample_sizes</span> <span class="o">=</span> <span class="n">get_deme_sample_sizes</span><span class="p">(</span>
+        <span class="n">g</span><span class="p">,</span>
+        <span class="n">demo_events</span><span class="p">,</span>
+        <span class="n">sampled_demes</span><span class="p">,</span>
+        <span class="n">sample_sizes</span><span class="p">,</span>
+        <span class="n">demes_present</span><span class="p">,</span>
+        <span class="n">unsampled_n</span><span class="o">=</span><span class="n">unsampled_n</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># compute the SFS</span>
+    <span class="n">fs</span> <span class="o">=</span> <span class="n">compute_sfs</span><span class="p">(</span>
+        <span class="n">demo_events</span><span class="p">,</span>
+        <span class="n">demes_present</span><span class="p">,</span>
+        <span class="n">deme_sample_sizes</span><span class="p">,</span>
+        <span class="n">nu_funcs</span><span class="p">,</span>
+        <span class="n">mig_mats</span><span class="p">,</span>
+        <span class="n">Ts</span><span class="p">,</span>
+        <span class="n">frozen_pops</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span> <span class="o">=</span> <span class="n">reorder_fs</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">fs</span><span class="o">.</span><span class="n">pop_ids</span><span class="p">,</span> <span class="n">sampled_demes</span><span class="p">)</span>
+    <span class="n">fs</span><span class="o">.</span><span class="n">pop_ids</span> <span class="o">=</span> <span class="n">pop_ids</span>
+
+    <span class="k">return</span> <span class="n">fs</span></div>
+
+
+<span class="k">def</span> <span class="nf">convert_to_generations</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">sample_times</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes a deme graph that is not in time units of generations and converts</span>
+<span class="sd">    times to generations, using the time units and generation times given.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">g</span><span class="o">.</span><span class="n">time_units</span> <span class="o">==</span> <span class="s2">&quot;generations&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">g</span><span class="p">,</span> <span class="n">sample_times</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">sample_time</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sample_times</span><span class="p">):</span>
+            <span class="n">sample_times</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">sample_time</span> <span class="o">/</span> <span class="n">g</span><span class="o">.</span><span class="n">generation_time</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">in_generations</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">g</span><span class="p">,</span> <span class="n">sample_times</span>
+
+
+<span class="k">def</span> <span class="nf">augment_with_ancient_samples</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">sampled_demes</span><span class="p">,</span> <span class="n">sample_times</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a demography object and new sampled demes where we add</span>
+<span class="sd">    a branch event for the new sampled deme that is frozen.</span>
+
+<span class="sd">    New sampled, frozen demes are labeled &quot;{deme}_sampled_{sample_time}&quot;.</span>
+<span class="sd">    Note that we cannot have multiple ancient sampling events at the same</span>
+<span class="sd">    time for the same deme (for additional samples at the same time, increase</span>
+<span class="sd">    the sample size).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">frozen_demes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="p">(</span><span class="n">sd</span><span class="p">,</span> <span class="n">st</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">sampled_demes</span><span class="p">,</span> <span class="n">sample_times</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">st</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">sd_frozen</span> <span class="o">=</span> <span class="n">sd</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;_sampled_</span><span class="si">{</span><span class="n">st</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">frozen_demes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sd_frozen</span><span class="p">)</span>
+            <span class="n">sampled_demes</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="n">sd_frozen</span>
+            <span class="n">g</span><span class="o">.</span><span class="n">deme</span><span class="p">(</span>
+                <span class="nb">id</span><span class="o">=</span><span class="n">sd_frozen</span><span class="p">,</span>
+                <span class="n">start_time</span><span class="o">=</span><span class="n">st</span><span class="p">,</span>
+                <span class="n">end_time</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                <span class="n">initial_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">ancestors</span><span class="o">=</span><span class="p">[</span><span class="n">sd</span><span class="p">],</span>
+            <span class="p">)</span>
+    <span class="k">return</span> <span class="n">g</span><span class="p">,</span> <span class="n">sampled_demes</span><span class="p">,</span> <span class="n">frozen_demes</span>
+
+
+<span class="k">def</span> <span class="nf">get_demographic_events</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">demes_demo_events</span><span class="p">,</span> <span class="n">sampled_demes</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns demographic events and present demes over each epoch.</span>
+<span class="sd">    Epochs are divided by any demographic event.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># first get set of all time dividers, from demographic events, migration</span>
+    <span class="c1"># rate changes, deme epoch changes</span>
+    <span class="n">break_points</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">demes</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">deme</span><span class="o">.</span><span class="n">epochs</span><span class="p">:</span>
+            <span class="n">break_points</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span>
+            <span class="n">break_points</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">end_time</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">pulse</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">pulses</span><span class="p">:</span>
+        <span class="n">break_points</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pulse</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">migrations</span><span class="p">:</span>
+        <span class="n">break_points</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">migration</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span>
+        <span class="n">break_points</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">migration</span><span class="o">.</span><span class="n">end_time</span><span class="p">)</span>
+
+    <span class="c1"># get demes present for each integration epoch</span>
+    <span class="n">integration_times</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+            <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">break_points</span><span class="p">))[</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">break_points</span><span class="p">))[</span><span class="o">-</span><span class="mi">2</span><span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="p">)</span>
+    <span class="p">]</span>
+
+    <span class="c1"># find live demes in each epoch, starting with most ancient</span>
+    <span class="n">demes_present</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+    <span class="c1"># add demes as they appear from past to present to end of lists</span>
+    <span class="n">deme_start_times</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">demes</span><span class="p">:</span>
+        <span class="n">deme_start_times</span><span class="p">[</span><span class="n">deme</span><span class="o">.</span><span class="n">start_time</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">deme</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">math</span><span class="o">.</span><span class="n">inf</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">deme_start_times</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Root deme must have start time as inf&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">deme_start_times</span><span class="p">[</span><span class="n">math</span><span class="o">.</span><span class="n">inf</span><span class="p">])</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Deme graph can only have a single root&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">start_time</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">deme_start_times</span><span class="o">.</span><span class="n">keys</span><span class="p">())[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">deme_id</span> <span class="ow">in</span> <span class="n">deme_start_times</span><span class="p">[</span><span class="n">start_time</span><span class="p">]:</span>
+            <span class="n">end_time</span> <span class="o">=</span> <span class="n">g</span><span class="p">[</span><span class="n">deme_id</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span>
+            <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">integration_times</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">start_time</span> <span class="o">&gt;=</span> <span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">end_time</span> <span class="o">&lt;=</span> <span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="n">demes_present</span><span class="p">[</span><span class="n">interval</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">deme_id</span><span class="p">)</span>
+
+    <span class="c1"># dictionary of demographic events (pulses, splits, branches, mergers, and</span>
+    <span class="c1"># admixtures) it&#39;s possible that the order of these events will matter</span>
+    <span class="c1"># also noting here that there can be ambiguity about order of events, that will</span>
+    <span class="c1"># change the demography... but there should always be a way to write the demography</span>
+    <span class="c1"># in an unambiguous manner, using different verbs (e.g., two pulse events at the</span>
+    <span class="c1"># same time with same dest can be converted to an admixture event, and split the</span>
+    <span class="c1"># dest deme into two demes)</span>
+    <span class="n">demo_events</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">pulse</span> <span class="ow">in</span> <span class="n">demes_demo_events</span><span class="p">[</span><span class="s2">&quot;pulses&quot;</span><span class="p">]:</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;pulse&quot;</span><span class="p">,</span> <span class="n">pulse</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="n">pulse</span><span class="o">.</span><span class="n">dest</span><span class="p">,</span> <span class="n">pulse</span><span class="o">.</span><span class="n">proportion</span><span class="p">)</span>
+        <span class="n">demo_events</span><span class="p">[</span><span class="n">pulse</span><span class="o">.</span><span class="n">time</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">branch</span> <span class="ow">in</span> <span class="n">demes_demo_events</span><span class="p">[</span><span class="s2">&quot;branches&quot;</span><span class="p">]:</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;branch&quot;</span><span class="p">,</span> <span class="n">branch</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">branch</span><span class="o">.</span><span class="n">child</span><span class="p">)</span>
+        <span class="n">demo_events</span><span class="p">[</span><span class="n">branch</span><span class="o">.</span><span class="n">time</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">merge</span> <span class="ow">in</span> <span class="n">demes_demo_events</span><span class="p">[</span><span class="s2">&quot;mergers&quot;</span><span class="p">]:</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;merge&quot;</span><span class="p">,</span> <span class="n">merge</span><span class="o">.</span><span class="n">parents</span><span class="p">,</span> <span class="n">merge</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span> <span class="n">merge</span><span class="o">.</span><span class="n">child</span><span class="p">)</span>
+        <span class="n">demo_events</span><span class="p">[</span><span class="n">merge</span><span class="o">.</span><span class="n">time</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">admix</span> <span class="ow">in</span> <span class="n">demes_demo_events</span><span class="p">[</span><span class="s2">&quot;admixtures&quot;</span><span class="p">]:</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;admix&quot;</span><span class="p">,</span> <span class="n">admix</span><span class="o">.</span><span class="n">parents</span><span class="p">,</span> <span class="n">admix</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span> <span class="n">admix</span><span class="o">.</span><span class="n">child</span><span class="p">)</span>
+        <span class="n">demo_events</span><span class="p">[</span><span class="n">admix</span><span class="o">.</span><span class="n">time</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">split</span> <span class="ow">in</span> <span class="n">demes_demo_events</span><span class="p">[</span><span class="s2">&quot;splits&quot;</span><span class="p">]:</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;split&quot;</span><span class="p">,</span> <span class="n">split</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">split</span><span class="o">.</span><span class="n">children</span><span class="p">)</span>
+        <span class="n">demo_events</span><span class="p">[</span><span class="n">split</span><span class="o">.</span><span class="n">time</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+    <span class="c1"># if there are any unsampled demes that end before present and do not have</span>
+    <span class="c1"># any descendent demes, we need to add marginalization events.</span>
+    <span class="k">for</span> <span class="n">deme_id</span><span class="p">,</span> <span class="n">succs</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">successors</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">deme_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sampled_demes</span> <span class="ow">and</span> <span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">succs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+            <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">([</span><span class="n">g</span><span class="p">[</span><span class="n">succ</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="o">&gt;</span> <span class="n">g</span><span class="p">[</span><span class="n">deme_id</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="k">for</span> <span class="n">succ</span> <span class="ow">in</span> <span class="n">succs</span><span class="p">])</span>
+        <span class="p">):</span>
+            <span class="n">event</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;marginalize&quot;</span><span class="p">,</span> <span class="n">deme_id</span><span class="p">)</span>
+            <span class="n">demo_events</span><span class="p">[</span><span class="n">g</span><span class="p">[</span><span class="n">deme_id</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">demo_events</span><span class="p">,</span> <span class="n">demes_present</span>
+
+
+<span class="k">def</span> <span class="nf">get_integration_parameters</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">demes_present</span><span class="p">,</span> <span class="n">frozen_list</span><span class="p">,</span> <span class="n">Ne</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a list of size functions, migration matrices, integration times,</span>
+<span class="sd">    and frozen attributes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nu_funcs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">integration_times</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">migration_matrices</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">frozen_demes</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="n">Ne</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># get root population and set Ne to root size</span>
+        <span class="k">for</span> <span class="n">deme_id</span><span class="p">,</span> <span class="n">preds</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">predecessors</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">preds</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">root_deme</span> <span class="o">=</span> <span class="n">deme_id</span>
+                <span class="k">break</span>
+        <span class="n">Ne</span> <span class="o">=</span> <span class="n">g</span><span class="p">[</span><span class="n">root_deme</span><span class="p">]</span><span class="o">.</span><span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">initial_size</span>
+
+    <span class="k">for</span> <span class="n">interval</span><span class="p">,</span> <span class="n">live_demes</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">demes_present</span><span class="o">.</span><span class="n">items</span><span class="p">())[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="c1"># get intergration time for interval</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="p">(</span><span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">Ne</span>
+        <span class="k">if</span> <span class="n">T</span> <span class="o">==</span> <span class="n">math</span><span class="o">.</span><span class="n">inf</span><span class="p">:</span>
+            <span class="n">T</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">integration_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+        <span class="c1"># get frozen attributes</span>
+        <span class="n">freeze</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="ow">in</span> <span class="n">frozen_list</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">live_demes</span><span class="p">]</span>
+        <span class="n">frozen_demes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">freeze</span><span class="p">)</span>
+        <span class="c1"># get nu_function or list of sizes (if all constant)</span>
+        <span class="n">sizes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">live_demes</span><span class="p">:</span>
+            <span class="n">sizes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sizes_at_time</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">interval</span><span class="p">))</span>
+        <span class="n">nu_func</span> <span class="o">=</span> <span class="n">make_nu_func</span><span class="p">(</span><span class="n">sizes</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Ne</span><span class="p">)</span>
+        <span class="n">nu_funcs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nu_func</span><span class="p">)</span>
+        <span class="c1"># get migration matrix for interval</span>
+        <span class="n">mig_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">live_demes</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">live_demes</span><span class="p">)))</span>
+        <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">d_from</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">live_demes</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">jj</span><span class="p">,</span> <span class="n">d_to</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">live_demes</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">d_from</span> <span class="o">!=</span> <span class="n">d_to</span><span class="p">:</span>
+                    <span class="n">m</span> <span class="o">=</span> <span class="n">migration_rate_in_interval</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">d_from</span><span class="p">,</span> <span class="n">d_to</span><span class="p">,</span> <span class="n">interval</span><span class="p">)</span>
+                    <span class="n">mig_mat</span><span class="p">[</span><span class="n">jj</span><span class="p">,</span> <span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">Ne</span> <span class="o">*</span> <span class="n">m</span>
+        <span class="n">migration_matrices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mig_mat</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">nu_funcs</span><span class="p">,</span> <span class="n">migration_matrices</span><span class="p">,</span> <span class="n">integration_times</span><span class="p">,</span> <span class="n">frozen_demes</span>
+
+
+<span class="k">def</span> <span class="nf">make_nu_func</span><span class="p">(</span><span class="n">sizes</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Ne</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given the sizes at start and end of time interval, and the size function for</span>
+<span class="sd">    each deme, along with the integration time and reference Ne, return the</span>
+<span class="sd">    size function that gets passed to the moments integration routines.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">([</span><span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;constant&quot;</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sizes</span><span class="p">]):</span>
+        <span class="c1"># all constant</span>
+        <span class="n">nu_func</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">Ne</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sizes</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">nu_funcs_separated</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">sizes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;constant&quot;</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">nu_funcs_separated</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="k">lambda</span> <span class="n">t</span><span class="p">,</span> <span class="n">N0</span><span class="o">=</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">N0</span> <span class="o">/</span> <span class="n">Ne</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;linear&quot;</span><span class="p">:</span>
+                <span class="n">nu_funcs_separated</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="k">lambda</span> <span class="n">t</span><span class="p">,</span> <span class="n">N0</span><span class="o">=</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">NF</span><span class="o">=</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">N0</span> <span class="o">/</span> <span class="n">Ne</span> <span class="o">+</span> <span class="n">t</span> <span class="o">/</span> <span class="n">T</span> <span class="o">*</span> <span class="p">(</span><span class="n">NF</span> <span class="o">-</span> <span class="n">N0</span><span class="p">)</span> <span class="o">/</span> <span class="n">Ne</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;exponential&quot;</span><span class="p">:</span>
+                <span class="n">nu_funcs_separated</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="k">lambda</span> <span class="n">t</span><span class="p">,</span> <span class="n">N0</span><span class="o">=</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">NF</span><span class="o">=</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">N0</span>
+                    <span class="o">/</span> <span class="n">Ne</span>
+                    <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">NF</span> <span class="o">/</span> <span class="n">N0</span><span class="p">)</span> <span class="o">*</span> <span class="n">t</span> <span class="o">/</span> <span class="n">T</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> not a valid size function&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">nu_func</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">nu</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">nu</span> <span class="ow">in</span> <span class="n">nu_funcs_separated</span><span class="p">]</span>
+
+        <span class="c1"># check that this is correct, or if we have to &quot;pin&quot; parameters</span>
+    <span class="k">return</span> <span class="n">nu_func</span>
+
+
+<span class="k">def</span> <span class="nf">sizes_at_time</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">deme_id</span><span class="p">,</span> <span class="n">time_interval</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the start size, end size, and size function for given deme over the</span>
+<span class="sd">    given time interval.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="n">g</span><span class="p">[</span><span class="n">deme_id</span><span class="p">]</span><span class="o">.</span><span class="n">epochs</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">epoch</span><span class="o">.</span><span class="n">start_time</span> <span class="o">&gt;=</span> <span class="n">time_interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">epoch</span><span class="o">.</span><span class="n">end_time</span> <span class="o">&lt;=</span> <span class="n">time_interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">break</span>
+    <span class="k">if</span> <span class="n">epoch</span><span class="o">.</span><span class="n">size_function</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span> <span class="s2">&quot;exponential&quot;</span><span class="p">,</span> <span class="s2">&quot;linear&quot;</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Can only intergrate constant, exponential, or linear size functions&quot;</span>
+        <span class="p">)</span>
+    <span class="n">size_function</span> <span class="o">=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">size_function</span>
+
+    <span class="k">if</span> <span class="n">size_function</span> <span class="o">==</span> <span class="s2">&quot;constant&quot;</span><span class="p">:</span>
+        <span class="n">start_size</span> <span class="o">=</span> <span class="n">end_size</span> <span class="o">=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">initial_size</span>
+
+    <span class="k">if</span> <span class="n">epoch</span><span class="o">.</span><span class="n">start_time</span> <span class="o">==</span> <span class="n">time_interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">start_size</span> <span class="o">=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">initial_size</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">size_function</span> <span class="o">==</span> <span class="s2">&quot;exponential&quot;</span><span class="p">:</span>
+            <span class="n">start_size</span> <span class="o">=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">initial_size</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">epoch</span><span class="o">.</span><span class="n">final_size</span> <span class="o">/</span> <span class="n">epoch</span><span class="o">.</span><span class="n">initial_size</span><span class="p">)</span>
+                <span class="o">*</span> <span class="p">(</span><span class="n">epoch</span><span class="o">.</span><span class="n">start_time</span> <span class="o">-</span> <span class="n">time_interval</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="o">/</span> <span class="n">epoch</span><span class="o">.</span><span class="n">time_span</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">size_function</span> <span class="o">==</span> <span class="s2">&quot;linear&quot;</span><span class="p">:</span>
+            <span class="n">frac</span> <span class="o">=</span> <span class="p">(</span><span class="n">epoch</span><span class="o">.</span><span class="n">start_time</span> <span class="o">-</span> <span class="n">time_interval</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="n">epoch</span><span class="o">.</span><span class="n">time_span</span>
+            <span class="n">start_size</span> <span class="o">=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">initial_size</span> <span class="o">+</span> <span class="n">frac</span> <span class="o">*</span> <span class="p">(</span>
+                <span class="n">epoch</span><span class="o">.</span><span class="n">final_size</span> <span class="o">-</span> <span class="n">epoch</span><span class="o">.</span><span class="n">initial_size</span>
+            <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">epoch</span><span class="o">.</span><span class="n">end_time</span> <span class="o">==</span> <span class="n">time_interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">end_size</span> <span class="o">=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">final_size</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">size_function</span> <span class="o">==</span> <span class="s2">&quot;exponential&quot;</span><span class="p">:</span>
+            <span class="n">end_size</span> <span class="o">=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">initial_size</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">epoch</span><span class="o">.</span><span class="n">final_size</span> <span class="o">/</span> <span class="n">epoch</span><span class="o">.</span><span class="n">initial_size</span><span class="p">)</span>
+                <span class="o">*</span> <span class="p">(</span><span class="n">epoch</span><span class="o">.</span><span class="n">start_time</span> <span class="o">-</span> <span class="n">time_interval</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="o">/</span> <span class="n">epoch</span><span class="o">.</span><span class="n">time_span</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">size_function</span> <span class="o">==</span> <span class="s2">&quot;linear&quot;</span><span class="p">:</span>
+            <span class="n">frac</span> <span class="o">=</span> <span class="p">(</span><span class="n">epoch</span><span class="o">.</span><span class="n">start_time</span> <span class="o">-</span> <span class="n">time_interval</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">epoch</span><span class="o">.</span><span class="n">time_span</span>
+            <span class="n">end_size</span> <span class="o">=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">initial_size</span> <span class="o">+</span> <span class="n">frac</span> <span class="o">*</span> <span class="p">(</span>
+                <span class="n">epoch</span><span class="o">.</span><span class="n">final_size</span> <span class="o">-</span> <span class="n">epoch</span><span class="o">.</span><span class="n">initial_size</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">start_size</span><span class="p">,</span> <span class="n">end_size</span><span class="p">,</span> <span class="n">size_function</span>
+
+
+<span class="k">def</span> <span class="nf">migration_rate_in_interval</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">time_interval</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the migration rate from source to dest over the given time interval.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rate</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">mig</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">migrations</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">mig</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="n">source</span> <span class="ow">and</span> <span class="n">mig</span><span class="o">.</span><span class="n">dest</span> <span class="o">==</span> <span class="n">dest</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">mig</span><span class="o">.</span><span class="n">start_time</span> <span class="o">&gt;=</span> <span class="n">time_interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">mig</span><span class="o">.</span><span class="n">end_time</span> <span class="o">&lt;=</span> <span class="n">time_interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">rate</span> <span class="o">=</span> <span class="n">mig</span><span class="o">.</span><span class="n">rate</span>
+    <span class="k">return</span> <span class="n">rate</span>
+
+
+<span class="k">def</span> <span class="nf">get_deme_sample_sizes</span><span class="p">(</span>
+    <span class="n">g</span><span class="p">,</span> <span class="n">demo_events</span><span class="p">,</span> <span class="n">sampled_demes</span><span class="p">,</span> <span class="n">sample_sizes</span><span class="p">,</span> <span class="n">demes_present</span><span class="p">,</span> <span class="n">unsampled_n</span><span class="o">=</span><span class="mi">4</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns sample sizes within each deme that is present within each interval.</span>
+<span class="sd">    Deme samples sizes can change if there are pulse or branching events, e.g.,</span>
+<span class="sd">    but will be constant over the integration epochs.</span>
+<span class="sd">    This works by climbing up the demography from most recent integration epoch to</span>
+<span class="sd">    most distant. Unsampled leaf demes get size unsampled_ns, and others have size</span>
+<span class="sd">    given by sample_sizes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">interval</span><span class="p">,</span> <span class="n">deme_ids</span> <span class="ow">in</span> <span class="n">demes_present</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">ns</span><span class="p">[</span><span class="n">interval</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">deme_ids</span><span class="p">]</span>
+
+    <span class="c1"># initialize with sampled demes and unsampled, marginalized demes</span>
+    <span class="k">for</span> <span class="n">deme_id</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sampled_demes</span><span class="p">,</span> <span class="n">sample_sizes</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">ns</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">g</span><span class="p">[</span><span class="n">deme_id</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span><span class="p">:</span>
+                <span class="n">ns</span><span class="p">[</span><span class="n">interval</span><span class="p">][</span><span class="n">demes_present</span><span class="p">[</span><span class="n">interval</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">deme_id</span><span class="p">)]</span> <span class="o">+=</span> <span class="n">n</span>
+
+    <span class="c1"># Climb up the demographic events, taking into account pulses, branches, etc</span>
+    <span class="c1"># when we add a new deme, determine base n from its successors (split, merge,</span>
+    <span class="c1"># admixture), and propagate up. Similarly, propagate up other events that add</span>
+    <span class="c1"># lineages to a branch (branches, pulses). Marginalize events add the deme</span>
+    <span class="c1"># sample size with unsampled_n.</span>
+    <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">events</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">demo_events</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;marginalize&quot;</span><span class="p">:</span>
+                <span class="n">deme_id</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="c1"># add unsampled deme</span>
+                <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">ns</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="p">(</span>
+                        <span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">g</span><span class="p">[</span><span class="n">deme_id</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span>
+                        <span class="ow">and</span> <span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">g</span><span class="p">[</span><span class="n">deme_id</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span>
+                    <span class="p">):</span>
+                        <span class="n">ns</span><span class="p">[</span><span class="n">interval</span><span class="p">][</span>
+                            <span class="n">demes_present</span><span class="p">[</span><span class="n">interval</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">deme_id</span><span class="p">)</span>
+                        <span class="p">]</span> <span class="o">+=</span> <span class="n">unsampled_n</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;split&quot;</span><span class="p">:</span>
+                <span class="c1"># add the parental deme</span>
+                <span class="n">deme_id</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">children</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ns</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+                    <span class="k">if</span> <span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">g</span><span class="p">[</span><span class="n">deme_id</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span><span class="p">:</span>
+                        <span class="c1"># get child sizes at time of split</span>
+                        <span class="n">children_ns</span> <span class="o">=</span> <span class="p">{</span>
+                            <span class="n">child</span><span class="p">:</span> <span class="n">ns</span><span class="p">[</span><span class="n">interval</span><span class="p">][</span><span class="n">demes_present</span><span class="p">[</span><span class="n">interval</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">child</span><span class="p">)]</span>
+                            <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span>
+                        <span class="p">}</span>
+                    <span class="k">if</span> <span class="p">(</span>
+                        <span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">g</span><span class="p">[</span><span class="n">deme_id</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span>
+                        <span class="ow">and</span> <span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">g</span><span class="p">[</span><span class="n">deme_id</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span>
+                    <span class="p">):</span>
+                        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
+                            <span class="n">ns</span><span class="p">[</span><span class="n">interval</span><span class="p">][</span>
+                                <span class="n">demes_present</span><span class="p">[</span><span class="n">interval</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">deme_id</span><span class="p">)</span>
+                            <span class="p">]</span> <span class="o">+=</span> <span class="n">children_ns</span><span class="p">[</span><span class="n">child</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;branch&quot;</span><span class="p">:</span>
+                <span class="c1"># add child n to parent n for integration epochs above t</span>
+                <span class="n">deme_id</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">child</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ns</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+                    <span class="k">if</span> <span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">:</span>
+                        <span class="c1"># get child sizes at time of split</span>
+                        <span class="n">child_ns</span> <span class="o">=</span> <span class="n">ns</span><span class="p">[</span><span class="n">interval</span><span class="p">][</span><span class="n">demes_present</span><span class="p">[</span><span class="n">interval</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">child</span><span class="p">)]</span>
+                    <span class="k">if</span> <span class="p">(</span>
+                        <span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">g</span><span class="p">[</span><span class="n">deme_id</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span>
+                        <span class="ow">and</span> <span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">g</span><span class="p">[</span><span class="n">deme_id</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span>
+                        <span class="ow">and</span> <span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">t</span>
+                    <span class="p">):</span>
+                        <span class="n">ns</span><span class="p">[</span><span class="n">interval</span><span class="p">][</span><span class="n">demes_present</span><span class="p">[</span><span class="n">interval</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">deme_id</span><span class="p">)]</span> <span class="o">+=</span> <span class="n">child_ns</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;pulse&quot;</span><span class="p">:</span>
+                <span class="c1"># figure out how much the admix_in_place needs from child to parent</span>
+                <span class="n">source</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">dest</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ns</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+                    <span class="k">if</span> <span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">:</span>
+                        <span class="n">dest_size</span> <span class="o">=</span> <span class="n">ns</span><span class="p">[</span><span class="n">interval</span><span class="p">][</span><span class="n">demes_present</span><span class="p">[</span><span class="n">interval</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">dest</span><span class="p">)]</span>
+                    <span class="k">if</span> <span class="p">(</span>
+                        <span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">g</span><span class="p">[</span><span class="n">source</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span>
+                        <span class="ow">and</span> <span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">g</span><span class="p">[</span><span class="n">source</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span>
+                        <span class="ow">and</span> <span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">t</span>
+                    <span class="p">):</span>
+                        <span class="n">ns</span><span class="p">[</span><span class="n">interval</span><span class="p">][</span><span class="n">demes_present</span><span class="p">[</span><span class="n">interval</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">source</span><span class="p">)]</span> <span class="o">+=</span> <span class="n">dest_size</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;merge&quot;</span><span class="p">:</span>
+                <span class="c1"># each parent gets number of lineages in child</span>
+                <span class="n">parents</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">child</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ns</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+                    <span class="k">if</span> <span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">:</span>
+                        <span class="n">child_size</span> <span class="o">=</span> <span class="n">ns</span><span class="p">[</span><span class="n">interval</span><span class="p">][</span><span class="n">demes_present</span><span class="p">[</span><span class="n">interval</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">child</span><span class="p">)]</span>
+                    <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">parents</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="p">(</span>
+                            <span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">g</span><span class="p">[</span><span class="n">parent</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span>
+                            <span class="ow">and</span> <span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">g</span><span class="p">[</span><span class="n">parent</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span>
+                        <span class="p">):</span>
+                            <span class="n">ns</span><span class="p">[</span><span class="n">interval</span><span class="p">][</span>
+                                <span class="n">demes_present</span><span class="p">[</span><span class="n">interval</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+                            <span class="p">]</span> <span class="o">+=</span> <span class="n">child_size</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;admix&quot;</span><span class="p">:</span>
+                <span class="c1"># each parent gets num child lineages for all epochs above t</span>
+                <span class="n">parents</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">child</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ns</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+                    <span class="k">if</span> <span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">:</span>
+                        <span class="n">child_size</span> <span class="o">=</span> <span class="n">ns</span><span class="p">[</span><span class="n">interval</span><span class="p">][</span><span class="n">demes_present</span><span class="p">[</span><span class="n">interval</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">child</span><span class="p">)]</span>
+                    <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">parents</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="p">(</span>
+                            <span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">g</span><span class="p">[</span><span class="n">parent</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span>
+                            <span class="ow">and</span> <span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">g</span><span class="p">[</span><span class="n">parent</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span>
+                            <span class="ow">and</span> <span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">t</span>
+                        <span class="p">):</span>
+                            <span class="n">ns</span><span class="p">[</span><span class="n">interval</span><span class="p">][</span>
+                                <span class="n">demes_present</span><span class="p">[</span><span class="n">interval</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+                            <span class="p">]</span> <span class="o">+=</span> <span class="n">child_size</span>
+    <span class="k">return</span> <span class="n">ns</span>
+
+
+<span class="k">def</span> <span class="nf">compute_sfs</span><span class="p">(</span>
+    <span class="n">demo_events</span><span class="p">,</span>
+    <span class="n">demes_present</span><span class="p">,</span>
+    <span class="n">deme_sample_sizes</span><span class="p">,</span>
+    <span class="n">nu_funcs</span><span class="p">,</span>
+    <span class="n">migration_matrices</span><span class="p">,</span>
+    <span class="n">integration_times</span><span class="p">,</span>
+    <span class="n">frozen_demes</span><span class="p">,</span>
+    <span class="n">theta</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">gamma</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">h</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">reversible</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Integrates using moments to find the SFS for given demo events, etc</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">gamma</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">h</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+    <span class="k">if</span> <span class="n">reversible</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+        <span class="c1"># theta is forward and backward rates, as list of length 2</span>
+        <span class="n">theta_fd</span> <span class="o">=</span> <span class="n">theta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">theta_bd</span> <span class="o">=</span> <span class="n">theta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">theta_fd</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">theta_bd</span> <span class="o">&lt;</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># theta is a scalar</span>
+        <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+
+    <span class="n">integration_intervals</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">demes_present</span><span class="o">.</span><span class="n">keys</span><span class="p">()))[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># set up initial steady-state 1D SFS for ancestral deme</span>
+    <span class="n">n0</span> <span class="o">=</span> <span class="n">deme_sample_sizes</span><span class="p">[</span><span class="n">integration_intervals</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">gamma</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">gamma0</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">if</span> <span class="n">h</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">h0</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="k">if</span> <span class="n">reversible</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="n">fs</span> <span class="o">=</span> <span class="n">theta</span> <span class="o">*</span> <span class="n">moments</span><span class="o">.</span><span class="n">LinearSystem_1D</span><span class="o">.</span><span class="n">steady_state_1D</span><span class="p">(</span><span class="n">n0</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">gamma0</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">h0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">LinearSystem_1D</span><span class="o">.</span><span class="n">steady_state_1D_reversible</span><span class="p">(</span>
+            <span class="n">n0</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">gamma0</span><span class="p">,</span> <span class="n">theta_fd</span><span class="o">=</span><span class="n">theta_fd</span><span class="p">,</span> <span class="n">theta_bd</span><span class="o">=</span><span class="n">theta_bd</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">h0</span> <span class="o">!=</span> <span class="mf">0.5</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;only use h=0.5 for reversible model for now...&quot;</span><span class="p">)</span>
+    <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Spectrum</span><span class="p">(</span><span class="n">fs</span><span class="p">)</span>
+    <span class="n">pop_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">demes_present</span><span class="p">[</span><span class="n">integration_intervals</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="mi">0</span><span class="p">]]</span>
+
+    <span class="c1"># for each set of demographic events and integration epochs, step through</span>
+    <span class="c1"># integration, apply events, and then reorder populations to align with demes</span>
+    <span class="c1"># present in the next integration epoch</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">frozen</span><span class="p">,</span> <span class="n">interval</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+        <span class="n">integration_times</span><span class="p">,</span>
+        <span class="n">nu_funcs</span><span class="p">,</span>
+        <span class="n">migration_matrices</span><span class="p">,</span>
+        <span class="n">frozen_demes</span><span class="p">,</span>
+        <span class="n">integration_intervals</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">T</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">gamma</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">gamma_int</span> <span class="o">=</span> <span class="p">[</span><span class="n">gamma</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">frozen</span><span class="p">]</span>
+                <span class="n">h_int</span> <span class="o">=</span> <span class="p">[</span><span class="n">h</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">frozen</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">gamma_int</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">h_int</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">reversible</span><span class="p">:</span>
+                <span class="n">fs</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span>
+                    <span class="n">nu</span><span class="p">,</span>
+                    <span class="n">T</span><span class="p">,</span>
+                    <span class="n">m</span><span class="o">=</span><span class="n">M</span><span class="p">,</span>
+                    <span class="n">frozen</span><span class="o">=</span><span class="n">frozen</span><span class="p">,</span>
+                    <span class="n">gamma</span><span class="o">=</span><span class="n">gamma_int</span><span class="p">,</span>
+                    <span class="n">h</span><span class="o">=</span><span class="n">h_int</span><span class="p">,</span>
+                    <span class="n">finite_genome</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">theta_fd</span><span class="o">=</span><span class="n">theta_fd</span><span class="p">,</span>
+                    <span class="n">theta_bd</span><span class="o">=</span><span class="n">theta_bd</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fs</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span>
+                    <span class="n">nu</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="n">M</span><span class="p">,</span> <span class="n">frozen</span><span class="o">=</span><span class="n">frozen</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">gamma_int</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">h_int</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="n">theta</span>
+                <span class="p">)</span>
+
+        <span class="n">events</span> <span class="o">=</span> <span class="n">demo_events</span><span class="p">[</span><span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+            <span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span> <span class="o">=</span> <span class="n">apply_event</span><span class="p">(</span>
+                <span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">deme_sample_sizes</span><span class="p">,</span> <span class="n">demes_present</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># rearrange to next order of demes</span>
+            <span class="n">next_interval</span> <span class="o">=</span> <span class="n">integration_intervals</span><span class="p">[</span>
+                <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">integration_intervals</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="p">]</span>
+            <span class="n">next_deme_order</span> <span class="o">=</span> <span class="n">demes_present</span><span class="p">[</span><span class="n">next_interval</span><span class="p">]</span>
+            <span class="k">assert</span> <span class="n">fs</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">next_deme_order</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">([</span><span class="n">d</span> <span class="ow">in</span> <span class="n">next_deme_order</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">pop_ids</span><span class="p">])</span>
+            <span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span> <span class="o">=</span> <span class="n">reorder_fs</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span><span class="p">,</span> <span class="n">next_deme_order</span><span class="p">)</span>
+
+    <span class="n">fs</span><span class="o">.</span><span class="n">pop_ids</span> <span class="o">=</span> <span class="n">pop_ids</span>
+    <span class="k">return</span> <span class="n">fs</span>
+
+
+<span class="k">def</span> <span class="nf">apply_event</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">deme_sample_sizes</span><span class="p">,</span> <span class="n">demes_present</span><span class="p">):</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">e</span> <span class="o">==</span> <span class="s2">&quot;marginalize&quot;</span><span class="p">:</span>
+        <span class="n">marg_idx</span> <span class="o">=</span> <span class="n">pop_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">fs</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="n">marginalize</span><span class="p">([</span><span class="n">marg_idx</span><span class="p">])</span>
+        <span class="n">pop_ids</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">marg_idx</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">e</span> <span class="o">==</span> <span class="s2">&quot;split&quot;</span><span class="p">:</span>
+        <span class="n">children</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">children</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># &quot;split&quot; into just one population (name change)</span>
+            <span class="n">deme_idx</span> <span class="o">=</span> <span class="n">pop_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">pop_ids</span><span class="p">[</span><span class="n">deme_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># split into multiple children demes</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">children</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">pop_ids</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot apply split that creates more than 5 demes&quot;</span><span class="p">)</span>
+            <span class="c1"># get children deme sizes at time t</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ns</span> <span class="ow">in</span> <span class="n">deme_sample_sizes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">:</span>
+                    <span class="n">split_sizes</span> <span class="o">=</span> <span class="p">[</span>
+                        <span class="n">deme_sample_sizes</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">demes_present</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">c</span><span class="p">)]</span>
+                        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">children</span>
+                    <span class="p">]</span>
+                    <span class="k">break</span>
+            <span class="n">split_idx</span> <span class="o">=</span> <span class="n">pop_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="c1"># children[0] is in split idx, the rest are at the end</span>
+            <span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span> <span class="o">=</span> <span class="n">split_fs</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span><span class="p">,</span> <span class="n">split_idx</span><span class="p">,</span> <span class="n">children</span><span class="p">,</span> <span class="n">split_sizes</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">e</span> <span class="o">==</span> <span class="s2">&quot;branch&quot;</span><span class="p">:</span>
+        <span class="c1"># branch is a split, but keep the pop_id of parent</span>
+        <span class="n">parent</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">child</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">children</span> <span class="o">=</span> <span class="p">[</span><span class="n">parent</span><span class="p">,</span> <span class="n">child</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ns</span> <span class="ow">in</span> <span class="n">deme_sample_sizes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">:</span>
+                <span class="n">split_sizes</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">deme_sample_sizes</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">demes_present</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">c</span><span class="p">)]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">children</span>
+                <span class="p">]</span>
+                <span class="k">break</span>
+        <span class="n">split_idx</span> <span class="o">=</span> <span class="n">pop_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+        <span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span> <span class="o">=</span> <span class="n">split_fs</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span><span class="p">,</span> <span class="n">split_idx</span><span class="p">,</span> <span class="n">children</span><span class="p">,</span> <span class="n">split_sizes</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">e</span> <span class="o">==</span> <span class="s2">&quot;merge&quot;</span><span class="p">:</span>
+        <span class="c1"># two or more populations merge, based on given proportions</span>
+        <span class="n">parents</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">proportions</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">child</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ns</span> <span class="ow">in</span> <span class="n">deme_sample_sizes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">:</span>
+                <span class="n">child_size</span> <span class="o">=</span> <span class="n">deme_sample_sizes</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">demes_present</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">child</span><span class="p">)]</span>
+        <span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span> <span class="o">=</span> <span class="n">admix_fs</span><span class="p">(</span>
+            <span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span><span class="p">,</span> <span class="n">parents</span><span class="p">,</span> <span class="n">proportions</span><span class="p">,</span> <span class="n">child</span><span class="p">,</span> <span class="n">child_size</span><span class="p">,</span> <span class="n">marginalize</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">e</span> <span class="o">==</span> <span class="s2">&quot;admix&quot;</span><span class="p">:</span>
+        <span class="c1"># two or more populations merge, based on given proportions</span>
+        <span class="n">parents</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">proportions</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">child</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ns</span> <span class="ow">in</span> <span class="n">deme_sample_sizes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">:</span>
+                <span class="n">child_size</span> <span class="o">=</span> <span class="n">deme_sample_sizes</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">demes_present</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">child</span><span class="p">)]</span>
+        <span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span> <span class="o">=</span> <span class="n">admix_fs</span><span class="p">(</span>
+            <span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span><span class="p">,</span> <span class="n">parents</span><span class="p">,</span> <span class="n">proportions</span><span class="p">,</span> <span class="n">child</span><span class="p">,</span> <span class="n">child_size</span><span class="p">,</span> <span class="n">marginalize</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">e</span> <span class="o">==</span> <span class="s2">&quot;pulse&quot;</span><span class="p">:</span>
+        <span class="c1"># admixture from one population to another, with some proportion</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">dest</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">proportion</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ns</span> <span class="ow">in</span> <span class="n">deme_sample_sizes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">:</span>
+                <span class="n">target_sizes</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">deme_sample_sizes</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">demes_present</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">source</span><span class="p">)],</span>
+                    <span class="n">deme_sample_sizes</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">demes_present</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">dest</span><span class="p">)],</span>
+                <span class="p">]</span>
+        <span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span> <span class="o">=</span> <span class="n">pulse_fs</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">proportion</span><span class="p">,</span> <span class="n">target_sizes</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Haven&#39;t implemented methods for event type </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span>
+
+
+<span class="k">def</span> <span class="nf">split_fs</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span><span class="p">,</span> <span class="n">split_idx</span><span class="p">,</span> <span class="n">children</span><span class="p">,</span> <span class="n">split_sizes</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Split the SFS into children with split_sizes, from the deme at split_idx.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">fs</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">split_sizes</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">5</span>
+        <span class="k">assert</span> <span class="n">split_idx</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">split_1D_to_2D</span><span class="p">(</span>
+            <span class="n">fs</span><span class="p">,</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="n">split_sizes</span><span class="p">[</span><span class="mi">2</span><span class="p">:]),</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">split_sizes</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">split_2D_to_3D_1</span><span class="p">(</span>
+                <span class="n">fs</span><span class="p">,</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="n">split_sizes</span><span class="p">[</span><span class="mi">3</span><span class="p">:]),</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">split_sizes</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">split_3D_to_4D_1</span><span class="p">(</span>
+                <span class="n">fs</span><span class="p">,</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="n">split_sizes</span><span class="p">[</span><span class="mi">4</span><span class="p">:]),</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">split_sizes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">split_4D_to_5D_1</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">fs</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">split_sizes</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">4</span>
+        <span class="k">assert</span> <span class="n">split_idx</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">split_idx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">split_2D_to_3D_1</span><span class="p">(</span>
+                <span class="n">fs</span><span class="p">,</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="n">split_sizes</span><span class="p">[</span><span class="mi">2</span><span class="p">:]),</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">split_sizes</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">split_3D_to_4D_1</span><span class="p">(</span>
+                    <span class="n">fs</span><span class="p">,</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="n">split_sizes</span><span class="p">[</span><span class="mi">3</span><span class="p">:]),</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">split_sizes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">split_4D_to_5D_1</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">split_idx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">split_2D_to_3D_2</span><span class="p">(</span>
+                <span class="n">fs</span><span class="p">,</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="n">split_sizes</span><span class="p">[</span><span class="mi">2</span><span class="p">:]),</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">split_sizes</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">split_3D_to_4D_2</span><span class="p">(</span>
+                    <span class="n">fs</span><span class="p">,</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="n">split_sizes</span><span class="p">[</span><span class="mi">3</span><span class="p">:]),</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">split_sizes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">split_4D_to_5D_2</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">fs</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">split_idx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">split_3D_to_4D_1</span><span class="p">(</span>
+                <span class="n">fs</span><span class="p">,</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="n">split_sizes</span><span class="p">[</span><span class="mi">2</span><span class="p">:]),</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">split_sizes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">split_4D_to_5D_1</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">split_idx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">split_3D_to_4D_2</span><span class="p">(</span>
+                <span class="n">fs</span><span class="p">,</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="n">split_sizes</span><span class="p">[</span><span class="mi">2</span><span class="p">:]),</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">split_sizes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">split_4D_to_5D_2</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">split_idx</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">split_3D_to_4D_3</span><span class="p">(</span>
+                <span class="n">fs</span><span class="p">,</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="n">split_sizes</span><span class="p">[</span><span class="mi">2</span><span class="p">:]),</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">split_sizes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">split_4D_to_5D_3</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">fs</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">split_idx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">split_4D_to_5D_1</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">split_idx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">split_4D_to_5D_2</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">split_idx</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">split_4D_to_5D_3</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">split_idx</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">split_4D_to_5D_4</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">split_sizes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot split SFS with ndim &gt; 4&quot;</span><span class="p">)</span>
+
+    <span class="n">pop_ids</span><span class="p">[</span><span class="n">split_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="n">pop_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span>
+
+
+<span class="k">def</span> <span class="nf">admix_fs</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span><span class="p">,</span> <span class="n">parents</span><span class="p">,</span> <span class="n">proportions</span><span class="p">,</span> <span class="n">child</span><span class="p">,</span> <span class="n">child_size</span><span class="p">,</span> <span class="n">marginalize</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Both merge and admixture events use this function, with the only difference that</span>
+<span class="sd">    merge events remove the parental demes (martinalize = True), while admixture events</span>
+<span class="sd">    do not.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># get which parents get &quot;marginalized&quot; because parent size == child size</span>
+    <span class="c1"># need to know this to know how to update pop_ids along the way</span>
+    <span class="k">if</span> <span class="n">marginalize</span><span class="p">:</span>
+        <span class="c1"># though should all have parent size == child size, so no marginalization</span>
+        <span class="c1"># of the fs should need to take place, only updating pop_ids</span>
+        <span class="n">marged_parents</span> <span class="o">=</span> <span class="p">[</span><span class="n">parent</span> <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">parents</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">marged_parents</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">parents</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">fs</span><span class="o">.</span><span class="n">sample_sizes</span><span class="p">[</span><span class="n">pop_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">parent</span><span class="p">)]</span> <span class="o">==</span> <span class="n">child_size</span><span class="p">:</span>
+                <span class="n">marged_parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+
+    <span class="c1">#    if len(parents) == 2:</span>
+    <span class="c1">#        # use admix_into_new to add the child deme to the end</span>
+    <span class="c1">#        fs = moments.Manips.admix_into_new(</span>
+    <span class="c1">#            fs,</span>
+    <span class="c1">#            pop_ids.index(parents[0]),</span>
+    <span class="c1">#            pop_ids.index(parents[1]),</span>
+    <span class="c1">#            child_size,</span>
+    <span class="c1">#            proportions[0],</span>
+    <span class="c1">#        )</span>
+    <span class="c1">#        to_delete = [pop_ids.index(parent) for parent in marged_parents]</span>
+    <span class="c1">#        for idx in sorted(to_delete, reverse=True):</span>
+    <span class="c1">#            del pop_ids[idx]</span>
+    <span class="c1">#        pop_ids.append(child)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parents</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">fA</span> <span class="o">=</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">proportions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">fB</span> <span class="o">=</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">proportions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">fA</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">fB</span><span class="p">)</span>
+        <span class="n">idxA</span> <span class="o">=</span> <span class="n">pop_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">idxB</span> <span class="o">=</span> <span class="n">pop_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">parents</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="c1"># admix first two</span>
+        <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">admix_into_new</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">idxA</span><span class="p">,</span> <span class="n">idxB</span><span class="p">,</span> <span class="n">child_size</span><span class="p">,</span> <span class="n">fA</span><span class="p">)</span>
+        <span class="c1"># adjust pop_ids</span>
+        <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">parents</span><span class="p">[:</span><span class="mi">2</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">marged_parents</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">pop_ids</span><span class="p">[</span><span class="n">pop_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">parent</span><span class="p">)]</span>
+        <span class="n">pop_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parents</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="c1"># admix third pop</span>
+        <span class="n">fAB</span> <span class="o">=</span> <span class="p">(</span><span class="n">proportions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span>
+            <span class="n">proportions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">fC</span> <span class="o">=</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">proportions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">fAB</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">fC</span><span class="p">)</span>
+        <span class="n">idxAB</span> <span class="o">=</span> <span class="n">pop_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>  <span class="c1"># last pop, was added to end</span>
+        <span class="n">idxC</span> <span class="o">=</span> <span class="n">pop_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">parents</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">admix_into_new</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">idxAB</span><span class="p">,</span> <span class="n">idxC</span><span class="p">,</span> <span class="n">child_size</span><span class="p">,</span> <span class="n">fAB</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">parents</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">in</span> <span class="n">marged_parents</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">pop_ids</span><span class="p">[</span><span class="n">pop_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">parents</span><span class="p">[</span><span class="mi">2</span><span class="p">])]</span>
+        <span class="c1"># child still on end</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parents</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="c1"># admix 4th pop</span>
+        <span class="n">fABC</span> <span class="o">=</span> <span class="p">(</span><span class="n">proportions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span>
+            <span class="n">proportions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">fD</span> <span class="o">=</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span>
+            <span class="n">proportions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">fABC</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">fD</span><span class="p">)</span>
+        <span class="n">idxABC</span> <span class="o">=</span> <span class="n">pop_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+        <span class="n">idxD</span> <span class="o">=</span> <span class="n">pop_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">parents</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+        <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">admix_into_new</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">idxABC</span><span class="p">,</span> <span class="n">idxD</span><span class="p">,</span> <span class="n">child_size</span><span class="p">,</span> <span class="n">fABC</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">parents</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="ow">in</span> <span class="n">marged_parents</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">pop_ids</span><span class="p">[</span><span class="n">pop_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">parents</span><span class="p">[</span><span class="mi">3</span><span class="p">])]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parents</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="c1"># admix 5th pop</span>
+        <span class="n">fABCD</span> <span class="o">=</span> <span class="p">(</span><span class="n">proportions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span>
+            <span class="n">proportions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+            <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">fE</span> <span class="o">=</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span>
+            <span class="n">proportions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+            <span class="o">+</span> <span class="n">proportions</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">fABCD</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">fE</span><span class="p">)</span>
+        <span class="n">idxABCD</span> <span class="o">=</span> <span class="n">pop_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+        <span class="n">idxE</span> <span class="o">=</span> <span class="n">pop_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">parents</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+        <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">admix_into_new</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">idxABCD</span><span class="p">,</span> <span class="n">idxE</span><span class="p">,</span> <span class="n">child_size</span><span class="p">,</span> <span class="n">fABCD</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">parents</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="ow">in</span> <span class="n">marged_parents</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">pop_ids</span><span class="p">[</span><span class="n">pop_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">parents</span><span class="p">[</span><span class="mi">4</span><span class="p">])]</span>
+
+    <span class="k">return</span> <span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span>
+
+
+<span class="k">def</span> <span class="nf">pulse_fs</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">proportion</span><span class="p">,</span> <span class="n">target_sizes</span><span class="p">):</span>
+    <span class="c1"># uses admix in place</span>
+    <span class="n">source_idx</span> <span class="o">=</span> <span class="n">pop_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+    <span class="n">dest_idx</span> <span class="o">=</span> <span class="n">pop_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">dest</span><span class="p">)</span>
+    <span class="n">fs</span> <span class="o">=</span> <span class="n">moments</span><span class="o">.</span><span class="n">Manips</span><span class="o">.</span><span class="n">admix_inplace</span><span class="p">(</span>
+        <span class="n">fs</span><span class="p">,</span> <span class="n">source_idx</span><span class="p">,</span> <span class="n">dest_idx</span><span class="p">,</span> <span class="n">target_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">proportion</span>
+    <span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">fs</span><span class="o">.</span><span class="n">sample_sizes</span><span class="p">[</span><span class="n">source_idx</span><span class="p">]</span> <span class="o">==</span> <span class="n">target_sizes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">fs</span><span class="o">.</span><span class="n">sample_sizes</span><span class="p">[</span><span class="n">dest_idx</span><span class="p">]</span> <span class="o">==</span> <span class="n">target_sizes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span>
+
+
+<span class="k">def</span> <span class="nf">reorder_fs</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span><span class="p">,</span> <span class="n">next_deme_order</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">swap_id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">next_deme_order</span><span class="p">):</span>
+        <span class="n">pop_id</span> <span class="o">=</span> <span class="n">pop_ids</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">pop_id</span> <span class="o">!=</span> <span class="n">swap_id</span><span class="p">:</span>
+            <span class="n">swap_index</span> <span class="o">=</span> <span class="n">pop_ids</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">swap_id</span><span class="p">)</span>
+            <span class="n">fs</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="n">ii</span><span class="p">,</span> <span class="n">swap_index</span><span class="p">)</span>
+            <span class="n">pop_ids</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span> <span class="n">pop_ids</span><span class="p">[</span><span class="n">swap_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">pop_ids</span><span class="p">[</span><span class="n">swap_index</span><span class="p">],</span> <span class="n">pop_ids</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">fs</span><span class="p">,</span> <span class="n">pop_ids</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, PopSim Consortium
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
