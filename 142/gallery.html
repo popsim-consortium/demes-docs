@@ -1,0 +1,667 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Gallery &mdash; demes undefined documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="_static/thebelab.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/thebelab-helper.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Python API" href="api.html" />
+    <link rel="prev" title="Tutorial" href="tutorial.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> demes
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                und
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#zigzag-model">Zigzag model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#isolation-with-migration">Isolation-with-migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gutenkunst-et-al-2009-out-of-africa-expansion">Gutenkunst et al. (2009) Out-of-Africa expansion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#jacobs-et-al-2019-denisovan-admixture">Jacobs et al. (2019) Denisovan admixture</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="convert.html">Conversion functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="schema.html">YAML schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">demes</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Gallery</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/gallery.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="gallery">
+<span id="sec-gallery"></span><h1>Gallery<a class="headerlink" href="#gallery" title="Permalink to this headline">¶</a></h1>
+<p>This page includes a number of examples that illustrate various features
+of demography descriptions using <cite>demes</cite>, as well as some well-known and
+more complicated models of human history.</p>
+<div class="section" id="zigzag-model">
+<span id="sec-zigzag-example"></span><h2>Zigzag model<a class="headerlink" href="#zigzag-model" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-yaml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">A single population model with epochs of exponential growth and decay.</span>
+<span class="nt">doi</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://doi.org/10.1038/ng.3015</span>
+<span class="nt">time_units</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">generations</span>
+<span class="nt">generation_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">29</span>
+<span class="nt">demes</span><span class="p">:</span> 
+  <span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">generic</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">All epochs wrapped into the same population, so that epoch intervals</span>
+      <span class="l l-Scalar l-Scalar-Plain">do not overlap, and they tile the entire existence of the population (all time,</span>
+      <span class="l l-Scalar l-Scalar-Plain">in this case).</span>
+    <span class="nt">epochs</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">34133.31</span>
+      <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1431</span>
+    <span class="p p-Indicator">-</span> <span class="nt">start_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">34133.31</span>
+      <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">8533.33</span>
+      <span class="nt">final_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">14312</span>
+    <span class="p p-Indicator">-</span> <span class="nt">start_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">8533.33</span>
+      <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2133.33</span>
+      <span class="nt">final_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1431</span>
+    <span class="p p-Indicator">-</span> <span class="nt">start_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2133.33</span>
+      <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">533.33</span>
+      <span class="nt">final_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">14312</span>
+    <span class="p p-Indicator">-</span> <span class="nt">start_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">533.33</span>
+      <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">133.33</span>
+      <span class="nt">final_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1431</span>
+    <span class="p p-Indicator">-</span> <span class="nt">start_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">133.33</span>
+      <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">33.333</span>
+      <span class="nt">final_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">14312</span>
+    <span class="p p-Indicator">-</span> <span class="nt">start_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">33.333</span>
+      <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+      <span class="nt">final_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">14312</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="isolation-with-migration">
+<span id="sec-im-example"></span><h2>Isolation-with-migration<a class="headerlink" href="#isolation-with-migration" title="Permalink to this headline">¶</a></h2>
+<p>Two populations.</p>
+</div>
+<div class="section" id="gutenkunst-et-al-2009-out-of-africa-expansion">
+<span id="sec-ooa-example"></span><h2>Gutenkunst et al. (2009) Out-of-Africa expansion<a class="headerlink" href="#gutenkunst-et-al-2009-out-of-africa-expansion" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-yaml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">The Gutenkunst et al. (2009) three-population model of human history. Time</span>
+  <span class="l l-Scalar l-Scalar-Plain">is given in years in the past. Choices to make, 1) which ends of the epochs should</span>
+  <span class="l l-Scalar l-Scalar-Plain">start and end times describe, 2) once that&#39;s decided, initial and final sizes should</span>
+  <span class="l l-Scalar l-Scalar-Plain">correspond to start and end time, resp. Currently, I&#39;m looking backward in time, so</span>
+  <span class="l l-Scalar l-Scalar-Plain">start time is more recent and end time is the epoch interval end point farther in the</span>
+  <span class="l l-Scalar l-Scalar-Plain">past.</span>
+<span class="nt">doi</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://doi.org/10.1371/journal.pgen.1000695</span>
+<span class="nt">time_units</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">years</span>
+<span class="nt">generation_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">25</span>
+<span class="nt">demes</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ancestral</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Equilibrium/root population</span>
+    <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">220e3</span>
+    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">7300</span>
+  <span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AMH</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Anatomically modern humans</span>
+    <span class="nt">ancestors</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ancestral</span>
+    <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">140e3</span>
+    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">12300</span>
+  <span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">OOA</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Bottleneck out-of-Africa population</span>
+    <span class="nt">ancestors</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AMH</span>
+    <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">21.2e3</span>
+    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2100</span>
+  <span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">YRI</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Yoruba in Ibadan, Nigeria</span>
+    <span class="nt">ancestors</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AMH</span>
+    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">12300</span>
+  <span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">CEU</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Utah Residents (CEPH) with Northern and Western European Ancestry</span>
+    <span class="nt">ancestors</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">OOA</span>
+    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
+    <span class="nt">final_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">29725</span>
+  <span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">CHB</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Han Chinese in Beijing, China</span>
+    <span class="nt">ancestors</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">OOA</span>
+    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">510</span>
+    <span class="nt">final_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">54090</span>
+<span class="nt">migrations</span><span class="p">:</span>
+  <span class="nt">symmetric</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">demes</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">YRI, OOA</span>
+    <span class="nt">rate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">25e-5</span>
+  <span class="p p-Indicator">-</span> <span class="nt">demes</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">YRI, CEU</span>
+    <span class="nt">rate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3e-5</span>
+  <span class="p p-Indicator">-</span> <span class="nt">demes</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">YRI, CHB</span>
+    <span class="nt">rate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1.9e-5</span>
+  <span class="p p-Indicator">-</span> <span class="nt">demes</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">CEU, CHB</span>
+    <span class="nt">rate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">9.6e-5</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="jacobs-et-al-2019-denisovan-admixture">
+<span id="sec-denisova-example"></span><h2>Jacobs et al. (2019) Denisovan admixture<a class="headerlink" href="#jacobs-et-al-2019-denisovan-admixture" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-yaml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">description</span><span class="p">:</span> <span class="p p-Indicator">|</span>
+  <span class="no">A ten population model of out-of-Africa, including two pulses of</span>
+  <span class="no">Denisovan admixture into Papuans, and several pulses of Neandertal</span>
+  <span class="no">admixture into non-Africans.</span>
+  <span class="no">Most parameters are from Jacobs et al. (2019), Table S5 and Figure S5.</span>
+  <span class="no">This model is an extension of one from Malaspinas et al. (2016), thus</span>
+  <span class="no">some parameters are inherited from there.</span>
+<span class="nt">time_units</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">generations</span>
+<span class="nt">doi</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://doi.org/10.1016/j.cell.2019.02.035</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://doi.org/10.1038/nature18299</span>
+<span class="nt">demes</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">YRI</span>
+    <span class="nt">epochs</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">20225.0</span>
+      <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">32671.0</span>
+    <span class="p p-Indicator">-</span> <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2218.0</span>
+      <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">41563.0</span>
+    <span class="p p-Indicator">-</span> <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+      <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">48433.0</span>
+  <span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">DenA</span>
+    <span class="nt">ancestors</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">YRI</span>
+    <span class="nt">start_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">20225.0</span>
+    <span class="nt">epochs</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">15090.0</span>
+      <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">13249.0</span>
+    <span class="p p-Indicator">-</span> <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">12500.0</span>
+      <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100.0</span>
+    <span class="p p-Indicator">-</span> <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">9750.0</span>
+      <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100.0</span>
+    <span class="p p-Indicator">-</span> <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+      <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5083.0</span>
+  <span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">NeaA</span>
+    <span class="nt">ancestors</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">DenA</span>
+    <span class="nt">start_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">15090.0</span>
+    <span class="nt">epochs</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3375.0</span>
+      <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">13249.0</span>
+    <span class="p p-Indicator">-</span> <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+      <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">826.0</span>
+  <span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Den2</span>
+    <span class="nt">ancestors</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">DenA</span>
+    <span class="nt">start_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">12500.0</span>
+    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">13249.0</span>
+  <span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Den1</span>
+    <span class="nt">ancestors</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">DenA</span>
+    <span class="nt">start_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">9750.0</span>
+    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">13249.0</span>
+  <span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Nea1</span>
+    <span class="nt">ancestors</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">NeaA</span>
+    <span class="nt">start_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3375.0</span>
+    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">13249.0</span>
+  <span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Ghost</span>
+    <span class="nt">ancestors</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">YRI</span>
+    <span class="nt">start_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2218.0</span>
+    <span class="nt">epochs</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2119.0</span>
+      <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1394.0</span>
+    <span class="p p-Indicator">-</span> <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+      <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">8516.0</span>
+  <span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Papuan</span>
+    <span class="nt">ancestors</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Ghost</span>
+    <span class="nt">start_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1784.0</span>
+    <span class="nt">epochs</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1685.0</span>
+      <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">243.0</span>
+    <span class="p p-Indicator">-</span> <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+      <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">8834.0</span>
+  <span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">CHB</span>
+    <span class="nt">ancestors</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Ghost</span>
+    <span class="nt">start_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1758.0</span>
+    <span class="nt">epochs</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1659.0</span>
+      <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2231.0</span>
+    <span class="p p-Indicator">-</span> <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1293.0</span>
+      <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">12971.0</span>
+    <span class="p p-Indicator">-</span> <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+      <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">9025.0</span>
+  <span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">CEU</span>
+    <span class="nt">ancestors</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">CHB</span>
+    <span class="nt">start_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1293.0</span>
+    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">6962.0</span>
+<span class="nt">migrations</span><span class="p">:</span>
+  <span class="nt">symmetric</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">demes</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">YRI, Ghost</span>
+    <span class="nt">rate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.000179</span>
+    <span class="nt">start_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1659.0</span>
+  <span class="p p-Indicator">-</span> <span class="nt">demes</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">CHB, Papuan</span>
+    <span class="nt">rate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.000572</span>
+    <span class="nt">start_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1659.0</span>
+    <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1293.0</span>
+  <span class="p p-Indicator">-</span> <span class="nt">demes</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">CHB, Papuan</span>
+    <span class="nt">rate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5.72e-05</span>
+    <span class="nt">start_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1293.0</span>
+  <span class="p p-Indicator">-</span> <span class="nt">demes</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">CHB, Ghost</span>
+    <span class="nt">rate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.000442</span>
+    <span class="nt">start_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1659.0</span>
+  <span class="p p-Indicator">-</span> <span class="nt">demes</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">CEU, CHB</span>
+    <span class="nt">rate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3.14e-05</span>
+  <span class="p p-Indicator">-</span> <span class="nt">demes</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">CEU, Ghost</span>
+    <span class="nt">rate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.000442</span>
+<span class="nt">pulses</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">source</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Nea1</span>
+  <span class="nt">dest</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Ghost</span>
+  <span class="nt">time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1853.0</span>
+  <span class="nt">proportion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.024</span>
+<span class="p p-Indicator">-</span> <span class="nt">source</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Den2</span>
+  <span class="nt">dest</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Papuan</span>
+  <span class="nt">time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1575.8620689655172</span>
+  <span class="nt">proportion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.018</span>
+<span class="p p-Indicator">-</span> <span class="nt">source</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Nea1</span>
+  <span class="nt">dest</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">CHB</span>
+  <span class="nt">time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1566.0</span>
+  <span class="nt">proportion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.011</span>
+<span class="p p-Indicator">-</span> <span class="nt">source</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Nea1</span>
+  <span class="nt">dest</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Papuan</span>
+  <span class="nt">time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1412.0</span>
+  <span class="nt">proportion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.002</span>
+<span class="p p-Indicator">-</span> <span class="nt">source</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Den1</span>
+  <span class="nt">dest</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Papuan</span>
+  <span class="nt">time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1027.5862068965516</span>
+  <span class="nt">proportion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.022000000000000002</span>
+<span class="p p-Indicator">-</span> <span class="nt">source</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Nea1</span>
+  <span class="nt">dest</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">CHB</span>
+  <span class="nt">time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">883.0</span>
+  <span class="nt">proportion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.002</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api.html" class="btn btn-neutral float-right" title="Python API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tutorial.html" class="btn btn-neutral float-left" title="Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, PopSim Consortium
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
