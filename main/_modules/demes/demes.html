@@ -208,6 +208,12 @@
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;must have 0 &lt;= </span><span class="si">{</span><span class="n">attribute</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> &lt;= 1&quot;</span><span class="p">)</span>
 
 
+<span class="k">def</span> <span class="nf">nonempty_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">)(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">attribute</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> must be a non-empty string&quot;</span><span class="p">)</span>
+
+
 <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
     <span class="n">a</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Number</span><span class="p">],</span>
     <span class="n">b</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Number</span><span class="p">],</span>
@@ -230,10 +236,10 @@
 
 
 <span class="k">def</span> <span class="nf">isclose_deme_proportions</span><span class="p">(</span>
-    <span class="n">a_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]],</span>
-    <span class="n">a_proportions</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Proportion</span><span class="p">]],</span>
-    <span class="n">b_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]],</span>
-    <span class="n">b_proportions</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Proportion</span><span class="p">]],</span>
+    <span class="n">a_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">],</span>
+    <span class="n">a_proportions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Proportion</span><span class="p">],</span>
+    <span class="n">b_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">],</span>
+    <span class="n">b_proportions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Proportion</span><span class="p">],</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
     <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
@@ -243,14 +249,6 @@
 <span class="sd">    are semantically equivalent. The order of ids is ignored, and proportions</span>
 <span class="sd">    are checked for numerical closeness.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="kc">None</span> <span class="ow">in</span> <span class="p">(</span><span class="n">a_ids</span><span class="p">,</span> <span class="n">b_ids</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">a_ids</span><span class="p">,</span> <span class="n">a_proportions</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="n">b_ids</span><span class="p">,</span> <span class="n">b_proportions</span><span class="p">)</span>
-
-    <span class="n">a_ids</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">],</span> <span class="n">a_ids</span><span class="p">)</span>
-    <span class="n">a_proportions</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">Proportion</span><span class="p">],</span> <span class="n">a_proportions</span><span class="p">)</span>
-    <span class="n">b_ids</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">],</span> <span class="n">b_ids</span><span class="p">)</span>
-    <span class="n">b_proportions</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="n">Number</span><span class="p">],</span> <span class="n">b_proportions</span><span class="p">)</span>
-
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">a_ids</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">b_ids</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">a_proportions</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">b_proportions</span><span class="p">):</span>
         <span class="k">return</span> <span class="kc">False</span>
     <span class="n">a</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">a_ids</span><span class="p">,</span> <span class="n">a_proportions</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
@@ -1059,18 +1057,41 @@
     <span class="n">proportions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Proportion</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
     <span class="n">epochs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Epoch</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
-                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;ancestors must be a list of deme IDs&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;duplicate ancestors in </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">proportions</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;proportions must be set if more than one ancestor&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ancestors and proportions must have same length&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> cannot be its own ancestor&quot;</span><span class="p">)</span>
+    <span class="nd">@id</span><span class="o">.</span><span class="n">validator</span>
+    <span class="k">def</span> <span class="nf">_check_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">)(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">isidentifier</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Invalid deme ID `</span><span class="si">{self.id}</span><span class="s2">`. IDs must be valid python identifiers. &quot;</span>
+                <span class="s2">&quot;We recommend choosing a deme ID that starts with a letter or &quot;</span>
+                <span class="s2">&quot;underscore, and is followed by one or more letters, numbers, &quot;</span>
+                <span class="s2">&quot;or underscores.&quot;</span>
+            <span class="p">)</span>
+
+    <span class="nd">@ancestors</span><span class="o">.</span><span class="n">validator</span>
+    <span class="k">def</span> <span class="nf">_check_ancestors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_attribute</span><span class="p">,</span> <span class="n">_value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;ancestors must be a list of deme IDs&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;duplicate ancestors in </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> cannot be its own ancestor&quot;</span><span class="p">)</span>
+
+    <span class="nd">@proportions</span><span class="o">.</span><span class="n">validator</span>
+    <span class="k">def</span> <span class="nf">_check_proportions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">_value</span><span class="p">):</span>
+        <span class="n">err</span> <span class="o">=</span> <span class="s2">&quot;proportions must be a list of numbers summing to 1.0&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">proportion</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">:</span>
+            <span class="n">unit_interval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">proportion</span><span class="p">)</span>
+            <span class="n">positive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">proportion</span><span class="p">)</span>
+
+    <span class="nd">@epochs</span><span class="o">.</span><span class="n">validator</span>
+    <span class="k">def</span> <span class="nf">_check_epochs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_attribute</span><span class="p">,</span> <span class="n">_value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;epochs must be a list of Epoch classes&quot;</span><span class="p">)</span>
         <span class="c1"># every deme must have at least one epoch</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Demes must be defined with at least one epoch&quot;</span><span class="p">)</span>
@@ -1079,6 +1100,12 @@
             <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="o">!=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">start_time</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Epoch start and end times must align&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># We check the lengths of ancestors and proportions match</span>
+        <span class="c1"># after the validators have confirmed that these are indeed lists.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ancestors and proportions must have same length&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Deme.assert_close"><a class="viewcode-back" href="../../api.html#demes.Deme.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1215,8 +1242,8 @@
 <span class="sd">    :vartype pulses: list of :class:`.Pulse`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
-    <span class="n">time_units</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="n">nonempty_str</span><span class="p">)</span>
+    <span class="n">time_units</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="n">nonempty_str</span><span class="p">)</span>
     <span class="n">generation_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Time</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
         <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">optional</span><span class="p">([</span><span class="n">positive</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
     <span class="p">)</span>
@@ -1225,10 +1252,18 @@
     <span class="n">migrations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Migration</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">pulses</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Pulse</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
+    <span class="nd">@doi</span><span class="o">.</span><span class="n">validator</span>
+    <span class="k">def</span> <span class="nf">_check_doi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_attribute</span><span class="p">,</span> <span class="n">_value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">doi</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;doi must be a list of strings&quot;</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_deme_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">ID</span><span class="p">,</span> <span class="n">Deme</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">doi</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;doi must be a list of strings&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_units</span> <span class="o">!=</span> <span class="s2">&quot;generations&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s1">&#39;if time_units!=&quot;generations&quot;, generation_time must be specified&#39;</span>
+            <span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deme_id</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1421,20 +1456,25 @@
             <span class="n">initial_size</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">initial_size</span>
         <span class="k">if</span> <span class="n">initial_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;must set initial_size for </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">ancestors</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ancestors</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
-                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;ancestors must be a list of deme IDs&quot;</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">ancestor</span> <span class="ow">in</span> <span class="n">ancestors</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">ancestor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ancestor deme </span><span class="si">{</span><span class="n">ancestor</span><span class="si">}</span><span class="s2"> not in graph&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ancestors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">proportions</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">ancestors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ancestors</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ancestors</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;ancestors must be a list of deme IDs&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ancestor</span> <span class="ow">in</span> <span class="n">ancestors</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ancestor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ancestor deme </span><span class="si">{</span><span class="n">ancestor</span><span class="si">}</span><span class="s2"> not in graph&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">proportions</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ancestors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">proportions</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">proportions</span> <span class="o">=</span> <span class="p">[]</span>
+
         <span class="c1"># set the start time to first epoch&#39;s start time, to inf or to</span>
         <span class="c1"># the ancestor&#39;s end time, if not given</span>
         <span class="k">if</span> <span class="n">start_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">epochs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">start_time</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span>
-            <span class="k">elif</span> <span class="n">ancestors</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">ancestors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ancestors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                         <span class="s2">&quot;with multiple ancestors, start_time must be specified&quot;</span>
@@ -1443,16 +1483,16 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">start_time</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span>
         <span class="c1"># check start time is valid wrt ancestor time intervals</span>
-        <span class="k">if</span> <span class="n">ancestors</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">ancestor</span> <span class="ow">in</span> <span class="n">ancestors</span><span class="p">:</span>
-                <span class="n">anc</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">ancestor</span><span class="p">]</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">anc</span><span class="o">.</span><span class="n">start_time</span> <span class="o">&gt;=</span> <span class="n">start_time</span> <span class="o">&gt;=</span> <span class="n">anc</span><span class="o">.</span><span class="n">end_time</span><span class="p">):</span>
-                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                        <span class="sa">f</span><span class="s2">&quot;start_time=</span><span class="si">{</span><span class="n">start_time</span><span class="si">}</span><span class="s2"> is outside the interval &quot;</span>
-                        <span class="sa">f</span><span class="s2">&quot;of existence for ancestor </span><span class="si">{</span><span class="n">ancestor</span><span class="si">}</span><span class="s2"> &quot;</span>
-                        <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">anc</span><span class="o">.</span><span class="n">start_time</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">anc</span><span class="o">.</span><span class="n">end_time</span><span class="si">}</span><span class="s2">)&quot;</span>
-                    <span class="p">)</span>
-        <span class="c1"># build the deme</span>
+        <span class="k">for</span> <span class="n">ancestor</span> <span class="ow">in</span> <span class="n">ancestors</span><span class="p">:</span>
+            <span class="n">anc</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">ancestor</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">anc</span><span class="o">.</span><span class="n">start_time</span> <span class="o">&gt;</span> <span class="n">start_time</span> <span class="o">&gt;=</span> <span class="n">anc</span><span class="o">.</span><span class="n">end_time</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;start_time=</span><span class="si">{</span><span class="n">start_time</span><span class="si">}</span><span class="s2"> is outside the interval &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;of existence for ancestor </span><span class="si">{</span><span class="n">ancestor</span><span class="si">}</span><span class="s2"> &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">anc</span><span class="o">.</span><span class="n">start_time</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">anc</span><span class="o">.</span><span class="n">end_time</span><span class="si">}</span><span class="s2">)&quot;</span>
+                <span class="p">)</span>
+
+        <span class="c1"># build the deme&#39;s epochs</span>
         <span class="k">if</span> <span class="n">epochs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># if epochs are not given, we assign a single epoch over that deme</span>
             <span class="k">if</span> <span class="n">final_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
