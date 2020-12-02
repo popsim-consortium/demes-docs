@@ -167,12 +167,27 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Functions to load and dump graphs in YAML and JSON formats.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">contextlib</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">io</span>
 
 <span class="kn">import</span> <span class="nn">ruamel.yaml</span>
 
 <span class="kn">import</span> <span class="nn">demes</span>
+
+
+<span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+<span class="k">def</span> <span class="nf">_open_file_polymorph</span><span class="p">(</span><span class="n">polymorph</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Open polymorph as a path and yield the fileobj. If that fails,</span>
+<span class="sd">    just yield polymorph under the assumption it&#39;s a fileobj.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">polymorph</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">f</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">polymorph</span>
+
 
 <span class="c1"># NOTE: The state of Python YAML libraries in 2020 leaves much to be desired.</span>
 <span class="c1"># The pyyaml library supports only YAML v1.1, which has some awkward corner</span>
@@ -185,14 +200,13 @@
 <span class="c1"># which are hopefully simple enough to not suffer from API instability.</span>
 
 
-<span class="k">def</span> <span class="nf">_loads_yaml_asdict</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_load_yaml_asdict</span><span class="p">(</span><span class="n">fp</span><span class="p">):</span>
     <span class="k">with</span> <span class="n">ruamel</span><span class="o">.</span><span class="n">yaml</span><span class="o">.</span><span class="n">YAML</span><span class="p">(</span><span class="n">typ</span><span class="o">=</span><span class="s2">&quot;safe&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">yaml</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_dumps_yaml_fromdict</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-    <span class="n">stream</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span>
-    <span class="k">with</span> <span class="n">ruamel</span><span class="o">.</span><span class="n">yaml</span><span class="o">.</span><span class="n">YAML</span><span class="p">(</span><span class="n">typ</span><span class="o">=</span><span class="s2">&quot;safe&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">stream</span><span class="p">)</span> <span class="k">as</span> <span class="n">yaml</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">_dump_yaml_fromdict</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">fp</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">ruamel</span><span class="o">.</span><span class="n">yaml</span><span class="o">.</span><span class="n">YAML</span><span class="p">(</span><span class="n">typ</span><span class="o">=</span><span class="s2">&quot;safe&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">fp</span><span class="p">)</span> <span class="k">as</span> <span class="n">yaml</span><span class="p">:</span>
         <span class="c1"># Disable JSON-style inline arrays and dicts.</span>
         <span class="n">yaml</span><span class="o">.</span><span class="n">default_flow_style</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="c1"># Don&#39;t emit obscure unicode, output &quot;\Uxxxxxxxx&quot; instead.</span>
@@ -201,7 +215,6 @@
         <span class="c1"># Keep dict insertion order, thank you very much!</span>
         <span class="n">yaml</span><span class="o">.</span><span class="n">sort_base_mapping_type_on_output</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">stream</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
 
 
 <span class="k">def</span> <span class="nf">loads_asdict</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">):</span>
@@ -216,13 +229,8 @@
 <span class="sd">        YAML or JSON input string.</span>
 <span class="sd">    :rtype: dict</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;json&quot;</span><span class="p">:</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;yaml&quot;</span><span class="p">:</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">_loads_yaml_asdict</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unknown format: </span><span class="si">{</span><span class="nb">format</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">data</span>
+    <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">load_asdict</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">load_asdict</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">):</span>
@@ -231,15 +239,23 @@
 <span class="sd">    The keywords and structure of the string are defined by the</span>
 <span class="sd">    :ref:`schema &lt;sec_schema&gt;`.</span>
 
-<span class="sd">    :param filename: The path to the file to be loaded.</span>
-<span class="sd">    :type filename: str or :class:`os.PathLike`</span>
+<span class="sd">    :param filename: The path to the file to be loaded, or a file-like object</span>
+<span class="sd">        with a `read()` method.</span>
+<span class="sd">    :type filename: str or :class:`os.PathLike` or file object</span>
 <span class="sd">    :param str format: The format of the input string. Either &quot;yaml&quot; or &quot;json&quot;.</span>
 <span class="sd">    :return: A dictionary of nested objects, with the same data model as the</span>
 <span class="sd">        YAML or JSON input string.</span>
 <span class="sd">    :rtype: dict</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">loads_asdict</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;json&quot;</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">_open_file_polymorph</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;yaml&quot;</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">_open_file_polymorph</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">_load_yaml_asdict</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unknown format: </span><span class="si">{</span><span class="nb">format</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span>
 
 
 <div class="viewcode-block" id="loads"><a class="viewcode-back" href="../../api.html#demes.loads">[docs]</a><span class="k">def</span> <span class="nf">loads</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">):</span>
@@ -263,7 +279,8 @@
 <span class="sd">    The keywords and structure of the file are defined by the</span>
 <span class="sd">    :ref:`schema &lt;sec_schema&gt;`.</span>
 
-<span class="sd">    :param filename: The path to the file to be loaded.</span>
+<span class="sd">    :param filename: The path to the file to be loaded, or a file-like object</span>
+<span class="sd">        with a `read()` method.</span>
 <span class="sd">    :type filename: str or :class:`os.PathLike`</span>
 <span class="sd">    :param str format: The format of the input file. Either &quot;yaml&quot; or &quot;json&quot;.</span>
 <span class="sd">    :return: A graph.</span>
@@ -286,18 +303,9 @@
 <span class="sd">    :return: The YAML or JSON string.</span>
 <span class="sd">    :rtype: str</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">simplified</span><span class="p">:</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">asdict_simplified</span><span class="p">()</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">asdict</span><span class="p">()</span>
-
-    <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;json&quot;</span><span class="p">:</span>
-        <span class="n">string</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;yaml&quot;</span><span class="p">:</span>
-        <span class="n">string</span> <span class="o">=</span> <span class="n">_dumps_yaml_fromdict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unknown format: </span><span class="si">{</span><span class="nb">format</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
+    <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
+        <span class="n">dump</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">stream</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="n">simplified</span><span class="p">)</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">string</span></div>
 
 
@@ -308,14 +316,26 @@
 <span class="sd">    :ref:`schema &lt;sec_schema&gt;`.</span>
 
 <span class="sd">    :param .Graph graph: The graph to dump.</span>
-<span class="sd">    :param filename: Path to the output file.</span>
-<span class="sd">    :type filename: str or :class:`os.PathLike`</span>
+<span class="sd">    :param filename: Path to the output file, or a file-like object with a</span>
+<span class="sd">        `write()` method.</span>
+<span class="sd">    :type filename: str or :class:`os.PathLike` or file object</span>
 <span class="sd">    :param str format: The format of the output file. Either &quot;yaml&quot; or &quot;json&quot;.</span>
 <span class="sd">    :param bool simplified: If True, outputs a simplified graph. If False, outputs</span>
 <span class="sd">        a redundant graph.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">dumps</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="n">simplified</span><span class="p">))</span></div>
+    <span class="k">if</span> <span class="n">simplified</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">asdict_simplified</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">asdict</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;json&quot;</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">_open_file_polymorph</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;yaml&quot;</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">_open_file_polymorph</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">_dump_yaml_fromdict</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unknown format: </span><span class="si">{</span><span class="nb">format</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

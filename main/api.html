@@ -301,7 +301,8 @@ The keywords and structure of the file are defined by the
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> (str or <code class="xref py py-class docutils literal notranslate"><span class="pre">os.PathLike</span></code>) – The path to the file to be loaded.</p></li>
+<li><p><strong>filename</strong> (str or <code class="xref py py-class docutils literal notranslate"><span class="pre">os.PathLike</span></code>) – The path to the file to be loaded, or a file-like object
+with a <cite>read()</cite> method.</p></li>
 <li><p><strong>format</strong> (<em>str</em>) – The format of the input file. Either “yaml” or “json”.</p></li>
 </ul>
 </dd>
@@ -346,7 +347,8 @@ The keywords and structure of the file are defined by the
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<a class="reference internal" href="#demes.Graph" title="demes.Graph"><em>Graph</em></a>) – The graph to dump.</p></li>
-<li><p><strong>filename</strong> (str or <code class="xref py py-class docutils literal notranslate"><span class="pre">os.PathLike</span></code>) – Path to the output file.</p></li>
+<li><p><strong>filename</strong> (str or <code class="xref py py-class docutils literal notranslate"><span class="pre">os.PathLike</span></code> or file object) – Path to the output file, or a file-like object with a
+<cite>write()</cite> method.</p></li>
 <li><p><strong>format</strong> (<em>str</em>) – The format of the output file. Either “yaml” or “json”.</p></li>
 <li><p><strong>simplified</strong> (<em>bool</em>) – If True, outputs a simplified graph. If False, outputs
 a redundant graph.</p></li>
