@@ -239,6 +239,9 @@
 
     <span class="k">assert</span> <span class="n">g</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">g2</span><span class="p">)</span>
 
+    <span class="n">g3</span> <span class="o">=</span> <span class="n">demes</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">demes</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="n">g</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">g3</span><span class="p">)</span>
+
     <span class="nb">print</span><span class="p">(</span><span class="n">demes</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
 </pre></div>
 

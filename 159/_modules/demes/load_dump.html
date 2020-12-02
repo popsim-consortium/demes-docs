@@ -169,6 +169,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">collections</span>
 
 <span class="kn">import</span> <span class="nn">ruamel.yaml</span>
 
@@ -188,6 +189,8 @@
         <span class="c1"># Don&#39;t emit obscure unicode, output &quot;\Uxxxxxxxx&quot; instead.</span>
         <span class="c1"># Needed for string equality after round-tripping.</span>
         <span class="n">yaml</span><span class="o">.</span><span class="n">allow_unicode</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Keep dict insertion order, thank you very much!</span>
+        <span class="n">yaml</span><span class="o">.</span><span class="n">sort_base_mapping_type_on_output</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">stream</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
 
