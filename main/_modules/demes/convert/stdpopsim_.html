@@ -164,9 +164,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for demes.convert.stdpopsim_</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">textwrap</span>
-
-<span class="kn">import</span> <span class="nn">stdpopsim</span>
+<span></span><span class="kn">import</span> <span class="nn">stdpopsim</span>
 
 <span class="kn">import</span> <span class="nn">demes</span>
 <span class="kn">from</span> <span class="nn">demes.convert</span> <span class="kn">import</span> <span class="n">to_msprime</span><span class="p">,</span> <span class="n">from_msprime</span>
@@ -216,7 +214,9 @@
         <span class="n">pop_names</span><span class="o">=</span><span class="p">[</span><span class="n">pc</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">pc</span> <span class="ow">in</span> <span class="n">demographic_model</span><span class="o">.</span><span class="n">populations</span><span class="p">],</span>
     <span class="p">)</span>
 
-    <span class="n">g</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="n">demographic_model</span><span class="o">.</span><span class="n">long_description</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">demographic_model</span><span class="o">.</span><span class="n">long_description</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span> <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="p">)</span>
     <span class="n">g</span><span class="o">.</span><span class="n">doi</span> <span class="o">=</span> <span class="p">[</span><span class="n">cite</span><span class="o">.</span><span class="n">doi</span> <span class="k">for</span> <span class="n">cite</span> <span class="ow">in</span> <span class="n">demographic_model</span><span class="o">.</span><span class="n">citations</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">g</span></div>
 
@@ -238,6 +238,9 @@
     <span class="c1"># print(demes.dumps(g2))</span>
 
     <span class="k">assert</span> <span class="n">g</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">g2</span><span class="p">)</span>
+
+    <span class="n">g3</span> <span class="o">=</span> <span class="n">demes</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">demes</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="n">g</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">g3</span><span class="p">)</span>
 
     <span class="nb">print</span><span class="p">(</span><span class="n">demes</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
 </pre></div>

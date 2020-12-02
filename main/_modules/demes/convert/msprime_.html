@@ -478,7 +478,12 @@
                         <span class="n">dest</span><span class="o">=</span><span class="n">name</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
                         <span class="n">start_time</span><span class="o">=</span><span class="n">ddb_epoch</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span>
                         <span class="n">end_time</span><span class="o">=</span><span class="n">ddb_epoch</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span>
-                        <span class="n">rate</span><span class="o">=</span><span class="n">msp_mm</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">],</span>
+                        <span class="c1"># Explicitly convert to float, so we don&#39;t leak a</span>
+                        <span class="c1"># singleton numpy float type. This can be a problem</span>
+                        <span class="c1"># for annoying serialisers that want to look at the</span>
+                        <span class="c1"># type instead of happily outputting a number.</span>
+                        <span class="c1"># I&#39;m looking at you, ruamel.yaml!</span>
+                        <span class="n">rate</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">msp_mm</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">]),</span>
                     <span class="p">)</span>
                     <span class="n">migrations</span><span class="p">[(</span><span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
