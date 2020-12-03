@@ -190,7 +190,7 @@
 
 <span class="k">def</span> <span class="nf">int_or_float</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
     <span class="k">if</span> <span class="p">(</span>
-        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="n">numbers</span><span class="o">.</span><span class="n">Real</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">SupportsFloat</span><span class="p">))</span>
+        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Real</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;__float__&quot;</span><span class="p">)</span>
     <span class="p">)</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">!=</span> <span class="n">value</span><span class="p">:</span>  <span class="c1"># type-agnostic test for NaN</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">attribute</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> must be a number&quot;</span><span class="p">)</span>
 
@@ -1965,7 +1965,7 @@
             <span class="c1"># of the numeric tower, but provide a __float__() method.</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Integral</span><span class="p">):</span>
                 <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="n">numbers</span><span class="o">.</span><span class="n">Real</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">SupportsFloat</span><span class="p">)):</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Real</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;__float__&quot;</span><span class="p">):</span>
                 <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">value</span>
 
