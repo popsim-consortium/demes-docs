@@ -2030,19 +2030,9 @@
                     <span class="k">if</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;initial_size&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;final_size&quot;</span><span class="p">]:</span>
                         <span class="k">del</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;final_size&quot;</span><span class="p">]</span>
 
-            <span class="c1"># we don&#39;t specify the deme&#39;s start and end time, since it&#39;s included in the</span>
-            <span class="c1"># epoch information. in the case that a single epoch is specified in a deme</span>
-            <span class="c1"># we carry that information up to the deme level</span>
             <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">]:</span>
                 <span class="k">del</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span>
                 <span class="k">del</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;end_time&quot;</span><span class="p">]</span>
-                <span class="k">if</span> <span class="p">(</span>
-                    <span class="nb">len</span><span class="p">(</span><span class="n">deme</span><span class="p">[</span><span class="s2">&quot;epochs&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span>
-                    <span class="ow">and</span> <span class="s2">&quot;size_function&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;epochs&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-                <span class="p">):</span>
-                    <span class="n">deme</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">deme</span><span class="p">[</span><span class="s2">&quot;epochs&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-                    <span class="k">del</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;epochs&quot;</span><span class="p">]</span>
-
                 <span class="k">if</span> <span class="s2">&quot;ancestors&quot;</span> <span class="ow">in</span> <span class="n">deme</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">deme</span><span class="p">[</span><span class="s2">&quot;ancestors&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="k">del</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;proportions&quot;</span><span class="p">]</span>
 
