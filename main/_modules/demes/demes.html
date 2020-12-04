@@ -1733,6 +1733,22 @@
             <span class="n">end_time</span> <span class="o">=</span> <span class="n">time_lo</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_check_time_intersection</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">end_time</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">existing_migration</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">migrations</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">source</span> <span class="o">==</span> <span class="n">existing_migration</span><span class="o">.</span><span class="n">source</span> <span class="ow">and</span> <span class="n">dest</span> <span class="o">==</span> <span class="n">existing_migration</span><span class="o">.</span><span class="n">dest</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="n">start_time</span> <span class="o">&gt;=</span> <span class="n">existing_migration</span><span class="o">.</span><span class="n">start_time</span> <span class="o">&gt;</span> <span class="n">end_time</span>
+                    <span class="ow">or</span> <span class="n">start_time</span> <span class="o">&gt;</span> <span class="n">existing_migration</span><span class="o">.</span><span class="n">end_time</span> <span class="o">&gt;=</span> <span class="n">end_time</span>
+                    <span class="ow">or</span> <span class="n">existing_migration</span><span class="o">.</span><span class="n">start_time</span>
+                    <span class="o">&gt;=</span> <span class="n">start_time</span>
+                    <span class="o">&gt;</span> <span class="n">existing_migration</span><span class="o">.</span><span class="n">end_time</span>
+                    <span class="ow">or</span> <span class="n">existing_migration</span><span class="o">.</span><span class="n">start_time</span>
+                    <span class="o">&gt;</span> <span class="n">end_time</span>
+                    <span class="o">&gt;=</span> <span class="n">existing_migration</span><span class="o">.</span><span class="n">end_time</span>
+                <span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="s2">&quot;new migration overlaps exisiting migration &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;from </span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">dest</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
         <span class="n">migration</span> <span class="o">=</span> <span class="n">Migration</span><span class="p">(</span>
             <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
             <span class="n">dest</span><span class="o">=</span><span class="n">dest</span><span class="p">,</span>
