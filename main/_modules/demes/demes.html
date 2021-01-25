@@ -1126,6 +1126,10 @@
 <span class="sd">    :ivar epochs: A list of epochs, which define the population size(s) of</span>
 <span class="sd">        the deme. The deme must be created with all epochs listed.</span>
 <span class="sd">    :vartype epochs: list of :class:`.Epoch`</span>
+<span class="sd">    :ivar defaults: A dictionary of default attributes, such as cloning and</span>
+<span class="sd">        selfing rates, that are inherited by epochs if those attributes are</span>
+<span class="sd">        not specified in the epoch.</span>
+<span class="sd">    :vartype defaults: dict</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nb">id</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_id</span><span class="p">])</span>
@@ -1154,6 +1158,7 @@
             <span class="n">iterable_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">list</span><span class="p">),</span>
         <span class="p">)</span>
     <span class="p">)</span>
+    <span class="n">defaults</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
 
     <span class="nd">@ancestors</span><span class="o">.</span><span class="n">validator</span>
     <span class="k">def</span> <span class="nf">_check_ancestors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_attribute</span><span class="p">,</span> <span class="n">_value</span><span class="p">):</span>
@@ -1320,6 +1325,8 @@
 <span class="sd">    :ivar pulses: A list of migration pulses for the demography.</span>
 <span class="sd">        Use :meth:`pulse` to add a pulse.</span>
 <span class="sd">    :vartype pulses: list of :class:`.Pulse`</span>
+<span class="sd">    :ivar defaults: A dictionary of default attributes for demes and epochs.</span>
+<span class="sd">    :vartype defaults: dict</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
@@ -1342,6 +1349,7 @@
     <span class="n">demes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Deme</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">migrations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Migration</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">pulses</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Pulse</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">defaults</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">{})</span>
 
     <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_deme_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">ID</span><span class="p">,</span> <span class="n">Deme</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
@@ -1491,8 +1499,7 @@
         <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">initial_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">final_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">selfing_rate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">cloning_rate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">defaults</span><span class="o">=</span><span class="p">{},</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Deme</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a deme to the graph, with lifetime ``(start_time, end_time]``.</span>
@@ -1524,50 +1531,69 @@
 <span class="sd">            This must be provided.</span>
 <span class="sd">        :param final_size: The final population size of the deme. If ``None``,</span>
 <span class="sd">            the deme has a constant ``initial_size`` population size.</span>
-<span class="sd">        :param float selfing_rate: The default selfing rate for this deme.</span>
-<span class="sd">            May be ``None``.</span>
-<span class="sd">        :param float cloning_rate: The default cloning rate for this deme.</span>
-<span class="sd">            May be ``None``.</span>
 <span class="sd">        :param epochs: Epochs that define population sizes, selfing rates, and</span>
 <span class="sd">            cloning rates, for the deme over various time periods.</span>
 <span class="sd">            If not specified, a single epoch will be created for the deme that</span>
 <span class="sd">            spans from ``start_time`` to ``end_time``, using the ``initial_size``,</span>
 <span class="sd">            ``final_size``, ``selfing_rate`` and ``cloning_rate`` provided.</span>
+<span class="sd">        :param defaults: Default attributes for epochs, including cloning_rate</span>
+<span class="sd">            and selfing_rate.</span>
 <span class="sd">        :return: Newly created deme.</span>
 <span class="sd">        :rtype: :class:`.Deme`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># some basic deme property checks</span>
         <span class="k">if</span> <span class="nb">id</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2"> already exists in this graph&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">epochs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2"> must have at least one specified epoch&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">initial_size</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">epochs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">initial_size</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">initial_size</span>
         <span class="k">if</span> <span class="n">initial_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;must set initial_size for </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;must set initial_size for deme </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">ancestors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">ancestors</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ancestors</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;ancestors must be a list of deme IDs&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ancestors must be a list of deme IDs for deme </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">ancestor</span> <span class="ow">in</span> <span class="n">ancestors</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">ancestor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ancestor deme </span><span class="si">{</span><span class="n">ancestor</span><span class="si">}</span><span class="s2"> not in graph&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ancestor deme </span><span class="si">{</span><span class="n">ancestor</span><span class="si">}</span><span class="s2"> not in graph for deme </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">proportions</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ancestors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">proportions</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">proportions</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="c1"># set the start time to first epoch&#39;s start time, to inf or to</span>
-        <span class="c1"># the ancestor&#39;s end time, if not given</span>
+        <span class="c1"># set the start time to first epoch&#39;s start time.</span>
+        <span class="c1"># if first epoch does not have a start time, set to inf or to</span>
+        <span class="c1"># the ancestor&#39;s end time</span>
         <span class="k">if</span> <span class="n">start_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">epochs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">start_time</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span>
             <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">ancestors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ancestors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                        <span class="s2">&quot;with multiple ancestors, start_time must be specified&quot;</span>
+                        <span class="s2">&quot;with multiple ancestors, start_time must be specified &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;for deme </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&quot;</span>
                     <span class="p">)</span>
                 <span class="n">start_time</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">ancestors</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">end_time</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">start_time</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span>
+        <span class="c1"># the first epoch&#39;s start time is set to deme&#39;s start time</span>
+        <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="n">start_time</span>
+        <span class="k">elif</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="o">!=</span> <span class="n">start_time</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;deme and first epoch start times do not align for deme </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># set the end time to the last epoch&#39;s end time</span>
+        <span class="k">if</span> <span class="n">end_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">end_time</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span>
+        <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">epochs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="o">!=</span> <span class="n">end_time</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;deme and final epoch end times do not align for deme </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
         <span class="c1"># check start time is valid wrt ancestor time intervals</span>
         <span class="k">for</span> <span class="n">ancestor</span> <span class="ow">in</span> <span class="n">ancestors</span><span class="p">:</span>
             <span class="n">anc</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">ancestor</span><span class="p">]</span>
@@ -1578,70 +1604,38 @@
                     <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">anc</span><span class="o">.</span><span class="n">start_time</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">anc</span><span class="o">.</span><span class="n">end_time</span><span class="si">}</span><span class="s2">)&quot;</span>
                 <span class="p">)</span>
 
-        <span class="c1"># build the deme&#39;s epochs</span>
-        <span class="k">if</span> <span class="n">epochs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="c1"># if epochs are not given, we assign a single epoch over that deme</span>
-            <span class="k">if</span> <span class="n">final_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">final_size</span> <span class="o">=</span> <span class="n">initial_size</span>
-            <span class="k">if</span> <span class="n">end_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">end_time</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="k">if</span> <span class="n">initial_size</span> <span class="o">==</span> <span class="n">final_size</span><span class="p">:</span>
-                <span class="n">size_function</span> <span class="o">=</span> <span class="s2">&quot;constant&quot;</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">size_function</span> <span class="o">=</span> <span class="s2">&quot;exponential&quot;</span>
-            <span class="n">epochs</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="n">Epoch</span><span class="p">(</span>
-                    <span class="n">start_time</span><span class="o">=</span><span class="n">start_time</span><span class="p">,</span>
-                    <span class="n">end_time</span><span class="o">=</span><span class="n">end_time</span><span class="p">,</span>
-                    <span class="n">initial_size</span><span class="o">=</span><span class="n">initial_size</span><span class="p">,</span>
-                    <span class="n">final_size</span><span class="o">=</span><span class="n">final_size</span><span class="p">,</span>
-                    <span class="n">size_function</span><span class="o">=</span><span class="n">size_function</span><span class="p">,</span>
-                    <span class="n">selfing_rate</span><span class="o">=</span><span class="n">selfing_rate</span><span class="p">,</span>
-                    <span class="n">cloning_rate</span><span class="o">=</span><span class="n">cloning_rate</span><span class="p">,</span>
+        <span class="c1"># set default cloning and selfing rates</span>
+        <span class="n">cloning_rate</span> <span class="o">=</span> <span class="n">defaults</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cloning_rate&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">defaults</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cloning_rate&quot;</span><span class="p">))</span>
+        <span class="n">selfing_rate</span> <span class="o">=</span> <span class="n">defaults</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;selfing_rate&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">defaults</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cloning_rate&quot;</span><span class="p">))</span>
+
+        <span class="c1"># fill in all attributes of epochs</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">)):</span>
+            <span class="c1"># set the start time based on the last epoch&#39;s end time</span>
+            <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span>
+            <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;all epochs must specify the end time&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="o">!=</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;epoch start and end times do not align for deme </span><span class="si">{id}</span><span class="s2">, &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;epochs </span><span class="si">{</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
                 <span class="p">)</span>
-            <span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># the last epoch needs to have an end time</span>
-            <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">end_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">epochs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="o">=</span> <span class="n">end_time</span>
+            <span class="c1"># for each subsequent epoch, fill in start size, final size,</span>
+            <span class="c1"># and size function as necessary based on last epoch</span>
+            <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">initial_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">initial_size</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">final_size</span>
+            <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">final_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">final_size</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">initial_size</span>
+            <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">size_function</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">initial_size</span> <span class="o">==</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">final_size</span><span class="p">:</span>
+                    <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">size_function</span> <span class="o">=</span> <span class="s2">&quot;constant&quot;</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;last epoch&#39;s end_time must be specified&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">end_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">end_time</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span>
-            <span class="k">if</span> <span class="n">end_time</span> <span class="o">!=</span> <span class="n">epochs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;deme and final epoch end times do not align&quot;</span><span class="p">)</span>
-            <span class="c1"># deal with first epoch and deme start times</span>
-            <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="c1"># first epoch starts at deme start time</span>
-                <span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="n">start_time</span>
-            <span class="k">elif</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="o">!=</span> <span class="n">start_time</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;deme and first epoch start times do not align&quot;</span><span class="p">)</span>
-            <span class="c1"># fill in all attributes of epochs</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">)):</span>
-                <span class="c1"># set the start and end times based on surrounding demes</span>
-                <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span>
-                <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ambiguity about epochs&#39; start/end times&quot;</span><span class="p">)</span>
-                    <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span>
-                <span class="c1"># for each subsequent epoch, fill in start size, final size,</span>
-                <span class="c1"># and size function as necessary based on last epoch</span>
-                <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">initial_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">initial_size</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">final_size</span>
-                <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">final_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">final_size</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">initial_size</span>
-                <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">size_function</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">initial_size</span> <span class="o">==</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">final_size</span><span class="p">:</span>
-                        <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">size_function</span> <span class="o">=</span> <span class="s2">&quot;constant&quot;</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">size_function</span> <span class="o">=</span> <span class="s2">&quot;exponential&quot;</span>
-                <span class="c1"># set per-epoch selfing and cloning rates</span>
-                <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">selfing_rate</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">selfing_rate</span> <span class="o">=</span> <span class="n">selfing_rate</span>
-                <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">cloning_rate</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">cloning_rate</span> <span class="o">=</span> <span class="n">cloning_rate</span>
+                    <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">size_function</span> <span class="o">=</span> <span class="s2">&quot;exponential&quot;</span>
+            <span class="c1"># set per-epoch selfing and cloning rates</span>
+            <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">selfing_rate</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">selfing_rate</span> <span class="o">=</span> <span class="n">selfing_rate</span>
+            <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">cloning_rate</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">cloning_rate</span> <span class="o">=</span> <span class="n">cloning_rate</span>
 
         <span class="n">deme</span> <span class="o">=</span> <span class="n">Deme</span><span class="p">(</span>
             <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">,</span>
@@ -1649,6 +1643,7 @@
             <span class="n">ancestors</span><span class="o">=</span><span class="n">ancestors</span><span class="p">,</span>
             <span class="n">proportions</span><span class="o">=</span><span class="n">proportions</span><span class="p">,</span>
             <span class="n">epochs</span><span class="o">=</span><span class="n">epochs</span><span class="p">,</span>
+            <span class="n">defaults</span><span class="o">=</span><span class="n">defaults</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_deme_map</span><span class="p">[</span><span class="n">deme</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">deme</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">deme</span><span class="p">)</span>
@@ -1930,21 +1925,12 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a graph from a dict representation. The inverse of asdict().</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="c1"># propagate selfing and cloning rates down to deme level</span>
-        <span class="n">selfing_rate</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;selfing_rate&quot;</span><span class="p">)</span>
-        <span class="n">cloning_rate</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cloning_rate&quot;</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;demes&quot;</span><span class="p">,</span> <span class="p">[]):</span>
-            <span class="k">if</span> <span class="n">selfing_rate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s2">&quot;selfing_rate&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">deme</span><span class="p">:</span>
-                <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;selfing_rate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">selfing_rate</span>
-            <span class="k">if</span> <span class="n">cloning_rate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s2">&quot;cloning_rate&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">deme</span><span class="p">:</span>
-                <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;cloning_rate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cloning_rate</span>
-
         <span class="n">g</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
             <span class="n">description</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">),</span>
             <span class="n">time_units</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;time_units&quot;</span><span class="p">),</span>
             <span class="n">generation_time</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;generation_time&quot;</span><span class="p">),</span>
             <span class="n">doi</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;doi&quot;</span><span class="p">,</span> <span class="p">[]),</span>
+            <span class="n">defaults</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;defaults&quot;</span><span class="p">,</span> <span class="p">{}),</span>
         <span class="p">)</span>
 
         <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;demes&quot;</span><span class="p">,</span> <span class="p">[]):</span>
