@@ -216,7 +216,7 @@ size (say, <span class="math notranslate nohighlight">\(N_e=1000\)</span>) would
 <span class="nt">demes</span><span class="p">:</span>
   <span class="nt">constant_size_deme</span><span class="p">:</span>
     <span class="nt">epochs</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
+    <span class="p p-Indicator">-</span> <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
       <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 </pre></div>
 </td></tr></table></div>
@@ -255,8 +255,8 @@ years could be written as</p>
 <p>A <code class="docutils literal notranslate"><span class="pre">deme</span></code> can be made to have more interesting demographic history, such as
 size changes or non-constant size functions. This is done by defining
 <code class="docutils literal notranslate"><span class="pre">epochs</span></code> that span the time that a deme exists. When defining an epoch,
-we specify its <code class="docutils literal notranslate"><span class="pre">start_time</span></code> and <code class="docutils literal notranslate"><span class="pre">end_time</span></code>, along with its <code class="docutils literal notranslate"><span class="pre">initial_size</span></code>
-and <code class="docutils literal notranslate"><span class="pre">final_size</span></code> (or just <code class="docutils literal notranslate"><span class="pre">initial_size</span></code> if the population size is constant
+we specify its <code class="docutils literal notranslate"><span class="pre">start_time</span></code> and <code class="docutils literal notranslate"><span class="pre">end_time</span></code>, along with its <code class="docutils literal notranslate"><span class="pre">start_size</span></code>
+and <code class="docutils literal notranslate"><span class="pre">end_size</span></code> (or just <code class="docutils literal notranslate"><span class="pre">start_size</span></code> if the population size is constant
 over that epoch).</p>
 <p>For example, the same minimal demography <a class="reference internal" href="#minimal-demography"><span class="std std-ref">above</span></a>
 could be written by specifying a single epoch over the entire time span of
@@ -264,7 +264,7 @@ the deme:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">demes</span><span class="p">:</span>
   <span class="nt">constant_size_deme</span><span class="p">:</span>
     <span class="nt">epochs</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
+    <span class="p p-Indicator">-</span> <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
       <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 </pre></div>
 </div>
@@ -300,22 +300,22 @@ in order, from most ancient to most recent.</p>
 <span class="nt">demes</span><span class="p">:</span>
   <span class="nt">our_population</span><span class="p">:</span>
     <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">A deme with multiple epochs.</span>
-    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10000</span>
+    <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10000</span>
     <span class="nt">epochs</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10000</span>
+    <span class="p p-Indicator">-</span> <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10000</span>
       <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">250000</span>
-    <span class="p p-Indicator">-</span> <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">20000</span>
+    <span class="p p-Indicator">-</span> <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">20000</span>
       <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">60000</span>
-    <span class="p p-Indicator">-</span> <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1500</span>
+    <span class="p p-Indicator">-</span> <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1500</span>
       <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">30000</span>
-    <span class="p p-Indicator">-</span> <span class="nt">final_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">40000</span>
+    <span class="p p-Indicator">-</span> <span class="nt">end_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">40000</span>
       <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 </pre></div>
 </td></tr></table></div>
 </div>
 <p>We also see, again, that for constant size epochs we only need to specify
-the <code class="docutils literal notranslate"><span class="pre">initial_size</span></code>, and if no <code class="docutils literal notranslate"><span class="pre">initial_size</span></code> is given, the <code class="docutils literal notranslate"><span class="pre">epoch</span></code> inherits
-the <code class="docutils literal notranslate"><span class="pre">final_size</span></code> of the previous epoch.</p>
+the <code class="docutils literal notranslate"><span class="pre">start_size</span></code>, and if no <code class="docutils literal notranslate"><span class="pre">start_size</span></code> is given, the <code class="docutils literal notranslate"><span class="pre">epoch</span></code> inherits
+the <code class="docutils literal notranslate"><span class="pre">end_size</span></code> of the previous epoch.</p>
 <p>In the previous example, we have a <code class="docutils literal notranslate"><span class="pre">deme</span></code> that expands from an effective population
 size of 10,000 to 20,000 250 thousand years ago, goes through a bottleneck
 between 60 and 30 thousand years ago, and then expontially grows from the
@@ -323,7 +323,7 @@ bottleneck size of 1,500 to 40,000 from 30 thousand years ago until present
 time.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If no <code class="docutils literal notranslate"><span class="pre">size_function</span></code> is given, when the <code class="docutils literal notranslate"><span class="pre">initial_size</span></code> and <code class="docutils literal notranslate"><span class="pre">final_size</span></code>
+<p>If no <code class="docutils literal notranslate"><span class="pre">size_function</span></code> is given, when the <code class="docutils literal notranslate"><span class="pre">start_size</span></code> and <code class="docutils literal notranslate"><span class="pre">end_size</span></code>
 are different, the default size function is exponential. However, other
 size functions, such as linear, are permitted and can be specified.</p>
 </div>
@@ -335,9 +335,9 @@ if we have two constant size demes that both exist for all time and never
 interact (for illustration, not realism), we could write:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">demes</span><span class="p">:</span>
   <span class="nt">deme1</span><span class="p">:</span>
-    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
+    <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
   <span class="nt">deme2</span><span class="p">:</span>
-    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2000</span>
+    <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2000</span>
 </pre></div>
 </div>
 </div>
@@ -349,11 +349,11 @@ deme, we would specify that its <code class="docutils literal notranslate"><span
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">demes</span><span class="p">:</span>
   <span class="nt">parental_deme</span><span class="p">:</span>
     <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">The parental deme, that exists for all time.</span>
-    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
+    <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
   <span class="nt">child_deme</span><span class="p">:</span>
     <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">The child deme, that exists from the branching time.</span>
     <span class="nt">ancestors</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">parental_deme</span>
-    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">500</span>
+    <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">500</span>
     <span class="nt">start_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
 </pre></div>
 </div>
@@ -367,20 +367,20 @@ is written as</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">demes</span><span class="p">:</span>
   <span class="nt">parental_deme</span><span class="p">:</span>
     <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">The parental deme, that splits into three demes.</span>
-    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
+    <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
     <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">200</span>
   <span class="nt">child1</span><span class="p">:</span>
     <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">The first child deme.</span>
     <span class="nt">ancestors</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">parental_deme</span>
-    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">500</span>
+    <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">500</span>
   <span class="nt">child2</span><span class="p">:</span>
     <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">The second child deme.</span>
     <span class="nt">ancestors</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">parental_deme</span>
-    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">800</span>
+    <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">800</span>
   <span class="nt">child3</span><span class="p">:</span>
     <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">The third child deme.</span>
     <span class="nt">ancestors</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">parental_deme</span>
-    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">600</span>
+    <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">600</span>
 </pre></div>
 </div>
 <p>Here, the parental deme exists until time 200, and each child deme exists
@@ -420,21 +420,21 @@ from time 200 to present time.</p>
   <span class="nt">root</span><span class="p">:</span>
     <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Parental deme</span>
     <span class="nt">epochs</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10000</span>
+    <span class="p p-Indicator">-</span> <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10000</span>
       <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1200</span>
   <span class="nt">deme1</span><span class="p">:</span>
     <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">First child deme</span>
     <span class="nt">ancestors</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">root</span>
     <span class="nt">epochs</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2000</span>
-      <span class="nt">final_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">30000</span>
+    <span class="p p-Indicator">-</span> <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2000</span>
+      <span class="nt">end_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">30000</span>
       <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
   <span class="nt">deme2</span><span class="p">:</span>
     <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Second child deme</span>
     <span class="nt">ancestors</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">root</span>
     <span class="nt">epochs</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">8000</span>
-      <span class="nt">final_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">15000</span>
+    <span class="p p-Indicator">-</span> <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">8000</span>
+      <span class="nt">end_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">15000</span>
       <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 <span class="nt">migrations</span><span class="p">:</span>
   <span class="nt">symmetric</span><span class="p">:</span>
@@ -466,9 +466,9 @@ migration, much like we specify <code class="docutils literal notranslate"><span
 over time:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">demes</span><span class="p">:</span>
   <span class="nt">deme1</span><span class="p">:</span>
-    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
+    <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
   <span class="nt">deme2</span><span class="p">:</span>
-    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
+    <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
 <span class="nt">migrations</span><span class="p">:</span>
   <span class="nt">symmetric</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="nt">demes</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">deme1, deme2</span>
@@ -525,16 +525,16 @@ a comma-separated list of admixture proportions from the parental demes.
 demes listed in <code class="docutils literal notranslate"><span class="pre">ancestors</span></code>.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">demes</span><span class="p">:</span>
   <span class="nt">parental1</span><span class="p">:</span>
-    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
+    <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
     <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
   <span class="nt">parental2</span><span class="p">:</span>
-    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2000</span>
+    <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2000</span>
     <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
   <span class="nt">merged_deme</span><span class="p">:</span>
     <span class="nt">ancestors</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">parental1, parental2</span>
     <span class="nt">proportions</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.7, 0.3</span>
-    <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3000</span>
-    <span class="nt">final_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5000</span>
+    <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3000</span>
+    <span class="nt">end_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5000</span>
 </pre></div>
 </div>
 <p>Here, two demes merge to form a single deme 100 time units ago, which
@@ -616,38 +616,38 @@ demes persist until present time.</p>
     <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Equilibrium/root population</span>
     <span class="nt">epochs</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5920</span>
-      <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">7310</span>
+      <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">7310</span>
   <span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AMH</span>
     <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Anatomically modern humans</span>
     <span class="nt">ancestors</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">ancestral</span><span class="p p-Indicator">]</span>
     <span class="nt">epochs</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2040</span>
-      <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">14474</span>
+      <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">14474</span>
   <span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">OOA</span>
     <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Bottleneck out-of-Africa population</span>
     <span class="nt">ancestors</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">AMH</span><span class="p p-Indicator">]</span>
     <span class="nt">epochs</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">920</span>
-      <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1861</span>
+      <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1861</span>
   <span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AFR</span>
     <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">African population</span>
     <span class="nt">ancestors</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">AMH</span><span class="p p-Indicator">]</span>
     <span class="nt">epochs</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">14474</span>
+    <span class="p p-Indicator">-</span> <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">14474</span>
       <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
   <span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">EUR</span>
     <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">European population</span>
     <span class="nt">ancestors</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">OOA</span><span class="p p-Indicator">]</span>
     <span class="nt">epochs</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
-      <span class="nt">final_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">34039</span>
+    <span class="p p-Indicator">-</span> <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
+      <span class="nt">end_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">34039</span>
       <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
   <span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">EAS</span>
     <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">East Asian population</span>
     <span class="nt">ancestors</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">OOA</span><span class="p p-Indicator">]</span>
     <span class="nt">epochs</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">510</span>
-      <span class="nt">final_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">45852</span>
+    <span class="p p-Indicator">-</span> <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">510</span>
+      <span class="nt">end_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">45852</span>
       <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
   <span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ADMIX</span>
     <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Admixed America</span>
@@ -655,8 +655,8 @@ demes persist until present time.</p>
     <span class="nt">proportions</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">0.167</span><span class="p p-Indicator">,</span> <span class="nv">0.333</span><span class="p p-Indicator">,</span> <span class="nv">0.5</span><span class="p p-Indicator">]</span>
     <span class="nt">epochs</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="nt">start_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">12</span>
-      <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">30000</span>
-      <span class="nt">final_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">54664</span>
+      <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">30000</span>
+      <span class="nt">end_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">54664</span>
       <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 <span class="nt">migrations</span><span class="p">:</span>
   <span class="nt">symmetric</span><span class="p">:</span>

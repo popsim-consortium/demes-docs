@@ -198,8 +198,8 @@
     <span class="n">pop_id</span> <span class="o">=</span> <span class="p">{</span><span class="n">deme</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">j</span> <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">deme</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">demes</span><span class="p">)}</span>
 
     <span class="k">def</span> <span class="nf">growth_rate</span><span class="p">(</span><span class="n">epoch</span><span class="p">:</span> <span class="n">demes</span><span class="o">.</span><span class="n">Epoch</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="n">initial_size</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">epoch</span><span class="o">.</span><span class="n">final_size</span><span class="p">)</span>
-        <span class="n">final_size</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">epoch</span><span class="o">.</span><span class="n">initial_size</span><span class="p">)</span>
+        <span class="n">initial_size</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">epoch</span><span class="o">.</span><span class="n">end_size</span><span class="p">)</span>
+        <span class="n">final_size</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">epoch</span><span class="o">.</span><span class="n">start_size</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">initial_size</span> <span class="o">==</span> <span class="n">final_size</span><span class="p">:</span>
             <span class="n">growth_rate</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="k">else</span><span class="p">:</span>
@@ -226,7 +226,7 @@
             <span class="n">initial_size</span> <span class="o">=</span> <span class="n">Ne_invalid</span>
             <span class="n">_growth_rate</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">initial_size</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">deme</span><span class="o">.</span><span class="n">epochs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">final_size</span><span class="p">)</span>
+            <span class="n">initial_size</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">deme</span><span class="o">.</span><span class="n">epochs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_size</span><span class="p">)</span>
             <span class="n">_growth_rate</span> <span class="o">=</span> <span class="n">growth_rate</span><span class="p">(</span><span class="n">deme</span><span class="o">.</span><span class="n">epochs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
         <span class="n">population_configurations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
             <span class="n">msprime</span><span class="o">.</span><span class="n">PopulationConfiguration</span><span class="p">(</span>
@@ -254,7 +254,7 @@
                 <span class="n">demographic_events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                     <span class="n">msprime</span><span class="o">.</span><span class="n">PopulationParametersChange</span><span class="p">(</span>
                         <span class="n">time</span><span class="o">=</span><span class="n">epoch</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span>
-                        <span class="n">initial_size</span><span class="o">=</span><span class="n">epoch</span><span class="o">.</span><span class="n">final_size</span><span class="p">,</span>
+                        <span class="n">initial_size</span><span class="o">=</span><span class="n">epoch</span><span class="o">.</span><span class="n">end_size</span><span class="p">,</span>
                         <span class="n">growth_rate</span><span class="o">=</span><span class="n">growth_rate</span><span class="p">(</span><span class="n">epoch</span><span class="p">),</span>
                         <span class="n">population_id</span><span class="o">=</span><span class="n">pop_id</span><span class="p">[</span><span class="n">deme</span><span class="o">.</span><span class="n">id</span><span class="p">],</span>
                     <span class="p">)</span>
@@ -405,7 +405,7 @@
                         <span class="n">gtmp</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">][</span><span class="n">pop_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
                             <span class="s2">&quot;ancestors&quot;</span><span class="p">:</span> <span class="p">[],</span>
                             <span class="s2">&quot;proportions&quot;</span><span class="p">:</span> <span class="p">[],</span>
-                            <span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">demes</span><span class="o">.</span><span class="n">Epoch</span><span class="p">(</span><span class="n">initial_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)],</span>
+                            <span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">demes</span><span class="o">.</span><span class="n">Epoch</span><span class="p">(</span><span class="n">start_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)],</span>
                         <span class="p">}</span>
                     <span class="n">pop_param_changes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pop_name</span><span class="p">)</span>
 
@@ -422,7 +422,7 @@
                     <span class="n">gtmp</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">][</span><span class="n">parent</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
                         <span class="s2">&quot;ancestors&quot;</span><span class="p">:</span> <span class="p">[],</span>
                         <span class="s2">&quot;proportions&quot;</span><span class="p">:</span> <span class="p">[],</span>
-                        <span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">demes</span><span class="o">.</span><span class="n">Epoch</span><span class="p">(</span><span class="n">initial_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)],</span>
+                        <span class="s2">&quot;epochs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">demes</span><span class="o">.</span><span class="n">Epoch</span><span class="p">(</span><span class="n">start_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)],</span>
                     <span class="p">}</span>
 
             <span class="k">if</span> <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">proportions</span><span class="p">),</span> <span class="mi">1</span><span class="p">):</span>
@@ -431,7 +431,7 @@
                 <span class="c1"># Set attributes after deme creation, to avoid internal</span>
                 <span class="c1"># checks about the ancestors&#39; existence time intervals.</span>
                 <span class="n">gtmp</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">][</span><span class="n">child</span><span class="p">][</span><span class="s2">&quot;epochs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
-                    <span class="n">demes</span><span class="o">.</span><span class="n">Epoch</span><span class="p">(</span><span class="n">start_time</span><span class="o">=</span><span class="n">ddb_epoch</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="n">demes</span><span class="o">.</span><span class="n">Epoch</span><span class="p">(</span><span class="n">start_time</span><span class="o">=</span><span class="n">ddb_epoch</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="n">start_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
                 <span class="p">]</span>
                 <span class="n">gtmp</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">][</span><span class="n">child</span><span class="p">][</span><span class="s2">&quot;ancestors&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ancestors</span>
                 <span class="n">gtmp</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">][</span><span class="n">child</span><span class="p">][</span><span class="s2">&quot;proportions&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">proportions</span>
@@ -461,14 +461,14 @@
             <span class="n">last_epoch</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="n">deme_id</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="n">last_epoch</span><span class="o">.</span><span class="n">end_time</span> <span class="o">=</span> <span class="n">ddb_epoch</span><span class="o">.</span><span class="n">start_time</span>
             <span class="k">if</span> <span class="n">last_epoch</span><span class="o">.</span><span class="n">start_time</span> <span class="o">==</span> <span class="n">ddb_epoch</span><span class="o">.</span><span class="n">end_time</span><span class="p">:</span>
-                <span class="n">last_epoch</span><span class="o">.</span><span class="n">initial_size</span> <span class="o">=</span> <span class="n">pop</span><span class="o">.</span><span class="n">end_size</span>
-            <span class="n">last_epoch</span><span class="o">.</span><span class="n">final_size</span> <span class="o">=</span> <span class="n">pop</span><span class="o">.</span><span class="n">start_size</span>
+                <span class="n">last_epoch</span><span class="o">.</span><span class="n">start_size</span> <span class="o">=</span> <span class="n">pop</span><span class="o">.</span><span class="n">end_size</span>
+            <span class="n">last_epoch</span><span class="o">.</span><span class="n">end_size</span> <span class="o">=</span> <span class="n">pop</span><span class="o">.</span><span class="n">start_size</span>
 
             <span class="k">if</span> <span class="n">name</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="ow">in</span> <span class="n">pop_param_changes</span><span class="p">:</span>
                 <span class="c1"># Add new epoch, to be fixed in the next ddb_epoch iteration.</span>
                 <span class="n">epochs</span><span class="p">[</span><span class="n">deme_id</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                     <span class="n">demes</span><span class="o">.</span><span class="n">Epoch</span><span class="p">(</span>
-                        <span class="n">start_time</span><span class="o">=</span><span class="n">ddb_epoch</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">initial_size</span><span class="o">=</span><span class="mi">1</span>
+                        <span class="n">start_time</span><span class="o">=</span><span class="n">ddb_epoch</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">start_size</span><span class="o">=</span><span class="mi">1</span>
                     <span class="p">)</span>
                 <span class="p">)</span>
 
@@ -502,8 +502,8 @@
             <span class="n">epochs</span><span class="p">[</span><span class="n">deme_id</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">demes</span><span class="o">.</span><span class="n">Epoch</span><span class="p">(</span>
                 <span class="n">start_time</span><span class="o">=</span><span class="n">epoch</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span>
                 <span class="n">end_time</span><span class="o">=</span><span class="n">epoch</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span>
-                <span class="n">initial_size</span><span class="o">=</span><span class="n">epoch</span><span class="o">.</span><span class="n">final_size</span><span class="p">,</span>
-                <span class="n">final_size</span><span class="o">=</span><span class="n">epoch</span><span class="o">.</span><span class="n">final_size</span><span class="p">,</span>
+                <span class="n">start_size</span><span class="o">=</span><span class="n">epoch</span><span class="o">.</span><span class="n">end_size</span><span class="p">,</span>
+                <span class="n">end_size</span><span class="o">=</span><span class="n">epoch</span><span class="o">.</span><span class="n">end_size</span><span class="p">,</span>
             <span class="p">)</span>
 
     <span class="c1"># Create a fresh demes graph, now that we have complete epoch information</span>
@@ -522,8 +522,8 @@
                 <span class="n">demes</span><span class="o">.</span><span class="n">Epoch</span><span class="p">(</span>
                     <span class="n">start_time</span><span class="o">=</span><span class="n">epoch</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span>
                     <span class="n">end_time</span><span class="o">=</span><span class="n">epoch</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span>
-                    <span class="n">initial_size</span><span class="o">=</span><span class="n">epoch</span><span class="o">.</span><span class="n">initial_size</span><span class="p">,</span>
-                    <span class="n">final_size</span><span class="o">=</span><span class="n">epoch</span><span class="o">.</span><span class="n">final_size</span><span class="p">,</span>
+                    <span class="n">start_size</span><span class="o">=</span><span class="n">epoch</span><span class="o">.</span><span class="n">start_size</span><span class="p">,</span>
+                    <span class="n">end_size</span><span class="o">=</span><span class="n">epoch</span><span class="o">.</span><span class="n">end_size</span><span class="p">,</span>
                 <span class="p">)</span>
                 <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="n">epochs</span><span class="p">[</span><span class="n">deme_id</span><span class="p">]</span>
             <span class="p">],</span>

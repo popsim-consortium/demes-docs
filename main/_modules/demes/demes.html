@@ -290,9 +290,9 @@
 
 <span class="sd">    :ivar start_time: The start time of the epoch.</span>
 <span class="sd">    :ivar end_time: The end time of the epoch (must be specified).</span>
-<span class="sd">    :ivar initial_size: Population size at ``start_time``.</span>
-<span class="sd">    :ivar final_size: Population size at ``end_time``.</span>
-<span class="sd">        If ``initial_size != final_size``, the population size changes</span>
+<span class="sd">    :ivar start_size: Population size at ``start_time``.</span>
+<span class="sd">    :ivar end_size: Population size at ``end_time``.</span>
+<span class="sd">        If ``start_size != end_size``, the population size changes</span>
 <span class="sd">        monotonically between the start and end times.</span>
 <span class="sd">    :ivar size_function: The size change function. Common options are constant,</span>
 <span class="sd">        exponential, or linear, though any string is valid. Warning: downstream</span>
@@ -309,11 +309,11 @@
         <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">optional</span><span class="p">([</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">]),</span>
     <span class="p">)</span>
-    <span class="n">initial_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Size</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
+    <span class="n">start_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Size</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
         <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">optional</span><span class="p">([</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">positive</span><span class="p">,</span> <span class="n">finite</span><span class="p">]),</span>
     <span class="p">)</span>
-    <span class="n">final_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Size</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
+    <span class="n">end_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Size</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
         <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">optional</span><span class="p">([</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">positive</span><span class="p">,</span> <span class="n">finite</span><span class="p">]),</span>
     <span class="p">)</span>
@@ -333,8 +333,8 @@
     <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_size</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;must set either initial_size or final_size&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_size</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;must set either start_size or end_size&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -343,20 +343,18 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;must have start_time &gt; end_time&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="p">):</span>
-            <span class="k">if</span> <span class="n">math</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_size</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_size</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">math</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_size</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_size</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;if start time is inf, must be a constant size epoch&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">size_function</span> <span class="o">==</span> <span class="s2">&quot;constant&quot;</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_size</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_size</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_size</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_size</span>
         <span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;initial_size != final_size, but size_function is constant&quot;</span>
-            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;start_size != end_size, but size_function is constant&quot;</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">time_span</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -376,7 +374,7 @@
 <span class="sd">        Returns true if the epoch and ``other`` epoch implement essentially</span>
 <span class="sd">        the same epoch and raises AssertionError otherwise.</span>
 <span class="sd">        Compares values of the following attributes:</span>
-<span class="sd">        ``start_time``, ``end_time``, ``initial_size``, ``final_size``,</span>
+<span class="sd">        ``start_time``, ``end_time``, ``start_size``, ``end_size``,</span>
 <span class="sd">        ``size_function``, ``selfing_rate``, ``cloning_rate``.</span>
 
 <span class="sd">        :param other: The epoch to compare against.</span>
@@ -402,14 +400,14 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
         <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for end_time </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">end_time</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
         <span class="k">assert</span> <span class="n">isclose</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">initial_size</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">initial_size</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">start_size</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">start_size</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
         <span class="p">),</span> <span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Failed for initial_size &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">initial_size</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">initial_size</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Failed for start_size &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">start_size</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">start_size</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
         <span class="p">)</span>
         <span class="k">assert</span> <span class="n">isclose</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">final_size</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">final_size</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
-        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for final_size </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">final_size</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">final_size</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">end_size</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">end_size</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for end_size </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">end_size</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">end_size</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">size_function</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">size_function</span>
         <span class="k">assert</span> <span class="n">isclose</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">selfing_rate</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">selfing_rate</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
@@ -1497,8 +1495,8 @@
         <span class="n">epochs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">initial_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">final_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">start_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">end_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">defaults</span><span class="o">=</span><span class="p">{},</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Deme</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1527,15 +1525,15 @@
 <span class="sd">        :param float end_time: The time at which this deme stops existing,</span>
 <span class="sd">            in units of ``time_units`` before the present.</span>
 <span class="sd">            If not specified, defaults to ``0.0`` (the present).</span>
-<span class="sd">        :param initial_size: The initial population size of the deme.</span>
+<span class="sd">        :param start_size: The initial population size of the deme.</span>
 <span class="sd">            This must be provided.</span>
-<span class="sd">        :param final_size: The final population size of the deme. If ``None``,</span>
-<span class="sd">            the deme has a constant ``initial_size`` population size.</span>
+<span class="sd">        :param end_size: The final population size of the deme. If ``None``,</span>
+<span class="sd">            the deme has a constant ``start_size`` population size.</span>
 <span class="sd">        :param epochs: Epochs that define population sizes, selfing rates, and</span>
 <span class="sd">            cloning rates, for the deme over various time periods.</span>
 <span class="sd">            If not specified, a single epoch will be created for the deme that</span>
-<span class="sd">            spans from ``start_time`` to ``end_time``, using the ``initial_size``,</span>
-<span class="sd">            ``final_size``, ``selfing_rate`` and ``cloning_rate`` provided.</span>
+<span class="sd">            spans from ``start_time`` to ``end_time``, using the ``start_size``,</span>
+<span class="sd">            ``end_size``, ``selfing_rate`` and ``cloning_rate`` provided.</span>
 <span class="sd">        :param defaults: Default attributes for epochs, including cloning_rate</span>
 <span class="sd">            and selfing_rate.</span>
 <span class="sd">        :return: Newly created deme.</span>
@@ -1546,10 +1544,10 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2"> already exists in this graph&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">epochs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2"> must have at least one specified epoch&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">initial_size</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">epochs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">initial_size</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">initial_size</span>
-        <span class="k">if</span> <span class="n">initial_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;must set initial_size for deme </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">start_size</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">epochs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">start_size</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start_size</span>
+        <span class="k">if</span> <span class="n">start_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;must set start_size for deme </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">ancestors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">ancestors</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ancestors</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
@@ -1622,12 +1620,12 @@
                 <span class="p">)</span>
             <span class="c1"># for each subsequent epoch, fill in start size, final size,</span>
             <span class="c1"># and size function as necessary based on last epoch</span>
-            <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">initial_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">initial_size</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">final_size</span>
-            <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">final_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">final_size</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">initial_size</span>
+            <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">start_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">start_size</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_size</span>
+            <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">end_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">end_size</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">start_size</span>
             <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">size_function</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">initial_size</span> <span class="o">==</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">final_size</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">start_size</span> <span class="o">==</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">end_size</span><span class="p">:</span>
                     <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">size_function</span> <span class="o">=</span> <span class="s2">&quot;constant&quot;</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">size_function</span> <span class="o">=</span> <span class="s2">&quot;exponential&quot;</span>
@@ -2012,8 +2010,8 @@
                         <span class="k">del</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span>
                     <span class="k">if</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;size_function&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span> <span class="s2">&quot;exponential&quot;</span><span class="p">):</span>
                         <span class="k">del</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;size_function&quot;</span><span class="p">]</span>
-                    <span class="k">if</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;initial_size&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;final_size&quot;</span><span class="p">]:</span>
-                        <span class="k">del</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;final_size&quot;</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;start_size&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;end_size&quot;</span><span class="p">]:</span>
+                        <span class="k">del</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;end_size&quot;</span><span class="p">]</span>
 
             <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">]:</span>
                 <span class="k">del</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span>
