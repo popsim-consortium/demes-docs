@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>demes.demes &mdash; demes 0.1.dev1 documentation</title>
   
@@ -18,7 +18,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -54,7 +57,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> demes
+            <a href="../../index.html" class="icon icon-home"> demes
           
 
           
@@ -124,6 +127,8 @@
         <div class="rst-content">
         
           
+
+
 
 
 
@@ -1498,13 +1503,10 @@
         <span class="n">proportions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">epochs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">start_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">end_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">defaults</span><span class="o">=</span><span class="p">{},</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Deme</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Add a deme to the graph, with lifetime ``(start_time, end_time]``.</span>
+<span class="sd">        Add a deme to the graph.</span>
 
 <span class="sd">        :param str id: A string identifier for the deme.</span>
 <span class="sd">        :param ancestors: List of string identifiers for the deme&#39;s ancestors.</span>
@@ -1526,18 +1528,9 @@
 <span class="sd">            - If the deme has multiple ancestors, the ``start_time`` must be</span>
 <span class="sd">              provided.</span>
 
-<span class="sd">        :param float end_time: The time at which this deme stops existing,</span>
-<span class="sd">            in units of ``time_units`` before the present.</span>
-<span class="sd">            If not specified, defaults to ``0.0`` (the present).</span>
-<span class="sd">        :param start_size: The initial population size of the deme.</span>
-<span class="sd">            This must be provided.</span>
-<span class="sd">        :param end_size: The final population size of the deme. If ``None``,</span>
-<span class="sd">            the deme has a constant ``start_size`` population size.</span>
 <span class="sd">        :param epochs: Epochs that define population sizes, selfing rates, and</span>
 <span class="sd">            cloning rates, for the deme over various time periods.</span>
-<span class="sd">            If not specified, a single epoch will be created for the deme that</span>
-<span class="sd">            spans from ``start_time`` to ``end_time``, using the ``start_size``,</span>
-<span class="sd">            ``end_size``, ``selfing_rate`` and ``cloning_rate`` provided.</span>
+<span class="sd">            If the final epoch&#39;s ``end_time`` is ``None``, it will be set to ``0``.</span>
 <span class="sd">        :param defaults: Default attributes for epochs, including cloning_rate</span>
 <span class="sd">            and selfing_rate.</span>
 <span class="sd">        :return: Newly created deme.</span>
@@ -1548,10 +1541,6 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2"> already exists in this graph&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">epochs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2"> must have at least one specified epoch&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">start_size</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">epochs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">start_size</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start_size</span>
-        <span class="k">if</span> <span class="n">start_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;must set start_size for deme </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">ancestors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">ancestors</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ancestors</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
@@ -1569,9 +1558,7 @@
         <span class="c1"># if first epoch does not have a start time, set to inf or to</span>
         <span class="c1"># the ancestor&#39;s end time</span>
         <span class="k">if</span> <span class="n">start_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">start_time</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span>
-            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">ancestors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ancestors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ancestors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                         <span class="s2">&quot;with multiple ancestors, start_time must be specified &quot;</span>
@@ -1587,14 +1574,9 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;deme and first epoch start times do not align for deme </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
-
-        <span class="c1"># set the end time to the last epoch&#39;s end time</span>
-        <span class="k">if</span> <span class="n">end_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">end_time</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span>
-        <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">epochs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="o">!=</span> <span class="n">end_time</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;deme and final epoch end times do not align for deme </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="p">)</span>
+        <span class="c1"># fix deme&#39;s end time to 0 if not set</span>
+        <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">epochs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="c1"># check start time is valid wrt ancestor time intervals</span>
         <span class="k">for</span> <span class="n">ancestor</span> <span class="ow">in</span> <span class="n">ancestors</span><span class="p">:</span>
@@ -1617,6 +1599,8 @@
                 <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span>
             <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;all epochs must specify the end time&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="o">&lt;=</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;epoch </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> has start_time &lt;= end_time for deme </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="o">!=</span> <span class="n">epochs</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                     <span class="s2">&quot;epoch start and end times do not align for deme </span><span class="si">{id}</span><span class="s2">, &quot;</span>
@@ -1976,7 +1960,8 @@
         <span class="c1"># translate to spec data model</span>
         <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">]:</span>
             <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;epochs&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span>
-            <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;end_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;epochs&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;end_time&quot;</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;epochs&quot;</span><span class="p">]:</span>
+                <span class="k">del</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span>
         <span class="n">migrations</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;migrations&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">migrations</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">data</span><span class="p">[</span><span class="s2">&quot;migrations&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;asymmetric&quot;</span><span class="p">:</span> <span class="n">migrations</span><span class="p">}</span>
@@ -1994,34 +1979,25 @@
 
         <span class="k">def</span> <span class="nf">simplify_epochs</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
             <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Remove epoch start times if implied by previous epoch&#39;s end time</span>
-<span class="sd">            or if implied by the deme ancestor(s)&#39;s end time(s).</span>
+<span class="sd">            Remove epoch start times. Also remove deme start time</span>
+<span class="sd">            if implied by the deme ancestor(s)&#39;s end time(s).</span>
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">]:</span>
                 <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">deme</span><span class="p">[</span><span class="s2">&quot;epochs&quot;</span><span class="p">]):</span>
-                    <span class="c1"># remove implied start times</span>
-                    <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="n">math</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]):</span>
-                            <span class="k">del</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span>
-                        <span class="k">if</span> <span class="s2">&quot;ancestors&quot;</span> <span class="ow">in</span> <span class="n">deme</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">deme</span><span class="p">[</span><span class="s2">&quot;ancestors&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                            <span class="c1"># start time needed for more than 1 ancestor</span>
-                            <span class="k">if</span> <span class="p">(</span>
-                                <span class="bp">self</span><span class="p">[</span><span class="n">deme</span><span class="p">[</span><span class="s2">&quot;ancestors&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">end_time</span>
-                                <span class="o">==</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span>
-                            <span class="p">):</span>
-                                <span class="k">del</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="k">del</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span>
                     <span class="k">if</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;size_function&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span> <span class="s2">&quot;exponential&quot;</span><span class="p">):</span>
                         <span class="k">del</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;size_function&quot;</span><span class="p">]</span>
                     <span class="k">if</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;start_size&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;end_size&quot;</span><span class="p">]:</span>
                         <span class="k">del</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;end_size&quot;</span><span class="p">]</span>
 
             <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">]:</span>
-                <span class="k">del</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span>
-                <span class="k">del</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;end_time&quot;</span><span class="p">]</span>
+                <span class="c1"># remove implied start times</span>
+                <span class="k">if</span> <span class="n">math</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">deme</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]):</span>
+                    <span class="k">del</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span>
                 <span class="k">if</span> <span class="s2">&quot;ancestors&quot;</span> <span class="ow">in</span> <span class="n">deme</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">deme</span><span class="p">[</span><span class="s2">&quot;ancestors&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="k">del</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;proportions&quot;</span><span class="p">]</span>
+                    <span class="c1"># start time needed for more than 1 ancestor</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="p">[</span><span class="n">deme</span><span class="p">[</span><span class="s2">&quot;ancestors&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">end_time</span> <span class="o">==</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]:</span>
+                        <span class="k">del</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span>
 
         <span class="k">def</span> <span class="nf">simplify_migration_rates</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
             <span class="sd">&quot;&quot;&quot;</span>
@@ -2133,28 +2109,25 @@
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2020, PopSim Consortium
+        &#169; Copyright 2020, PopSim Consortium.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

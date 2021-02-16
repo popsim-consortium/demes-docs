@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Python API &mdash; demes 0.1.dev1 documentation</title>
   
@@ -18,7 +18,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -56,7 +59,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> demes
+            <a href="index.html" class="icon icon-home"> demes
           
 
           
@@ -145,6 +148,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -156,7 +161,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -478,8 +483,8 @@ comparisons. See documentation for <code class="xref py py-func docutils literal
 
 <dl class="py method">
 <dt id="demes.Graph.deme">
-<code class="sig-name descname">deme</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">description</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ancestors</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">proportions</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">epochs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start_time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start_size</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">end_size</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">defaults</span><span class="o">=</span><span class="default_value">{}</span></em><span class="sig-paren">)</span> &#x2192; demes.demes.Deme<a class="reference internal" href="_modules/demes/demes.html#Graph.deme"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Graph.deme" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add a deme to the graph, with lifetime <code class="docutils literal notranslate"><span class="pre">(start_time,</span> <span class="pre">end_time]</span></code>.</p>
+<code class="sig-name descname">deme</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">description</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ancestors</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">proportions</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">epochs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start_time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">defaults</span><span class="o">=</span><span class="default_value">{}</span></em><span class="sig-paren">)</span> &#x2192; demes.demes.Deme<a class="reference internal" href="_modules/demes/demes.html#Graph.deme"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Graph.deme" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a deme to the graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -502,18 +507,9 @@ the <code class="docutils literal notranslate"><span class="pre">start_time</spa
 provided.</p></li>
 </ul>
 </p></li>
-<li><p><strong>end_time</strong> (<em>float</em>) – The time at which this deme stops existing,
-in units of <code class="docutils literal notranslate"><span class="pre">time_units</span></code> before the present.
-If not specified, defaults to <code class="docutils literal notranslate"><span class="pre">0.0</span></code> (the present).</p></li>
-<li><p><strong>start_size</strong> – The initial population size of the deme.
-This must be provided.</p></li>
-<li><p><strong>end_size</strong> – The final population size of the deme. If <code class="docutils literal notranslate"><span class="pre">None</span></code>,
-the deme has a constant <code class="docutils literal notranslate"><span class="pre">start_size</span></code> population size.</p></li>
 <li><p><strong>epochs</strong> – Epochs that define population sizes, selfing rates, and
 cloning rates, for the deme over various time periods.
-If not specified, a single epoch will be created for the deme that
-spans from <code class="docutils literal notranslate"><span class="pre">start_time</span></code> to <code class="docutils literal notranslate"><span class="pre">end_time</span></code>, using the <code class="docutils literal notranslate"><span class="pre">start_size</span></code>,
-<code class="docutils literal notranslate"><span class="pre">end_size</span></code>, <code class="docutils literal notranslate"><span class="pre">selfing_rate</span></code> and <code class="docutils literal notranslate"><span class="pre">cloning_rate</span></code> provided.</p></li>
+If the final epoch’s <code class="docutils literal notranslate"><span class="pre">end_time</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, it will be set to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p></li>
 <li><p><strong>defaults</strong> – Default attributes for epochs, including cloning_rate
 and selfing_rate.</p></li>
 </ul>
@@ -1019,37 +1015,29 @@ comparisons. See documentation for <code class="xref py py-func docutils literal
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="convert.html" class="btn btn-neutral float-right" title="Conversion functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="gallery.html" class="btn btn-neutral float-left" title="Gallery" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="convert.html" class="btn btn-neutral float-right" title="Conversion functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="gallery.html" class="btn btn-neutral float-left" title="Gallery" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2020, PopSim Consortium
+        &#169; Copyright 2020, PopSim Consortium.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
