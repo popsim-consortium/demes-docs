@@ -172,6 +172,7 @@
 
 <div class="genindex-jumpbox">
  <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
  | <a href="#D"><strong>D</strong></a>
  | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
@@ -180,21 +181,29 @@
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#P"><strong>P</strong></a>
+ | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
- | <a href="#V"><strong>V</strong></a>
  
 </div>
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#demes.Builder.add_deme">add_deme() (demes.Builder method)</a>
+</li>
+      <li><a href="api.html#demes.Builder.add_migration">add_migration() (demes.Builder method)</a>
+</li>
+      <li><a href="api.html#demes.Builder.add_pulse">add_pulse() (demes.Builder method)</a>
+</li>
       <li><a href="api.html#demes.Graph.asdict">asdict() (demes.Graph method)</a>
 </li>
       <li><a href="api.html#demes.Graph.asdict_simplified">asdict_simplified() (demes.Graph method)</a>
 </li>
-      <li><a href="api.html#demes.Deme.assert_close">assert_close() (demes.Deme method)</a>
+      <li><a href="api.html#demes.AsymmetricMigration.assert_close">assert_close() (demes.AsymmetricMigration method)</a>
 
       <ul>
+        <li><a href="api.html#demes.Deme.assert_close">(demes.Deme method)</a>
+</li>
         <li><a href="api.html#demes.Epoch.assert_close">(demes.Epoch method)</a>
 </li>
         <li><a href="api.html#demes.Graph.assert_close">(demes.Graph method)</a>
@@ -203,7 +212,21 @@
 </li>
         <li><a href="api.html#demes.Pulse.assert_close">(demes.Pulse method)</a>
 </li>
+        <li><a href="api.html#demes.SymmetricMigration.assert_close">(demes.SymmetricMigration method)</a>
+</li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#demes.AsymmetricMigration">AsymmetricMigration (class in demes)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#demes.Builder">Builder (class in demes)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -211,8 +234,6 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#demes.Deme">Deme (class in demes)</a>
-</li>
-      <li><a href="api.html#demes.Graph.deme">deme() (demes.Graph method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -240,12 +261,16 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="convert.html#demes.convert.from_msprime">from_msprime() (in module demes.convert)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="convert.html#demes.convert.from_stdpopsim">from_stdpopsim() (in module demes.convert)</a>
 </li>
-      <li><a href="api.html#demes.Graph.fromdict">fromdict() (demes.Graph class method)</a>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#demes.Builder.fromdict">fromdict() (demes.Builder class method)</a>
+
+      <ul>
+        <li><a href="api.html#demes.Graph.fromdict">(demes.Graph class method)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -297,10 +322,6 @@
       <li><a href="api.html#demes.Migration">Migration (class in demes)</a>
 </li>
   </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#demes.Graph.migration">migration() (demes.Graph method)</a>
-</li>
-  </ul></td>
 </tr></table>
 
 <h2 id="P">P</h2>
@@ -312,7 +333,13 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api.html#demes.Pulse">Pulse (class in demes)</a>
 </li>
-      <li><a href="api.html#demes.Graph.pulse">pulse() (demes.Graph method)</a>
+  </ul></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api.html#demes.Builder.resolve">resolve() (demes.Builder method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -320,13 +347,11 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#demes.Deme.start_time">start_time() (demes.Deme property)</a>
+      <li><a href="api.html#demes.Graph.successors">successors() (demes.Graph property)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#demes.Graph.successors">successors() (demes.Graph property)</a>
-</li>
-      <li><a href="api.html#demes.Graph.symmetric_migration">symmetric_migration() (demes.Graph method)</a>
+      <li><a href="api.html#demes.SymmetricMigration">SymmetricMigration (class in demes)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -345,14 +370,6 @@
       <li><a href="convert.html#demes.convert.to_msprime">to_msprime() (in module demes.convert)</a>
 </li>
       <li><a href="convert.html#demes.convert.to_stdpopsim">to_stdpopsim() (in module demes.convert)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="V">V</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#demes.Graph.validate">validate() (demes.Graph method)</a>
 </li>
   </ul></td>
 </tr></table>
