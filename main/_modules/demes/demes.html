@@ -168,7 +168,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for demes.demes</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">MutableMapping</span><span class="p">,</span> <span class="n">Any</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">MutableMapping</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Set</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">numbers</span>
@@ -736,7 +736,7 @@
             <span class="k">return</span> <span class="kc">False</span></div></div>
 
 
-<span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="Split"><a class="viewcode-back" href="../../api.html#demes.Split">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Split</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameters for a split event, in which a deme ends at a given time and</span>
@@ -769,7 +769,7 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot repeat children in split&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
+<div class="viewcode-block" id="Split.assert_close"><a class="viewcode-back" href="../../api.html#demes.Split.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -799,9 +799,9 @@
         <span class="k">assert</span> <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
         <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for time </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
-        <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
 
-    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+<div class="viewcode-block" id="Split.isclose"><a class="viewcode-back" href="../../api.html#demes.Split.isclose">[docs]</a>    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -829,10 +829,10 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="kc">False</span></div></div>
 
 
-<span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="Branch"><a class="viewcode-back" href="../../api.html#demes.Branch">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Branch</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameters for a branch event, where a new deme branches off from a parental</span>
@@ -851,7 +851,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;child and parent cannot be the same deme&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
+<div class="viewcode-block" id="Branch.assert_close"><a class="viewcode-back" href="../../api.html#demes.Branch.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -880,9 +880,9 @@
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">child</span>
         <span class="k">assert</span> <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
-        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for time </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for time </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> (other).&quot;</span></div>
 
-    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+<div class="viewcode-block" id="Branch.isclose"><a class="viewcode-back" href="../../api.html#demes.Branch.isclose">[docs]</a>    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -910,10 +910,10 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="kc">False</span></div></div>
 
 
-<span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="Merge"><a class="viewcode-back" href="../../api.html#demes.Merge">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Merge</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameters for a merge event, in which two or more demes end at some time and</span>
@@ -960,7 +960,7 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot repeat parents in merge&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
+<div class="viewcode-block" id="Merge.assert_close"><a class="viewcode-back" href="../../api.html#demes.Merge.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1000,9 +1000,9 @@
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">child</span>
         <span class="k">assert</span> <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
-        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for time </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for time </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> (other).&quot;</span></div>
 
-    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+<div class="viewcode-block" id="Merge.isclose"><a class="viewcode-back" href="../../api.html#demes.Merge.isclose">[docs]</a>    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1030,10 +1030,10 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="kc">False</span></div></div>
 
 
-<span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="Admix"><a class="viewcode-back" href="../../api.html#demes.Admix">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Admix</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameters for an admixture event, where two or more demes contribute ancestry</span>
@@ -1080,7 +1080,7 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot repeat parents in admixure&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
+<div class="viewcode-block" id="Admix.assert_close"><a class="viewcode-back" href="../../api.html#demes.Admix.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1123,9 +1123,9 @@
             <span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="p">,</span>
             <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span>
             <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">,</span>
-        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for time </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for time </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> (other).&quot;</span></div>
 
-    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+<div class="viewcode-block" id="Admix.isclose"><a class="viewcode-back" href="../../api.html#demes.Admix.isclose">[docs]</a>    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1152,7 +1152,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="kc">False</span></div></div>
 
 
 <div class="viewcode-block" id="Deme"><a class="viewcode-back" href="../../api.html#demes.Deme">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1822,53 +1822,91 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">pulses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pulse</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">pulse</span>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">successors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.successors"><a class="viewcode-back" href="../../api.html#demes.Graph.successors">[docs]</a>    <span class="k">def</span> <span class="nf">successors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">ID</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Lists of successors for all demes in the graph.</span>
+<span class="sd">        Returns the successors (child demes) for all demes in the graph.</span>
+<span class="sd">        If ``graph`` is a :class:`Graph`, a `NetworkX &lt;https://networkx.org/&gt;`_</span>
+<span class="sd">        digraph of successors can be obtained as follows.</span>
+
+<span class="sd">        .. code::</span>
+
+<span class="sd">            import networkx as nx</span>
+<span class="sd">            succ = nx.from_dict_of_lists(graph.successors(), create_using=nx.DiGraph)</span>
+
+<span class="sd">        .. warning::</span>
+
+<span class="sd">            The successors do not include information about migrations or pulses.</span>
+
+<span class="sd">        :return: A NetworkX compatible dict-of-lists graph of the demes&#39; successors.</span>
+<span class="sd">        :rtype: dict of lists</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">succ</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">succ</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">ID</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">deme_info</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">:</span>
             <span class="n">succ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">deme_info</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="p">[])</span>
             <span class="k">if</span> <span class="n">deme_info</span><span class="o">.</span><span class="n">ancestors</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">deme_info</span><span class="o">.</span><span class="n">ancestors</span><span class="p">:</span>
                     <span class="n">succ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">[])</span>
                     <span class="n">succ</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">deme_info</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">succ</span>
+        <span class="k">return</span> <span class="n">succ</span></div>
 
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">predecessors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.predecessors"><a class="viewcode-back" href="../../api.html#demes.Graph.predecessors">[docs]</a>    <span class="k">def</span> <span class="nf">predecessors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">ID</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Lists of predecessors (ancestors) for all demes in the graph.</span>
+<span class="sd">        Returns the predecessors (ancestors) for all demes in the graph.</span>
+<span class="sd">        If ``graph`` is a :class:`Graph`, a `NetworkX &lt;https://networkx.org/&gt;`_</span>
+<span class="sd">        digraph of predecessors can be obtained as follows.</span>
+
+<span class="sd">        .. code::</span>
+
+<span class="sd">            import networkx as nx</span>
+<span class="sd">            pred = nx.from_dict_of_lists(graph.predecessors(), create_using=nx.DiGraph)</span>
+
+<span class="sd">        .. warning::</span>
+
+<span class="sd">            The predecessors do not include information about migrations or pulses.</span>
+
+<span class="sd">        :return: A NetworkX compatible dict-of-lists graph of the demes&#39; predecessors.</span>
+<span class="sd">        :rtype: dict of lists</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">pred</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">pred</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">ID</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">deme_info</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">:</span>
             <span class="n">pred</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">deme_info</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="p">[])</span>
             <span class="k">if</span> <span class="n">deme_info</span><span class="o">.</span><span class="n">ancestors</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">deme_info</span><span class="o">.</span><span class="n">ancestors</span><span class="p">:</span>
                     <span class="n">pred</span><span class="p">[</span><span class="n">deme_info</span><span class="o">.</span><span class="n">id</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">pred</span>
+        <span class="k">return</span> <span class="n">pred</span></div>
 
-<div class="viewcode-block" id="Graph.list_demographic_events"><a class="viewcode-back" href="../../api.html#demes.Graph.list_demographic_events">[docs]</a>    <span class="k">def</span> <span class="nf">list_demographic_events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.discrete_demographic_events"><a class="viewcode-back" href="../../api.html#demes.Graph.discrete_demographic_events">[docs]</a>    <span class="k">def</span> <span class="nf">discrete_demographic_events</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Loop through successors/predecessors to generate a list of splits, branches,</span>
-<span class="sd">        mergers, and admixtures. If a deme has more than one predecessor,</span>
-<span class="sd">        then it is a merger or an admixture event, which we differentiate by end and</span>
+<span class="sd">        Classify each discrete demographic event as one of the following:</span>
+<span class="sd">        :class:`Pulse`, :class:`Split`, :class:`Branch`, :class:`Merge`,</span>
+<span class="sd">        or :class:`Admix`.</span>
+<span class="sd">        If a deme has more than one ancestor, then that deme is created by a</span>
+<span class="sd">        merger or an admixture event, which are differentiated by end and</span>
 <span class="sd">        start times of those demes. If a deme has a single predecessor, we check</span>
-<span class="sd">        whether it is a branch (start time != predecessor&#39;s end time), or split.</span>
+<span class="sd">        whether it is created by a branch (start time != predecessor&#39;s end time),</span>
+<span class="sd">        or split.</span>
 
-<span class="sd">        Returns a dictionary containing all discrete demographic events, including</span>
-<span class="sd">        pulses that are listed as a Graph attribute.</span>
+<span class="sd">        .. note::</span>
+
+<span class="sd">            By definition, the discrete demographic events do not include</span>
+<span class="sd">            migrations, as they are continuous events.</span>
+
+<span class="sd">        :return: A dictionary of lists of discrete demographic events.</span>
+<span class="sd">            The following keys are defined: &quot;pulses&quot;, &quot;splits&quot;, &quot;branches&quot;,</span>
+<span class="sd">            &quot;mergers&quot;, &quot;admixtures&quot;, and their values are the corresponding</span>
+<span class="sd">            lists of :class:`Pulse`, :class:`Split`, :class:`Branch`,</span>
+<span class="sd">            :class:`Merge`, and :class:`Admix` objects.</span>
+<span class="sd">        :rtype: dict of lists</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">demo_events</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">demo_events</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;pulses&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">pulses</span><span class="p">,</span>
             <span class="s2">&quot;splits&quot;</span><span class="p">:</span> <span class="p">[],</span>
             <span class="s2">&quot;branches&quot;</span><span class="p">:</span> <span class="p">[],</span>
             <span class="s2">&quot;mergers&quot;</span><span class="p">:</span> <span class="p">[],</span>
             <span class="s2">&quot;admixtures&quot;</span><span class="p">:</span> <span class="p">[],</span>
         <span class="p">}</span>
-        <span class="n">splits_to_add</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">predecessors</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">splits_to_add</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">ID</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="n">ID</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">predecessors</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>

@@ -568,6 +568,36 @@ comparisons. See documentation for <code class="xref py py-func docutils literal
 </dd></dl>
 
 <dl class="py method">
+<dt id="demes.Graph.discrete_demographic_events">
+<code class="sig-name descname">discrete_demographic_events</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>List<span class="p">[</span>Any<span class="p">]</span><span class="p">]</span><a class="reference internal" href="_modules/demes/demes.html#Graph.discrete_demographic_events"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Graph.discrete_demographic_events" title="Permalink to this definition">¶</a></dt>
+<dd><p>Classify each discrete demographic event as one of the following:
+<a class="reference internal" href="#demes.Pulse" title="demes.Pulse"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pulse</span></code></a>, <a class="reference internal" href="#demes.Split" title="demes.Split"><code class="xref py py-class docutils literal notranslate"><span class="pre">Split</span></code></a>, <a class="reference internal" href="#demes.Branch" title="demes.Branch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Branch</span></code></a>, <a class="reference internal" href="#demes.Merge" title="demes.Merge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Merge</span></code></a>,
+or <a class="reference internal" href="#demes.Admix" title="demes.Admix"><code class="xref py py-class docutils literal notranslate"><span class="pre">Admix</span></code></a>.
+If a deme has more than one ancestor, then that deme is created by a
+merger or an admixture event, which are differentiated by end and
+start times of those demes. If a deme has a single predecessor, we check
+whether it is created by a branch (start time != predecessor’s end time),
+or split.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By definition, the discrete demographic events do not include
+migrations, as they are continuous events.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dictionary of lists of discrete demographic events.
+The following keys are defined: “pulses”, “splits”, “branches”,
+“mergers”, “admixtures”, and their values are the corresponding
+lists of <a class="reference internal" href="#demes.Pulse" title="demes.Pulse"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pulse</span></code></a>, <a class="reference internal" href="#demes.Split" title="demes.Split"><code class="xref py py-class docutils literal notranslate"><span class="pre">Split</span></code></a>, <a class="reference internal" href="#demes.Branch" title="demes.Branch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Branch</span></code></a>,
+<a class="reference internal" href="#demes.Merge" title="demes.Merge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Merge</span></code></a>, and <a class="reference internal" href="#demes.Admix" title="demes.Admix"><code class="xref py py-class docutils literal notranslate"><span class="pre">Admix</span></code></a> objects.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict of lists</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="demes.Graph.fromdict">
 <em class="property">classmethod </em><code class="sig-name descname">fromdict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">MutableMapping<span class="p">[</span>str<span class="p">, </span>Any<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.fromdict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Graph.fromdict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a graph from a dict representation. The inverse of asdict().</p>
@@ -616,27 +646,51 @@ comparisons. See documentation for <code class="xref py py-func docutils literal
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.Graph.list_demographic_events">
-<code class="sig-name descname">list_demographic_events</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.list_demographic_events"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Graph.list_demographic_events" title="Permalink to this definition">¶</a></dt>
-<dd><p>Loop through successors/predecessors to generate a list of splits, branches,
-mergers, and admixtures. If a deme has more than one predecessor,
-then it is a merger or an admixture event, which we differentiate by end and
-start times of those demes. If a deme has a single predecessor, we check
-whether it is a branch (start time != predecessor’s end time), or split.</p>
-<p>Returns a dictionary containing all discrete demographic events, including
-pulses that are listed as a Graph attribute.</p>
-</dd></dl>
-
-<dl class="py method">
 <dt id="demes.Graph.predecessors">
-<em class="property">property </em><code class="sig-name descname">predecessors</code><a class="headerlink" href="#demes.Graph.predecessors" title="Permalink to this definition">¶</a></dt>
-<dd><p>Lists of predecessors (ancestors) for all demes in the graph.</p>
+<code class="sig-name descname">predecessors</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>List<span class="p">[</span>str<span class="p">]</span><span class="p">]</span><a class="reference internal" href="_modules/demes/demes.html#Graph.predecessors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Graph.predecessors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the predecessors (ancestors) for all demes in the graph.
+If <code class="docutils literal notranslate"><span class="pre">graph</span></code> is a <a class="reference internal" href="#demes.Graph" title="demes.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a>, a <a class="reference external" href="https://networkx.org/">NetworkX</a>
+digraph of predecessors can be obtained as follows.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_dict_of_lists</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">predecessors</span><span class="p">(),</span> <span class="n">create_using</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The predecessors do not include information about migrations or pulses.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A NetworkX compatible dict-of-lists graph of the demes’ predecessors.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict of lists</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="demes.Graph.successors">
-<em class="property">property </em><code class="sig-name descname">successors</code><a class="headerlink" href="#demes.Graph.successors" title="Permalink to this definition">¶</a></dt>
-<dd><p>Lists of successors for all demes in the graph.</p>
+<code class="sig-name descname">successors</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>List<span class="p">[</span>str<span class="p">]</span><span class="p">]</span><a class="reference internal" href="_modules/demes/demes.html#Graph.successors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Graph.successors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the successors (child demes) for all demes in the graph.
+If <code class="docutils literal notranslate"><span class="pre">graph</span></code> is a <a class="reference internal" href="#demes.Graph" title="demes.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a>, a <a class="reference external" href="https://networkx.org/">NetworkX</a>
+digraph of successors can be obtained as follows.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="n">succ</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_dict_of_lists</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">successors</span><span class="p">(),</span> <span class="n">create_using</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The successors do not include information about migrations or pulses.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A NetworkX compatible dict-of-lists graph of the demes’ successors.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict of lists</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -983,6 +1037,251 @@ comparisons. See documentation for <code class="xref py py-func docutils literal
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>True if the two pulses are equivalent, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="demes.Split">
+<em class="property">class </em><code class="sig-prename descclassname">demes.</code><code class="sig-name descname">Split</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">parent</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">children</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">time</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Split"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters for a split event, in which a deme ends at a given time and
+contributes ancestry to an arbitrary number of descendant demes. Note
+that there could be just a single descendant deme, in which case <code class="docutils literal notranslate"><span class="pre">split</span></code>
+is a bit of a misnomer…</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> – The parental deme.</p></li>
+<li><p><strong>children</strong> – A list of descendant demes.</p></li>
+<li><p><strong>time</strong> – The split time.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="demes.Split.assert_close">
+<code class="sig-name descname">assert_close</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">rel_tol</span><span class="o">=</span><span class="default_value">1e-09</span></em>, <em class="sig-param"><span class="n">abs_tol</span><span class="o">=</span><span class="default_value">1e-12</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/demes/demes.html#Split.assert_close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Split.assert_close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raises AssertionError if the object is not equal to <code class="docutils literal notranslate"><span class="pre">other</span></code>,
+up to a numerical tolerance.
+Compares values of the following attributes:
+<code class="docutils literal notranslate"><span class="pre">parent</span></code>, <code class="docutils literal notranslate"><span class="pre">children</span></code>, <code class="docutils literal notranslate"><span class="pre">time</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>other</strong> (<a class="reference internal" href="#demes.Split" title="demes.Split"><code class="xref py py-class docutils literal notranslate"><span class="pre">Split</span></code></a>) – The split to compare against.</p></li>
+<li><p><strong>ret_tol</strong> (<em>float</em>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></p></li>
+<li><p><strong>abs_tol</strong> (<em>float</em>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="demes.Split.isclose">
+<code class="sig-name descname">isclose</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">rel_tol</span><span class="o">=</span><span class="default_value">1e-09</span></em>, <em class="sig-param"><span class="n">abs_tol</span><span class="o">=</span><span class="default_value">1e-12</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/demes/demes.html#Split.isclose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Split.isclose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the split is equal to the <code class="docutils literal notranslate"><span class="pre">other</span></code> split.
+Compares values of the following attributes:
+<code class="docutils literal notranslate"><span class="pre">parent</span></code>, <code class="docutils literal notranslate"><span class="pre">children</span></code>, <code class="docutils literal notranslate"><span class="pre">time</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>other</strong> (<a class="reference internal" href="#demes.Split" title="demes.Split"><code class="xref py py-class docutils literal notranslate"><span class="pre">Split</span></code></a>) – The split to compare against.</p></li>
+<li><p><strong>ret_tol</strong> (<em>float</em>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></p></li>
+<li><p><strong>abs_tol</strong> (<em>float</em>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the two splits are equivalent, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="demes.Branch">
+<em class="property">class </em><code class="sig-prename descclassname">demes.</code><code class="sig-name descname">Branch</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">parent</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">child</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">time</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Branch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Branch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters for a branch event, where a new deme branches off from a parental
+deme. The parental deme need not end at that time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> – The parental deme.</p></li>
+<li><p><strong>child</strong> – The descendant deme.</p></li>
+<li><p><strong>time</strong> – The branch time.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="demes.Branch.assert_close">
+<code class="sig-name descname">assert_close</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">rel_tol</span><span class="o">=</span><span class="default_value">1e-09</span></em>, <em class="sig-param"><span class="n">abs_tol</span><span class="o">=</span><span class="default_value">1e-12</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Branch.assert_close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Branch.assert_close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raises AssertionError if the object is not equal to <code class="docutils literal notranslate"><span class="pre">other</span></code>,
+up to a numerical tolerance.
+Compares values of the following attributes:
+<code class="docutils literal notranslate"><span class="pre">parent</span></code>, <code class="docutils literal notranslate"><span class="pre">child</span></code>, <code class="docutils literal notranslate"><span class="pre">time</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>other</strong> (<a class="reference internal" href="#demes.Branch" title="demes.Branch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Branch</span></code></a>) – The branch to compare against.</p></li>
+<li><p><strong>ret_tol</strong> (<em>float</em>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></p></li>
+<li><p><strong>abs_tol</strong> (<em>float</em>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="demes.Branch.isclose">
+<code class="sig-name descname">isclose</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">rel_tol</span><span class="o">=</span><span class="default_value">1e-09</span></em>, <em class="sig-param"><span class="n">abs_tol</span><span class="o">=</span><span class="default_value">1e-12</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/demes/demes.html#Branch.isclose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Branch.isclose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the branch is equal to the <code class="docutils literal notranslate"><span class="pre">other</span></code> branch.
+For more information see <a class="reference internal" href="#demes.Branch.assert_close" title="demes.Branch.assert_close"><code class="xref py py-meth docutils literal notranslate"><span class="pre">assert_close()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>other</strong> (<a class="reference internal" href="#demes.Branch" title="demes.Branch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Branch</span></code></a>) – The branch to compare against.</p></li>
+<li><p><strong>ret_tol</strong> (<em>float</em>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></p></li>
+<li><p><strong>abs_tol</strong> (<em>float</em>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the two branches are equivalent, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="demes.Merge">
+<em class="property">class </em><code class="sig-prename descclassname">demes.</code><code class="sig-name descname">Merge</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">parents</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">proportions</span><span class="p">:</span> <span class="n">List<span class="p">[</span>float<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">child</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">time</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Merge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters for a merge event, in which two or more demes end at some time and
+contribute to a descendant deme.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parents</strong> – A list of parental demes.</p></li>
+<li><p><strong>proportions</strong> – A list of ancestry proportions, in order of <cite>parents</cite>.</p></li>
+<li><p><strong>child</strong> – The descendant deme.</p></li>
+<li><p><strong>time</strong> – The merge time.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="demes.Merge.assert_close">
+<code class="sig-name descname">assert_close</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">rel_tol</span><span class="o">=</span><span class="default_value">1e-09</span></em>, <em class="sig-param"><span class="n">abs_tol</span><span class="o">=</span><span class="default_value">1e-12</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Merge.assert_close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Merge.assert_close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raises AssertionError if the object is not equal to <code class="docutils literal notranslate"><span class="pre">other</span></code>,
+up to a numerical tolerance.
+Compares values of the following attributes:
+<code class="docutils literal notranslate"><span class="pre">parents</span></code>, <code class="docutils literal notranslate"><span class="pre">proportions</span></code>, <code class="docutils literal notranslate"><span class="pre">child</span></code>, <code class="docutils literal notranslate"><span class="pre">time</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>other</strong> (<a class="reference internal" href="#demes.Merge" title="demes.Merge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Merge</span></code></a>) – The merge to compare against.</p></li>
+<li><p><strong>ret_tol</strong> (<em>float</em>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></p></li>
+<li><p><strong>abs_tol</strong> (<em>float</em>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="demes.Merge.isclose">
+<code class="sig-name descname">isclose</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">rel_tol</span><span class="o">=</span><span class="default_value">1e-09</span></em>, <em class="sig-param"><span class="n">abs_tol</span><span class="o">=</span><span class="default_value">1e-12</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/demes/demes.html#Merge.isclose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Merge.isclose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the merge is equal to the <code class="docutils literal notranslate"><span class="pre">other</span></code> merge.
+For more information see <a class="reference internal" href="#demes.Merge.assert_close" title="demes.Merge.assert_close"><code class="xref py py-meth docutils literal notranslate"><span class="pre">assert_close()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>other</strong> (<a class="reference internal" href="#demes.Merge" title="demes.Merge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Merge</span></code></a>) – The merge to compare against.</p></li>
+<li><p><strong>ret_tol</strong> (<em>float</em>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></p></li>
+<li><p><strong>abs_tol</strong> (<em>float</em>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the two merges are equivalent, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="demes.Admix">
+<em class="property">class </em><code class="sig-prename descclassname">demes.</code><code class="sig-name descname">Admix</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">parents</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">proportions</span><span class="p">:</span> <span class="n">List<span class="p">[</span>float<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">child</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">time</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Admix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Admix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters for an admixture event, where two or more demes contribute ancestry
+to a new deme.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parents</strong> – A list of source demes.</p></li>
+<li><p><strong>proportions</strong> – A list of ancestry proportions, in order of <cite>parents</cite>.</p></li>
+<li><p><strong>child</strong> – The admixed deme.</p></li>
+<li><p><strong>time</strong> – The admixture time.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="demes.Admix.assert_close">
+<code class="sig-name descname">assert_close</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">rel_tol</span><span class="o">=</span><span class="default_value">1e-09</span></em>, <em class="sig-param"><span class="n">abs_tol</span><span class="o">=</span><span class="default_value">1e-12</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Admix.assert_close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Admix.assert_close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raises AssertionError if the object is not equal to <code class="docutils literal notranslate"><span class="pre">other</span></code>,
+up to a numerical tolerance.
+Compares values of the following attributes:
+<code class="docutils literal notranslate"><span class="pre">parents</span></code>, <code class="docutils literal notranslate"><span class="pre">proportions</span></code>, <code class="docutils literal notranslate"><span class="pre">child</span></code>, <code class="docutils literal notranslate"><span class="pre">time</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>other</strong> (<a class="reference internal" href="#demes.Admix" title="demes.Admix"><code class="xref py py-class docutils literal notranslate"><span class="pre">Admix</span></code></a>) – The admixture to compare against.</p></li>
+<li><p><strong>ret_tol</strong> (<em>float</em>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></p></li>
+<li><p><strong>abs_tol</strong> (<em>float</em>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="demes.Admix.isclose">
+<code class="sig-name descname">isclose</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">rel_tol</span><span class="o">=</span><span class="default_value">1e-09</span></em>, <em class="sig-param"><span class="n">abs_tol</span><span class="o">=</span><span class="default_value">1e-12</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/demes/demes.html#Admix.isclose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Admix.isclose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the admixture is equal to the <code class="docutils literal notranslate"><span class="pre">other</span></code> admixture.
+For more information see <a class="reference internal" href="#demes.Admix.assert_close" title="demes.Admix.assert_close"><code class="xref py py-meth docutils literal notranslate"><span class="pre">assert_close()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>other</strong> (<a class="reference internal" href="#demes.Admix" title="demes.Admix"><code class="xref py py-class docutils literal notranslate"><span class="pre">Admix</span></code></a>) – The admixture to compare against.</p></li>
+<li><p><strong>ret_tol</strong> (<em>float</em>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></p></li>
+<li><p><strong>abs_tol</strong> (<em>float</em>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the two admixtures are equivalent, False otherwise.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>bool</p>
