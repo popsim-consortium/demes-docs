@@ -1479,10 +1479,10 @@
 <span class="sd">            comparisons. See documentation for :func:`math.isclose`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">def</span> <span class="nf">assert_sorted_eq</span><span class="p">(</span><span class="n">aa</span><span class="p">,</span> <span class="n">bb</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">assert_sorted_eq</span><span class="p">(</span><span class="n">aa</span><span class="p">,</span> <span class="n">bb</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
             <span class="c1"># Order-agnostic equality check.</span>
             <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">aa</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">bb</span><span class="p">)</span>
-            <span class="k">for</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">aa</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">),</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">bb</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">aa</span><span class="p">),</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">bb</span><span class="p">)):</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">a</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
                 <span class="k">except</span> <span class="ne">AssertionError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -1500,15 +1500,35 @@
         <span class="n">assert_sorted_eq</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">demes</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;demes&quot;</span>
         <span class="p">)</span>
+        <span class="c1"># Compare asymmetric and symmetric migrations separately.</span>
         <span class="n">assert_sorted_eq</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">migrations</span><span class="p">,</span>
-            <span class="n">other</span><span class="o">.</span><span class="n">migrations</span><span class="p">,</span>
+            <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">migrations</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">AsymmetricMigration</span><span class="p">)],</span>
+            <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">other</span><span class="o">.</span><span class="n">migrations</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">AsymmetricMigration</span><span class="p">)],</span>
             <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span>
             <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">,</span>
-            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;migrations&quot;</span><span class="p">,</span>
-            <span class="c1"># Sort using class name first (asymmetric versus symmetric)</span>
-            <span class="c1"># then using attributes of the migration objects.</span>
-            <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">obj</span><span class="p">:</span> <span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">obj</span><span class="p">),</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;asymmetric migrations&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># Symmetric migrations are special, in the sense that they contain lists</span>
+        <span class="c1"># of demes, and we must first sort the list of demes before sorting the</span>
+        <span class="c1"># list of SymmetricMigration objects.</span>
+        <span class="n">self_migrations_sym</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">other_migrations_sym</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">migrations</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">SymmetricMigration</span><span class="p">):</span>
+                <span class="n">m</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">demes</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+                <span class="n">self_migrations_sym</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">other</span><span class="o">.</span><span class="n">migrations</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">SymmetricMigration</span><span class="p">):</span>
+                <span class="n">m</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">demes</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+                <span class="n">other_migrations_sym</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+        <span class="n">assert_sorted_eq</span><span class="p">(</span>
+            <span class="n">self_migrations_sym</span><span class="p">,</span>
+            <span class="n">other_migrations_sym</span><span class="p">,</span>
+            <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span>
+            <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;symmetric migrations&quot;</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">assert_sorted_eq</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">pulses</span><span class="p">,</span>
