@@ -2111,36 +2111,31 @@
             <span class="n">insert_defaults</span><span class="p">(</span><span class="n">migration_data</span><span class="p">,</span> <span class="n">migration_defaults</span><span class="p">)</span>
             <span class="k">if</span> <span class="s2">&quot;rate&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">migration_data</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;migration[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">]: required field &#39;rate&#39; not found&quot;</span><span class="p">)</span>
+            <span class="n">demes</span> <span class="o">=</span> <span class="n">migration_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;demes&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="n">migration_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">dest</span> <span class="o">=</span> <span class="n">migration_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;dest&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
                 <span class="c1"># symmetric</span>
-                <span class="p">(</span>
-                    <span class="s2">&quot;demes&quot;</span> <span class="ow">in</span> <span class="n">migration_data</span>
-                    <span class="ow">and</span> <span class="s2">&quot;source&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">migration_data</span>
-                    <span class="ow">and</span> <span class="s2">&quot;dest&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">migration_data</span>
-                <span class="p">)</span>
+                <span class="p">(</span><span class="n">demes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">source</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">dest</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>
                 <span class="c1"># asymmetric</span>
-                <span class="ow">or</span> <span class="p">(</span>
-                    <span class="s2">&quot;demes&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">migration_data</span>
-                    <span class="ow">and</span> <span class="s2">&quot;source&quot;</span> <span class="ow">in</span> <span class="n">migration_data</span>
-                    <span class="ow">and</span> <span class="s2">&quot;dest&quot;</span> <span class="ow">in</span> <span class="n">migration_data</span>
-                <span class="p">)</span>
+                <span class="ow">or</span> <span class="p">(</span><span class="n">demes</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">source</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">dest</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
             <span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
                     <span class="sa">f</span><span class="s2">&quot;migration[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">]: must be symmetric (specify &#39;demes&#39; list) &quot;</span>
                     <span class="s2">&quot;*or* asymmetric (specify both &#39;source&#39; and &#39;dest&#39;).&quot;</span>
                 <span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="k">if</span> <span class="s2">&quot;demes&quot;</span> <span class="ow">in</span> <span class="n">migration_data</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">demes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">graph</span><span class="o">.</span><span class="n">_add_symmetric_migration</span><span class="p">(</span>
-                        <span class="n">demes</span><span class="o">=</span><span class="n">migration_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;demes&quot;</span><span class="p">),</span>
+                        <span class="n">demes</span><span class="o">=</span><span class="n">demes</span><span class="p">,</span>
                         <span class="n">rate</span><span class="o">=</span><span class="n">migration_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;rate&quot;</span><span class="p">),</span>
                         <span class="n">start_time</span><span class="o">=</span><span class="n">migration_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;start_time&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
                         <span class="n">end_time</span><span class="o">=</span><span class="n">migration_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;end_time&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
                     <span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">graph</span><span class="o">.</span><span class="n">_add_asymmetric_migration</span><span class="p">(</span>
-                        <span class="n">source</span><span class="o">=</span><span class="n">migration_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">),</span>
-                        <span class="n">dest</span><span class="o">=</span><span class="n">migration_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;dest&quot;</span><span class="p">),</span>
+                        <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
+                        <span class="n">dest</span><span class="o">=</span><span class="n">dest</span><span class="p">,</span>
                         <span class="n">rate</span><span class="o">=</span><span class="n">migration_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;rate&quot;</span><span class="p">),</span>
                         <span class="n">start_time</span><span class="o">=</span><span class="n">migration_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;start_time&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
                         <span class="n">end_time</span><span class="o">=</span><span class="n">migration_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;end_time&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
@@ -2363,10 +2358,13 @@
 <div class="viewcode-block" id="Builder.add_migration"><a class="viewcode-back" href="../../api.html#demes.Builder.add_migration">[docs]</a>    <span class="k">def</span> <span class="nf">add_migration</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">rate</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="n">demes</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="c1"># We use a special NO_DEFAULT value here, to distinguish between the user</span>
+        <span class="c1"># not specifying anything, and specifying the value None (which may be</span>
+        <span class="c1"># necessary to override a &#39;defaults&#39; value set in the data dictionary).</span>
+        <span class="n">demes</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="n">NO_DEFAULT</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
+        <span class="n">source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">NO_DEFAULT</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
+        <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">NO_DEFAULT</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
         <span class="n">start_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">end_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
@@ -2391,12 +2389,14 @@
 <span class="sd">            If ``None``, the end time is defined by the latest time at which</span>
 <span class="sd">            the demes coexist.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">migration</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">rate</span><span class="o">=</span><span class="n">rate</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">demes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">migration</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">rate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;rate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rate</span>
+        <span class="k">if</span> <span class="n">demes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NO_DEFAULT</span><span class="p">:</span>
             <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">demes</span>
-        <span class="k">if</span> <span class="n">source</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">source</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NO_DEFAULT</span><span class="p">:</span>
             <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">source</span>
-        <span class="k">if</span> <span class="n">dest</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">dest</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">NO_DEFAULT</span><span class="p">:</span>
             <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;dest&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dest</span>
         <span class="k">if</span> <span class="n">start_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">start_time</span>
@@ -2407,7 +2407,14 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;migrations&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;migrations&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">migration</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Builder.add_pulse"><a class="viewcode-back" href="../../api.html#demes.Builder.add_pulse">[docs]</a>    <span class="k">def</span> <span class="nf">add_pulse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">proportion</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+<div class="viewcode-block" id="Builder.add_pulse"><a class="viewcode-back" href="../../api.html#demes.Builder.add_pulse">[docs]</a>    <span class="k">def</span> <span class="nf">add_pulse</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">proportion</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a pulse of migration at a fixed time.</span>
 <span class="sd">        Source and destination demes follow the forwards-in-time convention.</span>
@@ -2419,12 +2426,16 @@
 <span class="sd">            of individuals from the source deme.</span>
 <span class="sd">        :param float time: The time at which migrations occur.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">pulse</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-            <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
-            <span class="n">dest</span><span class="o">=</span><span class="n">dest</span><span class="p">,</span>
-            <span class="n">proportion</span><span class="o">=</span><span class="n">proportion</span><span class="p">,</span>
-            <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="n">pulse</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">source</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">pulse</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">source</span>
+        <span class="k">if</span> <span class="n">dest</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">pulse</span><span class="p">[</span><span class="s2">&quot;dest&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dest</span>
+        <span class="k">if</span> <span class="n">proportion</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">pulse</span><span class="p">[</span><span class="s2">&quot;proportion&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">proportion</span>
+        <span class="k">if</span> <span class="n">time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">pulse</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
+
         <span class="k">if</span> <span class="s2">&quot;pulses&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pulses&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pulses&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pulse</span><span class="p">)</span></div>
