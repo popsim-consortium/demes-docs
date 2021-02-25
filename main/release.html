@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Changelog &mdash; demes 0.1.0a4.dev4 documentation</title>
+  <title>&lt;no title&gt; &mdash; demes 0.1.0a4.dev4 documentation</title>
   
 
   
@@ -43,8 +43,7 @@
 
     
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Development" href="development.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -94,7 +93,7 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
@@ -103,13 +102,7 @@
 <li class="toctree-l1"><a class="reference internal" href="convert.html">Conversion functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="schema.html">Schema</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#xxx-2021-xx-xx">0.1.XXX - 2021-XX-XX</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#a3-2021-02-25">0.1.0a3 - 2021-02-25</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#a2-2021-02-24">0.1.0a2 - 2021-02-24</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#a1-2020-11-12">0.1.0a1 - 2020-11-12</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
 
             
@@ -158,13 +151,13 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Changelog</li>
+      <li>&lt;no title&gt;</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/changelog.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/release.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -177,43 +170,46 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="changelog">
-<h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="xxx-2021-xx-xx">
-<h2>0.1.XXX - 2021-XX-XX<a class="headerlink" href="#xxx-2021-xx-xx" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="a3-2021-02-25">
-<h2>0.1.0a3 - 2021-02-25<a class="headerlink" href="#a3-2021-02-25" title="Permalink to this headline">¶</a></h2>
-<p><strong>Bug fixes</strong>:</p>
-<ul class="simple">
-<li><p>Fix <code class="docutils literal notranslate"><span class="pre">Graph.in_generations()</span></code> to also convert the <code class="docutils literal notranslate"><span class="pre">Deme.start_time</span></code> field.
-Thanks to <a class="reference external" href="https://github.com/apragsdale">&#64;apragsdale</a> for reporting the problem.
-(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/224">#224</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/225">#225</a>).</p></li>
-<li><p>Fix <code class="docutils literal notranslate"><span class="pre">assert_close()</span></code> and <code class="docutils literal notranslate"><span class="pre">is_close()</span></code> equality checks to compare the deme
-<code class="docutils literal notranslate"><span class="pre">start_time</span></code>.
-(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/224">#224</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/225">#225</a>).</p></li>
+  <p>See tskit docs on making a release:
+<a class="reference external" href="https://tskit.readthedocs.io/en/latest/development.html#releasing-a-new-version">https://tskit.readthedocs.io/en/latest/development.html#releasing-a-new-version</a></p>
+<p>Prepare for the release by updating the <code class="docutils literal notranslate"><span class="pre">CHANGELOG.rst</span></code>. The version here
+should have the format MAJOR.MINOR.PATCH, or for a beta release
+MAJOR.MINOR.PATCHbX, e.g. 1.0.0b1. Commit the changes to the changelog;
+make pull request; merge.</p>
+<dl class="simple">
+<dt>Tag release.</dt><dd><ul class="simple">
+<li><p>E.g. <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">tag</span> <span class="pre">0.1.0</span></code></p></li>
 </ul>
-</div>
-<div class="section" id="a2-2021-02-24">
-<h2>0.1.0a2 - 2021-02-24<a class="headerlink" href="#a2-2021-02-24" title="Permalink to this headline">¶</a></h2>
-<p>Alpha release for testing. The API and the schema for YAML files have been
-largely agreed upon. Backwards-incompatible changes before the first stable
-release are still possible, but are considered unlikely.</p>
-</div>
-<div class="section" id="a1-2020-11-12">
-<h2>0.1.0a1 - 2020-11-12<a class="headerlink" href="#a1-2020-11-12" title="Permalink to this headline">¶</a></h2>
-<p>Initial alpha release to reserve the name ‘demes’ on pypi.</p>
-</div>
-</div>
+</dd>
+<dt>Build distribution files, and test on testpypi.</dt><dd><ul class="simple">
+<li><p>See <a class="reference external" href="https://packaging.python.org/guides/using-testpypi/">https://packaging.python.org/guides/using-testpypi/</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">sdist</span> <span class="pre">bdist_wheel</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">twine</span> <span class="pre">check</span> <span class="pre">dist/*</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">twine</span> <span class="pre">upload</span> <span class="pre">--repository</span> <span class="pre">testpypi</span> <span class="pre">dist/*</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">uninstall</span> <span class="pre">demes</span></code></p></li>
+<li><p>Check it installs: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span> <span class="pre">--pre</span> <span class="pre">--index-url</span> <span class="pre">https://test.pypi.org/simple/</span> <span class="pre">demes</span></code>.</p></li>
+</ul>
+</dd>
+<dt>Upload to pypi.</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">twine</span> <span class="pre">upload</span> <span class="pre">--repository</span> <span class="pre">pypi</span> <span class="pre">dist/*</span></code></p></li>
+<li><p>Check it installs: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">demes</span> <span class="pre">--upgrade</span> <span class="pre">--pre</span></code>.</p></li>
+</ul>
+</dd>
+<dt>Push release.</dt><dd><ul class="simple">
+<li><p>E.g. <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">origin</span> <span class="pre">0.1.0</span></code></p></li>
+<li><p>Create a release in the GitHub UI, based on the tag that was pushed.
+Running <code class="docutils literal notranslate"><span class="pre">docs/convert_changelog.py</span></code> will format the changelog for GitHub
+(script shamelessly stolen from tskit).</p></li>
+</ul>
+</dd>
+</dl>
+<p>Finally, update the changelog to start a section for the next release cycle.</p>
 
 
            </div>
            
           </div>
           <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="development.html" class="btn btn-neutral float-left" title="Development" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
 
   <hr/>
 
