@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Introduction &mdash; demes 0.1.0a4.dev4 documentation</title>
+  <title>Introduction &mdash; demes 0.1.0a4.dev6 documentation</title>
   
 
   
@@ -37,7 +37,6 @@
         <script src="_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -69,7 +68,7 @@
             
             
               <div class="version">
-                0.1.0a4.dev4
+                0.1.0a4.dev6
               </div>
             
           
@@ -102,11 +101,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gallery.html">Gallery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="convert.html">Conversion functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="schema.html">Schema</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
@@ -204,47 +201,30 @@ that models are human-readable, and that they may then be parsed and passed to a
 simulation engine that supports <code class="docutils literal notranslate"><span class="pre">demes</span></code> input.</p>
 <p>For example, the following YAML file implements a simple two-epoch demographic
 history for a single deme, where the deme doubles in size 100 generations ago:</p>
-<div class="highlight-yaml notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Single-population two-epoch demography.</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Single-population two-epoch demography.</span>
 <span class="nt">time_units</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">generations</span>
 <span class="nt">demes</span><span class="p">:</span>
-  <span class="nt">Deme_name</span><span class="p">:</span>
-    <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">A deme that doubles in size 100 generations ago.</span>
-    <span class="nt">epochs</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
+<span class="p p-Indicator">-</span> <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">deme0</span>
+  <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">A deme that doubles in size 100 generations ago.</span>
+  <span class="nt">epochs</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
       <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
-    <span class="p p-Indicator">-</span> <span class="nt">initial_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2000</span>
+    <span class="p p-Indicator">-</span> <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2000</span>
       <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
 </pre></div>
-</td></tr></table></div>
-<p>The <a class="reference internal" href="tutorial.html#sec-tutorial-yaml-demography"><span class="std std-ref">tutorial</span></a> describes in detail all the
-components of a YAML demographic model and how to specify more complex
-scenarios, and more illustrative examples can be found in the
-<a class="reference internal" href="gallery.html#sec-gallery"><span class="std std-ref">Gallery</span></a>.</p>
+</div>
+<p>The <a class="reference external" href="https://popsim-consortium.github.io/demes-spec-docs/">Demes Specification</a>
+documents in detail the components of a YAML demographic model and how to
+write more complex scenarios. Illustrative examples can be found in the
+<a class="reference external" href="https://popsim-consortium.github.io/demes-spec-docs/main/gallery.html">Gallery</a>.</p>
 </div>
 <div class="section" id="getting-started">
 <h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>To get <code class="docutils literal notranslate"><span class="pre">demes</span></code> up and running, see the
-<a class="reference internal" href="installation.html#sec-installation"><span class="std std-ref">Installation section</span></a></p></li>
-<li><p>In the <a class="reference internal" href="tutorial.html#sec-tutorial"><span class="std std-ref">Tutorial section</span></a>, you can find an introduction
-to writing demographic models using YAML, along with some bite-sized examples
-(<a class="reference internal" href="tutorial.html#sec-tutorial-yaml-demography"><span class="std std-ref">demographic models in YAML</span></a>),
-manipulating and working with demography objects within python
-(<a class="reference internal" href="tutorial.html#sec-tutorial-python-api"><span class="std std-ref">Python API</span></a>), and adding features and
-attributes to demographic models, populations, or population epochs
-(<a class="reference internal" href="tutorial.html#sec-tutorial-attributes"><span class="std std-ref">deme attributes</span></a>).</p></li>
-<li><p>For examples of demographic models defined using <code class="docutils literal notranslate"><span class="pre">demes</span></code>, head to the
-<a class="reference internal" href="gallery.html#sec-gallery"><span class="std std-ref">Gallery</span></a>.</p></li>
-</ul>
+<p>Install the <code class="docutils literal notranslate"><span class="pre">demes</span></code> python package using <code class="docutils literal notranslate"><span class="pre">pip</span></code>.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install demes
+</pre></div>
+</div>
+<p>Then head over to the <a class="reference internal" href="quickstart.html#sec-quickstart"><span class="std std-ref">Quickstart</span></a> documentation.</p>
 </div>
 </div>
 

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>demes.load_dump &mdash; demes 0.1.0a4.dev4 documentation</title>
+  <title>demes.load_dump &mdash; demes 0.1.0a4.dev6 documentation</title>
   
 
   
@@ -37,7 +37,6 @@
         <script src="../../_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -67,7 +66,7 @@
             
             
               <div class="version">
-                0.1.0a4.dev4
+                0.1.0a4.dev6
               </div>
             
           
@@ -96,11 +95,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../gallery.html">Gallery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../convert.html">Conversion functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../schema.html">Schema</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../development.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
 </ul>
@@ -226,7 +223,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load a YAML or JSON string into a dictionary of nested objects.</span>
 <span class="sd">    The keywords and structure of the string are defined by the</span>
-<span class="sd">    :ref:`schema &lt;sec_schema&gt;`.</span>
+<span class="sd">    :ref:`spec:sec_spec`.</span>
 
 <span class="sd">    :param str string: The string to be loaded.</span>
 <span class="sd">    :param str format: The format of the input string. Either &quot;yaml&quot; or &quot;json&quot;.</span>
@@ -242,7 +239,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load a YAML or JSON file into a dictionary of nested objects.</span>
 <span class="sd">    The keywords and structure of the string are defined by the</span>
-<span class="sd">    :ref:`schema &lt;sec_schema&gt;`.</span>
+<span class="sd">    :ref:`spec:sec_spec`.</span>
 
 <span class="sd">    :param filename: The path to the file to be loaded, or a file-like object</span>
 <span class="sd">        with a `read()` method.</span>
@@ -267,7 +264,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load a graph from a YAML or JSON string.</span>
 <span class="sd">    The keywords and structure of the string are defined by the</span>
-<span class="sd">    :ref:`schema &lt;sec_schema&gt;`.</span>
+<span class="sd">    :ref:`spec:sec_spec`.</span>
 
 <span class="sd">    :param str string: The string to be loaded.</span>
 <span class="sd">    :param str format: The format of the input string. Either &quot;yaml&quot; or &quot;json&quot;.</span>
@@ -282,7 +279,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load a graph from a YAML or JSON file.</span>
 <span class="sd">    The keywords and structure of the file are defined by the</span>
-<span class="sd">    :ref:`schema &lt;sec_schema&gt;`.</span>
+<span class="sd">    :ref:`spec:sec_spec`.</span>
 
 <span class="sd">    :param filename: The path to the file to be loaded, or a file-like object</span>
 <span class="sd">        with a `read()` method.</span>
@@ -299,7 +296,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Dump the specified graph to a YAML or JSON string.</span>
 <span class="sd">    The keywords and structure of the string are defined by the</span>
-<span class="sd">    :ref:`schema &lt;sec_schema&gt;`.</span>
+<span class="sd">    :ref:`spec:sec_spec`.</span>
 
 <span class="sd">    :param .Graph graph: The graph to dump.</span>
 <span class="sd">    :param str format: The format of the output file. Either &quot;yaml&quot; or &quot;json&quot;.</span>
@@ -318,7 +315,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Dump the specified graph to a file.</span>
 <span class="sd">    The keywords and structure of the file are defined by the</span>
-<span class="sd">    :ref:`schema &lt;sec_schema&gt;`.</span>
+<span class="sd">    :ref:`spec:sec_spec`.</span>
 
 <span class="sd">    :param .Graph graph: The graph to dump.</span>
 <span class="sd">    :param filename: Path to the output file, or a file-like object with a</span>

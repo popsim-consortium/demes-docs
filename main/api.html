@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Python API &mdash; demes 0.1.0a4.dev4 documentation</title>
+  <title>API Reference &mdash; demes 0.1.0a4.dev6 documentation</title>
   
 
   
@@ -37,7 +37,6 @@
         <script src="_static/thebelab-helper.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -45,7 +44,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Conversion functions" href="convert.html" />
-    <link rel="prev" title="Gallery" href="gallery.html" /> 
+    <link rel="prev" title="Quickstart" href="quickstart.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -69,7 +68,7 @@
             
             
               <div class="version">
-                0.1.0a4.dev4
+                0.1.0a4.dev6
               </div>
             
           
@@ -98,15 +97,16 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gallery.html">Gallery</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Python API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#example-usage">Example usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#api-reference">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#loading-and-saving-demes-graphs">Loading and saving Demes graphs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#constructing-demes-graphs">Constructing Demes graphs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examining-demes-graphs">Examining Demes graphs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#continuous-demographic-events">Continuous demographic events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#discrete-demographic-events">Discrete demographic events</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="convert.html">Conversion functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="schema.html">Schema</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
@@ -157,7 +157,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Python API</li>
+      <li>API Reference</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -176,124 +176,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="python-api">
-<h1>Python API<a class="headerlink" href="#python-api" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="example-usage">
-<h2>Example usage<a class="headerlink" href="#example-usage" title="Permalink to this headline">¶</a></h2>
-<p>A <code class="docutils literal notranslate"><span class="pre">yaml</span></code> file can be loaded into python with the <a class="reference internal" href="#demes.load" title="demes.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">load()</span></code></a> function,
-to obtain a <a class="reference internal" href="#demes.Graph" title="demes.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a> instance.
-Here we load the Gutenkunst et al. (2009) Out-of-Africa model from
-<a class="reference internal" href="gallery.html#sec-ooa-example"><span class="std std-ref">the gallery</span></a>.</p>
-<div class="jupyter_cell jupyter_container docutils container">
-<div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">demes</span>
-
-<span class="n">g_ooa</span> <span class="o">=</span> <span class="n">demes</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;../examples/gutenkunst_ooa.yml&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;demes:&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">deme</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">g_ooa</span><span class="o">.</span><span class="n">demes</span><span class="p">])</span>
-
-<span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="n">g_ooa</span><span class="o">.</span><span class="n">migrations</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">migration</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>demes: [&#39;ancestral&#39;, &#39;AMH&#39;, &#39;OOA&#39;, &#39;YRI&#39;, &#39;CEU&#39;, &#39;CHB&#39;]
-SymmetricMigration(start_time=140000.0, end_time=21200.0, rate=0.00025, demes=[&#39;YRI&#39;, &#39;OOA&#39;])
-SymmetricMigration(start_time=21200.0, end_time=0, rate=3e-05, demes=[&#39;YRI&#39;, &#39;CEU&#39;])
-SymmetricMigration(start_time=21200.0, end_time=0, rate=1.9e-05, demes=[&#39;YRI&#39;, &#39;CHB&#39;])
-SymmetricMigration(start_time=21200.0, end_time=0, rate=9.6e-05, demes=[&#39;CEU&#39;, &#39;CHB&#39;])
-</pre></div>
-</div>
-</div>
-</div>
-<p>A demographic model can instead be constructed by instantiating a
-<a class="reference internal" href="#demes.Builder" title="demes.Builder"><code class="xref py py-class docutils literal notranslate"><span class="pre">Builder</span></code></a>, then adding demes, migrations, and admixture
-pulses via the methods available on this class.</p>
-<div class="jupyter_cell jupyter_container docutils container">
-<div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">demes</span><span class="o">.</span><span class="n">Builder</span><span class="p">(</span>
-    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Gutenkunst et al. (2009) three-population model.&quot;</span><span class="p">,</span>
-    <span class="n">doi</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;10.1371/journal.pgen.1000695&quot;</span><span class="p">],</span>
-    <span class="n">time_units</span><span class="o">=</span><span class="s2">&quot;years&quot;</span><span class="p">,</span>
-    <span class="n">generation_time</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">b</span><span class="o">.</span><span class="n">add_deme</span><span class="p">(</span><span class="s2">&quot;ancestral&quot;</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">end_time</span><span class="o">=</span><span class="mf">220e3</span><span class="p">,</span> <span class="n">start_size</span><span class="o">=</span><span class="mi">7300</span><span class="p">)])</span>
-<span class="n">b</span><span class="o">.</span><span class="n">add_deme</span><span class="p">(</span><span class="s2">&quot;AMH&quot;</span><span class="p">,</span> <span class="n">ancestors</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ancestral&quot;</span><span class="p">],</span> <span class="n">epochs</span><span class="o">=</span><span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">end_time</span><span class="o">=</span><span class="mf">140e3</span><span class="p">,</span> <span class="n">start_size</span><span class="o">=</span><span class="mi">12300</span><span class="p">)])</span>
-<span class="n">b</span><span class="o">.</span><span class="n">add_deme</span><span class="p">(</span><span class="s2">&quot;OOA&quot;</span><span class="p">,</span> <span class="n">ancestors</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;AMH&quot;</span><span class="p">],</span> <span class="n">epochs</span><span class="o">=</span><span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">end_time</span><span class="o">=</span><span class="mf">21.2e3</span><span class="p">,</span> <span class="n">start_size</span><span class="o">=</span><span class="mi">2100</span><span class="p">)])</span>
-<span class="n">b</span><span class="o">.</span><span class="n">add_deme</span><span class="p">(</span><span class="s2">&quot;YRI&quot;</span><span class="p">,</span> <span class="n">ancestors</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;AMH&quot;</span><span class="p">],</span> <span class="n">epochs</span><span class="o">=</span><span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">start_size</span><span class="o">=</span><span class="mi">12300</span><span class="p">)])</span>
-<span class="n">b</span><span class="o">.</span><span class="n">add_deme</span><span class="p">(</span><span class="s2">&quot;CEU&quot;</span><span class="p">,</span> <span class="n">ancestors</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;OOA&quot;</span><span class="p">],</span> <span class="n">epochs</span><span class="o">=</span><span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">start_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">end_size</span><span class="o">=</span><span class="mi">29725</span><span class="p">)])</span>
-<span class="n">b</span><span class="o">.</span><span class="n">add_deme</span><span class="p">(</span><span class="s2">&quot;CHB&quot;</span><span class="p">,</span> <span class="n">ancestors</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;OOA&quot;</span><span class="p">],</span> <span class="n">epochs</span><span class="o">=</span><span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">start_size</span><span class="o">=</span><span class="mi">510</span><span class="p">,</span> <span class="n">end_size</span><span class="o">=</span><span class="mi">54090</span><span class="p">)])</span>
-<span class="n">b</span><span class="o">.</span><span class="n">add_migration</span><span class="p">(</span><span class="n">demes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;YRI&quot;</span><span class="p">,</span> <span class="s2">&quot;OOA&quot;</span><span class="p">],</span> <span class="n">rate</span><span class="o">=</span><span class="mf">25e-5</span><span class="p">)</span>
-<span class="n">b</span><span class="o">.</span><span class="n">add_migration</span><span class="p">(</span><span class="n">demes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;YRI&quot;</span><span class="p">,</span> <span class="s2">&quot;CEU&quot;</span><span class="p">],</span> <span class="n">rate</span><span class="o">=</span><span class="mf">3e-5</span><span class="p">)</span>
-<span class="n">b</span><span class="o">.</span><span class="n">add_migration</span><span class="p">(</span><span class="n">demes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;YRI&quot;</span><span class="p">,</span> <span class="s2">&quot;CHB&quot;</span><span class="p">],</span> <span class="n">rate</span><span class="o">=</span><span class="mf">1.9e-5</span><span class="p">)</span>
-<span class="n">b</span><span class="o">.</span><span class="n">add_migration</span><span class="p">(</span><span class="n">demes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;CEU&quot;</span><span class="p">,</span> <span class="s2">&quot;CHB&quot;</span><span class="p">],</span> <span class="n">rate</span><span class="o">=</span><span class="mf">9.6e-5</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-</div>
-</div>
-<p>The builder object can then be “resolved” into a <a class="reference internal" href="#demes.Graph" title="demes.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a> using the
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">Builder.resolve()</span></code> method. We can check that our implementation matches
-the example from the gallery with the <code class="xref py py-meth docutils literal notranslate"><span class="pre">Graph.isclose()</span></code> method.</p>
-<div class="jupyter_cell jupyter_container docutils container">
-<div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">g_ooa</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>True
-</pre></div>
-</div>
-</div>
-</div>
-<p>For some demographic models, using the Python API can be far less cumbersome
-than writing the equivalent <code class="docutils literal notranslate"><span class="pre">yaml</span></code> file. For example, we can define a ring of
-demes, with migration between adjacent demes, as follows.</p>
-<div class="jupyter_cell jupyter_container docutils container">
-<div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">demes</span>
-
-<span class="n">M</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># number of demes</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">demes</span><span class="o">.</span><span class="n">Builder</span><span class="p">(</span>
-    <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;a ring of </span><span class="si">{</span><span class="n">M</span><span class="si">}</span><span class="s2"> demes, with migration between adjacent demes&quot;</span><span class="p">,</span>
-    <span class="n">time_units</span><span class="o">=</span><span class="s2">&quot;generations&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
-    <span class="n">b</span><span class="o">.</span><span class="n">add_deme</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">start_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)])</span>
-    <span class="k">if</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">b</span><span class="o">.</span><span class="n">add_migration</span><span class="p">(</span><span class="n">demes</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">],</span> <span class="n">rate</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span>
-<span class="n">b</span><span class="o">.</span><span class="n">add_migration</span><span class="p">(</span><span class="n">demes</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">M</span> <span class="o">-</span> <span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;deme0&quot;</span><span class="p">],</span> <span class="n">rate</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span>
-<span class="n">graph_ring</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-</div>
-</div>
-<p>The graph can then be written out to a new <code class="docutils literal notranslate"><span class="pre">yaml</span></code> file using the
-<a class="reference internal" href="#demes.dump" title="demes.dump"><code class="xref py py-func docutils literal notranslate"><span class="pre">dump()</span></code></a> function.</p>
-<div class="jupyter_cell jupyter_container docutils container">
-<div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">demes</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">graph_ring</span><span class="p">,</span> <span class="s2">&quot;/tmp/ring.yml&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-</div>
-</div>
-</div>
-<div class="section" id="api-reference">
-<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="api-reference">
+<span id="sec-api"></span><h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="loading-and-saving-demes-graphs">
+<h2>Loading and saving Demes graphs<a class="headerlink" href="#loading-and-saving-demes-graphs" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt id="demes.load">
 <code class="sig-prename descclassname">demes.</code><code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">'yaml'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a graph from a YAML or JSON file.
 The keywords and structure of the file are defined by the
-<a class="reference internal" href="schema.html#sec-schema"><span class="std std-ref">schema</span></a>.</p>
+<a class="reference external" href="https://popsim-consortium.github.io/demes-spec-docs/main/spec.html#sec-spec" title="(in demes-spec valpha)"><span>Demes Specification</span></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -316,7 +208,7 @@ with a <cite>read()</cite> method.</p></li>
 <code class="sig-prename descclassname">demes.</code><code class="sig-name descname">loads</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">'yaml'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#loads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.loads" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a graph from a YAML or JSON string.
 The keywords and structure of the string are defined by the
-<a class="reference internal" href="schema.html#sec-schema"><span class="std std-ref">schema</span></a>.</p>
+<a class="reference external" href="https://popsim-consortium.github.io/demes-spec-docs/main/spec.html#sec-spec" title="(in demes-spec valpha)"><span>Demes Specification</span></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -338,7 +230,7 @@ The keywords and structure of the string are defined by the
 <code class="sig-prename descclassname">demes.</code><code class="sig-name descname">dump</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">graph</span></em>, <em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">'yaml'</span></em>, <em class="sig-param"><span class="n">simplified</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#dump"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.dump" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dump the specified graph to a file.
 The keywords and structure of the file are defined by the
-<a class="reference internal" href="schema.html#sec-schema"><span class="std std-ref">schema</span></a>.</p>
+<a class="reference external" href="https://popsim-consortium.github.io/demes-spec-docs/main/spec.html#sec-spec" title="(in demes-spec valpha)"><span>Demes Specification</span></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -358,7 +250,7 @@ a redundant graph.</p></li>
 <code class="sig-prename descclassname">demes.</code><code class="sig-name descname">dumps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">graph</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">'yaml'</span></em>, <em class="sig-param"><span class="n">simplified</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#dumps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.dumps" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dump the specified graph to a YAML or JSON string.
 The keywords and structure of the string are defined by the
-<a class="reference internal" href="schema.html#sec-schema"><span class="std std-ref">schema</span></a>.</p>
+<a class="reference external" href="https://popsim-consortium.github.io/demes-spec-docs/main/spec.html#sec-spec" title="(in demes-spec valpha)"><span>Demes Specification</span></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -377,6 +269,9 @@ a complete redundant graph.</p></li>
 </dl>
 </dd></dl>
 
+</div>
+<div class="section" id="constructing-demes-graphs">
+<h2>Constructing Demes graphs<a class="headerlink" href="#constructing-demes-graphs" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="demes.Builder">
 <em class="property">class </em><code class="sig-prename descclassname">demes.</code><code class="sig-name descname">Builder</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">description</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time_units</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'generations'</span></em>, <em class="sig-param"><span class="n">generation_time</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">doi</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>list<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">defaults</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Builder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Builder" title="Permalink to this definition">¶</a></dt>
@@ -389,7 +284,7 @@ into a fully-resolved <a class="reference internal" href="#demes.Graph" title="d
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – <p>The data dictionary of the graph’s current state.
 The objects nested within this dictionary follow Demes’ data model,
-as described in the <a class="reference internal" href="schema.html#sec-schema"><span class="std std-ref">schema</span></a>.</p>
+as described in the <a class="reference external" href="https://popsim-consortium.github.io/demes-spec-docs/main/spec.html#sec-spec" title="(in demes-spec valpha)"><span>Demes Specification</span></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Users may freely modify the data dictionary, as long as the data
@@ -475,8 +370,7 @@ of individuals from the source deme.</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>data</strong> (<em>MutableMapping</em>) – The data dictionary to initialise the
 graph’s state. The objects nested within this dictionary must
-follow Demes’ data model, as described in the
-<a class="reference internal" href="schema.html#sec-schema"><span class="std std-ref">schema</span></a>.</p>
+follow Demes’ data model, as described in the <a class="reference external" href="https://popsim-consortium.github.io/demes-spec-docs/main/spec.html#sec-spec" title="(in demes-spec valpha)"><span>Demes Specification</span></a>.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -497,6 +391,9 @@ follow Demes’ data model, as described in the
 
 </dd></dl>
 
+</div>
+<div class="section" id="examining-demes-graphs">
+<h2>Examining Demes graphs<a class="headerlink" href="#examining-demes-graphs" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="demes.Graph">
 <em class="property">class </em><code class="sig-prename descclassname">demes.</code><code class="sig-name descname">Graph</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">description</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time_units</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">generation_time</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">doi</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">NOTHING</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Graph" title="Permalink to this definition">¶</a></dt>
@@ -856,6 +753,9 @@ comparisons. See documentation for <code class="xref py py-func docutils literal
 
 </dd></dl>
 
+</div>
+<div class="section" id="continuous-demographic-events">
+<h2>Continuous demographic events<a class="headerlink" href="#continuous-demographic-events" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="demes.Migration">
 <em class="property">class </em><code class="sig-prename descclassname">demes.</code><code class="sig-name descname">Migration</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">start_time</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">end_time</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">rate</span><span class="p">:</span> <span class="n">float</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Migration" title="Permalink to this definition">¶</a></dt>
@@ -983,6 +883,9 @@ comparisons. See documentation for <code class="xref py py-func docutils literal
 
 </dd></dl>
 
+</div>
+<div class="section" id="discrete-demographic-events">
+<h2>Discrete demographic events<a class="headerlink" href="#discrete-demographic-events" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="demes.Pulse">
 <em class="property">class </em><code class="sig-prename descclassname">demes.</code><code class="sig-name descname">Pulse</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">source</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">dest</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">time</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">proportion</span><span class="p">:</span> <span class="n">float</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Pulse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Pulse" title="Permalink to this definition">¶</a></dt>
@@ -1303,7 +1206,7 @@ comparisons. See documentation for <code class="xref py py-func docutils literal
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="convert.html" class="btn btn-neutral float-right" title="Conversion functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="gallery.html" class="btn btn-neutral float-left" title="Gallery" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="quickstart.html" class="btn btn-neutral float-left" title="Quickstart" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
