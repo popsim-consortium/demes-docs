@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>demes.demes &mdash; demes 0.1.0a4.dev16 documentation</title>
+  <title>demes.demes &mdash; demes 0.1.0a4.dev18 documentation</title>
   
 
   
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.1.0a4.dev16
+                0.1.0a4.dev18
               </div>
             
           
@@ -177,7 +177,7 @@
 <span class="kn">import</span> <span class="nn">attr</span>
 
 <span class="n">Number</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
-<span class="n">ID</span> <span class="o">=</span> <span class="nb">str</span>
+<span class="n">Name</span> <span class="o">=</span> <span class="nb">str</span>
 <span class="n">Time</span> <span class="o">=</span> <span class="n">Number</span>
 <span class="n">Size</span> <span class="o">=</span> <span class="n">Number</span>
 <span class="n">Rate</span> <span class="o">=</span> <span class="nb">float</span>
@@ -224,34 +224,34 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">attribute</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> must have non-zero length&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">valid_deme_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">valid_deme_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="o">.</span><span class="n">isidentifier</span><span class="p">():</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;Invalid deme ID `</span><span class="si">{self.id}</span><span class="s2">`. IDs must be valid python identifiers. &quot;</span>
-            <span class="s2">&quot;We recommend choosing a deme ID that starts with a letter or &quot;</span>
+            <span class="s2">&quot;Invalid deme name `</span><span class="si">{self.name}</span><span class="s2">`. Names must be valid python identifiers. &quot;</span>
+            <span class="s2">&quot;We recommend choosing a name that starts with a letter or &quot;</span>
             <span class="s2">&quot;underscore, and is followed by one or more letters, numbers, &quot;</span>
             <span class="s2">&quot;or underscores.&quot;</span>
         <span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">isclose_deme_proportions</span><span class="p">(</span>
-    <span class="n">a_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">],</span>
+    <span class="n">a_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Name</span><span class="p">],</span>
     <span class="n">a_proportions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Proportion</span><span class="p">],</span>
-    <span class="n">b_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">],</span>
+    <span class="n">b_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Name</span><span class="p">],</span>
     <span class="n">b_proportions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Proportion</span><span class="p">],</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
     <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns true if (a_ids, a_proportions) and (b_ids, b_proportions)</span>
-<span class="sd">    are semantically equivalent. The order of ids is ignored, and proportions</span>
+<span class="sd">    Returns true if (a_names, a_proportions) and (b_names, b_proportions)</span>
+<span class="sd">    are semantically equivalent. The order of names is ignored, and proportions</span>
 <span class="sd">    are checked for numerical closeness.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">a_ids</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">b_ids</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">a_proportions</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">b_proportions</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">a_names</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">b_names</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">a_proportions</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">b_proportions</span><span class="p">):</span>
         <span class="k">return</span> <span class="kc">False</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">a_ids</span><span class="p">,</span> <span class="n">a_proportions</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-    <span class="n">b</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">b_ids</span><span class="p">,</span> <span class="n">b_proportions</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">a_names</span><span class="p">,</span> <span class="n">a_proportions</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">b_names</span><span class="p">,</span> <span class="n">b_proportions</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
     <span class="k">for</span> <span class="p">(</span><span class="n">a_id</span><span class="p">,</span> <span class="n">a_proportion</span><span class="p">),</span> <span class="p">(</span><span class="n">b_id</span><span class="p">,</span> <span class="n">b_proportion</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">a_id</span> <span class="o">!=</span> <span class="n">b_id</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span>
             <span class="n">a_proportion</span><span class="p">,</span> <span class="n">b_proportion</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
@@ -560,10 +560,10 @@
 <span class="sd">    :ivar demes: The list of demes for symmetric migration.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">demes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
+    <span class="n">demes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
         <span class="n">validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">deep_iterable</span><span class="p">(</span>
             <span class="n">member_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">and_</span><span class="p">(</span>
-                <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_id</span>
+                <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span>
             <span class="p">),</span>
             <span class="n">iterable_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">list</span><span class="p">),</span>
         <span class="p">),</span>
@@ -609,8 +609,10 @@
 <span class="sd">    :ivar dest: The destination deme for asymmetric migration.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">source</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_id</span><span class="p">])</span>
-    <span class="n">dest</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_id</span><span class="p">])</span>
+    <span class="n">source</span><span class="p">:</span> <span class="n">Name</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
+        <span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">dest</span><span class="p">:</span> <span class="n">Name</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__attrs_post_init__</span><span class="p">()</span>
@@ -660,8 +662,10 @@
 <span class="sd">        the source deme.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">source</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_id</span><span class="p">])</span>
-    <span class="n">dest</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_id</span><span class="p">])</span>
+    <span class="n">source</span><span class="p">:</span> <span class="n">Name</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
+        <span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">dest</span><span class="p">:</span> <span class="n">Name</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span><span class="p">])</span>
     <span class="n">time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
     <span class="n">proportion</span><span class="p">:</span> <span class="n">Proportion</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">unit_interval</span><span class="p">])</span>
 
@@ -747,12 +751,14 @@
 <span class="sd">    :ivar time: The split time.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">parent</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_id</span><span class="p">])</span>
-    <span class="n">children</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
+    <span class="n">parent</span><span class="p">:</span> <span class="n">Name</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
+        <span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">children</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
         <span class="n">validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">and_</span><span class="p">(</span>
             <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">deep_iterable</span><span class="p">(</span>
                 <span class="n">member_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">and_</span><span class="p">(</span>
-                    <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_id</span>
+                    <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span>
                 <span class="p">),</span>
                 <span class="n">iterable_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">list</span><span class="p">),</span>
             <span class="p">),</span>
@@ -841,8 +847,10 @@
 <span class="sd">    :ivar time: The branch time.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">parent</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_id</span><span class="p">])</span>
-    <span class="n">child</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_id</span><span class="p">])</span>
+    <span class="n">parent</span><span class="p">:</span> <span class="n">Name</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
+        <span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">child</span><span class="p">:</span> <span class="n">Name</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span><span class="p">])</span>
     <span class="n">time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -923,10 +931,10 @@
 <span class="sd">    :ivar time: The merge time.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">parents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
+    <span class="n">parents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
         <span class="n">validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">deep_iterable</span><span class="p">(</span>
             <span class="n">member_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">and_</span><span class="p">(</span>
-                <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_id</span>
+                <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span>
             <span class="p">),</span>
             <span class="n">iterable_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">list</span><span class="p">),</span>
         <span class="p">)</span>
@@ -937,7 +945,7 @@
             <span class="n">iterable_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">list</span><span class="p">),</span>
         <span class="p">)</span>
     <span class="p">)</span>
-    <span class="n">child</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_id</span><span class="p">])</span>
+    <span class="n">child</span><span class="p">:</span> <span class="n">Name</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span><span class="p">])</span>
     <span class="n">time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
 
     <span class="nd">@proportions</span><span class="o">.</span><span class="n">validator</span>
@@ -1043,10 +1051,10 @@
 <span class="sd">    :ivar time: The admixture time.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">parents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
+    <span class="n">parents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
         <span class="n">validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">deep_iterable</span><span class="p">(</span>
             <span class="n">member_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">and_</span><span class="p">(</span>
-                <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_id</span>
+                <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span>
             <span class="p">),</span>
             <span class="n">iterable_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">list</span><span class="p">),</span>
         <span class="p">)</span>
@@ -1057,7 +1065,7 @@
             <span class="n">iterable_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">list</span><span class="p">),</span>
         <span class="p">)</span>
     <span class="p">)</span>
-    <span class="n">child</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_id</span><span class="p">])</span>
+    <span class="n">child</span><span class="p">:</span> <span class="n">Name</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span><span class="p">])</span>
     <span class="n">time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
 
     <span class="nd">@proportions</span><span class="o">.</span><span class="n">validator</span>
@@ -1158,7 +1166,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A collection of individuals that are exchangeable at any fixed time.</span>
 
-<span class="sd">    :ivar str id: A string identifier for the deme.</span>
+<span class="sd">    :ivar str name: A conscise string that identifies the deme.</span>
 <span class="sd">    :ivar str description: A description of the deme. May be ``None``.</span>
 <span class="sd">    :ivar float start_time: The time at which the deme begins to exist.</span>
 <span class="sd">    :ivar ancestors: List of string identifiers for the deme&#39;s ancestors.</span>
@@ -1173,17 +1181,17 @@
 <span class="sd">    :vartype epochs: list of :class:`.Epoch`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="nb">id</span><span class="p">:</span> <span class="n">ID</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_id</span><span class="p">])</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">Name</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span><span class="p">])</span>
     <span class="n">description</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
         <span class="n">validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">optional</span><span class="p">(</span>
             <span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">nonzero_len</span><span class="p">]</span>
         <span class="p">)</span>
     <span class="p">)</span>
     <span class="n">start_time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">positive</span><span class="p">])</span>
-    <span class="n">ancestors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
+    <span class="n">ancestors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
         <span class="n">validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">deep_iterable</span><span class="p">(</span>
             <span class="n">member_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">and_</span><span class="p">(</span>
-                <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_id</span>
+                <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span>
             <span class="p">),</span>
             <span class="n">iterable_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">list</span><span class="p">),</span>
         <span class="p">)</span>
@@ -1204,14 +1212,16 @@
     <span class="nd">@ancestors</span><span class="o">.</span><span class="n">validator</span>
     <span class="k">def</span> <span class="nf">_check_ancestors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_attribute</span><span class="p">,</span> <span class="n">_value</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: duplicate ancestors in </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: deme cannot be its own ancestor&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: duplicate ancestors in </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: deme cannot be its own ancestor&quot;</span><span class="p">)</span>
 
     <span class="nd">@proportions</span><span class="o">.</span><span class="n">validator</span>
     <span class="k">def</span> <span class="nf">_check_proportions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">_value</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: ancestry proportions must sum to 1.0&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: ancestry proportions must sum to 1.0&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">proportion</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">:</span>
             <span class="n">unit_interval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">proportion</span><span class="p">)</span>
             <span class="n">positive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">proportion</span><span class="p">)</span>
@@ -1223,7 +1233,7 @@
             <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="o">!=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">start_time</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                        <span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: &quot;</span>
                         <span class="sa">f</span><span class="s2">&quot;epoch[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">].start_time != epoch[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">-1].end_time&quot;</span>
                     <span class="p">)</span>
 
@@ -1232,7 +1242,7 @@
         <span class="c1"># after the validators have confirmed that these are indeed lists.</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: ancestors and proportions have different lengths&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: ancestors and proportions have different lengths&quot;</span>
             <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_add_epoch</span><span class="p">(</span>
@@ -1250,7 +1260,7 @@
             <span class="c1"># The first epoch is special.</span>
             <span class="k">if</span> <span class="n">start_size</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">end_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: first epoch must have start_size or end_size&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: first epoch must have start_size or end_size&quot;</span>
                 <span class="p">)</span>
             <span class="k">if</span> <span class="n">start_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">start_size</span> <span class="o">=</span> <span class="n">end_size</span>
@@ -1284,7 +1294,7 @@
             <span class="p">)</span>
         <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">e</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: epoch[</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="p">)</span><span class="si">}</span><span class="s2">]: invalid epoch&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: epoch[</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="p">)</span><span class="si">}</span><span class="s2">]: invalid epoch&quot;</span>
             <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
 
@@ -1299,7 +1309,7 @@
 <span class="sd">        Raises AssertionError if the object is not equal to ``other``,</span>
 <span class="sd">        up to a numerical tolerance.</span>
 <span class="sd">        Compares values of the following objects:</span>
-<span class="sd">        ``id``, ``ancestors``, ``proportions``, epochs.</span>
+<span class="sd">        ``name``, ``ancestors``, ``proportions``, epochs.</span>
 
 <span class="sd">        :param other: The deme to compare against.</span>
 <span class="sd">        :type other: :class:`.Deme`</span>
@@ -1313,7 +1323,7 @@
         <span class="k">assert</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
         <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed as other deme is not instance of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s2"> type.&quot;</span>
-        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">name</span>
         <span class="k">assert</span> <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
         <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for start_time </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">start_time</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
@@ -1435,24 +1445,24 @@
     <span class="n">pulses</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Pulse</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_deme_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">ID</span><span class="p">,</span> <span class="n">Deme</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_deme_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Name</span><span class="p">,</span> <span class="n">Deme</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_units</span> <span class="o">!=</span> <span class="s2">&quot;generations&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s1">&#39;if time_units!=&quot;generations&quot;, generation_time must be specified&#39;</span>
             <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deme_id</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deme_name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return the :class:`.Deme` with the specified id.</span>
+<span class="sd">        Return the :class:`.Deme` with the specified name.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deme_map</span><span class="p">[</span><span class="n">deme_id</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deme_map</span><span class="p">[</span><span class="n">deme_name</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deme_id</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deme_name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Check if the graph contains a deme with the specified id.</span>
+<span class="sd">        Check if the graph contains a deme with the specified name.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">deme_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deme_map</span>
+        <span class="k">return</span> <span class="n">deme_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deme_map</span>
 
 <div class="viewcode-block" id="Graph.assert_close"><a class="viewcode-back" href="../../api.html#demes.Graph.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1490,7 +1500,7 @@
                 <span class="k">except</span> <span class="ne">AssertionError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Deme</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">Deme</span><span class="p">):</span>
                         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span>
-                            <span class="sa">f</span><span class="s2">&quot;Failed for </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">b</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;Failed for </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">b</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
                         <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
                     <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed for </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
 
@@ -1578,7 +1588,7 @@
     <span class="k">def</span> <span class="nf">_add_deme</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="nb">id</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">ancestors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">proportions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1587,7 +1597,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a deme to the graph.</span>
 
-<span class="sd">        :param str id: A string identifier for the deme.</span>
+<span class="sd">        :param str name: A string identifier for the deme.</span>
 <span class="sd">        :param ancestors: List of string identifiers for the deme&#39;s ancestors.</span>
 <span class="sd">            This may be ``None``, indicating the deme has no ancestors.</span>
 <span class="sd">            If the deme has multiple ancestors, the ``proportions`` parameter</span>
@@ -1611,19 +1621,21 @@
 <span class="sd">        :rtype: :class:`.Deme`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># some basic deme property checks</span>
-        <span class="k">if</span> <span class="nb">id</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">)</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">: field &#39;id&#39; must be unique&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">)</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: field &#39;name&#39; must be unique&quot;</span>
+            <span class="p">)</span>
         <span class="k">if</span> <span class="n">ancestors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">ancestors</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ancestors</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">)</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">: field &#39;ancestors&#39; must be &quot;</span>
-                <span class="s2">&quot;a list of deme IDs&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">)</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: field &#39;ancestors&#39; must be &quot;</span>
+                <span class="s2">&quot;a list of deme names&quot;</span>
             <span class="p">)</span>
         <span class="k">for</span> <span class="n">ancestor</span> <span class="ow">in</span> <span class="n">ancestors</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">ancestor</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">)</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">: ancestor deme &#39;</span><span class="si">{</span><span class="n">ancestor</span><span class="si">}</span><span class="s2">&#39; &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">)</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: ancestor deme &#39;</span><span class="si">{</span><span class="n">ancestor</span><span class="si">}</span><span class="s2">&#39; &quot;</span>
                     <span class="s2">&quot;not found. Note: ancestor demes must be specified before &quot;</span>
                     <span class="s2">&quot;their children.&quot;</span>
                 <span class="p">)</span>
@@ -1638,7 +1650,7 @@
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ancestors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ancestors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                        <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">)</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">: &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">)</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: &quot;</span>
                         <span class="s2">&quot;field &#39;start_time&#39; not found, &quot;</span>
                         <span class="s2">&quot;but is required for demes with multiple ancestors&quot;</span>
                     <span class="p">)</span>
@@ -1648,7 +1660,7 @@
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ancestors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">start_time</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">)</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">: field &#39;ancestors&#39; not found, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">)</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: field &#39;ancestors&#39; not found, &quot;</span>
                 <span class="s2">&quot;but is required for demes with a finite &#39;start_time&#39;&quot;</span>
             <span class="p">)</span>
 
@@ -1657,20 +1669,20 @@
             <span class="n">anc</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">ancestor</span><span class="p">]</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">anc</span><span class="o">.</span><span class="n">start_time</span> <span class="o">&gt;</span> <span class="n">start_time</span> <span class="o">&gt;=</span> <span class="n">anc</span><span class="o">.</span><span class="n">end_time</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">)</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">: start_time=</span><span class="si">{</span><span class="n">start_time</span><span class="si">}</span><span class="s2"> is &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">)</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: start_time=</span><span class="si">{</span><span class="n">start_time</span><span class="si">}</span><span class="s2"> is &quot;</span>
                     <span class="s2">&quot;outside the interval of existence for ancestor &quot;</span>
                     <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">ancestor</span><span class="si">}</span><span class="s2">&#39; (</span><span class="si">{</span><span class="n">anc</span><span class="o">.</span><span class="n">start_time</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">anc</span><span class="o">.</span><span class="n">end_time</span><span class="si">}</span><span class="s2">]&quot;</span>
                 <span class="p">)</span>
 
         <span class="n">deme</span> <span class="o">=</span> <span class="n">Deme</span><span class="p">(</span>
-            <span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
             <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span>
             <span class="n">ancestors</span><span class="o">=</span><span class="n">ancestors</span><span class="p">,</span>
             <span class="n">proportions</span><span class="o">=</span><span class="n">proportions</span><span class="p">,</span>
             <span class="n">start_time</span><span class="o">=</span><span class="n">start_time</span><span class="p">,</span>
             <span class="n">epochs</span><span class="o">=</span><span class="p">[],</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_deme_map</span><span class="p">[</span><span class="n">deme</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">deme</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_deme_map</span><span class="p">[</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">deme</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">deme</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">deme</span>
 
@@ -1683,9 +1695,9 @@
             <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">time_lo</span> <span class="o">&lt;=</span> <span class="n">time</span> <span class="o">&lt;=</span> <span class="n">time_hi</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                     <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">time</span><span class="si">}</span><span class="s2"> not in interval [</span><span class="si">{</span><span class="n">time_lo</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">time_hi</span><span class="si">}</span><span class="s2">], &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;as defined by the time-intersection of </span><span class="si">{</span><span class="n">deme1</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;as defined by the time-intersection of </span><span class="si">{</span><span class="n">deme1</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> &quot;</span>
                     <span class="sa">f</span><span class="s2">&quot;(start_time=</span><span class="si">{</span><span class="n">deme1</span><span class="o">.</span><span class="n">start_time</span><span class="si">}</span><span class="s2">, end_time=</span><span class="si">{</span><span class="n">deme1</span><span class="o">.</span><span class="n">end_time</span><span class="si">}</span><span class="s2">) &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;and </span><span class="si">{</span><span class="n">deme2</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> (start_time=</span><span class="si">{</span><span class="n">deme2</span><span class="o">.</span><span class="n">start_time</span><span class="si">}</span><span class="s2">, &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;and </span><span class="si">{</span><span class="n">deme2</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (start_time=</span><span class="si">{</span><span class="n">deme2</span><span class="o">.</span><span class="n">start_time</span><span class="si">}</span><span class="s2">, &quot;</span>
                     <span class="sa">f</span><span class="s2">&quot;end_time=</span><span class="si">{</span><span class="n">deme2</span><span class="o">.</span><span class="n">end_time</span><span class="si">}</span><span class="s2">).&quot;</span>
                 <span class="p">)</span>
         <span class="k">return</span> <span class="n">time_lo</span><span class="p">,</span> <span class="n">time_hi</span>
@@ -1718,7 +1730,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add continuous symmetric migrations between all pairs of demes in a list.</span>
 
-<span class="sd">        :param demes: list of deme IDs. Migration is symmetric between all</span>
+<span class="sd">        :param demes: list of deme names. Migration is symmetric between all</span>
 <span class="sd">            pairs of demes in this list.</span>
 <span class="sd">        :param rate: The rate of migration per generation.</span>
 <span class="sd">        :param start_time: The time at which the migration rate is enabled.</span>
@@ -1727,11 +1739,11 @@
 <span class="sd">        :rtype: list of :class:`.SymmetricMigration`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">demes</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">demes</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;must specify a list of two or more deme IDs&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;must specify a list of two or more deme names&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">start_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">start_time</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">deme_id</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="k">for</span> <span class="n">deme_id</span> <span class="ow">in</span> <span class="n">demes</span><span class="p">)</span>
+            <span class="n">start_time</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">deme_name</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="k">for</span> <span class="n">deme_name</span> <span class="ow">in</span> <span class="n">demes</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">end_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">end_time</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">deme_id</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="k">for</span> <span class="n">deme_id</span> <span class="ow">in</span> <span class="n">demes</span><span class="p">)</span>
+            <span class="n">end_time</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">deme_name</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="k">for</span> <span class="n">deme_name</span> <span class="ow">in</span> <span class="n">demes</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">source</span><span class="p">,</span> <span class="n">dest</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">permutations</span><span class="p">(</span><span class="n">demes</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_check_time_intersection</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">start_time</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_check_time_intersection</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">end_time</span><span class="p">)</span>
@@ -1756,8 +1768,8 @@
 <span class="sd">        so that the migration rate refers to the movement of individuals from</span>
 <span class="sd">        the ``source`` deme to the ``dest`` deme.</span>
 
-<span class="sd">        :param source: The ID of the source deme.</span>
-<span class="sd">        :param dest: The ID of the destination deme.</span>
+<span class="sd">        :param source: The name of the source deme.</span>
+<span class="sd">        :param dest: The name of the destination deme.</span>
 <span class="sd">        :param rate: The rate of migration per generation.</span>
 <span class="sd">        :param start_time: The time at which the migration rate is enabled.</span>
 <span class="sd">            If ``None``, the start time is defined by the earliest time at</span>
@@ -1768,9 +1780,9 @@
 <span class="sd">        :return: Newly created migration.</span>
 <span class="sd">        :rtype: :class:`.AsymmetricMigration`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">deme_id</span> <span class="ow">in</span> <span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">deme_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">deme_id</span><span class="si">}</span><span class="s2"> not in graph&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">deme_name</span> <span class="ow">in</span> <span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">deme_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">deme_name</span><span class="si">}</span><span class="s2"> not in graph&quot;</span><span class="p">)</span>
         <span class="n">time_lo</span><span class="p">,</span> <span class="n">time_hi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_time_intersection</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">start_time</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">start_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">start_time</span> <span class="o">=</span> <span class="n">time_hi</span>
@@ -1799,8 +1811,8 @@
 <span class="sd">        Add a pulse of migration at a fixed time.</span>
 <span class="sd">        Source and destination demes follow the forwards-in-time convention.</span>
 
-<span class="sd">        :param source: The ID of the source deme.</span>
-<span class="sd">        :param dest: The ID of the destination deme.</span>
+<span class="sd">        :param source: The Name of the source deme.</span>
+<span class="sd">        :param dest: The Name of the destination deme.</span>
 <span class="sd">        :param proportion: At the instant after migration, this is the expected</span>
 <span class="sd">            proportion of individuals in the destination deme made up of individuals</span>
 <span class="sd">            from the source deme.</span>
@@ -1808,9 +1820,9 @@
 <span class="sd">        :return: Newly created pulse.</span>
 <span class="sd">        :rtype: :class:`.Pulse`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">deme_id</span> <span class="ow">in</span> <span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">deme_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">deme_id</span><span class="si">}</span><span class="s2"> not in graph&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">deme_name</span> <span class="ow">in</span> <span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">deme_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">deme_name</span><span class="si">}</span><span class="s2"> not in graph&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_time_intersection</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
 
         <span class="c1"># Check for models that have multiple pulses defined at the same time.</span>
@@ -1844,7 +1856,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">pulses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pulse</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">pulse</span>
 
-<div class="viewcode-block" id="Graph.successors"><a class="viewcode-back" href="../../api.html#demes.Graph.successors">[docs]</a>    <span class="k">def</span> <span class="nf">successors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">ID</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]]:</span>
+<div class="viewcode-block" id="Graph.successors"><a class="viewcode-back" href="../../api.html#demes.Graph.successors">[docs]</a>    <span class="k">def</span> <span class="nf">successors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Name</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Name</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the successors (child demes) for all demes in the graph.</span>
 <span class="sd">        If ``graph`` is a :class:`Graph`, a `NetworkX &lt;https://networkx.org/&gt;`_</span>
@@ -1862,16 +1874,16 @@
 <span class="sd">        :return: A NetworkX compatible dict-of-lists graph of the demes&#39; successors.</span>
 <span class="sd">        :rtype: dict of lists</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">succ</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">ID</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">succ</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Name</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Name</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">deme_info</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">:</span>
-            <span class="n">succ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">deme_info</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="p">[])</span>
+            <span class="n">succ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">deme_info</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="p">[])</span>
             <span class="k">if</span> <span class="n">deme_info</span><span class="o">.</span><span class="n">ancestors</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">deme_info</span><span class="o">.</span><span class="n">ancestors</span><span class="p">:</span>
                     <span class="n">succ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">[])</span>
-                    <span class="n">succ</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">deme_info</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                    <span class="n">succ</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">deme_info</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">succ</span></div>
 
-<div class="viewcode-block" id="Graph.predecessors"><a class="viewcode-back" href="../../api.html#demes.Graph.predecessors">[docs]</a>    <span class="k">def</span> <span class="nf">predecessors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">ID</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]]:</span>
+<div class="viewcode-block" id="Graph.predecessors"><a class="viewcode-back" href="../../api.html#demes.Graph.predecessors">[docs]</a>    <span class="k">def</span> <span class="nf">predecessors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Name</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Name</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the predecessors (ancestors) for all demes in the graph.</span>
 <span class="sd">        If ``graph`` is a :class:`Graph`, a `NetworkX &lt;https://networkx.org/&gt;`_</span>
@@ -1889,12 +1901,12 @@
 <span class="sd">        :return: A NetworkX compatible dict-of-lists graph of the demes&#39; predecessors.</span>
 <span class="sd">        :rtype: dict of lists</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">pred</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">ID</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">ID</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">pred</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Name</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Name</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">deme_info</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">:</span>
-            <span class="n">pred</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">deme_info</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="p">[])</span>
+            <span class="n">pred</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">deme_info</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="p">[])</span>
             <span class="k">if</span> <span class="n">deme_info</span><span class="o">.</span><span class="n">ancestors</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">deme_info</span><span class="o">.</span><span class="n">ancestors</span><span class="p">:</span>
-                    <span class="n">pred</span><span class="p">[</span><span class="n">deme_info</span><span class="o">.</span><span class="n">id</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+                    <span class="n">pred</span><span class="p">[</span><span class="n">deme_info</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">pred</span></div>
 
 <div class="viewcode-block" id="Graph.discrete_demographic_events"><a class="viewcode-back" href="../../api.html#demes.Graph.discrete_demographic_events">[docs]</a>    <span class="k">def</span> <span class="nf">discrete_demographic_events</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]:</span>
@@ -1927,7 +1939,7 @@
             <span class="s2">&quot;mergers&quot;</span><span class="p">:</span> <span class="p">[],</span>
             <span class="s2">&quot;admixtures&quot;</span><span class="p">:</span> <span class="p">[],</span>
         <span class="p">}</span>
-        <span class="n">splits_to_add</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">ID</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="n">ID</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">splits_to_add</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Name</span><span class="p">,</span> <span class="n">Set</span><span class="p">[</span><span class="n">Name</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">predecessors</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">continue</span>
@@ -2031,10 +2043,10 @@
             <span class="n">pop_list</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;demes&quot;</span><span class="p">,</span> <span class="n">required_type</span><span class="o">=</span><span class="n">MutableMapping</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;toplevel&quot;</span><span class="p">)</span>
         <span class="p">):</span>
             <span class="n">insert_defaults</span><span class="p">(</span><span class="n">deme_data</span><span class="p">,</span> <span class="n">deme_defaults</span><span class="p">)</span>
-            <span class="k">if</span> <span class="s2">&quot;id&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">deme_data</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;deme[</span><span class="si">{i}</span><span class="s2">]: required field &#39;id&#39; not found&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s2">&quot;name&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">deme_data</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;deme[</span><span class="si">{i}</span><span class="s2">]: required field &#39;name&#39; not found&quot;</span><span class="p">)</span>
             <span class="n">deme</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">_add_deme</span><span class="p">(</span>
-                <span class="nb">id</span><span class="o">=</span><span class="n">deme_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">),</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">deme_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">),</span>
                 <span class="n">description</span><span class="o">=</span><span class="n">deme_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
                 <span class="n">start_time</span><span class="o">=</span><span class="n">deme_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;start_time&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
                 <span class="n">ancestors</span><span class="o">=</span><span class="n">deme_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;ancestors&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
@@ -2042,12 +2054,12 @@
             <span class="p">)</span>
 
             <span class="n">local_defaults</span> <span class="o">=</span> <span class="n">pop_object</span><span class="p">(</span>
-                <span class="n">deme_data</span><span class="p">,</span> <span class="s2">&quot;defaults&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="n">scope</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="n">deme_data</span><span class="p">,</span> <span class="s2">&quot;defaults&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="n">scope</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
             <span class="n">local_epoch_defaults</span> <span class="o">=</span> <span class="n">pop_object</span><span class="p">(</span>
-                <span class="n">local_defaults</span><span class="p">,</span> <span class="s2">&quot;epoch&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="n">scope</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: defaults&quot;</span>
+                <span class="n">local_defaults</span><span class="p">,</span> <span class="s2">&quot;epoch&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="n">scope</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: defaults&quot;</span>
             <span class="p">)</span>
-            <span class="n">check_empty</span><span class="p">(</span><span class="n">local_defaults</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: defaults&quot;</span><span class="p">)</span>
+            <span class="n">check_empty</span><span class="p">(</span><span class="n">local_defaults</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: defaults&quot;</span><span class="p">)</span>
             <span class="n">epoch_defaults</span> <span class="o">=</span> <span class="n">global_epoch_defaults</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="n">epoch_defaults</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">local_epoch_defaults</span><span class="p">)</span>
 
@@ -2061,7 +2073,7 @@
                     <span class="s2">&quot;cloning_rate&quot;</span><span class="p">,</span>
                     <span class="s2">&quot;size_function&quot;</span><span class="p">,</span>
                 <span class="p">],</span>
-                <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: defaults: epoch&quot;</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: defaults: epoch&quot;</span><span class="p">,</span>
             <span class="p">)</span>
 
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">epoch_defaults</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="s2">&quot;epochs&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">deme_data</span><span class="p">:</span>
@@ -2069,7 +2081,7 @@
                 <span class="c1"># or end_size are required for the first epoch. But we check</span>
                 <span class="c1"># here to provide a more informative error message.</span>
                 <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: required field &#39;epochs&#39; not found&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: required field &#39;epochs&#39; not found&quot;</span>
                 <span class="p">)</span>
 
             <span class="c1"># There is always at least one epoch defined with the default values.</span>
@@ -2078,7 +2090,7 @@
                 <span class="s2">&quot;epochs&quot;</span><span class="p">,</span>
                 <span class="p">[{}],</span>
                 <span class="n">required_type</span><span class="o">=</span><span class="n">MutableMapping</span><span class="p">,</span>
-                <span class="n">scope</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">scope</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">epoch_data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
                 <span class="n">insert_defaults</span><span class="p">(</span><span class="n">epoch_data</span><span class="p">,</span> <span class="n">epoch_defaults</span><span class="p">)</span>
@@ -2087,7 +2099,7 @@
                         <span class="n">epoch_data</span><span class="p">[</span><span class="s2">&quot;end_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
-                            <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: epoch[</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2">]: &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: epoch[</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2">]: &quot;</span>
                             <span class="s2">&quot;required field &#39;end_time&#39; not found&quot;</span>
                         <span class="p">)</span>
                 <span class="n">deme</span><span class="o">.</span><span class="n">_add_epoch</span><span class="p">(</span>
@@ -2098,8 +2110,8 @@
                     <span class="n">selfing_rate</span><span class="o">=</span><span class="n">epoch_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;selfing_rate&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
                     <span class="n">cloning_rate</span><span class="o">=</span><span class="n">epoch_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;cloning_rate&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
                 <span class="p">)</span>
-                <span class="n">check_empty</span><span class="p">(</span><span class="n">epoch_data</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: epoch[</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
-            <span class="n">check_empty</span><span class="p">(</span><span class="n">deme_data</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">check_empty</span><span class="p">(</span><span class="n">epoch_data</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: epoch[</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+            <span class="n">check_empty</span><span class="p">(</span><span class="n">deme_data</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="n">check_defaults</span><span class="p">(</span>
             <span class="n">migration_defaults</span><span class="p">,</span>
@@ -2244,8 +2256,8 @@
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">demes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="n">demes</span> <span class="o">=</span> <span class="p">[</span><span class="n">migration</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">],</span> <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;dest&quot;</span><span class="p">]]</span>
 
-                <span class="n">time_lo</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">deme_id</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="k">for</span> <span class="n">deme_id</span> <span class="ow">in</span> <span class="n">demes</span><span class="p">)</span>
-                <span class="n">time_hi</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">deme_id</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="k">for</span> <span class="n">deme_id</span> <span class="ow">in</span> <span class="n">demes</span><span class="p">)</span>
+                <span class="n">time_lo</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">deme_name</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="k">for</span> <span class="n">deme_name</span> <span class="ow">in</span> <span class="n">demes</span><span class="p">)</span>
+                <span class="n">time_hi</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">deme_name</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="k">for</span> <span class="n">deme_name</span> <span class="ow">in</span> <span class="n">demes</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">time_lo</span><span class="p">:</span>
                     <span class="k">del</span> <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span>
                 <span class="k">if</span> <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;end_time&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">time_hi</span><span class="p">:</span>
@@ -2313,7 +2325,7 @@
 
 <div class="viewcode-block" id="Builder.add_deme"><a class="viewcode-back" href="../../api.html#demes.Builder.add_deme">[docs]</a>    <span class="k">def</span> <span class="nf">add_deme</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">ancestors</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2325,7 +2337,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a deme. Ancestor demes must be added before their children.</span>
 
-<span class="sd">        :param str id: A string identifier for the deme.</span>
+<span class="sd">        :param str name: A string identifier for the deme.</span>
 <span class="sd">        :param str description: A description of the deme. May be ``None``.</span>
 <span class="sd">        :param ancestors: List of string identifiers for the deme&#39;s ancestors.</span>
 <span class="sd">            This may be ``None``, indicating the deme has no ancestors.</span>
@@ -2339,7 +2351,7 @@
 <span class="sd">            parameters to be passed to the deme&#39;s DemeProxy.add_epoch() method</span>
 <span class="sd">        :vartype epochs: list of dict</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">deme</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="nb">id</span><span class="p">)</span>
+        <span class="n">deme</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">description</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">description</span>
         <span class="k">if</span> <span class="n">ancestors</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -2377,12 +2389,12 @@
 <span class="sd">        so that the migration rate refers to the movement of individuals from</span>
 <span class="sd">        the ``source`` deme to the ``dest`` deme.</span>
 
-<span class="sd">        :param demes: list of deme IDs. Migration is symmetric between all</span>
+<span class="sd">        :param demes: list of deme names. Migration is symmetric between all</span>
 <span class="sd">            pairs of demes in this list. If not specified, migration will</span>
 <span class="sd">            be asymmetric (and ``source`` and ``dest`` must be given).</span>
 <span class="sd">        :vartype demes: list of str</span>
-<span class="sd">        :param str source: The ID of the source deme.</span>
-<span class="sd">        :param str dest: The ID of the destination deme.</span>
+<span class="sd">        :param str source: The Name of the source deme.</span>
+<span class="sd">        :param str dest: The Name of the destination deme.</span>
 <span class="sd">        :param float rate: The rate of migration per generation.</span>
 <span class="sd">        :param float start_time: The time at which the migration rate is enabled.</span>
 <span class="sd">            If ``None``, the start time is defined by the earliest time at</span>
@@ -2421,8 +2433,8 @@
 <span class="sd">        Add a pulse of migration at a fixed time.</span>
 <span class="sd">        Source and destination demes follow the forwards-in-time convention.</span>
 
-<span class="sd">        :param str source: The ID of the source deme.</span>
-<span class="sd">        :param str dest: The ID of the destination deme.</span>
+<span class="sd">        :param str source: The Name of the source deme.</span>
+<span class="sd">        :param str dest: The Name of the destination deme.</span>
 <span class="sd">        :param float proportion: At the instant after migration, this is the</span>
 <span class="sd">            expected proportion of individuals in the destination deme made up</span>
 <span class="sd">            of individuals from the source deme.</span>

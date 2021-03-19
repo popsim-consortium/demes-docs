@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>API Reference &mdash; demes 0.1.0a4.dev16 documentation</title>
+  <title>API Reference &mdash; demes 0.1.0a4.dev18 documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.1.0a4.dev16
+                0.1.0a4.dev18
               </div>
             
           
@@ -295,12 +295,12 @@ model is not violated.</p>
 </dl>
 <dl class="py method">
 <dt id="demes.Builder.add_deme">
-<code class="sig-name descname">add_deme</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">description</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ancestors</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>list<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">proportions</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>list<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start_time</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">epochs</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>list<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">defaults</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Builder.add_deme"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Builder.add_deme" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_deme</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">description</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ancestors</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>list<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">proportions</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>list<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start_time</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">epochs</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>list<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">defaults</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Builder.add_deme"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Builder.add_deme" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a deme. Ancestor demes must be added before their children.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>id</strong> (<em>str</em>) – A string identifier for the deme.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – A string identifier for the deme.</p></li>
 <li><p><strong>description</strong> (<em>str</em>) – A description of the deme. May be <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
 <li><p><strong>ancestors</strong> – List of string identifiers for the deme’s ancestors.
 This may be <code class="docutils literal notranslate"><span class="pre">None</span></code>, indicating the deme has no ancestors.</p></li>
@@ -326,11 +326,11 @@ the <code class="docutils literal notranslate"><span class="pre">source</span></
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>demes</strong> – list of deme IDs. Migration is symmetric between all
+<li><p><strong>demes</strong> – list of deme names. Migration is symmetric between all
 pairs of demes in this list. If not specified, migration will
 be asymmetric (and <code class="docutils literal notranslate"><span class="pre">source</span></code> and <code class="docutils literal notranslate"><span class="pre">dest</span></code> must be given).</p></li>
-<li><p><strong>source</strong> (<em>str</em>) – The ID of the source deme.</p></li>
-<li><p><strong>dest</strong> (<em>str</em>) – The ID of the destination deme.</p></li>
+<li><p><strong>source</strong> (<em>str</em>) – The Name of the source deme.</p></li>
+<li><p><strong>dest</strong> (<em>str</em>) – The Name of the destination deme.</p></li>
 <li><p><strong>rate</strong> (<em>float</em>) – The rate of migration per generation.</p></li>
 <li><p><strong>start_time</strong> (<em>float</em>) – The time at which the migration rate is enabled.
 If <code class="docutils literal notranslate"><span class="pre">None</span></code>, the start time is defined by the earliest time at
@@ -351,8 +351,8 @@ Source and destination demes follow the forwards-in-time convention.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source</strong> (<em>str</em>) – The ID of the source deme.</p></li>
-<li><p><strong>dest</strong> (<em>str</em>) – The ID of the destination deme.</p></li>
+<li><p><strong>source</strong> (<em>str</em>) – The Name of the source deme.</p></li>
+<li><p><strong>dest</strong> (<em>str</em>) – The Name of the destination deme.</p></li>
 <li><p><strong>proportion</strong> (<em>float</em>) – At the instant after migration, this is the
 expected proportion of individuals in the destination deme made up
 of individuals from the source deme.</p></li>
@@ -595,12 +595,12 @@ digraph of successors can be obtained as follows.</p>
 
 <dl class="py class">
 <dt id="demes.Deme">
-<em class="property">class </em><code class="sig-prename descclassname">demes.</code><code class="sig-name descname">Deme</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">id</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">description</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">start_time</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">ancestors</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">proportions</span><span class="p">:</span> <span class="n">List<span class="p">[</span>float<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">epochs</span><span class="p">:</span> <span class="n">List<span class="p">[</span>demes.demes.Epoch<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Deme"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Deme" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">demes.</code><code class="sig-name descname">Deme</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">description</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">start_time</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">ancestors</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">proportions</span><span class="p">:</span> <span class="n">List<span class="p">[</span>float<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">epochs</span><span class="p">:</span> <span class="n">List<span class="p">[</span>demes.demes.Epoch<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Deme"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#demes.Deme" title="Permalink to this definition">¶</a></dt>
 <dd><p>A collection of individuals that are exchangeable at any fixed time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>id</strong> (<em>str</em>) – A string identifier for the deme.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – A conscise string that identifies the deme.</p></li>
 <li><p><strong>description</strong> (<em>str</em>) – A description of the deme. May be <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
 <li><p><strong>start_time</strong> (<em>float</em>) – The time at which the deme begins to exist.</p></li>
 <li><p><strong>ancestors</strong> (<em>list of str</em>) – List of string identifiers for the deme’s ancestors.
@@ -619,7 +619,7 @@ the deme. The deme must be created with all epochs listed.</p></li>
 <dd><p>Raises AssertionError if the object is not equal to <code class="docutils literal notranslate"><span class="pre">other</span></code>,
 up to a numerical tolerance.
 Compares values of the following objects:
-<code class="docutils literal notranslate"><span class="pre">id</span></code>, <code class="docutils literal notranslate"><span class="pre">ancestors</span></code>, <code class="docutils literal notranslate"><span class="pre">proportions</span></code>, epochs.</p>
+<code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">ancestors</span></code>, <code class="docutils literal notranslate"><span class="pre">proportions</span></code>, epochs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
