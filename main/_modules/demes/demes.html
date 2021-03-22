@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>demes.demes &mdash; demes 0.1.0a4.dev21 documentation</title>
+  <title>demes.demes &mdash; demes 0.1.0a4.dev25 documentation</title>
   
 
   
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.1.0a4.dev21
+                0.1.0a4.dev25
               </div>
             
           
@@ -166,7 +166,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for demes.demes</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">MutableMapping</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Set</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">MutableMapping</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Set</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">numbers</span>
@@ -298,21 +298,11 @@
     <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">check_empty</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">scope</span><span class="si">}</span><span class="s2">: unexpected field: </span><span class="si">{</span><span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">scope</span><span class="si">}</span><span class="s2">: unexpected fields: </span><span class="si">{</span><span class="n">keys</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">check_defaults</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="n">allowed_fields</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">defaults</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">check_allowed</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">allowed_fields</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed_fields</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">scope</span><span class="si">}</span><span class="s2">: unexpected field: </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">scope</span><span class="si">}</span><span class="s2">: unexpected field: &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
                 <span class="sa">f</span><span class="s2">&quot;Allowed fields are: </span><span class="si">{</span><span class="n">allowed_fields</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
 
@@ -371,6 +361,8 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;if start time is inf, must be a constant size epoch&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">size_function</span> <span class="o">==</span> <span class="s2">&quot;constant&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_size</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_size</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;start_size != end_size, but size_function is constant&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selfing_rate</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">cloning_rate</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;must have selfing_rate + cloning_rate &lt;= 1&quot;</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">time_span</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1833,6 +1825,15 @@
                 <span class="sa">f</span><span class="s2">&quot;invalid pulse at time=</span><span class="si">{</span><span class="n">time</span><span class="si">}</span><span class="s2">, which is source=</span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">&#39;s start_time&quot;</span>
             <span class="p">)</span>
 
+        <span class="c1"># We create the new pulse object (which checks for common errors)</span>
+        <span class="c1"># before checking for edge cases below.</span>
+        <span class="n">new_pulse</span> <span class="o">=</span> <span class="n">Pulse</span><span class="p">(</span>
+            <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
+            <span class="n">dest</span><span class="o">=</span><span class="n">dest</span><span class="p">,</span>
+            <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span>
+            <span class="n">proportion</span><span class="o">=</span><span class="n">proportion</span><span class="p">,</span>
+        <span class="p">)</span>
+
         <span class="c1"># Check for models that have multiple pulses defined at the same time.</span>
         <span class="c1"># E.g. chains of pulses like: deme0 -&gt; deme1; deme1 -&gt; deme2,</span>
         <span class="c1"># where reversing the order of the pulse definitions changes the</span>
@@ -1855,14 +1856,19 @@
                 <span class="s2">&quot;the desired ancestry proportions.&quot;</span>
             <span class="p">)</span>
 
-        <span class="n">pulse</span> <span class="o">=</span> <span class="n">Pulse</span><span class="p">(</span>
-            <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
-            <span class="n">dest</span><span class="o">=</span><span class="n">dest</span><span class="p">,</span>
-            <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span>
-            <span class="n">proportion</span><span class="o">=</span><span class="n">proportion</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pulses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pulse</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">pulse</span>
+        <span class="c1"># Check for multiple pulses into dest at the same time that</span>
+        <span class="c1"># give a sum of proportions &gt; 1.</span>
+        <span class="n">proportion_sum</span> <span class="o">=</span> <span class="n">proportion</span>
+        <span class="k">for</span> <span class="n">pulse</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pulses</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">dest</span> <span class="o">==</span> <span class="n">pulse</span><span class="o">.</span><span class="n">dest</span> <span class="ow">and</span> <span class="n">pulse</span><span class="o">.</span><span class="n">time</span> <span class="o">==</span> <span class="n">time</span><span class="p">:</span>
+                <span class="n">proportion_sum</span> <span class="o">+=</span> <span class="n">pulse</span><span class="o">.</span><span class="n">proportion</span>
+        <span class="k">if</span> <span class="n">proportion_sum</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;sum of pulse proportions &gt; 1 for dest=</span><span class="si">{</span><span class="n">dest</span><span class="si">}</span><span class="s2"> at time=</span><span class="si">{</span><span class="n">time</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">pulses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_pulse</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new_pulse</span>
 
     <span class="k">def</span> <span class="nf">_migration_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -2071,13 +2077,66 @@
         <span class="c1"># Don&#39;t modify the input data dict.</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
+        <span class="n">check_allowed</span><span class="p">(</span>
+            <span class="n">data</span><span class="p">,</span>
+            <span class="p">[</span>
+                <span class="s2">&quot;description&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;time_units&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;generation_time&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;defaults&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;doi&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;demes&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;migrations&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;pulses&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;toplevel&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
         <span class="n">defaults</span> <span class="o">=</span> <span class="n">pop_object</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;defaults&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;toplevel&quot;</span><span class="p">)</span>
+        <span class="n">check_allowed</span><span class="p">(</span>
+            <span class="n">defaults</span><span class="p">,</span>
+            <span class="p">[</span><span class="s2">&quot;deme&quot;</span><span class="p">,</span> <span class="s2">&quot;migration&quot;</span><span class="p">,</span> <span class="s2">&quot;pulse&quot;</span><span class="p">,</span> <span class="s2">&quot;epoch&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;defaults&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
         <span class="n">deme_defaults</span> <span class="o">=</span> <span class="n">pop_object</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="s2">&quot;deme&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;defaults&quot;</span><span class="p">)</span>
+        <span class="n">allowed_fields_deme</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;start_time&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ancestors&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;proportions&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="n">allowed_fields_deme_inner</span> <span class="o">=</span> <span class="n">allowed_fields_deme</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;defaults&quot;</span><span class="p">,</span> <span class="s2">&quot;epochs&quot;</span><span class="p">]</span>
+        <span class="n">check_allowed</span><span class="p">(</span><span class="n">deme_defaults</span><span class="p">,</span> <span class="n">allowed_fields_deme</span><span class="p">,</span> <span class="s2">&quot;defaults: deme&quot;</span><span class="p">)</span>
+
         <span class="n">migration_defaults</span> <span class="o">=</span> <span class="n">pop_object</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="s2">&quot;migration&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;defaults&quot;</span><span class="p">)</span>
+        <span class="n">allowed_fields_migration</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;demes&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;dest&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;start_time&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;end_time&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;rate&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="n">check_allowed</span><span class="p">(</span>
+            <span class="n">migration_defaults</span><span class="p">,</span> <span class="n">allowed_fields_migration</span><span class="p">,</span> <span class="s2">&quot;defaults: migration&quot;</span>
+        <span class="p">)</span>
+
         <span class="n">pulse_defaults</span> <span class="o">=</span> <span class="n">pop_object</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="s2">&quot;pulse&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;defaults&quot;</span><span class="p">)</span>
+        <span class="n">allowed_fields_pulse</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;dest&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;proportion&quot;</span><span class="p">]</span>
+        <span class="n">check_allowed</span><span class="p">(</span><span class="n">pulse_defaults</span><span class="p">,</span> <span class="n">allowed_fields_pulse</span><span class="p">,</span> <span class="s2">&quot;defaults.pulse&quot;</span><span class="p">)</span>
+
         <span class="c1"># epoch defaults may also be specified within a Deme definition.</span>
         <span class="n">global_epoch_defaults</span> <span class="o">=</span> <span class="n">pop_object</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="s2">&quot;epoch&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;defaults&quot;</span><span class="p">)</span>
-        <span class="n">check_empty</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="s2">&quot;defaults&quot;</span><span class="p">)</span>
+        <span class="n">allowed_fields_epoch</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;end_time&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;start_size&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;end_size&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;size_function&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;cloning_rate&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;selfing_rate&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="n">check_allowed</span><span class="p">(</span><span class="n">global_epoch_defaults</span><span class="p">,</span> <span class="n">allowed_fields_epoch</span><span class="p">,</span> <span class="s2">&quot;defaults: epoch&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="s2">&quot;time_units&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;toplevel: required field &#39;time_units&#39; not found&quot;</span><span class="p">)</span>
@@ -2088,20 +2147,20 @@
             <span class="n">doi</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;doi&quot;</span><span class="p">,</span> <span class="p">[]),</span>
             <span class="n">generation_time</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;generation_time&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
         <span class="p">)</span>
-        <span class="n">check_defaults</span><span class="p">(</span>
-            <span class="n">deme_defaults</span><span class="p">,</span>
-            <span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;start_time&quot;</span><span class="p">,</span> <span class="s2">&quot;ancestors&quot;</span><span class="p">,</span> <span class="s2">&quot;proportions&quot;</span><span class="p">],</span>
-            <span class="s2">&quot;defaults: deme&quot;</span><span class="p">,</span>
-        <span class="p">)</span>
 
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">deme_data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
             <span class="n">pop_list</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;demes&quot;</span><span class="p">,</span> <span class="n">required_type</span><span class="o">=</span><span class="n">MutableMapping</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;toplevel&quot;</span><span class="p">)</span>
         <span class="p">):</span>
-            <span class="n">insert_defaults</span><span class="p">(</span><span class="n">deme_data</span><span class="p">,</span> <span class="n">deme_defaults</span><span class="p">)</span>
             <span class="k">if</span> <span class="s2">&quot;name&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">deme_data</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;deme[</span><span class="si">{i}</span><span class="s2">]: required field &#39;name&#39; not found&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;demes[</span><span class="si">{i}</span><span class="s2">]: required field &#39;name&#39; not found&quot;</span><span class="p">)</span>
+            <span class="n">deme_name</span> <span class="o">=</span> <span class="n">deme_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
+            <span class="n">check_allowed</span><span class="p">(</span>
+                <span class="n">deme_data</span><span class="p">,</span> <span class="n">allowed_fields_deme_inner</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;demes[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme_name</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="n">insert_defaults</span><span class="p">(</span><span class="n">deme_data</span><span class="p">,</span> <span class="n">deme_defaults</span><span class="p">)</span>
+
             <span class="n">deme</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">_add_deme</span><span class="p">(</span>
-                <span class="n">name</span><span class="o">=</span><span class="n">deme_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">),</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">deme_name</span><span class="p">,</span>
                 <span class="n">description</span><span class="o">=</span><span class="n">deme_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
                 <span class="n">start_time</span><span class="o">=</span><span class="n">deme_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;start_time&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
                 <span class="n">ancestors</span><span class="o">=</span><span class="n">deme_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;ancestors&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
@@ -2109,26 +2168,21 @@
             <span class="p">)</span>
 
             <span class="n">local_defaults</span> <span class="o">=</span> <span class="n">pop_object</span><span class="p">(</span>
-                <span class="n">deme_data</span><span class="p">,</span> <span class="s2">&quot;defaults&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="n">scope</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="n">deme_data</span><span class="p">,</span> <span class="s2">&quot;defaults&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="n">scope</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;demes[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="n">check_allowed</span><span class="p">(</span>
+                <span class="n">local_defaults</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;epoch&quot;</span><span class="p">],</span> <span class="sa">f</span><span class="s2">&quot;demes[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: defaults&quot;</span>
             <span class="p">)</span>
             <span class="n">local_epoch_defaults</span> <span class="o">=</span> <span class="n">pop_object</span><span class="p">(</span>
-                <span class="n">local_defaults</span><span class="p">,</span> <span class="s2">&quot;epoch&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="n">scope</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: defaults&quot;</span>
+                <span class="n">local_defaults</span><span class="p">,</span> <span class="s2">&quot;epoch&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="n">scope</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;demes[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: defaults&quot;</span>
             <span class="p">)</span>
-            <span class="n">check_empty</span><span class="p">(</span><span class="n">local_defaults</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: defaults&quot;</span><span class="p">)</span>
             <span class="n">epoch_defaults</span> <span class="o">=</span> <span class="n">global_epoch_defaults</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="n">epoch_defaults</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">local_epoch_defaults</span><span class="p">)</span>
 
-            <span class="n">check_defaults</span><span class="p">(</span>
+            <span class="n">check_allowed</span><span class="p">(</span>
                 <span class="n">epoch_defaults</span><span class="p">,</span>
-                <span class="p">[</span>
-                    <span class="s2">&quot;end_time&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;start_size&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;end_size&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;selfing_rate&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;cloning_rate&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;size_function&quot;</span><span class="p">,</span>
-                <span class="p">],</span>
-                <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: defaults: epoch&quot;</span><span class="p">,</span>
+                <span class="n">allowed_fields_epoch</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;demes[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: defaults: epoch&quot;</span><span class="p">,</span>
             <span class="p">)</span>
 
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">epoch_defaults</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="s2">&quot;epochs&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">deme_data</span><span class="p">:</span>
@@ -2136,7 +2190,7 @@
                 <span class="c1"># or end_size are required for the first epoch. But we check</span>
                 <span class="c1"># here to provide a more informative error message.</span>
                 <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: required field &#39;epochs&#39; not found&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;demes[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: required field &#39;epochs&#39; not found&quot;</span>
                 <span class="p">)</span>
 
             <span class="c1"># There is always at least one epoch defined with the default values.</span>
@@ -2145,16 +2199,21 @@
                 <span class="s2">&quot;epochs&quot;</span><span class="p">,</span>
                 <span class="p">[{}],</span>
                 <span class="n">required_type</span><span class="o">=</span><span class="n">MutableMapping</span><span class="p">,</span>
-                <span class="n">scope</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">scope</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;demes[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">epoch_data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+                <span class="n">check_allowed</span><span class="p">(</span>
+                    <span class="n">epoch_data</span><span class="p">,</span>
+                    <span class="n">allowed_fields_epoch</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;demes[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: epochs[</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
                 <span class="n">insert_defaults</span><span class="p">(</span><span class="n">epoch_data</span><span class="p">,</span> <span class="n">epoch_defaults</span><span class="p">)</span>
                 <span class="k">if</span> <span class="s2">&quot;end_time&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">epoch_data</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
                         <span class="n">epoch_data</span><span class="p">[</span><span class="s2">&quot;end_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
-                            <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: epoch[</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2">]: &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;demes[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: epochs[</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2">]: &quot;</span>
                             <span class="s2">&quot;required field &#39;end_time&#39; not found&quot;</span>
                         <span class="p">)</span>
                 <span class="n">deme</span><span class="o">.</span><span class="n">_add_epoch</span><span class="p">(</span>
@@ -2165,19 +2224,13 @@
                     <span class="n">selfing_rate</span><span class="o">=</span><span class="n">epoch_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;selfing_rate&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
                     <span class="n">cloning_rate</span><span class="o">=</span><span class="n">epoch_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;cloning_rate&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
                 <span class="p">)</span>
-                <span class="n">check_empty</span><span class="p">(</span><span class="n">epoch_data</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: epoch[</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
-            <span class="n">check_empty</span><span class="p">(</span><span class="n">deme_data</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;deme[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="n">check_defaults</span><span class="p">(</span>
-            <span class="n">migration_defaults</span><span class="p">,</span>
-            <span class="p">[</span><span class="s2">&quot;rate&quot;</span><span class="p">,</span> <span class="s2">&quot;start_time&quot;</span><span class="p">,</span> <span class="s2">&quot;end_time&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;dest&quot;</span><span class="p">,</span> <span class="s2">&quot;demes&quot;</span><span class="p">],</span>
-            <span class="s2">&quot;defaults: migration&quot;</span><span class="p">,</span>
-        <span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">migration_data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
             <span class="n">pop_list</span><span class="p">(</span>
                 <span class="n">data</span><span class="p">,</span> <span class="s2">&quot;migrations&quot;</span><span class="p">,</span> <span class="p">[],</span> <span class="n">required_type</span><span class="o">=</span><span class="n">MutableMapping</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;toplevel&quot;</span>
             <span class="p">)</span>
         <span class="p">):</span>
+            <span class="n">check_allowed</span><span class="p">(</span><span class="n">migration_data</span><span class="p">,</span> <span class="n">allowed_fields_migration</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;migration[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
             <span class="n">insert_defaults</span><span class="p">(</span><span class="n">migration_data</span><span class="p">,</span> <span class="n">migration_defaults</span><span class="p">)</span>
             <span class="k">if</span> <span class="s2">&quot;rate&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">migration_data</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;migration[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">]: required field &#39;rate&#39; not found&quot;</span><span class="p">)</span>
@@ -2212,16 +2265,13 @@
                     <span class="p">)</span>
             <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">e</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;migration[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">]: invalid migration&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
-            <span class="n">check_empty</span><span class="p">(</span><span class="n">migration_data</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;migration[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
 
         <span class="n">graph</span><span class="o">.</span><span class="n">_check_migration_rates</span><span class="p">()</span>
 
-        <span class="n">check_defaults</span><span class="p">(</span>
-            <span class="n">pulse_defaults</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;dest&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;proportion&quot;</span><span class="p">],</span> <span class="s2">&quot;defaults: pulse&quot;</span>
-        <span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pulse_data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
             <span class="n">pop_list</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;pulses&quot;</span><span class="p">,</span> <span class="p">[],</span> <span class="n">required_type</span><span class="o">=</span><span class="n">MutableMapping</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;toplevel&quot;</span><span class="p">)</span>
         <span class="p">):</span>
+            <span class="n">check_allowed</span><span class="p">(</span><span class="n">pulse_data</span><span class="p">,</span> <span class="n">allowed_fields_pulse</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;pulse[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
             <span class="n">insert_defaults</span><span class="p">(</span><span class="n">pulse_data</span><span class="p">,</span> <span class="n">pulse_defaults</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;dest&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;proportion&quot;</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pulse_data</span><span class="p">:</span>
@@ -2235,9 +2285,6 @@
                 <span class="p">)</span>
             <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">e</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pulse[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">]: invalid pulse&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
-            <span class="n">check_empty</span><span class="p">(</span><span class="n">pulse_data</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;pulse[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
-
-        <span class="n">check_empty</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;toplevel&quot;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">graph</span></div>
 
