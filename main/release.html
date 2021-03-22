@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>&lt;no title&gt; &mdash; demes 0.1.0a4.dev25 documentation</title>
+  <title>&lt;no title&gt; &mdash; demes 0.1.0a4.dev27 documentation</title>
   
 
   
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.1.0a4.dev25
+                0.1.0a4.dev27
               </div>
             
           
@@ -179,8 +179,9 @@ make pull request; merge.</p>
 </ul>
 </dd>
 <dt>Build distribution files, and test on testpypi.</dt><dd><ul class="simple">
-<li><p>See <a class="reference external" href="https://packaging.python.org/guides/using-testpypi/">https://packaging.python.org/guides/using-testpypi/</a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">sdist</span> <span class="pre">bdist_wheel</span></code></p></li>
+<li><p>See <a class="reference external" href="https://packaging.python.org/tutorials/packaging-projects/#generating-distribution-archives">https://packaging.python.org/tutorials/packaging-projects/#generating-distribution-archives</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span> <span class="pre">build</span> <span class="pre">twine</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">build</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">twine</span> <span class="pre">check</span> <span class="pre">dist/*</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">twine</span> <span class="pre">upload</span> <span class="pre">--repository</span> <span class="pre">testpypi</span> <span class="pre">dist/*</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">uninstall</span> <span class="pre">demes</span></code></p></li>

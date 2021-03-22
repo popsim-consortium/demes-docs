@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Changelog &mdash; demes 0.1.0a4.dev25 documentation</title>
+  <title>Changelog &mdash; demes 0.1.0a4.dev27 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.1.0a4.dev25
+                0.1.0a4.dev27
               </div>
             
           
@@ -101,7 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="convert.html">Conversion functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#xxx-2021-xx-xx">0.1.XXX - 2021-XX-XX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a4-2021-03-22">0.1.0a4 - 2021-03-22</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#a3-2021-02-25">0.1.0a3 - 2021-02-25</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#a2-2021-02-24">0.1.0a2 - 2021-02-24</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#a1-2020-11-12">0.1.0a1 - 2020-11-12</a></li>
@@ -176,8 +176,27 @@
             
   <div class="section" id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="xxx-2021-xx-xx">
-<h2>0.1.XXX - 2021-XX-XX<a class="headerlink" href="#xxx-2021-xx-xx" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="a4-2021-03-22">
+<h2>0.1.0a4 - 2021-03-22<a class="headerlink" href="#a4-2021-03-22" title="Permalink to this headline">¶</a></h2>
+<p><strong>Breaking changes</strong>:</p>
+<ul class="simple">
+<li><p>The deme <code class="docutils literal notranslate"><span class="pre">id</span></code> field has been renamed to <code class="docutils literal notranslate"><span class="pre">name</span></code>. This applies to both
+the data model (YAML files) and the <code class="docutils literal notranslate"><span class="pre">Deme</span></code> class.
+(<a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/246">#246</a>, discussion at <a class="reference external" href="https://github.com/popsim-consortium/demes-spec/issues/59">https://github.com/popsim-consortium/demes-spec/issues/59</a>)</p></li>
+</ul>
+<p><strong>Bug fixes</strong>:</p>
+<ul class="simple">
+<li><p>Check for multiple pulses causing ancestry proportion &gt; 1.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/250">#250</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/251">#251</a>)</p></li>
+<li><p>Check selfing_rate + cloning_rate &lt;= 1.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/242">#242</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/251">#251</a>)</p></li>
+<li><p>Check for pulse time edge cases.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/243">#243</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/249">#249</a>)</p></li>
+<li><p>Check sum of migration rates entering a deme are &lt;= 1.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/244">#244</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/249">#249</a>)</p></li>
+<li><p>Fix migration.end_time in convert.from_msprime.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/241">#241</a>)</p></li>
+</ul>
 </div>
 <div class="section" id="a3-2021-02-25">
 <h2>0.1.0a3 - 2021-02-25<a class="headerlink" href="#a3-2021-02-25" title="Permalink to this headline">¶</a></h2>
