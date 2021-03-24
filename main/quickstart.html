@@ -1,186 +1,269 @@
 
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>Quickstart &mdash; demes 0.1.0a5.dev2 documentation</title>
-  
 
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
-  <link rel="stylesheet" href="_static/thebelab.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quickstart &#8212; Demes manual</title>
     
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/thebelab-helper.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
     
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="API Reference" href="api.html" />
-    <link rel="prev" title="Installation" href="installation.html" /> 
-</head>
+    <link rel="prev" title="Installation" href="installation.html" />
 
-<body class="wy-body-for-nav">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
 
-   
-  <div class="wy-grid-for-nav">
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+
+    <div class="container-xl">
+      <div class="row">
           
-
-          
-            <a href="index.html" class="icon icon-home"> demes
-          
-
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                0.1.0a5.dev2
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#loading-a-demes-graph">Loading a Demes graph</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#examining-a-demes-graph">Examining a Demes graph</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#constructing-a-demes-graph">Constructing a Demes graph</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#saving-a-demes-graph">Saving a Demes graph</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="convert.html">Conversion functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
-</ul>
-
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">demes</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
-      <li>Quickstart</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="_sources/quickstart.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
   
-  <hr/>
+  
+  <h1 class="site-logo" id="site-title">Demes manual</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="introduction.html">
+   Introduction
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Quickstart
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="api.html">
+   API Reference
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="development.html">
+   Development
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="changelog.html">
+   Changelog
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  demes 0.1.0a5.dev4
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
             
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="_sources/quickstart.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/quickstart.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/popsim-consortium/demes-python"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/popsim-consortium/demes-python/issues/new?title=Issue%20on%20page%20%2Fquickstart.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/popsim-consortium/demes-python/edit/main/docs/quickstart.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/popsim-consortium/demes-python/main?urlpath=tree/docs/quickstart.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#loading-a-demes-graph">
+   Loading a Demes graph
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#working-with-a-demes-graph">
+   Working with a Demes graph
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#building-a-demes-graph">
+   Building a Demes graph
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#saving-a-demes-graph">
+   Saving a Demes graph
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
   <div class="section" id="quickstart">
 <span id="sec-quickstart"></span><h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="loading-a-demes-graph">
 <h2>Loading a Demes graph<a class="headerlink" href="#loading-a-demes-graph" title="Permalink to this headline">¶</a></h2>
-<p>Consider the well-known Gutenkunst et al. (2009) Out-of-Africa model of human
-history.</p>
+<p>Consider the well-known
+<a class="reference external" href="https://doi.org/10.1371/journal.pgen.1000695">Gutenkunst et al. (2009)</a>
+Out-of-Africa model of human history.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">The Gutenkunst et al. (2009) OOA model.</span>
 <span class="nt">doi</span><span class="p">:</span>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://doi.org/10.1371/journal.pgen.1000695</span>
@@ -225,39 +308,39 @@ history.</p>
 <span class="p p-Indicator">-</span> <span class="p p-Indicator">{</span><span class="nt">demes</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">CEU</span><span class="p p-Indicator">,</span> <span class="nv">CHB</span><span class="p p-Indicator">],</span><span class="nt"> rate</span><span class="p">:</span> <span class="nv">9.6e-5</span><span class="p p-Indicator">}</span>
 </pre></div>
 </div>
-<p>This YAML file can be loaded into Python with the <a class="reference internal" href="api.html#demes.load" title="demes.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">demes.load()</span></code></a> function,
-to obtain a <a class="reference internal" href="api.html#demes.Graph" title="demes.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">demes.Graph</span></code></a> instance (modify the filename as appropriate
+<p>This YAML file can be loaded into Python with the <a class="reference internal" href="api.html#demes.load" title="demes.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">load()</span></code></a> function,
+to obtain a <a class="reference internal" href="api.html#demes.Graph" title="demes.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a> instance (modify the filename as appropriate
 for your system).</p>
-<div class="jupyter_cell jupyter_container docutils container">
-<div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">demes</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">demes</span>
 
 <span class="n">ooa_graph</span> <span class="o">=</span> <span class="n">demes</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;../examples/gutenkunst_ooa.yml&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">ooa_graph</span><span class="p">,</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="p">))</span>
+<span class="nb">isinstance</span><span class="p">(</span><span class="n">ooa_graph</span><span class="p">,</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>True
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="examining-a-demes-graph">
-<h2>Examining a Demes graph<a class="headerlink" href="#examining-a-demes-graph" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="working-with-a-demes-graph">
+<h2>Working with a Demes graph<a class="headerlink" href="#working-with-a-demes-graph" title="Permalink to this headline">¶</a></h2>
 <p>The features of the graph can then be inspected. We may ask which demes are
 present in the graph.</p>
-<div class="jupyter_cell jupyter_container docutils container">
-<div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Is there a deme labeled CEU in the graph?&quot;</span><span class="p">,</span> <span class="s2">&quot;CEU&quot;</span> <span class="ow">in</span> <span class="n">ooa_graph</span><span class="p">)</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Is there a deme labeled CEU in the graph?&quot;</span><span class="p">,</span> <span class="s2">&quot;CEU&quot;</span> <span class="ow">in</span> <span class="n">ooa_graph</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Is there a deme labeled JPT in the graph?&quot;</span><span class="p">,</span> <span class="s2">&quot;JPT&quot;</span> <span class="ow">in</span> <span class="n">ooa_graph</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Which demes are present?&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">ooa_graph</span><span class="o">.</span><span class="n">demes</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Is there a deme labeled CEU in the graph? True
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Is there a deme labeled CEU in the graph? True
 Is there a deme labeled JPT in the graph? False
 Which demes are present? [&#39;ancestral&#39;, &#39;AMH&#39;, &#39;OOA&#39;, &#39;YRI&#39;, &#39;CEU&#39;, &#39;CHB&#39;]
 </pre></div>
@@ -265,25 +348,25 @@ Which demes are present? [&#39;ancestral&#39;, &#39;AMH&#39;, &#39;OOA&#39;, &#3
 </div>
 </div>
 <p>Or look in more detail at a single deme.</p>
-<div class="jupyter_cell jupyter_container docutils container">
-<div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ceu</span> <span class="o">=</span> <span class="n">ooa_graph</span><span class="p">[</span><span class="s2">&quot;CEU&quot;</span><span class="p">]</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ceu</span> <span class="o">=</span> <span class="n">ooa_graph</span><span class="p">[</span><span class="s2">&quot;CEU&quot;</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;How many epochs does CEU have?&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ceu</span><span class="o">.</span><span class="n">epochs</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">ceu</span><span class="o">.</span><span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>How many epochs does CEU have? 1
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>How many epochs does CEU have? 1
 Epoch(start_time=21200.0, end_time=0, start_size=1000, end_size=29725, size_function=&#39;exponential&#39;, selfing_rate=0, cloning_rate=0)
 </pre></div>
 </div>
 </div>
 </div>
 <p>Similarly, we can inspect the interactions defined between demes.</p>
-<div class="jupyter_cell jupyter_container docutils container">
-<div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;number of migrations:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ooa_graph</span><span class="o">.</span><span class="n">migrations</span><span class="p">))</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;number of migrations:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ooa_graph</span><span class="o">.</span><span class="n">migrations</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;migrations: &quot;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="n">ooa_graph</span><span class="o">.</span><span class="n">migrations</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">migration</span><span class="p">)</span>
@@ -293,7 +376,7 @@ Epoch(start_time=21200.0, end_time=0, start_size=1000, end_size=29725, size_func
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>number of migrations: 4
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>number of migrations: 4
 migrations: 
   SymmetricMigration(start_time=140000.0, end_time=21200.0, rate=0.00025, demes=[&#39;YRI&#39;, &#39;OOA&#39;])
   SymmetricMigration(start_time=21200.0, end_time=0, rate=3e-05, demes=[&#39;YRI&#39;, &#39;CEU&#39;])
@@ -305,14 +388,14 @@ number of pulses: 0
 </div>
 </div>
 </div>
-<div class="section" id="constructing-a-demes-graph">
-<h2>Constructing a Demes graph<a class="headerlink" href="#constructing-a-demes-graph" title="Permalink to this headline">¶</a></h2>
-<p>A demographic model can instead be constructed by instantiating a
-<a class="reference internal" href="api.html#demes.Builder" title="demes.Builder"><code class="xref py py-class docutils literal notranslate"><span class="pre">demes.Builder</span></code></a>, then adding demes, migrations, and admixture
+<div class="section" id="building-a-demes-graph">
+<h2>Building a Demes graph<a class="headerlink" href="#building-a-demes-graph" title="Permalink to this headline">¶</a></h2>
+<p>A demographic model can also be constructed by instantiating a
+<a class="reference internal" href="api.html#demes.Builder" title="demes.Builder"><code class="xref py py-class docutils literal notranslate"><span class="pre">Builder</span></code></a> object, then adding demes, migrations, and admixture
 pulses via the methods available on this class.</p>
-<div class="jupyter_cell jupyter_container docutils container">
-<div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">demes</span><span class="o">.</span><span class="n">Builder</span><span class="p">(</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">demes</span><span class="o">.</span><span class="n">Builder</span><span class="p">(</span>
     <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Gutenkunst et al. (2009) three-population model.&quot;</span><span class="p">,</span>
     <span class="n">doi</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;10.1371/journal.pgen.1000695&quot;</span><span class="p">],</span>
     <span class="n">time_units</span><span class="o">=</span><span class="s2">&quot;years&quot;</span><span class="p">,</span>
@@ -331,21 +414,19 @@ pulses via the methods available on this class.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
 </div>
-</div>
-<p>The builder object can then be “resolved” into a <a class="reference internal" href="api.html#demes.Graph" title="demes.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">demes.Graph</span></code></a> using the
-<a class="reference internal" href="api.html#demes.Builder.resolve" title="demes.Builder.resolve"><code class="xref py py-meth docutils literal notranslate"><span class="pre">demes.Builder.resolve()</span></code></a> method. We can check that our implementation
-matches the example we loaded with the <a class="reference internal" href="api.html#demes.Graph.isclose" title="demes.Graph.isclose"><code class="xref py py-meth docutils literal notranslate"><span class="pre">demes.Graph.isclose()</span></code></a> method.</p>
-<div class="jupyter_cell jupyter_container docutils container">
-<div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">my_graph</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">my_graph</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">ooa_graph</span><span class="p">))</span>
+<p>The builder object can then be “resolved” into a <a class="reference internal" href="api.html#demes.Graph" title="demes.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a> using the
+<a class="reference internal" href="api.html#demes.Builder.resolve" title="demes.Builder.resolve"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Builder.resolve()</span></code></a> method. We can check that our implementation
+matches the example we loaded with the <a class="reference internal" href="api.html#demes.Graph.isclose" title="demes.Graph.isclose"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Graph.isclose()</span></code></a> method.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_graph</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+<span class="n">my_graph</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">ooa_graph</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>True
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
 </pre></div>
 </div>
 </div>
@@ -353,9 +434,9 @@ matches the example we loaded with the <a class="reference internal" href="api.h
 <p>For some demographic models, using the Python API can be far less cumbersome
 than writing the equivalent YAML file. For example, we can define a ring of
 demes, with migration between adjacent demes, as follows.</p>
-<div class="jupyter_cell jupyter_container docutils container">
-<div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">M</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># number of demes</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">M</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># number of demes</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">demes</span><span class="o">.</span><span class="n">Builder</span><span class="p">(</span>
     <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;a ring of </span><span class="si">{</span><span class="n">M</span><span class="si">}</span><span class="s2"> demes, with migration between adjacent demes&quot;</span><span class="p">,</span>
     <span class="n">time_units</span><span class="o">=</span><span class="s2">&quot;generations&quot;</span><span class="p">,</span>
@@ -370,71 +451,76 @@ demes, with migration between adjacent demes, as follows.</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-</div>
 </div>
 </div>
 <div class="section" id="saving-a-demes-graph">
 <h2>Saving a Demes graph<a class="headerlink" href="#saving-a-demes-graph" title="Permalink to this headline">¶</a></h2>
-<p>The graph can be written out to a new YAML file using <a class="reference internal" href="api.html#demes.dump" title="demes.dump"><code class="xref py py-func docutils literal notranslate"><span class="pre">demes.dump()</span></code></a>.</p>
-<div class="jupyter_cell jupyter_container docutils container">
-<div class="cell_input code_cell docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">demes</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">ring_graph</span><span class="p">,</span> <span class="s2">&quot;/tmp/ring.yml&quot;</span><span class="p">)</span>
+<p>The graph can be written out to a new YAML file using <a class="reference internal" href="api.html#demes.dump" title="demes.dump"><code class="xref py py-func docutils literal notranslate"><span class="pre">dump()</span></code></a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demes</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">ring_graph</span><span class="p">,</span> <span class="s2">&quot;/tmp/ring.yml&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-</div>
 </div>
 </div>
 </div>
 
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
 
-           </div>
-           
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="installation.html" title="previous page">Installation</a>
+    <a class='right-next' id="next-link" href="api.html" title="next page">API Reference</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By PopSim Consortium<br/>
+        
+            &copy; Copyright 2021.<br/>
+          <div class="extra_footer">
+            demes 0.1.0a5.dev4
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="api.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
     </div>
 
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &#169; Copyright 2020, PopSim Consortium.
-
-    </p>
-  </div>
     
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
     
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-  
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
-    
-   
-
-</body>
+  </body>
 </html>

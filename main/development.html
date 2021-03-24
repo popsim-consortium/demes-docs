@@ -1,186 +1,256 @@
 
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <title>Development &mdash; demes 0.1.0a5.dev2 documentation</title>
-  
 
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/jupyter-sphinx.css" type="text/css" />
-  <link rel="stylesheet" href="_static/thebelab.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Development &#8212; Demes manual</title>
     
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/thebelab-helper.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
     
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Changelog" href="changelog.html" />
-    <link rel="prev" title="Conversion functions" href="convert.html" /> 
-</head>
+    <link rel="prev" title="API Reference" href="api.html" />
 
-<body class="wy-body-for-nav">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
 
-   
-  <div class="wy-grid-for-nav">
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
+
+    <div class="container-xl">
+      <div class="row">
           
-
-          
-            <a href="index.html" class="icon icon-home"> demes
-          
-
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                0.1.0a5.dev2
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="convert.html">Conversion functions</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Development</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#continuous-integration-ci">Continuous integration (CI)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#lint-checks">Lint checks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#test-suite">Test suite</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#building-the-documentation">Building the documentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#releasing-a-new-version">Releasing a new version</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
-</ul>
-
-            
-          
-        </div>
-        
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">demes</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
-      <li>Development</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="_sources/development.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
   
-  <hr/>
+  
+  <h1 class="site-logo" id="site-title">Demes manual</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="introduction.html">
+   Introduction
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="quickstart.html">
+   Quickstart
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="api.html">
+   API Reference
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Development
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="changelog.html">
+   Changelog
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  demes 0.1.0a5.dev4
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
             
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/development.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/popsim-consortium/demes-python"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/popsim-consortium/demes-python/issues/new?title=Issue%20on%20page%20%2Fdevelopment.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/popsim-consortium/demes-python/edit/main/docs/development.md"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#requirements">
+   Requirements
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#continuous-integration-ci">
+   Continuous integration (CI)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lint-checks">
+   Lint checks
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#test-suite">
+   Test suite
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#building-the-documentation">
+   Building the documentation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#releasing-a-new-version">
+   Releasing a new version
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
   <div class="section" id="development">
 <span id="sec-development"></span><h1>Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h1>
 <p>We welcome all contributors! Contributions to <code class="docutils literal notranslate"><span class="pre">demes</span></code> typically take the form
-of “pull requests” against our <a class="reference external" href="https://github.com/popsim-consortium/demes-python">git repository</a>.</p>
+of “pull requests” against our [git repository][git_repo].</p>
 <div class="section" id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">Demes</span></code> aims to have minimal dependencies when used as a library by other
@@ -191,8 +261,7 @@ file in the top-level folder lists all development dependencies, which can
 be installed using <code class="docutils literal notranslate"><span class="pre">pip</span></code>. In the following documentation, we assume the reader
 has cloned the source repository and installed the developer requirements as
 follows.</p>
-<blockquote>
-<div><div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone the repository.</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone the repository.</span>
 git clone https://github.com/popsim-consortium/demes-python.git
 <span class="nb">cd</span> demes
 <span class="c1"># Install the developer dependencies.</span>
@@ -206,19 +275,16 @@ python setup.py build
 <p>Non-developer requirements are listed in the <code class="docutils literal notranslate"><span class="pre">install_requires</span></code> section
 of the <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> file in the top-level folder of the sources.</p>
 </div>
-</div></blockquote>
 </div>
 <div class="section" id="continuous-integration-ci">
 <h2>Continuous integration (CI)<a class="headerlink" href="#continuous-integration-ci" title="Permalink to this headline">¶</a></h2>
 <p>After a pull request is submitted, an automated process known as
 <em>continuous integration</em> (CI) will:</p>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p>assess if the proposed changes conform to style guidelines (known as <em>lint</em> checks),</p></li>
 <li><p>run the test suite,</p></li>
 <li><p>and build the documentation.</p></li>
 </ul>
-</div></blockquote>
 <p>The CI process uses
 <a class="reference external" href="https://docs.github.com/en/free-pro-team&#64;latest/actions">GitHub Actions</a>
 and the configuration files detailing how these are run can be found under the
@@ -227,29 +293,25 @@ and the configuration files detailing how these are run can be found under the
 <div class="section" id="lint-checks">
 <h2>Lint checks<a class="headerlink" href="#lint-checks" title="Permalink to this headline">¶</a></h2>
 <p>The following tools are run during the linting process:</p>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p><a class="reference external" href="https://black.readthedocs.io/">black</a>, a code formatter
 (code is only checked during CI, not reformatted),</p></li>
 <li><p><a class="reference external" href="https://flake8.pycqa.org/">flake8</a>,
 a <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">PEP8</a> code-style checker,</p></li>
 <li><p><a class="reference external" href="http://mypy-lang.org/">mypy</a>, a static type checker.</p></li>
 </ul>
-</div></blockquote>
 <p>Each of these tools can also be run manually from the top-level folder of the
 sources. The <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> file includes some project-specific configuration
 for each of these tools, so running them from the command line should match
 the behaviour of the CI checks.</p>
 <p>For example, to reformat the code with <code class="docutils literal notranslate"><span class="pre">black</span></code> after making changes to the
 <code class="docutils literal notranslate"><span class="pre">demes/demes.py</span></code> file (command output shown as comments):</p>
-<blockquote>
-<div><div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>black .
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>black .
 <span class="c1"># reformatted /home/grg/src/demes/demes/demes.py</span>
 <span class="c1"># All done! ✨ 🍰 ✨</span>
 <span class="c1"># 1 file reformatted, 14 files left unchanged.</span>
 </pre></div>
 </div>
-</div></blockquote>
 <p>Similarly, one can check conformance to PEP8 style guidelines by running
 <code class="docutils literal notranslate"><span class="pre">flake8</span></code> (without parameters), and check type annotations by running
 <code class="docutils literal notranslate"><span class="pre">mypy</span></code> (also without parameters).</p>
@@ -259,11 +321,9 @@ the behaviour of the CI checks.</p>
 <p>A suite of tests is included in the <code class="docutils literal notranslate"><span class="pre">tests/</span></code> folder.
 The CI process uses the <code class="docutils literal notranslate"><span class="pre">pytest</span></code> tool to run the tests, which can also be run
 manually from the top-level folder of the sources.</p>
-<blockquote>
-<div><div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python -m pytest -v tests --cov<span class="o">=</span>demes --cov-report<span class="o">=</span>term-missing
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python -m pytest -v tests --cov<span class="o">=</span>demes --cov-report<span class="o">=</span>term-missing
 </pre></div>
 </div>
-</div></blockquote>
 <p>This will produce lots of output, indicating which tests passed, and which
 failed (if any). There may also be warnings. Any warnings that are triggered
 by code in <code class="docutils literal notranslate"><span class="pre">demes</span></code> (rather than third-party libraries), should be fixed.</p>
@@ -274,19 +334,19 @@ contributions that improve, or expand on, the existing suite of tests.</p>
 </div>
 <div class="section" id="building-the-documentation">
 <h2>Building the documentation<a class="headerlink" href="#building-the-documentation" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">demes</span></code> documentation is built with <a class="reference external" href="https://www.sphinx-doc.org/">sphinx</a>.
+<p>The <code class="docutils literal notranslate"><span class="pre">demes</span></code> documentation is built with <a class="reference external" href="https://jupyter-book.org/">jupyter-book</a>,
+which uses <a class="reference external" href="https://www.sphinx-doc.org/">sphinx</a>.
 Much of the documentation is under the <code class="docutils literal notranslate"><span class="pre">docs/</span></code> folder, written in the
-<a class="reference external" href="https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html">reStructuredText</a>
-format (the <code class="docutils literal notranslate"><span class="pre">.rst</span></code> files), and is configured with the <code class="docutils literal notranslate"><span class="pre">docs/conf.py</span></code> file.
+<a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/">MyST</a> flavour of Markdown,
+and is configured in the <code class="docutils literal notranslate"><span class="pre">docs/_config.yml</span></code> file.
 In contrast, the API documentation is automatically generated from “docstrings”
-in the python code. To build the documentation locally, run <code class="docutils literal notranslate"><span class="pre">make</span></code> from the
-<code class="docutils literal notranslate"><span class="pre">docs/</span></code> folder.</p>
-<blockquote>
-<div><div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> docs
+in the Python code that use the
+<a class="reference external" href="https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html">reStructuredText</a>
+format. To build the documentation locally, run <code class="docutils literal notranslate"><span class="pre">make</span></code> from the <code class="docutils literal notranslate"><span class="pre">docs/</span></code> folder.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> docs
 make
 </pre></div>
 </div>
-</div></blockquote>
 <p>If this was successful, the generated documentation can be viewed in a browser
 by navigating to the <code class="docutils literal notranslate"><span class="pre">docs/_build/html/index.html</span></code> file. It is expected that
 new code contributions will be accompanied by relevant documentation (e.g. a
@@ -299,16 +359,16 @@ clearer and/or more accessible.</p>
 <h2>Releasing a new version<a class="headerlink" href="#releasing-a-new-version" title="Permalink to this headline">¶</a></h2>
 <p>See tskit docs on making a release:
 <a class="reference external" href="https://tskit.readthedocs.io/en/latest/development.html#releasing-a-new-version">https://tskit.readthedocs.io/en/latest/development.html#releasing-a-new-version</a></p>
-<p>Prepare for the release by updating the <code class="docutils literal notranslate"><span class="pre">CHANGELOG.rst</span></code>. The version here
+<p>Prepare for the release by updating the <code class="docutils literal notranslate"><span class="pre">CHANGELOG.md</span></code>. The version here
 should have the format MAJOR.MINOR.PATCH, or for a beta release
 MAJOR.MINOR.PATCHbX, e.g. 1.0.0b1. Commit the changes to the changelog;
 make pull request; merge.</p>
-<dl class="simple">
-<dt>Tag release.</dt><dd><ul class="simple">
+<p>Tag release.</p>
+<ul class="simple">
 <li><p>E.g. <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">tag</span> <span class="pre">0.1.0</span></code></p></li>
 </ul>
-</dd>
-<dt>Build distribution files, and test on testpypi.</dt><dd><ul class="simple">
+<p>Build distribution files, and test on testpypi.</p>
+<ul class="simple">
 <li><p>See <a class="reference external" href="https://packaging.python.org/tutorials/packaging-projects/#generating-distribution-archives">https://packaging.python.org/tutorials/packaging-projects/#generating-distribution-archives</a></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span> <span class="pre">build</span> <span class="pre">twine</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">build</span></code></p></li>
@@ -317,70 +377,75 @@ make pull request; merge.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">uninstall</span> <span class="pre">demes</span></code></p></li>
 <li><p>Check it installs: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span> <span class="pre">--pre</span> <span class="pre">--index-url</span> <span class="pre">https://test.pypi.org/simple/</span> <span class="pre">demes</span></code>.</p></li>
 </ul>
-</dd>
-<dt>Upload to pypi.</dt><dd><ul class="simple">
+<p>Upload to pypi.</p>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">twine</span> <span class="pre">upload</span> <span class="pre">--repository</span> <span class="pre">pypi</span> <span class="pre">dist/*</span></code></p></li>
 <li><p>Check it installs: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">demes</span> <span class="pre">--upgrade</span> <span class="pre">--pre</span></code>.</p></li>
 </ul>
-</dd>
-<dt>Push release.</dt><dd><ul class="simple">
+<p>Push release.</p>
+<ul class="simple">
 <li><p>E.g. <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">origin</span> <span class="pre">0.1.0</span></code></p></li>
-<li><p>Create a release in the GitHub UI, based on the tag that was pushed.
-Running <code class="docutils literal notranslate"><span class="pre">docs/convert_changelog.py</span></code> will format the changelog for GitHub
-(script shamelessly stolen from tskit).</p></li>
+<li><p>Create a release in the GitHub UI, based on the tag that was pushed.</p></li>
 </ul>
-</dd>
-</dl>
-<p>Finally, update the changelog to start a section for the next release cycle.</p>
+<p>Finally, update <code class="docutils literal notranslate"><span class="pre">CHANGELOG.md</span></code> to start a section for the next release cycle.</p>
 </div>
 </div>
 
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
 
-           </div>
-           
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="api.html" title="previous page">API Reference</a>
+    <a class='right-next' id="next-link" href="changelog.html" title="next page">Changelog</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By PopSim Consortium<br/>
+        
+            &copy; Copyright 2021.<br/>
+          <div class="extra_footer">
+            demes 0.1.0a5.dev4
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="convert.html" class="btn btn-neutral float-left" title="Conversion functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
     </div>
 
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &#169; Copyright 2020, PopSim Consortium.
-
-    </p>
-  </div>
     
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
     
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-  
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
-    
-   
-
-</body>
+  </body>
 </html>
