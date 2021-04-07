@@ -121,7 +121,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.1.0a5.dev14
+  demes 0.1.0a5.dev19
 </div>
 
 </div>
@@ -376,12 +376,16 @@ Epoch(start_time=21200.0, end_time=0, start_size=1000, end_size=29725, size_func
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>number of migrations: 4
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>number of migrations: 8
 migrations: 
-  SymmetricMigration(start_time=140000.0, end_time=21200.0, rate=0.00025, demes=[&#39;YRI&#39;, &#39;OOA&#39;])
-  SymmetricMigration(start_time=21200.0, end_time=0, rate=3e-05, demes=[&#39;YRI&#39;, &#39;CEU&#39;])
-  SymmetricMigration(start_time=21200.0, end_time=0, rate=1.9e-05, demes=[&#39;YRI&#39;, &#39;CHB&#39;])
-  SymmetricMigration(start_time=21200.0, end_time=0, rate=9.6e-05, demes=[&#39;CEU&#39;, &#39;CHB&#39;])
+  AsymmetricMigration(source=&#39;YRI&#39;, dest=&#39;OOA&#39;, start_time=140000.0, end_time=21200.0, rate=0.00025)
+  AsymmetricMigration(source=&#39;OOA&#39;, dest=&#39;YRI&#39;, start_time=140000.0, end_time=21200.0, rate=0.00025)
+  AsymmetricMigration(source=&#39;YRI&#39;, dest=&#39;CEU&#39;, start_time=21200.0, end_time=0, rate=3e-05)
+  AsymmetricMigration(source=&#39;CEU&#39;, dest=&#39;YRI&#39;, start_time=21200.0, end_time=0, rate=3e-05)
+  AsymmetricMigration(source=&#39;YRI&#39;, dest=&#39;CHB&#39;, start_time=21200.0, end_time=0, rate=1.9e-05)
+  AsymmetricMigration(source=&#39;CHB&#39;, dest=&#39;YRI&#39;, start_time=21200.0, end_time=0, rate=1.9e-05)
+  AsymmetricMigration(source=&#39;CEU&#39;, dest=&#39;CHB&#39;, start_time=21200.0, end_time=0, rate=9.6e-05)
+  AsymmetricMigration(source=&#39;CHB&#39;, dest=&#39;CEU&#39;, start_time=21200.0, end_time=0, rate=9.6e-05)
 number of pulses: 0
 </pre></div>
 </div>
@@ -506,7 +510,7 @@ demes, with migration between adjacent demes, as follows.</p>
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes 0.1.0a5.dev14
+            demes 0.1.0a5.dev19
           </div>
       </p>
     </div>

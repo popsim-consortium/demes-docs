@@ -119,7 +119,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.1.0a5.dev14
+  demes 0.1.0a5.dev19
 </div>
 
 </div>
@@ -478,30 +478,36 @@
             <span class="k">return</span> <span class="kc">False</span></div></div>
 
 
-<div class="viewcode-block" id="Migration"><a class="viewcode-back" href="../../api.html#demes.Migration">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">Migration</span><span class="p">:</span>
+<div class="viewcode-block" id="AsymmetricMigration"><a class="viewcode-back" href="../../api.html#demes.AsymmetricMigration">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">AsymmetricMigration</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Parameters for continuous migration. Migration may be symmetric, in which</span>
-<span class="sd">    case the list of demes will be specified. Alternately, migration may be</span>
-<span class="sd">    asymmetric from one deme to another. In the latter case,</span>
-<span class="sd">    source and destination demes follow the forwards-in-time convention,</span>
-<span class="sd">    of migrations born in the source deme having children in the dest deme.</span>
+<span class="sd">    Parameters for continuous asymmetric migration.</span>
+<span class="sd">    The source and destination demes follow the forwards-in-time convention,</span>
+<span class="sd">    where migrants are born in the source deme and (potentially) have children</span>
+<span class="sd">    in the dest deme.</span>
 
+<span class="sd">    :ivar str source: The source deme for asymmetric migration.</span>
+<span class="sd">    :ivar str dest: The destination deme for asymmetric migration.</span>
 <span class="sd">    :ivar float start_time: The time at which the migration rate is activated.</span>
 <span class="sd">    :ivar float ~.end_time: The time at which the migration rate is deactivated.</span>
-<span class="sd">    :ivar float rate: The rate of migration. Set to zero to disable</span>
-<span class="sd">        migrations after the given time.</span>
+<span class="sd">    :ivar float rate: The rate of migration per generation.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="n">source</span><span class="p">:</span> <span class="n">Name</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
+        <span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">dest</span><span class="p">:</span> <span class="n">Name</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span><span class="p">])</span>
     <span class="n">start_time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">non_negative</span><span class="p">])</span>
     <span class="n">end_time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
     <span class="n">rate</span><span class="p">:</span> <span class="n">Rate</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">unit_interval</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">dest</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;source and dest cannot be the same deme&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;must have start_time &gt; end_time&quot;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Migration.assert_close"><a class="viewcode-back" href="../../api.html#demes.Migration.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
+<div class="viewcode-block" id="AsymmetricMigration.assert_close"><a class="viewcode-back" href="../../api.html#demes.AsymmetricMigration.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -512,10 +518,9 @@
 <span class="sd">        Raises AssertionError if the object is not equal to ``other``,</span>
 <span class="sd">        up to a numerical tolerance.</span>
 <span class="sd">        Compares values of the following attributes:</span>
-<span class="sd">        `start_time``, ``end_time``, ``rate``.</span>
+<span class="sd">        ``source``, ``dest``, ``start_time``, ``end_time``, ``rate``.</span>
 
-<span class="sd">        :param other: The migration to compare against.</span>
-<span class="sd">        :type other: :class:`.Migration`</span>
+<span class="sd">        :param AsymmetricMigration other: The migration to compare against.</span>
 <span class="sd">        :param ret_tol: The relative tolerance permitted for numerical</span>
 <span class="sd">                        comparisons. See documentation for :func:`math.isclose`</span>
 <span class="sd">        :type ret_tol: float</span>
@@ -526,6 +531,8 @@
         <span class="k">assert</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
         <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed as other migration is not instance of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s2"> type.&quot;</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">source</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">dest</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">dest</span>
         <span class="k">assert</span> <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
         <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for start_time </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">start_time</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
@@ -536,7 +543,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">rate</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">rate</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
         <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for rate </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rate</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">rate</span><span class="si">}</span><span class="s2"> (other).&quot;</span></div>
 
-<div class="viewcode-block" id="Migration.isclose"><a class="viewcode-back" href="../../api.html#demes.Migration.isclose">[docs]</a>    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+<div class="viewcode-block" id="AsymmetricMigration.isclose"><a class="viewcode-back" href="../../api.html#demes.AsymmetricMigration.isclose">[docs]</a>    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -547,8 +554,7 @@
 <span class="sd">        Returns true if the migration is equal to the ``other`` migration.</span>
 <span class="sd">        For more information see :meth:`assert_close`.</span>
 
-<span class="sd">        :param other: The migration to compare against.</span>
-<span class="sd">        :type other: :class:`.Migration`</span>
+<span class="sd">        :param AsymmetricMigration other: The migration to compare against.</span>
 <span class="sd">        :param ret_tol: The relative tolerance permitted for numerical</span>
 <span class="sd">                        comparisons. See documentation for :func:`math.isclose`</span>
 <span class="sd">        :type ret_tol: float</span>
@@ -565,98 +571,6 @@
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span></div></div>
-
-
-<div class="viewcode-block" id="SymmetricMigration"><a class="viewcode-back" href="../../api.html#demes.SymmetricMigration">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">SymmetricMigration</span><span class="p">(</span><span class="n">Migration</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    :ivar list[str] demes: The list of demes for symmetric migration.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">demes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
-        <span class="n">validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">deep_iterable</span><span class="p">(</span>
-            <span class="n">member_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">and_</span><span class="p">(</span>
-                <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span>
-            <span class="p">),</span>
-            <span class="n">iterable_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">list</span><span class="p">),</span>
-        <span class="p">),</span>
-    <span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__attrs_post_init__</span><span class="p">()</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;must have at least 2 demes for symmetric migration&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">)):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;demes for symmetric migration must be unique&quot;</span><span class="p">)</span>
-
-<div class="viewcode-block" id="SymmetricMigration.assert_close"><a class="viewcode-back" href="../../api.html#demes.SymmetricMigration.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">other</span><span class="p">,</span>
-        <span class="o">*</span><span class="p">,</span>
-        <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
-        <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
-    <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Raises AssertionError if the object is not equal to ``other``,</span>
-<span class="sd">        up to a numerical tolerance.</span>
-<span class="sd">        Compares values of the following attributes:</span>
-<span class="sd">        ``demes``, ``start_time``, ``end_time``, ``rate``.</span>
-
-<span class="sd">        :param other: The migration to compare against.</span>
-<span class="sd">        :type other: :class:`.Migration`</span>
-<span class="sd">        :param ret_tol: The relative tolerance permitted for numerical</span>
-<span class="sd">                        comparisons. See documentation for :func:`math.isclose`</span>
-<span class="sd">        :type ret_tol: float</span>
-<span class="sd">        :param abs_tol: The absolute tolerance permitted for numerical</span>
-<span class="sd">                        comparisons. See documentation for :func:`math.isclose`.</span>
-<span class="sd">        :type abs_tol: float</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">)</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">demes</span><span class="p">)</span></div></div>
-
-
-<div class="viewcode-block" id="AsymmetricMigration"><a class="viewcode-back" href="../../api.html#demes.AsymmetricMigration">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">AsymmetricMigration</span><span class="p">(</span><span class="n">Migration</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    :ivar str source: The source deme for asymmetric migration.</span>
-<span class="sd">    :ivar str dest: The destination deme for asymmetric migration.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">source</span><span class="p">:</span> <span class="n">Name</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
-        <span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span><span class="p">]</span>
-    <span class="p">)</span>
-    <span class="n">dest</span><span class="p">:</span> <span class="n">Name</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span><span class="p">])</span>
-
-    <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__attrs_post_init__</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">dest</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;source and dest cannot be the same deme&quot;</span><span class="p">)</span>
-
-<div class="viewcode-block" id="AsymmetricMigration.assert_close"><a class="viewcode-back" href="../../api.html#demes.AsymmetricMigration.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">other</span><span class="p">,</span>
-        <span class="o">*</span><span class="p">,</span>
-        <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
-        <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
-    <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Raises AssertionError if the object is not equal to ``other``,</span>
-<span class="sd">        up to a numerical tolerance.</span>
-<span class="sd">        Compares values of the following attributes:</span>
-<span class="sd">        ``source``, ``dest``, ``start_time``, ``end_time``, ``rate``.</span>
-
-<span class="sd">        :param other: The migration to compare against.</span>
-<span class="sd">        :type other: :class:`.Migration`</span>
-<span class="sd">        :param ret_tol: The relative tolerance permitted for numerical</span>
-<span class="sd">                        comparisons. See documentation for :func:`math.isclose`</span>
-<span class="sd">        :type ret_tol: float</span>
-<span class="sd">        :param abs_tol: The absolute tolerance permitted for numerical</span>
-<span class="sd">                        comparisons. See documentation for :func:`math.isclose`.</span>
-<span class="sd">        :type abs_tol: float</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">source</span>
-        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">dest</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">dest</span></div></div>
 
 
 <div class="viewcode-block" id="Pulse"><a class="viewcode-back" href="../../api.html#demes.Pulse">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1424,7 +1338,8 @@
 <span class="sd">    :ivar list[str] doi: If the graph describes a published demography,</span>
 <span class="sd">        the DOI(s) should be be given here as a list.</span>
 <span class="sd">    :ivar list[Deme] demes: The demes in the demography.</span>
-<span class="sd">    :ivar list[Migration] migrations: The continuous migrations for the demography.</span>
+<span class="sd">    :ivar list[AsymmetricMigration] migrations: The continuous migrations for</span>
+<span class="sd">        the demographic model.</span>
 <span class="sd">    :ivar list[Pulse] pulses: The migration pulses for the demography.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -1449,7 +1364,7 @@
         <span class="p">),</span>
     <span class="p">)</span>
     <span class="n">demes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Deme</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">migrations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Migration</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">migrations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">AsymmetricMigration</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">pulses</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Pulse</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1520,35 +1435,12 @@
         <span class="n">assert_sorted_eq</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">demes</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;demes&quot;</span>
         <span class="p">)</span>
-        <span class="c1"># Compare asymmetric and symmetric migrations separately.</span>
         <span class="n">assert_sorted_eq</span><span class="p">(</span>
-            <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">migrations</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">AsymmetricMigration</span><span class="p">)],</span>
-            <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">other</span><span class="o">.</span><span class="n">migrations</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">AsymmetricMigration</span><span class="p">)],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">migrations</span><span class="p">,</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">migrations</span><span class="p">,</span>
             <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span>
             <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">,</span>
-            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;asymmetric migrations&quot;</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="c1"># Symmetric migrations are special, in the sense that they contain lists</span>
-        <span class="c1"># of demes, and we must first sort the list of demes before sorting the</span>
-        <span class="c1"># list of SymmetricMigration objects.</span>
-        <span class="n">self_migrations_sym</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">other_migrations_sym</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">migrations</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">SymmetricMigration</span><span class="p">):</span>
-                <span class="n">m</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-                <span class="n">m</span><span class="o">.</span><span class="n">demes</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-                <span class="n">self_migrations_sym</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">other</span><span class="o">.</span><span class="n">migrations</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">SymmetricMigration</span><span class="p">):</span>
-                <span class="n">m</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-                <span class="n">m</span><span class="o">.</span><span class="n">demes</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-                <span class="n">other_migrations_sym</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-        <span class="n">assert_sorted_eq</span><span class="p">(</span>
-            <span class="n">self_migrations_sym</span><span class="p">,</span>
-            <span class="n">other_migrations_sym</span><span class="p">,</span>
-            <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span>
-            <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">,</span>
-            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;symmetric migrations&quot;</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;migrations&quot;</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">assert_sorted_eq</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">pulses</span><span class="p">,</span>
@@ -1700,7 +1592,7 @@
         <span class="k">if</span> <span class="n">time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">time_lo</span> <span class="o">&lt;=</span> <span class="n">time</span> <span class="o">&lt;=</span> <span class="n">time_hi</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">time</span><span class="si">}</span><span class="s2"> not in interval [</span><span class="si">{</span><span class="n">time_lo</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">time_hi</span><span class="si">}</span><span class="s2">], &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;time </span><span class="si">{</span><span class="n">time</span><span class="si">}</span><span class="s2"> not in interval [</span><span class="si">{</span><span class="n">time_lo</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">time_hi</span><span class="si">}</span><span class="s2">], &quot;</span>
                     <span class="sa">f</span><span class="s2">&quot;as defined by the time-intersection of </span><span class="si">{</span><span class="n">deme1</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> &quot;</span>
                     <span class="sa">f</span><span class="s2">&quot;(start_time=</span><span class="si">{</span><span class="n">deme1</span><span class="o">.</span><span class="n">start_time</span><span class="si">}</span><span class="s2">, end_time=</span><span class="si">{</span><span class="n">deme1</span><span class="o">.</span><span class="n">end_time</span><span class="si">}</span><span class="s2">) &quot;</span>
                     <span class="sa">f</span><span class="s2">&quot;and </span><span class="si">{</span><span class="n">deme2</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> (start_time=</span><span class="si">{</span><span class="n">deme2</span><span class="o">.</span><span class="n">start_time</span><span class="si">}</span><span class="s2">, &quot;</span>
@@ -1708,31 +1600,9 @@
                 <span class="p">)</span>
         <span class="k">return</span> <span class="n">time_lo</span><span class="p">,</span> <span class="n">time_hi</span>
 
-    <span class="k">def</span> <span class="nf">_check_overlapping_migrations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">migrations</span><span class="p">:</span>
-            <span class="k">if</span> <span class="p">(</span>
-                <span class="nb">isinstance</span><span class="p">(</span><span class="n">migration</span><span class="p">,</span> <span class="n">SymmetricMigration</span><span class="p">)</span>
-                <span class="ow">and</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">migration</span><span class="o">.</span><span class="n">demes</span>
-                <span class="ow">and</span> <span class="n">dest</span> <span class="ow">in</span> <span class="n">migration</span><span class="o">.</span><span class="n">demes</span>
-            <span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
-                <span class="nb">isinstance</span><span class="p">(</span><span class="n">migration</span><span class="p">,</span> <span class="n">AsymmetricMigration</span><span class="p">)</span>
-                <span class="ow">and</span> <span class="n">source</span> <span class="o">==</span> <span class="n">migration</span><span class="o">.</span><span class="n">source</span>
-                <span class="ow">and</span> <span class="n">dest</span> <span class="o">==</span> <span class="n">migration</span><span class="o">.</span><span class="n">dest</span>
-            <span class="p">):</span>
-                <span class="k">if</span> <span class="p">(</span>
-                    <span class="n">start_time</span> <span class="o">&gt;=</span> <span class="n">migration</span><span class="o">.</span><span class="n">start_time</span> <span class="o">&gt;</span> <span class="n">end_time</span>
-                    <span class="ow">or</span> <span class="n">start_time</span> <span class="o">&gt;</span> <span class="n">migration</span><span class="o">.</span><span class="n">end_time</span> <span class="o">&gt;=</span> <span class="n">end_time</span>
-                    <span class="ow">or</span> <span class="n">migration</span><span class="o">.</span><span class="n">start_time</span> <span class="o">&gt;=</span> <span class="n">start_time</span> <span class="o">&gt;</span> <span class="n">migration</span><span class="o">.</span><span class="n">end_time</span>
-                    <span class="ow">or</span> <span class="n">migration</span><span class="o">.</span><span class="n">start_time</span> <span class="o">&gt;</span> <span class="n">end_time</span> <span class="o">&gt;=</span> <span class="n">migration</span><span class="o">.</span><span class="n">end_time</span>
-                <span class="p">):</span>
-                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                        <span class="s2">&quot;new migration overlaps exisiting migration &quot;</span>
-                        <span class="sa">f</span><span class="s2">&quot;between </span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">dest</span><span class="si">}</span><span class="s2">&quot;</span>
-                    <span class="p">)</span>
-
     <span class="k">def</span> <span class="nf">_add_symmetric_migration</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">demes</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SymmetricMigration</span><span class="p">:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">AsymmetricMigration</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add continuous symmetric migrations between all pairs of demes in a list.</span>
 
@@ -1742,28 +1612,21 @@
 <span class="sd">        :param float start_time: The time at which the migration rate is enabled.</span>
 <span class="sd">        :param float end_time: The time at which the migration rate is disabled.</span>
 <span class="sd">        :return: List of newly created migrations.</span>
-<span class="sd">        :rtype: list[SymmetricMigration]</span>
+<span class="sd">        :rtype: list[AsymmetricMigration]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">demes</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">demes</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;must specify a list of two or more deme names&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">start_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">start_time</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">deme_name</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="k">for</span> <span class="n">deme_name</span> <span class="ow">in</span> <span class="n">demes</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">end_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">end_time</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">deme_name</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="k">for</span> <span class="n">deme_name</span> <span class="ow">in</span> <span class="n">demes</span><span class="p">)</span>
+        <span class="n">migrations</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">source</span><span class="p">,</span> <span class="n">dest</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">permutations</span><span class="p">(</span><span class="n">demes</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_check_time_intersection</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">start_time</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_check_time_intersection</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">end_time</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_check_overlapping_migrations</span><span class="p">(</span>
-                <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">dest</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="n">end_time</span>
+            <span class="n">migration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_asymmetric_migration</span><span class="p">(</span>
+                <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
+                <span class="n">dest</span><span class="o">=</span><span class="n">dest</span><span class="p">,</span>
+                <span class="n">rate</span><span class="o">=</span><span class="n">rate</span><span class="p">,</span>
+                <span class="n">start_time</span><span class="o">=</span><span class="n">start_time</span><span class="p">,</span>
+                <span class="n">end_time</span><span class="o">=</span><span class="n">end_time</span><span class="p">,</span>
             <span class="p">)</span>
-        <span class="n">migration</span> <span class="o">=</span> <span class="n">SymmetricMigration</span><span class="p">(</span>
-            <span class="n">demes</span><span class="o">=</span><span class="n">demes</span><span class="p">,</span>
-            <span class="n">start_time</span><span class="o">=</span><span class="n">start_time</span><span class="p">,</span>
-            <span class="n">end_time</span><span class="o">=</span><span class="n">end_time</span><span class="p">,</span>
-            <span class="n">rate</span><span class="o">=</span><span class="n">rate</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">migrations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">migration</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">migration</span>
+            <span class="n">migrations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">migration</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">migrations</span>
 
     <span class="k">def</span> <span class="nf">_add_asymmetric_migration</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span>
@@ -1798,9 +1661,6 @@
             <span class="n">end_time</span> <span class="o">=</span> <span class="n">time_lo</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_check_time_intersection</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">end_time</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_check_overlapping_migrations</span><span class="p">(</span>
-            <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">dest</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="n">end_time</span>
-        <span class="p">)</span>
         <span class="n">migration</span> <span class="o">=</span> <span class="n">AsymmetricMigration</span><span class="p">(</span>
             <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
             <span class="n">dest</span><span class="o">=</span><span class="n">dest</span><span class="p">,</span>
@@ -1901,15 +1761,15 @@
                 <span class="k">if</span> <span class="n">start_time</span> <span class="o">&lt;=</span> <span class="n">migration</span><span class="o">.</span><span class="n">end_time</span><span class="p">:</span>
                     <span class="k">break</span>
                 <span class="k">if</span> <span class="n">end_time</span> <span class="o">&lt;</span> <span class="n">migration</span><span class="o">.</span><span class="n">start_time</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">migration</span><span class="p">,</span> <span class="n">AsymmetricMigration</span><span class="p">):</span>
-                        <span class="n">source_id</span> <span class="o">=</span> <span class="n">deme_id</span><span class="p">[</span><span class="n">migration</span><span class="o">.</span><span class="n">source</span><span class="p">]</span>
-                        <span class="n">dest_id</span> <span class="o">=</span> <span class="n">deme_id</span><span class="p">[</span><span class="n">migration</span><span class="o">.</span><span class="n">dest</span><span class="p">]</span>
-                        <span class="n">mm_list</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">dest_id</span><span class="p">][</span><span class="n">source_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">migration</span><span class="o">.</span><span class="n">rate</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="k">for</span> <span class="n">source</span><span class="p">,</span> <span class="n">dest</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">permutations</span><span class="p">(</span><span class="n">migration</span><span class="o">.</span><span class="n">demes</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
-                            <span class="n">source_id</span> <span class="o">=</span> <span class="n">deme_id</span><span class="p">[</span><span class="n">source</span><span class="p">]</span>
-                            <span class="n">dest_id</span> <span class="o">=</span> <span class="n">deme_id</span><span class="p">[</span><span class="n">dest</span><span class="p">]</span>
-                            <span class="n">mm_list</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">dest_id</span><span class="p">][</span><span class="n">source_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">migration</span><span class="o">.</span><span class="n">rate</span>
+                    <span class="n">source_id</span> <span class="o">=</span> <span class="n">deme_id</span><span class="p">[</span><span class="n">migration</span><span class="o">.</span><span class="n">source</span><span class="p">]</span>
+                    <span class="n">dest_id</span> <span class="o">=</span> <span class="n">deme_id</span><span class="p">[</span><span class="n">migration</span><span class="o">.</span><span class="n">dest</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">mm_list</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">dest_id</span><span class="p">][</span><span class="n">source_id</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                            <span class="s2">&quot;multiple migrations defined for &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;source=</span><span class="si">{</span><span class="n">migration</span><span class="o">.</span><span class="n">source</span><span class="si">}</span><span class="s2">, dest=</span><span class="si">{</span><span class="n">migration</span><span class="o">.</span><span class="n">dest</span><span class="si">}</span><span class="s2"> &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;between start_time=</span><span class="si">{</span><span class="n">start_time</span><span class="si">}</span><span class="s2">, end_time=</span><span class="si">{</span><span class="n">end_time</span><span class="si">}</span><span class="s2">&quot;</span>
+                        <span class="p">)</span>
+                    <span class="n">mm_list</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">dest_id</span><span class="p">][</span><span class="n">source_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">migration</span><span class="o">.</span><span class="n">rate</span>
                 <span class="n">start_time</span> <span class="o">=</span> <span class="n">end_time</span>
         <span class="k">return</span> <span class="n">mm_list</span><span class="p">,</span> <span class="n">end_times</span>
 
@@ -2304,7 +2164,7 @@
 
 <div class="viewcode-block" id="Graph.asdict"><a class="viewcode-back" href="../../api.html#demes.Graph.asdict">[docs]</a>    <span class="k">def</span> <span class="nf">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return a dict representation of the graph.</span>
+<span class="sd">        Return a fully-resolved dict representation of the graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">def</span> <span class="nf">filt</span><span class="p">(</span><span class="n">_attrib</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
@@ -2329,10 +2189,6 @@
         <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">]:</span>
             <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;epochs&quot;</span><span class="p">]:</span>
                 <span class="k">del</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span>
-                <span class="k">if</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;selfing_rate&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="k">del</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;selfing_rate&quot;</span><span class="p">]</span>
-                <span class="k">if</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;cloning_rate&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="k">del</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;cloning_rate&quot;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">data</span></div>
 
 <div class="viewcode-block" id="Graph.asdict_simplified"><a class="viewcode-back" href="../../api.html#demes.Graph.asdict_simplified">[docs]</a>    <span class="k">def</span> <span class="nf">asdict_simplified</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
@@ -2351,6 +2207,10 @@
                         <span class="k">del</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;size_function&quot;</span><span class="p">]</span>
                     <span class="k">if</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;start_size&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;end_size&quot;</span><span class="p">]:</span>
                         <span class="k">del</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;end_size&quot;</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;selfing_rate&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">del</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;selfing_rate&quot;</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;cloning_rate&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="k">del</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;cloning_rate&quot;</span><span class="p">]</span>
 
             <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">]:</span>
                 <span class="c1"># remove implied start times</span>
@@ -2364,22 +2224,96 @@
 
         <span class="k">def</span> <span class="nf">simplify_migration_rates</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
             <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Remove redundant information</span>
+<span class="sd">            Collapse symmetric migration rates, and remove redundant information</span>
 <span class="sd">            about start and end times if they are implied by the time overlap</span>
 <span class="sd">            interval of the demes involved.</span>
+
+<span class="sd">            To collapse symmetric migrations, we collect all source/dest migration</span>
+<span class="sd">            pairs for each set of migration attributes (rate, start_time, end_time),</span>
+<span class="sd">            and then iteratively check for all-way symmetric migration between all</span>
+<span class="sd">            demes that are involved in migrations for the given set of migration</span>
+<span class="sd">            attributes.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
 
-            <span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;migrations&quot;</span><span class="p">]:</span>
-                <span class="n">demes</span> <span class="o">=</span> <span class="n">migration</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;demes&quot;</span><span class="p">,</span> <span class="p">[])</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">demes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">demes</span> <span class="o">=</span> <span class="p">[</span><span class="n">migration</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">],</span> <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;dest&quot;</span><span class="p">]]</span>
+            <span class="k">def</span> <span class="nf">collapse_demes</span><span class="p">(</span><span class="n">pairs</span><span class="p">):</span>
+                <span class="n">all_demes</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_demes</span><span class="p">:</span>
+                        <span class="n">all_demes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_demes</span><span class="p">:</span>
+                        <span class="n">all_demes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="k">return</span> <span class="n">all_demes</span>
 
-                <span class="n">time_lo</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">deme_name</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span> <span class="k">for</span> <span class="n">deme_name</span> <span class="ow">in</span> <span class="n">demes</span><span class="p">)</span>
-                <span class="n">time_hi</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">deme_name</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span> <span class="k">for</span> <span class="n">deme_name</span> <span class="ow">in</span> <span class="n">demes</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">time_lo</span><span class="p">:</span>
-                    <span class="k">del</span> <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span>
-                <span class="k">if</span> <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;end_time&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">time_hi</span><span class="p">:</span>
+            <span class="n">symmetric</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">asymmetric</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;migrations&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="c1"># first remove start/end times if equal time intersections</span>
+            <span class="n">rate_sets</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="c1"># keys of rate_types are (rate, start_time, end_time)</span>
+            <span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;migrations&quot;</span><span class="p">]:</span>
+                <span class="n">source</span> <span class="o">=</span> <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span>
+                <span class="n">dest</span> <span class="o">=</span> <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;dest&quot;</span><span class="p">]</span>
+                <span class="n">time_hi</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">source</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="bp">self</span><span class="p">[</span><span class="n">dest</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span>
+                <span class="n">time_lo</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">dest</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span> <span class="bp">self</span><span class="p">[</span><span class="n">dest</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;end_time&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">time_lo</span><span class="p">:</span>
                     <span class="k">del</span> <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;end_time&quot;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">time_hi</span><span class="p">:</span>
+                    <span class="k">del</span> <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span>
+                <span class="n">k</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+                    <span class="n">migration</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;rate&quot;</span><span class="p">,</span> <span class="s2">&quot;start_time&quot;</span><span class="p">,</span> <span class="s2">&quot;end_time&quot;</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="n">rate_sets</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="p">[])</span>
+                <span class="n">rate_sets</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">))</span>
+
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">pairs</span> <span class="ow">in</span> <span class="n">rate_sets</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pairs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="c1"># list of all demes that are source or dest in this rate set</span>
+                <span class="n">all_demes</span> <span class="o">=</span> <span class="n">collapse_demes</span><span class="p">(</span><span class="n">pairs</span><span class="p">)</span>
+
+                <span class="c1"># we check all possible sets of n-way symmetric migration</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_demes</span><span class="p">)</span>
+                <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_demes</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="c1"># loop through each possible set for a given set size i</span>
+                    <span class="n">compress_demes</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">for</span> <span class="n">deme_set</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="n">all_demes</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+                        <span class="c1"># check if all (source, dest) pairs exist in pairs of migration</span>
+                        <span class="n">all_present</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="k">for</span> <span class="n">deme_pair</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">permutations</span><span class="p">(</span><span class="n">deme_set</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+                            <span class="k">if</span> <span class="n">deme_pair</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">:</span>
+                                <span class="n">all_present</span> <span class="o">=</span> <span class="kc">False</span>
+                                <span class="k">break</span>
+                        <span class="c1"># if they do all exist</span>
+                        <span class="k">if</span> <span class="n">all_present</span><span class="p">:</span>
+                            <span class="n">compress_demes</span> <span class="o">=</span> <span class="kc">True</span>
+                            <span class="c1"># remove from asymmetric list</span>
+                            <span class="k">for</span> <span class="n">deme_pair</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">permutations</span><span class="p">(</span><span class="n">deme_set</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+                                <span class="n">mig</span> <span class="o">=</span> <span class="p">{</span>
+                                    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="n">deme_pair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                    <span class="s2">&quot;dest&quot;</span><span class="p">:</span> <span class="n">deme_pair</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                                    <span class="s2">&quot;rate&quot;</span><span class="p">:</span> <span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                <span class="p">}</span>
+                                <span class="k">if</span> <span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                                    <span class="n">mig</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                                <span class="k">if</span> <span class="n">k</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                                    <span class="n">mig</span><span class="p">[</span><span class="s2">&quot;end_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                                <span class="n">asymmetric</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">mig</span><span class="p">)</span>
+                                <span class="n">pairs</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">deme_pair</span><span class="p">)</span>
+                            <span class="c1"># add to symmetric list</span>
+                            <span class="n">sym_mig</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">demes</span><span class="o">=</span><span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">deme_set</span><span class="p">],</span> <span class="n">rate</span><span class="o">=</span><span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                            <span class="k">if</span> <span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                                <span class="n">sym_mig</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                            <span class="k">if</span> <span class="n">k</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                                <span class="n">sym_mig</span><span class="p">[</span><span class="s2">&quot;end_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                            <span class="n">symmetric</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sym_mig</span><span class="p">)</span>
+                    <span class="c1"># if we found a set of symmetric migrations, compress all_demes</span>
+                    <span class="k">if</span> <span class="n">compress_demes</span><span class="p">:</span>
+                        <span class="n">all_demes</span> <span class="o">=</span> <span class="n">collapse_demes</span><span class="p">(</span><span class="n">pairs</span><span class="p">)</span>
+                        <span class="n">i</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_demes</span><span class="p">))</span>
+                    <span class="c1"># otherwise, check one set size smaller</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">i</span> <span class="o">-=</span> <span class="mi">1</span>
+
+            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;migrations&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">symmetric</span> <span class="o">+</span> <span class="n">asymmetric</span>
 
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">asdict</span><span class="p">()</span>
 
@@ -2612,7 +2546,7 @@
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes 0.1.0a5.dev14
+            demes 0.1.0a5.dev19
           </div>
       </p>
     </div>

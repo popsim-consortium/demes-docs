@@ -121,7 +121,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.1.0a5.dev14
+  demes 0.1.0a5.dev19
 </div>
 
 </div>
@@ -539,7 +539,8 @@ See also: <a class="reference internal" href="#demes.Graph.in_generations" title
 <li><p><strong>doi</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>]</em>) – If the graph describes a published demography,
 the DOI(s) should be be given here as a list.</p></li>
 <li><p><strong>demes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference internal" href="#demes.Deme" title="demes.Deme"><em>Deme</em></a><em>]</em>) – The demes in the demography.</p></li>
-<li><p><strong>migrations</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference internal" href="#demes.Migration" title="demes.Migration"><em>Migration</em></a><em>]</em>) – The continuous migrations for the demography.</p></li>
+<li><p><strong>migrations</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference internal" href="#demes.AsymmetricMigration" title="demes.AsymmetricMigration"><em>AsymmetricMigration</em></a><em>]</em>) – The continuous migrations for
+the demographic model.</p></li>
 <li><p><strong>pulses</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference internal" href="#demes.Pulse" title="demes.Pulse"><em>Pulse</em></a><em>]</em>) – The migration pulses for the demography.</p></li>
 </ul>
 </dd>
@@ -547,7 +548,7 @@ the DOI(s) should be be given here as a list.</p></li>
 <dl class="py method">
 <dt id="demes.Graph.asdict">
 <code class="sig-name descname"><span class="pre">asdict</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.asdict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.asdict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a dict representation of the graph.</p>
+<dd><p>Return a fully-resolved dict representation of the graph.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -877,77 +878,20 @@ comparisons. See documentation for <a class="reference external" href="https://d
 <div class="section" id="continuous-demographic-events">
 <h2>Continuous demographic events<a class="headerlink" href="#continuous-demographic-events" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="demes.Migration">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">Migration</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Migration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Migration" title="Permalink to this definition">¶</a></dt>
-<dd><p>Parameters for continuous migration. Migration may be symmetric, in which
-case the list of demes will be specified. Alternately, migration may be
-asymmetric from one deme to another. In the latter case,
-source and destination demes follow the forwards-in-time convention,
-of migrations born in the source deme having children in the dest deme.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Variables</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>start_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The time at which the migration rate is activated.</p></li>
-<li><p><strong>end_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The time at which the migration rate is deactivated.</p></li>
-<li><p><strong>rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The rate of migration. Set to zero to disable
-migrations after the given time.</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt id="demes.Migration.assert_close">
-<code class="sig-name descname"><span class="pre">assert_close</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Migration.assert_close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Migration.assert_close" title="Permalink to this definition">¶</a></dt>
-<dd><p>Raises AssertionError if the object is not equal to <code class="docutils literal notranslate"><span class="pre">other</span></code>,
-up to a numerical tolerance.
-Compares values of the following attributes:
-<cite>start_time`</cite>, <code class="docutils literal notranslate"><span class="pre">end_time</span></code>, <code class="docutils literal notranslate"><span class="pre">rate</span></code>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>other</strong> (<a class="reference internal" href="#demes.Migration" title="demes.Migration"><code class="xref py py-class docutils literal notranslate"><span class="pre">Migration</span></code></a>) – The migration to compare against.</p></li>
-<li><p><strong>ret_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The relative tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
-<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The absolute tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="demes.Migration.isclose">
-<code class="sig-name descname"><span class="pre">isclose</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Migration.isclose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Migration.isclose" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns true if the migration is equal to the <code class="docutils literal notranslate"><span class="pre">other</span></code> migration.
-For more information see <a class="reference internal" href="#demes.Migration.assert_close" title="demes.Migration.assert_close"><code class="xref py py-meth docutils literal notranslate"><span class="pre">assert_close()</span></code></a>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>other</strong> (<a class="reference internal" href="#demes.Migration" title="demes.Migration"><code class="xref py py-class docutils literal notranslate"><span class="pre">Migration</span></code></a>) – The migration to compare against.</p></li>
-<li><p><strong>ret_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The relative tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
-<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The absolute tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>True if the two epochs are equivalent, False otherwise.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
 <dt id="demes.AsymmetricMigration">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">AsymmetricMigration</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#AsymmetricMigration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.AsymmetricMigration" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">AsymmetricMigration</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#AsymmetricMigration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.AsymmetricMigration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters for continuous asymmetric migration.
+The source and destination demes follow the forwards-in-time convention,
+where migrants are born in the source deme and (potentially) have children
+in the dest deme.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The source deme for asymmetric migration.</p></li>
 <li><p><strong>dest</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The destination deme for asymmetric migration.</p></li>
+<li><p><strong>start_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The time at which the migration rate is activated.</p></li>
+<li><p><strong>end_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The time at which the migration rate is deactivated.</p></li>
+<li><p><strong>rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The rate of migration per generation.</p></li>
 </ul>
 </dd>
 </dl>
@@ -961,7 +905,7 @@ Compares values of the following attributes:
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>other</strong> (<a class="reference internal" href="#demes.Migration" title="demes.Migration"><code class="xref py py-class docutils literal notranslate"><span class="pre">Migration</span></code></a>) – The migration to compare against.</p></li>
+<li><p><strong>other</strong> (<a class="reference internal" href="#demes.AsymmetricMigration" title="demes.AsymmetricMigration"><em>AsymmetricMigration</em></a>) – The migration to compare against.</p></li>
 <li><p><strong>ret_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The relative tolerance permitted for numerical
 comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
 <li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The absolute tolerance permitted for numerical
@@ -971,32 +915,26 @@ comparisons. See documentation for <a class="reference external" href="https://d
 </dl>
 </dd></dl>
 
-</dd></dl>
-
-<dl class="py class">
-<dt id="demes.SymmetricMigration">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">SymmetricMigration</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#SymmetricMigration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.SymmetricMigration" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Variables</dt>
-<dd class="field-odd"><p><strong>demes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>]</em>) – The list of demes for symmetric migration.</p>
-</dd>
-</dl>
 <dl class="py method">
-<dt id="demes.SymmetricMigration.assert_close">
-<code class="sig-name descname"><span class="pre">assert_close</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#SymmetricMigration.assert_close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.SymmetricMigration.assert_close" title="Permalink to this definition">¶</a></dt>
-<dd><p>Raises AssertionError if the object is not equal to <code class="docutils literal notranslate"><span class="pre">other</span></code>,
-up to a numerical tolerance.
-Compares values of the following attributes:
-<code class="docutils literal notranslate"><span class="pre">demes</span></code>, <code class="docutils literal notranslate"><span class="pre">start_time</span></code>, <code class="docutils literal notranslate"><span class="pre">end_time</span></code>, <code class="docutils literal notranslate"><span class="pre">rate</span></code>.</p>
+<dt id="demes.AsymmetricMigration.isclose">
+<code class="sig-name descname"><span class="pre">isclose</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#AsymmetricMigration.isclose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.AsymmetricMigration.isclose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the migration is equal to the <code class="docutils literal notranslate"><span class="pre">other</span></code> migration.
+For more information see <a class="reference internal" href="#demes.AsymmetricMigration.assert_close" title="demes.AsymmetricMigration.assert_close"><code class="xref py py-meth docutils literal notranslate"><span class="pre">assert_close()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>other</strong> (<a class="reference internal" href="#demes.Migration" title="demes.Migration"><code class="xref py py-class docutils literal notranslate"><span class="pre">Migration</span></code></a>) – The migration to compare against.</p></li>
+<li><p><strong>other</strong> (<a class="reference internal" href="#demes.AsymmetricMigration" title="demes.AsymmetricMigration"><em>AsymmetricMigration</em></a>) – The migration to compare against.</p></li>
 <li><p><strong>ret_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The relative tolerance permitted for numerical
 comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
 <li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The absolute tolerance permitted for numerical
 comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the two epochs are equivalent, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1361,7 +1299,7 @@ comparisons. See documentation for <a class="reference external" href="https://d
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes 0.1.0a5.dev14
+            demes 0.1.0a5.dev19
           </div>
       </p>
     </div>
