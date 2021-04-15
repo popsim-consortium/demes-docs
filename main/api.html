@@ -52,6 +52,8 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Development" href="development.html" />
@@ -121,7 +123,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes
+  demes 0.1.0a5.dev25
 </div>
 
 </div>
@@ -228,6 +230,11 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#discrete-demographic-events">
    Discrete demographic events
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conversion-functions">
+   Conversion functions
   </a>
  </li>
 </ul>
@@ -1257,6 +1264,43 @@ comparisons. See documentation for <a class="reference external" href="https://d
 </dd></dl>
 
 </div>
+<div class="section" id="conversion-functions">
+<h2>Conversion functions<a class="headerlink" href="#conversion-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="demes.from_ms">
+<code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">from_ms</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deme_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/ms.html#from_ms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.from_ms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert an ms demographic model into a demes graph.</p>
+<p><a class="reference external" href="https://doi.org/10.1093/bioinformatics/18.2.337">Hudson’s ms</a>
+uses coalescent units for times (<span class="math notranslate nohighlight">\(t\)</span>),
+population sizes (<span class="math notranslate nohighlight">\(x\)</span>), and migration rates (<span class="math notranslate nohighlight">\(M\)</span>).
+These will be converted to more familiar units using the given
+<code class="docutils literal notranslate"><span class="pre">N0</span></code> value (<span class="math notranslate nohighlight">\(N_0\)</span>) according to the following rules:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\text{time (in generations)} &amp;= 4 N_0 t\\\text{deme size (haploid individuals)} &amp;= N_0 x\\\text{migration rate (per generation)} &amp;= \frac{M}{4 N_0}\end{aligned}\end{align} \]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The ms command line.</p></li>
+<li><p><strong>N0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The reference population size (<span class="math notranslate nohighlight">\(N_0\)</span>) used to translate
+from coalescent units. For a <code class="docutils literal notranslate"><span class="pre">command</span></code> that specifies a
+<span class="math notranslate nohighlight">\(\theta\)</span> value with the <code class="docutils literal notranslate"><span class="pre">-t</span> <span class="pre">theta</span></code> option,
+this can be calculated as <span class="math notranslate nohighlight">\(N_0 = \theta / (4 \mu L)\)</span>,
+where <span class="math notranslate nohighlight">\(\mu\)</span> is the per-generation mutation rate and
+<span class="math notranslate nohighlight">\(L\)</span> is the length of the sequence being simulated.</p></li>
+<li><p><strong>deme_names</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>]</em>) – A list of names to use for the demes.
+If not specified, demes will be named deme1, deme2, etc.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The demes graph.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#demes.Graph" title="demes.Graph">demes.Graph</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -1299,7 +1343,7 @@ comparisons. See documentation for <a class="reference external" href="https://d
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes
+            demes 0.1.0a5.dev25
           </div>
       </p>
     </div>
