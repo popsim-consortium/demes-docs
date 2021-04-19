@@ -123,7 +123,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.1.0a5.dev29
+  demes 0.1.0a5.dev31
 </div>
 
 </div>
@@ -428,8 +428,7 @@ this indicates the proportions of ancestry from each ancestor.
 This list has the same length as <code class="docutils literal notranslate"><span class="pre">ancestors</span></code>, and must sum to 1.</p></li>
 <li><p><strong>start_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The deme’s start time.</p></li>
 <li><p><strong>epochs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a><em>]</em>) – List of epoch dictionaries. Each dictionary
-contains parameters to be passed to the deme’s
-DemeProxy.add_epoch() method.</p></li>
+follows the data model for an epoch.</p></li>
 </ul>
 </dd>
 </dl>
@@ -816,11 +815,29 @@ start time must be greater than the end time</p>
 <li><p><strong>end_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Population size at <code class="docutils literal notranslate"><span class="pre">end_time</span></code>.
 If <code class="docutils literal notranslate"><span class="pre">start_size</span> <span class="pre">!=</span> <span class="pre">end_size</span></code>, the population size changes
 monotonically between the start and end times.</p></li>
-<li><p><strong>size_function</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>The size change function. Common options are
-<code class="docutils literal notranslate"><span class="pre">&quot;constant&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;exponential&quot;</span></code>, though any string is valid.</p>
+<li><p><strong>size_function</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>The size change function. This is either
+<code class="docutils literal notranslate"><span class="pre">constant</span></code> or <code class="docutils literal notranslate"><span class="pre">exponential</span></code>, though it is possible that
+additional values will be added in the future.</p>
+<blockquote>
+<div><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">constant</span></code>: the deme’s size does not change over the epoch.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">exponential</span></code>: the deme’s size changes exponentially from
+<code class="docutils literal notranslate"><span class="pre">start_size</span></code> to <code class="docutils literal notranslate"><span class="pre">end_size</span></code> over the epoch.
+If <span class="math notranslate nohighlight">\(t\)</span> is a time within the span of the epoch,
+the deme size <span class="math notranslate nohighlight">\(N\)</span> at <span class="math notranslate nohighlight">\(t\)</span> can be calculated as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="p">(</span><span class="n">epoch</span><span class="o">.</span><span class="n">start_time</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">/</span> <span class="n">epoch</span><span class="o">.</span><span class="n">time_span</span>
+ <span class="n">r</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">epoch</span><span class="o">.</span><span class="n">end_size</span> <span class="o">/</span> <span class="n">epoch</span><span class="o">.</span><span class="n">start_size</span><span class="p">)</span>
+ <span class="n">N</span> <span class="o">=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">start_size</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="n">dt</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Downstream applications might not understand the size_function provided.</p>
+<p>Do not assume an exponentially changing size just because
+<code class="docutils literal notranslate"><span class="pre">start_size</span> <span class="pre">!=</span> <span class="pre">end_size</span></code>. For forwards compatibility,
+applications should always check the <code class="docutils literal notranslate"><span class="pre">size_function</span></code>.</p>
 </div>
 </p></li>
 <li><p><strong>selfing_rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The selfing rate for this epoch.</p></li>
@@ -1343,7 +1360,7 @@ If not specified, demes will be named deme1, deme2, etc.</p></li>
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes 0.1.0a5.dev29
+            demes 0.1.0a5.dev31
           </div>
       </p>
     </div>
