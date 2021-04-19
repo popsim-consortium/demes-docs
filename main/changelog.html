@@ -120,7 +120,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.1.0a5.dev31
+  demes 0.1.0a5.dev33
 </div>
 
 </div>
@@ -205,8 +205,8 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#xxx-2021-xx-xx">
-   0.1.XXX - 2021-XX-XX
+  <a class="reference internal nav-link" href="#id1">
+   0.1.0 - 2021-04-19
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -243,8 +243,8 @@
                 
   <div class="section" id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="xxx-2021-xx-xx">
-<h2><a class="reference external" href="http://0.1.XXX">0.1.XXX</a> - 2021-XX-XX<a class="headerlink" href="#xxx-2021-xx-xx" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h2>0.1.0 - 2021-04-19<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p><strong>Breaking changes</strong>:</p>
 <ul class="simple">
 <li><p>The interpretation has been changed for symmetric migrations when the
@@ -254,6 +254,21 @@ To accommodate this semantic change, the <code class="docutils literal notransla
 been removed, and symmetric migrations are always resolved into pairs of
 <code class="docutils literal notranslate"><span class="pre">AsymmetricMigration</span></code> objects.
 (<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/263">#263</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/268">#268</a>)</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">size_function</span></code> field can no longer be an arbitrary string.
+Only the “constant” and “exponential” strings are recognised.
+(<a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/262">#262</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/278">#278</a>)</p></li>
+</ul>
+<p><strong>New features</strong>:</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">from_ms()</span></code> function has been added to convert an ms command line
+into a <code class="docutils literal notranslate"><span class="pre">Graph</span></code>.
+(<a class="reference external" href="https://github.com/jeromekelleher">&#64;jeromekelleher</a>, <a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/74">#74</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/102">#102</a>)</p></li>
+</ul>
+<p><strong>Bug fixes</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Graph.in_generations()</span></code> no longer changes time values for a graph
+when <code class="docutils literal notranslate"><span class="pre">time_units</span> <span class="pre">==</span> <span class="pre">&quot;generations&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">generation_time</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">None</span></code>.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/273">#273</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/274">#274</a>)</p></li>
 </ul>
 </div>
 <div class="section" id="a4-2021-03-22">
@@ -341,7 +356,7 @@ release are still possible, but are considered unlikely.</p>
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes 0.1.0a5.dev31
+            demes 0.1.0a5.dev33
           </div>
       </p>
     </div>
