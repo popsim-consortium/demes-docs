@@ -117,7 +117,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.1.2.dev14
+  demes 0.1.2.dev16
 </div>
 
 </div>
@@ -228,8 +228,9 @@
 
 <span class="k">def</span> <span class="nf">_dump_yaml_fromdict</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">fp</span><span class="p">):</span>
     <span class="k">with</span> <span class="n">ruamel</span><span class="o">.</span><span class="n">yaml</span><span class="o">.</span><span class="n">YAML</span><span class="p">(</span><span class="n">typ</span><span class="o">=</span><span class="s2">&quot;safe&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">fp</span><span class="p">)</span> <span class="k">as</span> <span class="n">yaml</span><span class="p">:</span>
-        <span class="c1"># Disable JSON-style inline arrays and dicts.</span>
-        <span class="n">yaml</span><span class="o">.</span><span class="n">default_flow_style</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Output flow style, but only for collections that consist only</span>
+        <span class="c1"># of scalars (i.e. the leaves in the document tree).</span>
+        <span class="n">yaml</span><span class="o">.</span><span class="n">default_flow_style</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="c1"># Don&#39;t emit obscure unicode, output &quot;\Uxxxxxxxx&quot; instead.</span>
         <span class="c1"># Needed for string equality after round-tripping.</span>
         <span class="n">yaml</span><span class="o">.</span><span class="n">allow_unicode</span> <span class="o">=</span> <span class="kc">False</span>
@@ -377,7 +378,7 @@
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes 0.1.2.dev14
+            demes 0.1.2.dev16
           </div>
       </p>
     </div>

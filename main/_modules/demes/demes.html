@@ -117,7 +117,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.1.2.dev14
+  demes 0.1.2.dev16
 </div>
 
 </div>
@@ -194,6 +194,8 @@
 <span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="kn">import</span> <span class="nn">attr</span>
+
+<span class="kn">from</span> <span class="nn">.load_dump</span> <span class="kn">import</span> <span class="n">dumps</span> <span class="k">as</span> <span class="n">demes_dumps</span>
 
 <span class="n">Number</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
 <span class="n">Name</span> <span class="o">=</span> <span class="nb">str</span>
@@ -1378,7 +1380,12 @@
     <span class="n">migrations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">AsymmetricMigration</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">pulses</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Pulse</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-    <span class="n">_deme_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Name</span><span class="p">,</span> <span class="n">Deme</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="c1"># This attribute is for internal use only. It&#39;s a (hidden) attribute</span>
+    <span class="c1"># because we&#39;re using slotted classes and can&#39;t add attributes after</span>
+    <span class="c1"># object creation (e.g. in __attrs_post_init__()).</span>
+    <span class="n">_deme_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Name</span><span class="p">,</span> <span class="n">Deme</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
+        <span class="n">factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cmp</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_units</span> <span class="o">!=</span> <span class="s2">&quot;generations&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -1397,6 +1404,9 @@
 <span class="sd">        Check if the graph contains a deme with the specified name.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">deme_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deme_map</span>
+
+    <span class="c1"># Use the simplified YAML output as the string representation.</span>
+    <span class="fm">__str__</span> <span class="o">=</span> <span class="n">demes_dumps</span>
 
 <div class="viewcode-block" id="Graph.assert_close"><a class="viewcode-back" href="../../api.html#demes.Graph.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -2560,7 +2570,7 @@
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes 0.1.2.dev14
+            demes 0.1.2.dev16
           </div>
       </p>
     </div>
