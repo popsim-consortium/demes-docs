@@ -117,7 +117,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.1.2.dev35
+  demes 0.1.2.dev37
 </div>
 
 </div>
@@ -350,8 +350,8 @@
 <span class="sd">        If ``start_size != end_size``, the population size changes</span>
 <span class="sd">        monotonically between the start and end times.</span>
 <span class="sd">    :ivar str size_function: The size change function. This is either</span>
-<span class="sd">        ``constant`` or ``exponential``, though it is possible that</span>
-<span class="sd">        additional values will be added in the future.</span>
+<span class="sd">        ``constant``, ``exponential`` or ``linear``, though it is possible</span>
+<span class="sd">        that additional values will be added in the future.</span>
 
 <span class="sd">         * ``constant``: the deme&#39;s size does not change over the epoch.</span>
 <span class="sd">         * ``exponential``: the deme&#39;s size changes exponentially from</span>
@@ -364,12 +364,15 @@
 <span class="sd">               dt = (epoch.start_time - t) / epoch.time_span</span>
 <span class="sd">                r = math.log(epoch.end_size / epoch.start_size)</span>
 <span class="sd">                N = epoch.start_size * math.exp(r * dt)</span>
+<span class="sd">         * ``linear``: the deme&#39;s size changes linearly from</span>
+<span class="sd">           ``start_size`` to ``end_size`` over the epoch.</span>
+<span class="sd">           If :math:`t` is a time within the span of the epoch,</span>
+<span class="sd">           the deme size :math:`N` at :math:`t` can be calculated as:</span>
 
-<span class="sd">        .. warning::</span>
+<span class="sd">           .. code::</span>
 
-<span class="sd">            Do not assume an exponentially changing size just because</span>
-<span class="sd">            ``start_size != end_size``. For forwards compatibility,</span>
-<span class="sd">            applications should always check the ``size_function``.</span>
+<span class="sd">               dt = (epoch.start_time - t) / epoch.time_span</span>
+<span class="sd">                N = epoch.start_size + (epoch.end_size - epoch.start_size) * dt</span>
 
 <span class="sd">    :ivar float selfing_rate: The selfing rate for this epoch.</span>
 <span class="sd">    :ivar float cloning_rate: The cloning rate for this epoch.</span>
@@ -380,7 +383,7 @@
     <span class="n">start_size</span><span class="p">:</span> <span class="n">Size</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">positive</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
     <span class="n">end_size</span><span class="p">:</span> <span class="n">Size</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">positive</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
     <span class="n">size_function</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
-        <span class="n">validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">in_</span><span class="p">([</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span> <span class="s2">&quot;exponential&quot;</span><span class="p">])</span>
+        <span class="n">validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">in_</span><span class="p">([</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span> <span class="s2">&quot;exponential&quot;</span><span class="p">,</span> <span class="s2">&quot;linear&quot;</span><span class="p">])</span>
     <span class="p">)</span>
     <span class="n">selfing_rate</span><span class="p">:</span> <span class="n">Proportion</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
         <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">unit_interval</span><span class="p">]</span>
@@ -2570,7 +2573,7 @@
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes 0.1.2.dev35
+            demes 0.1.2.dev37
           </div>
       </p>
     </div>
