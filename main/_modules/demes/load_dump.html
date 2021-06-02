@@ -117,7 +117,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.1.2.dev37
+  demes 0.1.2.dev39
 </div>
 
 </div>
@@ -191,6 +191,8 @@
 <span class="kn">import</span> <span class="nn">contextlib</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">MutableMapping</span><span class="p">,</span> <span class="n">Any</span>
 
 <span class="kn">import</span> <span class="nn">ruamel.yaml</span>
 
@@ -239,6 +241,45 @@
         <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
 
+<span class="n">_INFINITY_STR</span> <span class="o">=</span> <span class="s2">&quot;Infinity&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">_stringify_infinities</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modifies the data dict so infinite values are set to the string &quot;Infinity&quot;.</span>
+
+<span class="sd">    This is done for JSON output, because the JSON spec explicitly does not</span>
+<span class="sd">    provide an encoding for infinity.  The string-valued &quot;Infinity&quot; is likely</span>
+<span class="sd">    to be parsed without problem, and is converted to a float inf by the</span>
+<span class="sd">    following implementations:</span>
+<span class="sd">     * Python: float(&quot;Infinity&quot;)</span>
+<span class="sd">     * JavaScript: parseFloat(&quot;Infinity&quot;)</span>
+<span class="sd">     * C: strtod(&quot;Infinity&quot;, NULL) and atof(&quot;Infinity&quot;)</span>
+<span class="sd">     * R: as.numeric(&quot;Infinity&quot;)</span>
+<span class="sd">     * SLiM/Eidos: asFloat(&quot;Infinity&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="s2">&quot;start_time&quot;</span> <span class="ow">in</span> <span class="n">deme</span> <span class="ow">and</span> <span class="n">math</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">deme</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]):</span>
+            <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_INFINITY_STR</span>
+    <span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;migrations&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="k">if</span> <span class="s2">&quot;start_time&quot;</span> <span class="ow">in</span> <span class="n">migration</span> <span class="ow">and</span> <span class="n">math</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">migration</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]):</span>
+            <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_INFINITY_STR</span>
+
+
+<span class="k">def</span> <span class="nf">_unstringify_infinities</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modifies the data dict so the string &quot;Infinity&quot; is converted to float.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">]:</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">deme</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;start_time&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">start_time</span> <span class="o">==</span> <span class="n">_INFINITY_STR</span><span class="p">:</span>
+            <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">start_time</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;migrations&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">migration</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;start_time&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">start_time</span> <span class="o">==</span> <span class="n">_INFINITY_STR</span><span class="p">:</span>
+            <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">start_time</span><span class="p">)</span>
+
+
 <div class="viewcode-block" id="loads_asdict"><a class="viewcode-back" href="../../api.html#demes.loads_asdict">[docs]</a><span class="k">def</span> <span class="nf">loads_asdict</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load a YAML or JSON string into a dictionary of nested objects.</span>
@@ -272,6 +313,7 @@
     <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;json&quot;</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">_open_file_polymorph</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="n">_unstringify_infinities</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;yaml&quot;</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">_open_file_polymorph</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="n">_load_yaml_asdict</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
@@ -352,7 +394,8 @@
 
     <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;json&quot;</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">_open_file_polymorph</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+            <span class="n">_stringify_infinities</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">allow_nan</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;yaml&quot;</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">_open_file_polymorph</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">_dump_yaml_fromdict</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
@@ -378,7 +421,7 @@
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes 0.1.2.dev37
+            demes 0.1.2.dev39
           </div>
       </p>
     </div>
