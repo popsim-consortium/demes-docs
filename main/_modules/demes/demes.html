@@ -117,7 +117,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.1.2.dev41
+  demes 0.1.2.dev43
 </div>
 
 </div>
@@ -1328,7 +1328,37 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The time span over which the deme exists.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span>
+
+<div class="viewcode-block" id="Deme.size_at"><a class="viewcode-back" href="../../api.html#demes.Deme.size_at">[docs]</a>    <span class="k">def</span> <span class="nf">size_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the size of the deme at a given time.</span>
+
+<span class="sd">        :param float time: The time at which the size should be calculated.</span>
+<span class="sd">        :return: The deme size.</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">epoch</span><span class="o">.</span><span class="n">start_time</span> <span class="o">&gt;=</span> <span class="n">time</span> <span class="o">&gt;=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">end_time</span><span class="p">:</span>
+                <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;time </span><span class="si">{</span><span class="n">time</span><span class="si">}</span><span class="s2"> is outside deme </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;s existence interval: &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="si">}</span><span class="s2">]&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">epoch</span><span class="o">.</span><span class="n">end_time</span><span class="p">)</span> <span class="ow">or</span> <span class="n">epoch</span><span class="o">.</span><span class="n">size_function</span> <span class="o">==</span> <span class="s2">&quot;constant&quot;</span><span class="p">:</span>
+            <span class="n">N</span> <span class="o">=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">end_size</span>
+        <span class="k">elif</span> <span class="n">epoch</span><span class="o">.</span><span class="n">size_function</span> <span class="o">==</span> <span class="s2">&quot;exponential&quot;</span><span class="p">:</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="p">(</span><span class="n">epoch</span><span class="o">.</span><span class="n">start_time</span> <span class="o">-</span> <span class="n">time</span><span class="p">)</span> <span class="o">/</span> <span class="n">epoch</span><span class="o">.</span><span class="n">time_span</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">epoch</span><span class="o">.</span><span class="n">end_size</span> <span class="o">/</span> <span class="n">epoch</span><span class="o">.</span><span class="n">start_size</span><span class="p">)</span>
+            <span class="n">N</span> <span class="o">=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">start_size</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="n">dt</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">epoch</span><span class="o">.</span><span class="n">size_function</span> <span class="o">==</span> <span class="s2">&quot;linear&quot;</span><span class="p">:</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="p">(</span><span class="n">epoch</span><span class="o">.</span><span class="n">start_time</span> <span class="o">-</span> <span class="n">time</span><span class="p">)</span> <span class="o">/</span> <span class="n">epoch</span><span class="o">.</span><span class="n">time_span</span>
+            <span class="n">N</span> <span class="o">=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">start_size</span> <span class="o">+</span> <span class="p">(</span><span class="n">epoch</span><span class="o">.</span><span class="n">end_size</span> <span class="o">-</span> <span class="n">epoch</span><span class="o">.</span><span class="n">start_size</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unknown size_function &#39;</span><span class="si">{</span><span class="n">epoch</span><span class="o">.</span><span class="n">size_function</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">N</span></div></div>
 
 
 <div class="viewcode-block" id="Graph"><a class="viewcode-back" href="../../api.html#demes.Graph">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -2577,7 +2607,7 @@
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes 0.1.2.dev41
+            demes 0.1.2.dev43
           </div>
       </p>
     </div>
