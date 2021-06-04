@@ -119,7 +119,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.1.2.dev50
+  demes 0.1.2.dev52
 </div>
 
 </div>
@@ -216,6 +216,13 @@
   <a class="reference internal nav-link" href="#lint-checks">
    Lint checks
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pre-commit">
+     Pre-commit
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#test-suite">
@@ -311,6 +318,18 @@ the behaviour of the CI checks.</p>
 <p>Similarly, one can check conformance to PEP8 style guidelines by running
 <code class="docutils literal notranslate"><span class="pre">flake8</span></code> (without parameters), and check type annotations by running
 <code class="docutils literal notranslate"><span class="pre">mypy</span></code> (also without parameters).</p>
+<div class="section" id="pre-commit">
+<h3>Pre-commit<a class="headerlink" href="#pre-commit" title="Permalink to this headline">¶</a></h3>
+<p>To simplify the process of running each of the linter tools, we also
+include a configuration for the <code class="docutils literal notranslate"><span class="pre">pre-commit</span></code> program. If you prefer not
+to run each of the commands above manually, install the <code class="docutils literal notranslate"><span class="pre">pre-commit</span></code> Python
+package and then run <code class="docutils literal notranslate"><span class="pre">pre-commit</span> <span class="pre">install</span></code> from the top-level folder of your
+cloned demes repository. Now when you try to commit changes, the lint
+checks will be performed automatically. If pre-commit made changes to the
+files when you tried to commit, you’ll need to stage those changes and
+try again. E.g. <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span> <span class="pre">-u;</span> <span class="pre">git</span> <span class="pre">commit</span></code>.
+See the <a class="reference external" href="https://pre-commit.com/">pre-commit documentation</a> for more details.</p>
+</div>
 </div>
 <div class="section" id="test-suite">
 <h2>Test suite<a class="headerlink" href="#test-suite" title="Permalink to this headline">¶</a></h2>
@@ -427,7 +446,7 @@ make pull request; merge.</p>
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes 0.1.2.dev50
+            demes 0.1.2.dev52
           </div>
       </p>
     </div>
