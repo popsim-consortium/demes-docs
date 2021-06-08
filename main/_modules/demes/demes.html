@@ -117,7 +117,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.1.2.dev55
+  demes 0.1.2.dev59
 </div>
 
 </div>
@@ -185,7 +185,7 @@
               <div>
                 
   <h1>Source code for demes.demes</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">MutableMapping</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Set</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">MutableMapping</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">numbers</span>
@@ -1426,17 +1426,37 @@
                 <span class="s1">&#39;if time_units!=&quot;generations&quot;, generation_time must be specified&#39;</span>
             <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deme_name</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.__getitem__"><a class="viewcode-back" href="../../api.html#demes.Graph.__getitem__">[docs]</a>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deme_name</span><span class="p">:</span> <span class="n">Name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Deme</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return the :class:`.Deme` with the specified name.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deme_map</span><span class="p">[</span><span class="n">deme_name</span><span class="p">]</span>
+<span class="sd">        Get the :class:`.Deme` with the specified name.</span>
 
-    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deme_name</span><span class="p">):</span>
+<span class="sd">        .. code::</span>
+
+<span class="sd">            graph = demes.load(&quot;gutenkunst_ooa.yml&quot;)</span>
+<span class="sd">            yri = graph[&quot;YRI&quot;]</span>
+<span class="sd">            print(yri)</span>
+
+<span class="sd">        :param str deme_name: The name of the deme.</span>
+<span class="sd">        :rtype: Deme</span>
+<span class="sd">        :return: The deme.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deme_map</span><span class="p">[</span><span class="n">deme_name</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Graph.__contains__"><a class="viewcode-back" href="../../api.html#demes.Graph.__contains__">[docs]</a>    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deme_name</span><span class="p">:</span> <span class="n">Name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if the graph contains a deme with the specified name.</span>
+
+<span class="sd">        .. code::</span>
+
+<span class="sd">            graph = demes.load(&quot;gutenkunst_ooa.yml&quot;)</span>
+<span class="sd">            if &quot;CHB&quot; in graph:</span>
+<span class="sd">                print(&quot;Deme CHB is in the graph&quot;)</span>
+
+<span class="sd">        :param str deme_name: The name of the deme.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        :return: ``True`` if the deme is in the graph, ``False`` otherwise.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">deme_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deme_map</span>
+        <span class="k">return</span> <span class="n">deme_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deme_map</span></div>
 
     <span class="c1"># Use the simplified YAML output as the string representation.</span>
     <span class="fm">__str__</span> <span class="o">=</span> <span class="n">demes_dumps</span>
@@ -1798,10 +1818,52 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">pulses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_pulse</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">new_pulse</span>
 
-    <span class="k">def</span> <span class="nf">_migration_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Graph.migration_matrices"><a class="viewcode-back" href="../../api.html#demes.Graph.migration_matrices">[docs]</a>    <span class="k">def</span> <span class="nf">migration_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]],</span> <span class="n">List</span><span class="p">[</span><span class="n">Number</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return a list of migration matrices, and a list of end times that</span>
-<span class="sd">        partition them. The start time for the first matrix is inf.</span>
+<span class="sd">        Get the migration matrices and the end times that partition them.</span>
+
+<span class="sd">        Returns a list of matrices, one for each time interval</span>
+<span class="sd">        over which migration rates do not change, in time-descending</span>
+<span class="sd">        order (from most ancient to most recent). For a migration matrix list</span>
+<span class="sd">        :math:`M`, the migration rate is :math:`M[i][j][k]` from deme</span>
+<span class="sd">        :math:`k` into deme :math:`j` during the :math:`i` &#39;th time interval.</span>
+<span class="sd">        The order of the demes&#39; indices in each matrix matches the</span>
+<span class="sd">        order of demes in the graph&#39;s deme list (I.e. deme :math:`j`</span>
+<span class="sd">        corresponds to ``Graph.demes[j]``).</span>
+
+<span class="sd">        There is always at least one migration matrix in the list, even when</span>
+<span class="sd">        the graph defines no migrations.</span>
+
+<span class="sd">        A list of end times to which the matrices apply is also</span>
+<span class="sd">        returned. The time intervals to which the migration rates apply are an</span>
+<span class="sd">        open-closed interval ``(start_time, end_time]``, where the start time</span>
+<span class="sd">        of the first matrix is ``inf`` and the start time of subsequent</span>
+<span class="sd">        matrices match the end time of the previous matrix in the list.</span>
+
+<span class="sd">        .. note::</span>
+<span class="sd">            The last entry of the list of end times is always ``0``,</span>
+<span class="sd">            even when all demes in the graph go extinct before time ``0``.</span>
+
+
+<span class="sd">        .. code::</span>
+
+<span class="sd">            graph = demes.load(&quot;gutenkunst_ooa.yml&quot;)</span>
+<span class="sd">            mm_list, end_times = graph.migration_matrices()</span>
+<span class="sd">            start_times = [math.inf] + end_times[:-1]</span>
+<span class="sd">            assert len(mm_list) == len(end_times) == len(start_times)</span>
+<span class="sd">            deme_ids = {deme.name: j for j, deme in enumerate(graph.demes)}</span>
+<span class="sd">            j = deme_ids[&quot;YRI&quot;]</span>
+<span class="sd">            k = deme_ids[&quot;CEU&quot;]</span>
+<span class="sd">            for mm, start_time, end_time in zip(mm_list, start_times, end_times):</span>
+<span class="sd">                print(</span>
+<span class="sd">                    f&quot;CEU -&gt; YRI migration rate is {mm[j][k]} during the &quot;</span>
+<span class="sd">                    f&quot;time interval ({start_time}, {end_time}]&quot;</span>
+<span class="sd">                )</span>
+
+<span class="sd">        :return: A 2-tuple of ``(mm_list, end_times)``,</span>
+<span class="sd">            where ``mm_list`` is a list of migration matrices,</span>
+<span class="sd">            and ``end_times`` are a list of end times for each matrix.</span>
+<span class="sd">        :rtype: tuple[list[list[list[float]]], list[float]]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">uniq_times</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">migration</span><span class="o">.</span><span class="n">start_time</span> <span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">migrations</span><span class="p">)</span>
         <span class="n">uniq_times</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">migration</span><span class="o">.</span><span class="n">end_time</span> <span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">migrations</span><span class="p">)</span>
@@ -1811,7 +1873,7 @@
             <span class="c1"># Extend to t=0 even when there are no migrations.</span>
             <span class="n">end_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">)</span>
-        <span class="n">mm_list</span> <span class="o">=</span> <span class="p">[[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">end_times</span><span class="p">))]</span>
+        <span class="n">mm_list</span> <span class="o">=</span> <span class="p">[[[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">end_times</span><span class="p">))]</span>
         <span class="n">deme_id</span> <span class="o">=</span> <span class="p">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">j</span> <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">deme</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="p">)}</span>
         <span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">migrations</span><span class="p">:</span>
             <span class="n">start_time</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">inf</span>
@@ -1827,9 +1889,9 @@
                             <span class="sa">f</span><span class="s2">&quot;source=</span><span class="si">{</span><span class="n">migration</span><span class="o">.</span><span class="n">source</span><span class="si">}</span><span class="s2">, dest=</span><span class="si">{</span><span class="n">migration</span><span class="o">.</span><span class="n">dest</span><span class="si">}</span><span class="s2"> &quot;</span>
                             <span class="sa">f</span><span class="s2">&quot;between start_time=</span><span class="si">{</span><span class="n">start_time</span><span class="si">}</span><span class="s2">, end_time=</span><span class="si">{</span><span class="n">end_time</span><span class="si">}</span><span class="s2">&quot;</span>
                         <span class="p">)</span>
-                    <span class="n">mm_list</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">dest_id</span><span class="p">][</span><span class="n">source_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">migration</span><span class="o">.</span><span class="n">rate</span>
+                    <span class="n">mm_list</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">dest_id</span><span class="p">][</span><span class="n">source_id</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">migration</span><span class="o">.</span><span class="n">rate</span><span class="p">)</span>
                 <span class="n">start_time</span> <span class="o">=</span> <span class="n">end_time</span>
-        <span class="k">return</span> <span class="n">mm_list</span><span class="p">,</span> <span class="n">end_times</span>
+        <span class="k">return</span> <span class="n">mm_list</span><span class="p">,</span> <span class="n">end_times</span></div>
 
     <span class="k">def</span> <span class="nf">_check_migration_rates</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1837,7 +1899,7 @@
 <span class="sd">        deme in any interval of time.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">start_time</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">inf</span>
-        <span class="n">mm_list</span><span class="p">,</span> <span class="n">end_times</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_migration_matrices</span><span class="p">()</span>
+        <span class="n">mm_list</span><span class="p">,</span> <span class="n">end_times</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">migration_matrices</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">migration_matrix</span><span class="p">,</span> <span class="n">end_time</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">mm_list</span><span class="p">,</span> <span class="n">end_times</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">migration_matrix</span><span class="p">):</span>
                 <span class="n">row_sum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
@@ -2607,7 +2669,7 @@
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes 0.1.2.dev55
+            demes 0.1.2.dev59
           </div>
       </p>
     </div>

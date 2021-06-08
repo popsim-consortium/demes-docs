@@ -118,7 +118,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.1.2.dev55
+  demes 0.1.2.dev59
 </div>
 
 </div>
@@ -203,11 +203,16 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id1">
-   0.1.1 - 2021-04-21
+   0.1.2 - 2021-06-08
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
+   0.1.1 - 2021-04-21
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
    0.1.0 - 2021-04-19
   </a>
  </li>
@@ -245,12 +250,44 @@
   <div class="section" id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2>0.1.1 - 2021-04-21<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>0.1.2 - 2021-06-08<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p><strong>New features</strong>:</p>
+<ul class="simple">
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">Graph.migration_matrices()</span></code> to get the migration matrices for a graph.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/309">#309</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/320">#320</a>)</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">Deme.size_at()</span></code> to get the size of a deme at a given time.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/312">#312</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/314">#314</a>)</p></li>
+<li><p>Support “linear” as an <code class="docutils literal notranslate"><span class="pre">Epoch.size_function</span></code>.
+(<a class="reference external" href="https://github.com/noscode">&#64;noscode</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/296">#296</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/310">#310</a>)</p></li>
+<li><p>Downstream test code can now use the <code class="docutils literal notranslate"><span class="pre">demes.hypothesis_strategies.graphs()</span></code>
+<a class="reference external" href="https://hypothesis.readthedocs.io/">hypothesis</a> strategy to generate a
+random <code class="docutils literal notranslate"><span class="pre">Graph</span></code>. This is preliminary, and as such is not yet documented,
+but is used for testing internally with some success. The API may change
+in the future in response to requests from downstream application authors.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/217">#217</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/294">#294</a>)</p></li>
+<li><p>The string representation for a graph, <code class="docutils literal notranslate"><span class="pre">Graph.__str__()</span></code>, is now the
+simplified YAML output.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/235">#235</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/293">#293</a>)</p></li>
+</ul>
+<p><strong>Breaking changes</strong>:</p>
+<ul class="simple">
+<li><p>The undocumented msprime and stdpopsim converters have been removed.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/313">#313</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/316">#316</a>)</p></li>
+<li><p>The JSON spec doesn’t allow serialising infinite float values (although the
+Python json library does support this by default). So for JSON output we
+instead use the string “Infinity”.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>,
+<a class="reference external" href="https://github.com/popsim-consortium/demes-spec/issues/70">demes-spec#70</a>,
+<a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/311">#311</a>)</p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>0.1.1 - 2021-04-21<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>Remove the “demes” console_scripts entry point.
 This isn’t documented/supported and was left in accidentally.</p>
 </div>
-<div class="section" id="id2">
-<h2>0.1.0 - 2021-04-19<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2>0.1.0 - 2021-04-19<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p><strong>Breaking changes</strong>:</p>
 <ul class="simple">
 <li><p>The interpretation has been changed for symmetric migrations when the
@@ -362,7 +399,7 @@ release are still possible, but are considered unlikely.</p>
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes 0.1.2.dev55
+            demes 0.1.2.dev59
           </div>
       </p>
     </div>

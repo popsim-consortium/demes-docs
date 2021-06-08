@@ -121,7 +121,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.1.2.dev55
+  demes 0.1.2.dev59
 </div>
 
 </div>
@@ -548,6 +548,50 @@ the demographic model.</p></li>
 </dd>
 </dl>
 <dl class="py method">
+<dt id="demes.Graph.__contains__">
+<code class="sig-name descname"><span class="pre">__contains__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deme_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.__contains__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the graph contains a deme with the specified name.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="o">=</span> <span class="n">demes</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;gutenkunst_ooa.yml&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="s2">&quot;CHB&quot;</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Deme CHB is in the graph&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>deme_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the deme.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the deme is in the graph, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="demes.Graph.__getitem__">
+<code class="sig-name descname"><span class="pre">__getitem__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deme_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the <a class="reference internal" href="#demes.Deme" title="demes.Deme"><code class="xref py py-class docutils literal notranslate"><span class="pre">Deme</span></code></a> with the specified name.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="o">=</span> <span class="n">demes</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;gutenkunst_ooa.yml&quot;</span><span class="p">)</span>
+<span class="n">yri</span> <span class="o">=</span> <span class="n">graph</span><span class="p">[</span><span class="s2">&quot;YRI&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">yri</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>deme_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the deme.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#demes.Deme" title="demes.Deme">Deme</a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The deme.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="demes.Graph.asdict">
 <code class="sig-name descname"><span class="pre">asdict</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.asdict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.asdict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a fully-resolved dict representation of the graph.</p>
@@ -662,6 +706,56 @@ comparisons. See documentation for <a class="reference external" href="https://d
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="demes.Graph.migration_matrices">
+<code class="sig-name descname"><span class="pre">migration_matrices</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.migration_matrices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.migration_matrices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the migration matrices and the end times that partition them.</p>
+<p>Returns a list of matrices, one for each time interval
+over which migration rates do not change, in time-descending
+order (from most ancient to most recent). For a migration matrix list
+<span class="math notranslate nohighlight">\(M\)</span>, the migration rate is <span class="math notranslate nohighlight">\(M[i][j][k]\)</span> from deme
+<span class="math notranslate nohighlight">\(k\)</span> into deme <span class="math notranslate nohighlight">\(j\)</span> during the <span class="math notranslate nohighlight">\(i\)</span> ‘th time interval.
+The order of the demes’ indices in each matrix matches the
+order of demes in the graph’s deme list (I.e. deme <span class="math notranslate nohighlight">\(j\)</span>
+corresponds to <code class="docutils literal notranslate"><span class="pre">Graph.demes[j]</span></code>).</p>
+<p>There is always at least one migration matrix in the list, even when
+the graph defines no migrations.</p>
+<p>A list of end times to which the matrices apply is also
+returned. The time intervals to which the migration rates apply are an
+open-closed interval <code class="docutils literal notranslate"><span class="pre">(start_time,</span> <span class="pre">end_time]</span></code>, where the start time
+of the first matrix is <code class="docutils literal notranslate"><span class="pre">inf</span></code> and the start time of subsequent
+matrices match the end time of the previous matrix in the list.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The last entry of the list of end times is always <code class="docutils literal notranslate"><span class="pre">0</span></code>,
+even when all demes in the graph go extinct before time <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="o">=</span> <span class="n">demes</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;gutenkunst_ooa.yml&quot;</span><span class="p">)</span>
+<span class="n">mm_list</span><span class="p">,</span> <span class="n">end_times</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">migration_matrices</span><span class="p">()</span>
+<span class="n">start_times</span> <span class="o">=</span> <span class="p">[</span><span class="n">math</span><span class="o">.</span><span class="n">inf</span><span class="p">]</span> <span class="o">+</span> <span class="n">end_times</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">mm_list</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">end_times</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">start_times</span><span class="p">)</span>
+<span class="n">deme_ids</span> <span class="o">=</span> <span class="p">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">j</span> <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">deme</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">demes</span><span class="p">)}</span>
+<span class="n">j</span> <span class="o">=</span> <span class="n">deme_ids</span><span class="p">[</span><span class="s2">&quot;YRI&quot;</span><span class="p">]</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">deme_ids</span><span class="p">[</span><span class="s2">&quot;CEU&quot;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">mm</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">mm_list</span><span class="p">,</span> <span class="n">start_times</span><span class="p">,</span> <span class="n">end_times</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;CEU -&gt; YRI migration rate is </span><span class="si">{</span><span class="n">mm</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span><span class="si">}</span><span class="s2"> during the &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;time interval (</span><span class="si">{</span><span class="n">start_time</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">end_time</span><span class="si">}</span><span class="s2">]&quot;</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A 2-tuple of <code class="docutils literal notranslate"><span class="pre">(mm_list,</span> <span class="pre">end_times)</span></code>,
+where <code class="docutils literal notranslate"><span class="pre">mm_list</span></code> is a list of migration matrices,
+and <code class="docutils literal notranslate"><span class="pre">end_times</span></code> are a list of end times for each matrix.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a>]]], <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1376,7 +1470,7 @@ If not specified, demes will be named deme1, deme2, etc.</p></li>
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes 0.1.2.dev55
+            demes 0.1.2.dev59
           </div>
       </p>
     </div>
