@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Introduction &#8212; Demes manual</title>
+    <title>Command line interface &#8212; Demes manual</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,7 +51,8 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Installation" href="installation.html" />
+    <link rel="next" title="Development" href="development.html" />
+    <link rel="prev" title="API Reference" href="api.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -80,13 +81,13 @@
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
- <li class="toctree-l1 current">
-  <a class="reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="introduction.html">
    Introduction
   </a>
  </li>
 </ul>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="installation.html">
    Installation
@@ -102,8 +103,8 @@
    API Reference
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="cli.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Command line interface
   </a>
  </li>
@@ -158,7 +159,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/introduction.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/cli.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -178,10 +179,10 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/popsim-consortium/demes-python/issues/new?title=Issue%20on%20page%20%2Fintroduction.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/popsim-consortium/demes-python/issues/new?title=Issue%20on%20page%20%2Fcli.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/popsim-consortium/demes-python/edit/main/docs/introduction.md"><button
+        <a class="edit-button" href="https://github.com/popsim-consortium/demes-python/edit/main/docs/cli.md"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -207,13 +208,13 @@
             <nav id="bd-toc-nav">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#motivation">
-   Motivation
+  <a class="reference internal nav-link" href="#demes-parse">
+   demes parse
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#getting-started">
-   Getting started
+  <a class="reference internal nav-link" href="#demes-ms">
+   demes ms
   </a>
  </li>
 </ul>
@@ -227,59 +228,139 @@
         
               <div>
                 
-  <div class="section" id="introduction">
-<span id="sec-introduction"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><code class="docutils literal notranslate"><span class="pre">Demes</span></code> is a work-in-progress, as is its documentation. If you find an error
-in the documentation or a bug in the software, or would like to help, please
-head our <a class="reference external" href="https://github.com/popsim-consortium/demes-python">git repository</a> to open
-an issue or start a pull request.</p>
-</div>
-<p>Welcome to the documentation for <code class="docutils literal notranslate"><span class="pre">Demes</span></code>, a package for defining, parsing, and
-sharing demographic models for population genetic simulations.</p>
-<div class="section" id="motivation">
-<h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
-<p>Simulation is central to population genetics studies, and there are many great
-software packages out there for simulating sequencing data or computing expectations of
-diversity statistics under a wide range of demographic scenarios. This requires
-writing a formal description of the demographic model. Generally, each
-simulation software has its own syntax and style for defining the demography -
-learning curves for new software can be steep and mistakes are easy to make,
-especially for complex demographic scenarios.</p>
-<p><code class="docutils literal notranslate"><span class="pre">Demes</span></code> aims to make defining demographic models more intuitive, less prone
-to error or ambiguity, and interchangeable between simulation platforms.
-Demographic models, which define populations (or <em>demes</em>), their properties, and
-relationships between them, are written in <a class="reference external" href="https://yaml.org/">YAML</a>. This means
-that models are human-readable, and that they may then be parsed and passed to any
-simulation engine that supports <code class="docutils literal notranslate"><span class="pre">demes</span></code> input.</p>
-<p>For example, the following YAML file implements a simple two-epoch demographic
-history for a single deme, where the deme doubles in size 100 generations ago:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Single-population two-epoch demography.</span>
-<span class="nt">time_units</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">generations</span>
-<span class="nt">demes</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">deme0</span>
-  <span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">A deme that doubles in size 100 generations ago.</span>
-  <span class="nt">epochs</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1000</span>
-      <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
-    <span class="p p-Indicator">-</span> <span class="nt">start_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2000</span>
-      <span class="nt">end_time</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+  <div class="section" id="command-line-interface">
+<h1>Command line interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>usage: demes [-h] [--version] {parse,ms} ...
+
+Demes model parser and converter.
+
+positional arguments:
+  {parse,ms}
+    parse     Parse models and write them to stdout in canonical form.
+    ms        Build a Demes model using ms commands.
+
+optional arguments:
+  -h, --help  show this help message and exit
+  --version   show program&#39;s version number and exit
 </pre></div>
 </div>
-<p>The <a class="reference external" href="https://popsim-consortium.github.io/demes-spec-docs/main/introduction.html#sec-intro" title="(in Python)"><span class="xref myst">Demes Specification</span></a>
-documents in detail the components of a YAML demographic model and how to
-write more complex scenarios. Illustrative examples can be found in the
-<a class="reference external" href="https://popsim-consortium.github.io/demes-spec-docs/main/gallery.html#sec-gallery" title="(in Python)"><span class="xref myst">Gallery</span></a>.</p>
-</div>
-<div class="section" id="getting-started">
-<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
-<p>Install the <code class="docutils literal notranslate"><span class="pre">demes</span></code> python package using <code class="docutils literal notranslate"><span class="pre">pip</span></code>.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python -m pip install demes
+<div class="section" id="demes-parse">
+<h2>demes parse<a class="headerlink" href="#demes-parse" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>usage: demes parse [-h] [-j] [-s] filename
+
+Parse models and write them to stdout in canonical form.
+
+positional arguments:
+  filename          Filename of the model. The special value &#39;-&#39; may be used
+                    to read from stdin. The file may be in YAML or JSON
+                    format, but will be parsed as YAML. Multi-document YAML is
+                    supported.
+
+optional arguments:
+  -h, --help        show this help message and exit
+  -j, --json        Output a JSON-formatted model. YAML is output by default.
+  -s, --simplified  Output a simplified model. This is a compact
+                    representation in which many default values are ommited.
+                    As only the essential details are retained, this is
+                    usually easier for humans to read. The simplfied output is
+                    guaranteed to be a valid Demes model that can be resolved
+                    identically to the input model. But exactly which fields
+                    are simplfied, and how simplification is performed, may
+                    change over time. Thus users should not rely on details of
+                    the output such as presence or absense of specific fields,
+                    or other details that do not alter how the model is
+                    resolved into a fully-qualified model. A fully-qualified
+                    model is output by default.
 </pre></div>
 </div>
-<p>Then head over to the <a class="reference internal" href="quickstart.html#sec-quickstart"><span class="std std-ref">Quickstart</span></a> documentation.</p>
-<div class="toctree-wrapper compound">
+</div>
+<div class="section" id="demes-ms">
+<h2>demes ms<a class="headerlink" href="#demes-ms" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>usage: demes ms [-h] -N0 REFERENCE_SIZE [-f filename] [-I num_demes [n1 ...]]
+                [-n i x] [-g i alpha] [-G alpha] [-m i j rate]
+                [-ma entry [entry ...]] [-eG t alpha] [-eg t i alpha]
+                [-eN t x] [-en t i x] [-eM t x] [-em t i j rate]
+                [-ema t [entry ...]] [-es t i p] [-ej t i j]
+
+Build a Demes model from commands accepted by Hudson&#39;s classic ms simulator.
+https://doi.org/10.1093/bioinformatics/18.2.337
+
+Ms commands correspond to a backwards-time model of population dynamics,
+and use coalescent units for times t, population sizes x, and migration
+rates m. These are converted to more familiar units using the reference
+size N0 according to the following rules:
+
+ - time (in generations) = 4 * N0 * t,
+ - deme size (haploid individuals) = N0 * x,
+ - migration rate (per generation) = m / (4 * N0).
+
+Deme IDs are 1-based, and migration matrix entry M[i, j] is the
+forwards-time fraction of deme i which is made up of migrants from
+deme j each generation.
+
+Please refer to the ms manual for the precise semantics of each command.
+http://home.uchicago.edu/~rhudson1/source/mksamples.html
+
+optional arguments:
+  -h, --help            show this help message and exit
+
+required arguments:
+  -N0 REFERENCE_SIZE, --reference-size REFERENCE_SIZE
+                        The reference population size used to translate from
+                        coalescent units. For an existing ms command, this can
+                        be calculated as theta / (4 * mu * L), where theta is
+                        the value given to the -t option, mu is the per-
+                        generation mutation rate, and L is the length of the
+                        sequence being simulated.
+
+ms arguments:
+  -f filename           Insert commands from a file at this point in the
+                        command line.
+  -I num_demes [n1 ...]
+                        Set the number of demes and the sampling
+                        configuration. The arguments are of the form
+                        &#39;num_demes n1 n2 ... [4N0m]&#39;, specifying the number of
+                        demes, the sample configuration, and optionally, the
+                        migration rate for a symmetric island model (in units
+                        of 4 * N0). While values must be provided for the
+                        sample configuration, they are not used for
+                        constructing the Demes model.
+  -n i x                Set the size of deme i to x * N0.
+  -g i alpha            Set the growth rate of deme i to alpha.
+  -G alpha              Set the growth rate to alpha for all demes.
+  -m i j rate           Sets an entry M[i, j] in the migration matrix to the
+                        specified rate. i and j are (1-indexed) deme IDs.
+  -ma entry [entry ...]
+                        Sets the migration matrix from the specified vector of
+                        values. The entries are in the order M[1, 1], M[1, 2],
+                        ..., M[2, 1], M[2, 2], ..., M[N, N], where N is the
+                        number of demes. Diagonal entries may be written as
+                        &#39;x&#39;.
+  -eG t alpha           Set the growth rate for all demes to alpha at time t.
+  -eg t i alpha         Set the growth rate of deme i to alpha at time t.
+  -eN t x               Set the size of all demes to x * N0 at time t.
+  -en t i x             Set the size of deme i to x * N0 at time t.
+  -eM t x               Set the symmetric island model migration rate to &#39;x /
+                        (num_demes - 1)&#39; at time t.
+  -em t i j rate        Sets the entry M[i, j] in the migration matrix to the
+                        specified rate at time t. i and j are (1-indexed) deme
+                        IDs.
+  -ema t [entry ...]    Sets the migration matrix from the specified vector of
+                        values at time t. The entries are in the order M[1,
+                        1], M[1, 2], ..., M[2, 1], M[2, 2], ..., M[N, N],
+                        where N is the number of demes. Diagonal entries may
+                        be written as &#39;x&#39;.
+  -es t i p             Split deme i into a new deme, such that the specified
+                        proportion p of lineages remains in deme i. Forwards
+                        in time this corresponds to an admixture event with
+                        the extinction of the new deme. The new deme has ID
+                        num_demes + 1, and has size N0, growth rate 0, and
+                        migration rates to and from the new deme are set to 0.
+  -ej t i j             Move all lineages in deme i to j at time t. Forwards
+                        in time, this corresponds to a population split in
+                        which lineages in j split into i. All migration rates
+                        for deme i are set to zero.
+</pre></div>
 </div>
 </div>
 </div>
@@ -309,7 +390,8 @@ write more complex scenarios. Illustrative examples can be found in the
         
         <div class='prev-next-bottom'>
             
-    <a class='right-next' id="next-link" href="installation.html" title="next page">Installation</a>
+    <a class='left-prev' id="prev-link" href="api.html" title="previous page">API Reference</a>
+    <a class='right-next' id="next-link" href="development.html" title="next page">Development</a>
 
         </div>
         
