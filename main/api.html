@@ -126,7 +126,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.1.3.dev40
+  demes 0.1.3.dev42
 </div>
 
 </div>
@@ -504,17 +504,17 @@ the demes coexist.</p></li>
 
 <dl class="py method">
 <dt id="demes.Builder.add_pulse">
-<code class="sig-name descname"><span class="pre">add_pulse</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proportion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Builder.add_pulse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Builder.add_pulse" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">add_pulse</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sources</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proportions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Builder.add_pulse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Builder.add_pulse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a pulse of migration at a fixed time.
 Source and destination demes follow the forwards-in-time convention.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the source deme.</p></li>
+<li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>)</em>) – The name of the source deme(s).</p></li>
 <li><p><strong>dest</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the destination deme.</p></li>
-<li><p><strong>proportion</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – At the instant after migration, this is the
-expected proportion of individuals in the destination deme made up
-of individuals from the source deme.</p></li>
+<li><p><strong>proportion</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>)</em>) – At the instant after migration, this is the
+expected proportion(s) of individuals in the destination deme made up
+of individuals from the source deme(s).</p></li>
 <li><p><strong>time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The time at which migrations occur.</p></li>
 </ul>
 </dd>
@@ -1121,20 +1121,21 @@ comparisons. See documentation for <a class="reference external" href="https://d
 <h2>Discrete demographic events<a class="headerlink" href="#discrete-demographic-events" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="demes.Pulse">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">Pulse</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proportion</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Pulse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Pulse" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">Pulse</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sources</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proportions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Pulse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Pulse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameters for a pulse of migration from one deme to another.
 Source and destination demes follow the forwards-in-time convention,
 of migrations born in the source deme having children in the dest
-deme.</p>
+deme. If more than one source is given, migration is concurrent, so that
+the sum of the migrant proportions must sum to less than one.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The source deme.</p></li>
+<li><p><strong>sources</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>)</em>) – The source deme(s).</p></li>
 <li><p><strong>dest</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The destination deme.</p></li>
 <li><p><strong>time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The time of migration.</p></li>
-<li><p><strong>proportion</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – At the instant after migration, this is the
-proportion of individuals in the destination deme made up of
-individuals from the source deme.</p></li>
+<li><p><strong>proportions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>)</em>) – Immediately following migration, the proportion(s)
+of individuals in the destination deme made up of migrant individuals or
+having parents from the source deme(s).</p></li>
 </ul>
 </dd>
 </dl>
@@ -1536,7 +1537,7 @@ simulation.</p></li>
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes 0.1.3.dev40
+            demes 0.1.3.dev42
           </div>
       </p>
     </div>

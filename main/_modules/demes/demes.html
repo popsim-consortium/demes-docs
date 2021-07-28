@@ -122,7 +122,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.1.3.dev40
+  demes 0.1.3.dev42
 </div>
 
 </div>
@@ -601,26 +601,47 @@
 <span class="sd">    Parameters for a pulse of migration from one deme to another.</span>
 <span class="sd">    Source and destination demes follow the forwards-in-time convention,</span>
 <span class="sd">    of migrations born in the source deme having children in the dest</span>
-<span class="sd">    deme.</span>
+<span class="sd">    deme. If more than one source is given, migration is concurrent, so that</span>
+<span class="sd">    the sum of the migrant proportions must sum to less than one.</span>
 
-<span class="sd">    :ivar str source: The source deme.</span>
+<span class="sd">    :ivar list(str) sources: The source deme(s).</span>
 <span class="sd">    :ivar str dest: The destination deme.</span>
 <span class="sd">    :ivar float ~.time: The time of migration.</span>
-<span class="sd">    :ivar float proportion: At the instant after migration, this is the</span>
-<span class="sd">        proportion of individuals in the destination deme made up of</span>
-<span class="sd">        individuals from the source deme.</span>
+<span class="sd">    :ivar list(float) proportions: Immediately following migration, the proportion(s)</span>
+<span class="sd">        of individuals in the destination deme made up of migrant individuals or</span>
+<span class="sd">        having parents from the source deme(s).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">source</span><span class="p">:</span> <span class="n">Name</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
-        <span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span><span class="p">]</span>
+    <span class="n">sources</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
+        <span class="n">validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">and_</span><span class="p">(</span>
+            <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">deep_iterable</span><span class="p">(</span>
+                <span class="n">member_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">and_</span><span class="p">(</span>
+                    <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span>
+                <span class="p">),</span>
+                <span class="n">iterable_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">list</span><span class="p">),</span>
+            <span class="p">),</span>
+            <span class="n">nonzero_len</span><span class="p">,</span>
+        <span class="p">)</span>
     <span class="p">)</span>
     <span class="n">dest</span><span class="p">:</span> <span class="n">Name</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span><span class="p">])</span>
     <span class="n">time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">positive</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
-    <span class="n">proportion</span><span class="p">:</span> <span class="n">Proportion</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">unit_interval</span><span class="p">])</span>
+    <span class="n">proportions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Proportion</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
+        <span class="n">validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">deep_iterable</span><span class="p">(</span>
+            <span class="n">member_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">and_</span><span class="p">(</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">unit_interval</span><span class="p">),</span>
+            <span class="n">iterable_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">list</span><span class="p">),</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">dest</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;source and dest cannot be the same deme&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">source</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">dest</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;source (</span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">) cannot be the same as dest&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">source</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;source (</span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">) cannot be repeated in sources&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;sources and proportions must have the same length&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;proportions must sum to less than one&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Pulse.assert_close"><a class="viewcode-back" href="../../api.html#demes.Pulse.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -647,14 +668,28 @@
         <span class="k">assert</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
         <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed as other pulse is not instance of </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="si">}</span><span class="s2"> type.&quot;</span>
-        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">source</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">sources</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">other</span><span class="o">.</span><span class="n">sources</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">other</span><span class="o">.</span><span class="n">sources</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sources</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">dest</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">dest</span>
         <span class="k">assert</span> <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
         <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for time </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">proportions</span><span class="p">)</span>
         <span class="k">assert</span> <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">proportion</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">proportion</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
-        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for proportion </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">proportion</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">proportion</span><span class="si">}</span><span class="s2"> (other).&quot;</span></div>
+            <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">),</span>
+            <span class="nb">sum</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">proportions</span><span class="p">),</span>
+            <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span>
+            <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">,</span>
+        <span class="p">),</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Failed for unequal proportions sums: &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;sum(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="si">}</span><span class="s2">) != sum(</span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">proportions</span><span class="si">}</span><span class="s2">) (other).&quot;</span>
+        <span class="p">)</span>
+        <span class="k">assert</span> <span class="n">isclose_deme_proportions</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">sources</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">proportions</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Pulse.isclose"><a class="viewcode-back" href="../../api.html#demes.Pulse.isclose">[docs]</a>    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1748,40 +1783,43 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">migrations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">migration</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">migration</span>
 
-    <span class="k">def</span> <span class="nf">_add_pulse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">proportion</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Pulse</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_add_pulse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">proportions</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Pulse</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a pulse of migration at a fixed time.</span>
 <span class="sd">        Source and destination demes follow the forwards-in-time convention.</span>
 
-<span class="sd">        :param str source: The name of the source deme.</span>
+<span class="sd">        :param list(str) sources: The name(s) of the source deme(s).</span>
 <span class="sd">        :param str dest: The name of the destination deme.</span>
-<span class="sd">        :param float proportion: At the instant after migration, this is the expected</span>
-<span class="sd">            proportion of individuals in the destination deme made up of individuals</span>
-<span class="sd">            from the source deme.</span>
+<span class="sd">        :param list(float) proportion(s): Immediately following migration, the</span>
+<span class="sd">            proportion(s) of individuals in the destination deme made up of</span>
+<span class="sd">            migrant individuals or having parents from the source deme(s).</span>
 <span class="sd">        :param float time: The time at which migrations occur.</span>
 <span class="sd">        :return: Newly created pulse.</span>
 <span class="sd">        :rtype: :class:`.Pulse`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">deme_name</span> <span class="ow">in</span> <span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">deme_name</span> <span class="ow">in</span> <span class="n">sources</span> <span class="o">+</span> <span class="p">[</span><span class="n">dest</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">deme_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">deme_name</span><span class="si">}</span><span class="s2"> not in graph&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_check_time_intersection</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">sources</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_check_time_intersection</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">time</span> <span class="o">==</span> <span class="bp">self</span><span class="p">[</span><span class="n">dest</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;invalid pulse at time=</span><span class="si">{</span><span class="n">time</span><span class="si">}</span><span class="s2">, which is dest=</span><span class="si">{</span><span class="n">dest</span><span class="si">}</span><span class="s2">&#39;s end_time&quot;</span>
             <span class="p">)</span>
-        <span class="k">if</span> <span class="n">time</span> <span class="o">==</span> <span class="bp">self</span><span class="p">[</span><span class="n">source</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;invalid pulse at time=</span><span class="si">{</span><span class="n">time</span><span class="si">}</span><span class="s2">, which is source=</span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">&#39;s start_time&quot;</span>
-            <span class="p">)</span>
+        <span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">sources</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">time</span> <span class="o">==</span> <span class="bp">self</span><span class="p">[</span><span class="n">source</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;invalid pulse at time=</span><span class="si">{</span><span class="n">time</span><span class="si">}</span><span class="s2">, &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;which is source=</span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">&#39;s start_time&quot;</span>
+                <span class="p">)</span>
 
         <span class="c1"># We create the new pulse object (which checks for common errors)</span>
         <span class="c1"># before checking for edge cases below.</span>
         <span class="n">new_pulse</span> <span class="o">=</span> <span class="n">Pulse</span><span class="p">(</span>
-            <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
+            <span class="n">sources</span><span class="o">=</span><span class="n">sources</span><span class="p">,</span>
             <span class="n">dest</span><span class="o">=</span><span class="n">dest</span><span class="p">,</span>
             <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span>
-            <span class="n">proportion</span><span class="o">=</span><span class="n">proportion</span><span class="p">,</span>
+            <span class="n">proportions</span><span class="o">=</span><span class="n">proportions</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="c1"># Check for models that have multiple pulses defined at the same time.</span>
@@ -1790,20 +1828,23 @@
         <span class="c1"># interpretation of the model. Such models are valid, but the behaviour</span>
         <span class="c1"># may not be what the user expects.</span>
         <span class="c1"># See https://github.com/popsim-consortium/demes-python/issues/46</span>
-        <span class="n">sources</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-        <span class="n">dests</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">all_sources</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">all_dests</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">pulse</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pulses</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">pulse</span><span class="o">.</span><span class="n">time</span> <span class="o">==</span> <span class="n">time</span><span class="p">:</span>
-                <span class="n">sources</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pulse</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
-                <span class="n">dests</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pulse</span><span class="o">.</span><span class="n">dest</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">dests</span> <span class="ow">or</span> <span class="n">dest</span> <span class="ow">in</span> <span class="p">(</span><span class="n">sources</span> <span class="o">|</span> <span class="n">dests</span><span class="p">):</span>
+                <span class="n">all_sources</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">pulse</span><span class="o">.</span><span class="n">sources</span><span class="p">)</span>
+                <span class="n">all_dests</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pulse</span><span class="o">.</span><span class="n">dest</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">source</span> <span class="ow">in</span> <span class="n">all_dests</span> <span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">sources</span><span class="p">)</span> <span class="ow">or</span> <span class="n">dest</span> <span class="ow">in</span> <span class="p">(</span>
+            <span class="n">all_sources</span> <span class="o">|</span> <span class="n">all_dests</span>
+        <span class="p">):</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
                 <span class="s2">&quot;Multiple pulses are defined for the same deme(s) at time &quot;</span>
                 <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">time</span><span class="si">}</span><span class="s2">. The ancestry proportions after this time will thus &quot;</span>
                 <span class="s2">&quot;depend on the order in which the pulses have been specified. &quot;</span>
                 <span class="s2">&quot;To avoid unexpected behaviour, the graph can instead &quot;</span>
                 <span class="s2">&quot;be structured to introduce a new deme at this time with &quot;</span>
-                <span class="s2">&quot;the desired ancestry proportions.&quot;</span>
+                <span class="s2">&quot;the desired ancestry proportions or to specify concurrent &quot;</span>
+                <span class="s2">&quot;pulses with multiple sources.&quot;</span>
             <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">pulses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_pulse</span><span class="p">)</span>
@@ -2108,7 +2149,7 @@
         <span class="p">)</span>
 
         <span class="n">pulse_defaults</span> <span class="o">=</span> <span class="n">pop_object</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="s2">&quot;pulse&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;defaults&quot;</span><span class="p">)</span>
-        <span class="n">allowed_fields_pulse</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;dest&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;proportion&quot;</span><span class="p">]</span>
+        <span class="n">allowed_fields_pulse</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sources&quot;</span><span class="p">,</span> <span class="s2">&quot;dest&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;proportions&quot;</span><span class="p">]</span>
         <span class="n">check_allowed</span><span class="p">(</span><span class="n">pulse_defaults</span><span class="p">,</span> <span class="n">allowed_fields_pulse</span><span class="p">,</span> <span class="s2">&quot;defaults.pulse&quot;</span><span class="p">)</span>
 
         <span class="c1"># epoch defaults may also be specified within a Deme definition.</span>
@@ -2258,15 +2299,15 @@
         <span class="p">):</span>
             <span class="n">check_allowed</span><span class="p">(</span><span class="n">pulse_data</span><span class="p">,</span> <span class="n">allowed_fields_pulse</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;pulse[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
             <span class="n">insert_defaults</span><span class="p">(</span><span class="n">pulse_data</span><span class="p">,</span> <span class="n">pulse_defaults</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;dest&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;proportion&quot;</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;sources&quot;</span><span class="p">,</span> <span class="s2">&quot;dest&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;proportions&quot;</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pulse_data</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pulse[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">]: required field &#39;</span><span class="si">{</span><span class="n">field</span><span class="si">}</span><span class="s2">&#39; not found&quot;</span><span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">graph</span><span class="o">.</span><span class="n">_add_pulse</span><span class="p">(</span>
-                    <span class="n">source</span><span class="o">=</span><span class="n">pulse_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">),</span>
+                    <span class="n">sources</span><span class="o">=</span><span class="n">pulse_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;sources&quot;</span><span class="p">),</span>
                     <span class="n">dest</span><span class="o">=</span><span class="n">pulse_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;dest&quot;</span><span class="p">),</span>
                     <span class="n">time</span><span class="o">=</span><span class="n">pulse_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">),</span>
-                    <span class="n">proportion</span><span class="o">=</span><span class="n">pulse_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;proportion&quot;</span><span class="p">),</span>
+                    <span class="n">proportions</span><span class="o">=</span><span class="n">pulse_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;proportions&quot;</span><span class="p">),</span>
                 <span class="p">)</span>
             <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">e</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pulse[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">]: invalid pulse&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
@@ -2589,29 +2630,29 @@
 <div class="viewcode-block" id="Builder.add_pulse"><a class="viewcode-back" href="../../api.html#demes.Builder.add_pulse">[docs]</a>    <span class="k">def</span> <span class="nf">add_pulse</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">sources</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">proportion</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">proportions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a pulse of migration at a fixed time.</span>
 <span class="sd">        Source and destination demes follow the forwards-in-time convention.</span>
 
-<span class="sd">        :param str source: The name of the source deme.</span>
+<span class="sd">        :param list(str) source: The name of the source deme(s).</span>
 <span class="sd">        :param str dest: The name of the destination deme.</span>
-<span class="sd">        :param float proportion: At the instant after migration, this is the</span>
-<span class="sd">            expected proportion of individuals in the destination deme made up</span>
-<span class="sd">            of individuals from the source deme.</span>
+<span class="sd">        :param list(float) proportion: At the instant after migration, this is the</span>
+<span class="sd">            expected proportion(s) of individuals in the destination deme made up</span>
+<span class="sd">            of individuals from the source deme(s).</span>
 <span class="sd">        :param float time: The time at which migrations occur.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pulse</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">source</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">pulse</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">source</span>
+        <span class="k">if</span> <span class="n">sources</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">pulse</span><span class="p">[</span><span class="s2">&quot;sources&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sources</span>
         <span class="k">if</span> <span class="n">dest</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">pulse</span><span class="p">[</span><span class="s2">&quot;dest&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dest</span>
-        <span class="k">if</span> <span class="n">proportion</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">pulse</span><span class="p">[</span><span class="s2">&quot;proportion&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">proportion</span>
+        <span class="k">if</span> <span class="n">proportions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">pulse</span><span class="p">[</span><span class="s2">&quot;proportions&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">proportions</span>
         <span class="k">if</span> <span class="n">time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">pulse</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
 
@@ -2728,7 +2769,8 @@
                 <span class="k">continue</span>
             <span class="k">if</span> <span class="n">start_time</span> <span class="o">==</span> <span class="n">end_time</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">pulse</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;pulses&quot;</span><span class="p">,</span> <span class="p">[]):</span>
-                    <span class="k">assert</span> <span class="n">pulse</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+                    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">pulse</span><span class="p">[</span><span class="s2">&quot;sources&quot;</span><span class="p">]:</span>
+                        <span class="k">assert</span> <span class="n">s</span> <span class="o">!=</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
                     <span class="k">assert</span> <span class="n">pulse</span><span class="p">[</span><span class="s2">&quot;dest&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
                 <span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;migrations&quot;</span><span class="p">,</span> <span class="p">[]):</span>
                     <span class="k">assert</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">migration</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;demes&quot;</span><span class="p">,</span> <span class="p">[])</span>
@@ -2758,7 +2800,7 @@
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes 0.1.3.dev40
+            demes 0.1.3.dev42
           </div>
       </p>
     </div>
