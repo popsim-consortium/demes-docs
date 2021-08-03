@@ -51,7 +51,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Changelog" href="changelog.html" />
+    <link rel="next" title="Changelog" href="CHANGELOG.html" />
     <link rel="prev" title="Command line interface" href="cli.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -114,7 +114,7 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="changelog.html">
+  <a class="reference internal" href="CHANGELOG.html">
    Changelog
   </a>
  </li>
@@ -124,7 +124,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.1.3.dev53
+  demes 0.1.3.dev55
 </div>
 
 </div>
@@ -258,7 +258,8 @@
   <div class="section" id="development">
 <span id="sec-development"></span><h1>Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h1>
 <p>We welcome all contributors! Contributions to <code class="docutils literal notranslate"><span class="pre">demes</span></code> typically take the form
-of “pull requests” against our [git repository][git_repo].</p>
+of “pull requests” against our
+<a class="reference external" href="https://github.com/popsim-consortium/demes-python">git repository</a>.</p>
 <div class="section" id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">Demes</span></code> aims to have minimal dependencies when used as a library by other
@@ -271,7 +272,7 @@ has cloned the source repository and installed the developer requirements as
 follows.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone the repository.</span>
 git clone https://github.com/popsim-consortium/demes-python.git
-<span class="nb">cd</span> demes
+<span class="nb">cd</span> demes-python
 <span class="c1"># Install the developer dependencies.</span>
 python -m pip install -r requirements.txt
 <span class="c1"># Generate the version string from the most recent git tag/commit.</span>
@@ -391,15 +392,21 @@ make pull request; merge.</p>
 <ul class="simple">
 <li><p>See <a class="reference external" href="https://packaging.python.org/tutorials/packaging-projects/#generating-distribution-archives">https://packaging.python.org/tutorials/packaging-projects/#generating-distribution-archives</a></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span> <span class="pre">build</span> <span class="pre">twine</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">-fr</span> <span class="pre">dist/</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">build</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">twine</span> <span class="pre">check</span> <span class="pre">dist/*</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">twine</span> <span class="pre">upload</span> <span class="pre">--repository</span> <span class="pre">testpypi</span> <span class="pre">dist/*</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">uninstall</span> <span class="pre">demes</span></code></p></li>
-<li><p>Check it installs: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span> <span class="pre">--pre</span> <span class="pre">--index-url</span> <span class="pre">https://test.pypi.org/simple/</span> <span class="pre">demes</span></code>.</p></li>
+<li><p>Check it installs:
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span> <span class="pre">--pre</span> <span class="pre">--extra-index-url</span> <span class="pre">https://test.pypi.org/simple/</span> <span class="pre">demes</span></code>.</p></li>
+<li><p>Check it imports: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-c</span> <span class="pre">&quot;import</span> <span class="pre">demes&quot;</span></code>.</p></li>
+<li><p>Check the CLI: <code class="docutils literal notranslate"><span class="pre">demes</span> <span class="pre">--help</span></code>.</p></li>
+<li><p>Check the (test) pypi splash page: <a class="reference external" href="https://test.pypi.org/project/demes/">https://test.pypi.org/project/demes/</a></p></li>
 </ul>
 <p>Upload to pypi.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">twine</span> <span class="pre">upload</span> <span class="pre">--repository</span> <span class="pre">pypi</span> <span class="pre">dist/*</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">uninstall</span> <span class="pre">demes</span></code></p></li>
 <li><p>Check it installs: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">demes</span> <span class="pre">--upgrade</span> <span class="pre">--pre</span></code>.</p></li>
 </ul>
 <p>Push release.</p>
@@ -437,7 +444,7 @@ make pull request; merge.</p>
         <div class='prev-next-bottom'>
             
     <a class='left-prev' id="prev-link" href="cli.html" title="previous page">Command line interface</a>
-    <a class='right-next' id="next-link" href="changelog.html" title="next page">Changelog</a>
+    <a class='right-next' id="next-link" href="CHANGELOG.html" title="next page">Changelog</a>
 
         </div>
         
@@ -451,7 +458,7 @@ make pull request; merge.</p>
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes 0.1.3.dev53
+            demes 0.1.3.dev55
           </div>
       </p>
     </div>
