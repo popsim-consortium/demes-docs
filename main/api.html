@@ -43,7 +43,7 @@
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -127,7 +127,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.1.3.dev59
+  demes 0.1.3.dev61
 </div>
 
 </div>
@@ -251,7 +251,7 @@
         
               <div>
                 
-  <div class="section" id="api-reference">
+  <div class="tex2jax_ignore mathjax_ignore section" id="api-reference">
 <span id="sec-api"></span><h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="loading-and-saving-demes-graphs">
 <h2>Loading and saving Demes graphs<a class="headerlink" href="#loading-and-saving-demes-graphs" title="Permalink to this headline">¶</a></h2>
@@ -264,9 +264,9 @@ The keywords and structure of the input are defined by the
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.9)"><em>os.PathLike</em></a><em>, </em><em>FileLike</em><em>]</em>) – The path to the file to be loaded, or a file-like object
+<li><p><strong>filename</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.10)"><em>os.PathLike</em></a><em>, </em><em>FileLike</em><em>]</em>) – The path to the file to be loaded, or a file-like object
 with a <code class="docutils literal notranslate"><span class="pre">read()</span></code> method.</p></li>
-<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The format of the input file. Either “yaml” or “json”.</p></li>
+<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The format of the input file. Either “yaml” or “json”.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -287,9 +287,9 @@ The keywords and structure of the input are defined by the
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.9)"><em>os.PathLike</em></a><em>, </em><em>FileLike</em><em>]</em>) – The path to the file to be loaded, or a file-like object
+<li><p><strong>filename</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.10)"><em>os.PathLike</em></a><em>, </em><em>FileLike</em><em>]</em>) – The path to the file to be loaded, or a file-like object
 with a <code class="docutils literal notranslate"><span class="pre">read()</span></code> method.</p></li>
-<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The format of the input file. Either “yaml” or “json”.</p></li>
+<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The format of the input file. Either “yaml” or “json”.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -297,7 +297,7 @@ with a <code class="docutils literal notranslate"><span class="pre">read()</span
 YAML or JSON input.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -311,8 +311,8 @@ The keywords and structure of the input are defined by the
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The string to be loaded.</p></li>
-<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The format of the input string. Either “yaml” or “json”.</p></li>
+<li><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The string to be loaded.</p></li>
+<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The format of the input string. Either “yaml” or “json”.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -333,8 +333,8 @@ The keywords and structure of the input are defined by the
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The string to be loaded.</p></li>
-<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The format of the input string. Either “yaml” or “json”.</p></li>
+<li><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The string to be loaded.</p></li>
+<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The format of the input string. Either “yaml” or “json”.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -342,7 +342,7 @@ The keywords and structure of the input are defined by the
 YAML or JSON input string.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -356,14 +356,14 @@ The keywords and structure of each document are defined by the
 <a class="reference external" href="https://popsim-consortium.github.io/demes-spec-docs/main/specification.html#sec-spec" title="(in Python)"><span>Specification</span></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>filename</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.9)"><em>os.PathLike</em></a><em>, </em><em>FileLike</em><em>]</em>) – The path to the file to be loaded, or a file-like object
+<dd class="field-odd"><p><strong>filename</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.10)"><em>os.PathLike</em></a><em>, </em><em>FileLike</em><em>]</em>) – The path to the file to be loaded, or a file-like object
 with a <code class="docutils literal notranslate"><span class="pre">read()</span></code> method.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A generator of graphs.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Generator[<a class="reference internal" href="#demes.Graph" title="demes.Graph">demes.Graph</a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a>]</p>
+<dd class="field-odd"><p>Generator[<a class="reference internal" href="#demes.Graph" title="demes.Graph">demes.Graph</a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)">None</a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)">None</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -378,10 +378,10 @@ The keywords and structure of the output are defined by the
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<a class="reference internal" href="#demes.Graph" title="demes.Graph"><em>Graph</em></a>) – The graph to dump.</p></li>
-<li><p><strong>filename</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.9)"><em>os.PathLike</em></a><em>, </em><em>FileLike</em><em>]</em>) – Path to the output file, or a file-like object with a
+<li><p><strong>filename</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.10)"><em>os.PathLike</em></a><em>, </em><em>FileLike</em><em>]</em>) – Path to the output file, or a file-like object with a
 <code class="docutils literal notranslate"><span class="pre">write()</span></code> method.</p></li>
-<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The format of the output file. Either “yaml” or “json”.</p></li>
-<li><p><strong>simplified</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True, outputs a simplified graph. If False, outputs
+<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The format of the output file. Either “yaml” or “json”.</p></li>
+<li><p><strong>simplified</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, outputs a simplified graph. If False, outputs
 a fully-qualified graph.</p></li>
 </ul>
 </dd>
@@ -398,8 +398,8 @@ The keywords and structure of the output are defined by the
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<a class="reference internal" href="#demes.Graph" title="demes.Graph"><em>Graph</em></a>) – The graph to dump.</p></li>
-<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The format of the output file. Either “yaml” or “json”.</p></li>
-<li><p><strong>simplified</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True, returns a simplified graph. If False, returns
+<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The format of the output file. Either “yaml” or “json”.</p></li>
+<li><p><strong>simplified</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, returns a simplified graph. If False, returns
 a fully-qualified graph.</p></li>
 </ul>
 </dd>
@@ -407,7 +407,7 @@ a fully-qualified graph.</p></li>
 <dd class="field-even"><p>The YAML or JSON string.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -420,9 +420,9 @@ a fully-qualified graph.</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graphs</strong> – An iterable of graphs to dump.</p></li>
-<li><p><strong>filename</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.9)"><em>os.PathLike</em></a><em>, </em><em>FileLike</em><em>]</em>) – Path to the output file, or a file-like object with a
+<li><p><strong>filename</strong> (<em>Union</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/os.html#os.PathLike" title="(in Python v3.10)"><em>os.PathLike</em></a><em>, </em><em>FileLike</em><em>]</em>) – Path to the output file, or a file-like object with a
 <code class="docutils literal notranslate"><span class="pre">write()</span></code> method.</p></li>
-<li><p><strong>simplified</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True, outputs simplified graphs. If False, outputs
+<li><p><strong>simplified</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, outputs simplified graphs. If False, outputs
 fully-qualified graphs.</p></li>
 </ul>
 </dd>
@@ -441,7 +441,7 @@ dictionary of objects following Demes’ data model, and may be converted
 into a fully-resolved <a class="reference internal" href="#demes.Graph" title="demes.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a> object using the <a class="reference internal" href="#demes.Builder.resolve" title="demes.Builder.resolve"><code class="xref py py-meth docutils literal notranslate"><span class="pre">resolve()</span></code></a> method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
-<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – <p>The data dictionary of the graph’s current state.
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – <p>The data dictionary of the graph’s current state.
 The objects nested within this dictionary follow Demes’ data model,
 as described in the <a class="reference external" href="https://popsim-consortium.github.io/demes-spec-docs/main/specification.html#sec-spec" title="(in Python)"><span>Specification</span></a>.</p>
 <div class="admonition note">
@@ -459,15 +459,15 @@ model is not violated.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – A string identifier for the deme.</p></li>
-<li><p><strong>description</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – A description of the deme. May be <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
-<li><p><strong>ancestors</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>]</em>) – List of deme names for the deme’s ancestors.
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – A string identifier for the deme.</p></li>
+<li><p><strong>description</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – A description of the deme. May be <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>ancestors</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – List of deme names for the deme’s ancestors.
 This may be <code class="docutils literal notranslate"><span class="pre">None</span></code>, indicating the deme has no ancestors.</p></li>
-<li><p><strong>proportions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>]</em>) – If <code class="docutils literal notranslate"><span class="pre">ancestors</span></code> is not <code class="docutils literal notranslate"><span class="pre">None</span></code>,
+<li><p><strong>proportions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – If <code class="docutils literal notranslate"><span class="pre">ancestors</span></code> is not <code class="docutils literal notranslate"><span class="pre">None</span></code>,
 this indicates the proportions of ancestry from each ancestor.
 This list has the same length as <code class="docutils literal notranslate"><span class="pre">ancestors</span></code>, and must sum to 1.</p></li>
-<li><p><strong>start_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The deme’s start time.</p></li>
-<li><p><strong>epochs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a><em>]</em>) – List of epoch dictionaries. Each dictionary
+<li><p><strong>start_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The deme’s start time.</p></li>
+<li><p><strong>epochs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a><em>]</em>) – List of epoch dictionaries. Each dictionary
 follows the data model for an epoch.</p></li>
 </ul>
 </dd>
@@ -485,17 +485,17 @@ the <code class="docutils literal notranslate"><span class="pre">source</span></
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>demes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>]</em>) – list of deme names. Migration is symmetric
+<li><p><strong>demes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – list of deme names. Migration is symmetric
 between all pairs of demes in this list. If not specified,
 migration will be asymmetric (and <code class="docutils literal notranslate"><span class="pre">source</span></code> and <code class="docutils literal notranslate"><span class="pre">dest</span></code> must
 be given).</p></li>
-<li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the source deme.</p></li>
-<li><p><strong>dest</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the destination deme.</p></li>
-<li><p><strong>rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The rate of migration per generation.</p></li>
-<li><p><strong>start_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The time at which the migration rate is enabled.
+<li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the source deme.</p></li>
+<li><p><strong>dest</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the destination deme.</p></li>
+<li><p><strong>rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The rate of migration per generation.</p></li>
+<li><p><strong>start_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The time at which the migration rate is enabled.
 If <code class="docutils literal notranslate"><span class="pre">None</span></code>, the start time is defined by the earliest time at
 which the demes coexist.</p></li>
-<li><p><strong>end_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The time at which the migration rate is disabled.
+<li><p><strong>end_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The time at which the migration rate is disabled.
 If <code class="docutils literal notranslate"><span class="pre">None</span></code>, the end time is defined by the latest time at which
 the demes coexist.</p></li>
 </ul>
@@ -511,12 +511,12 @@ Source and destination demes follow the forwards-in-time convention.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>)</em>) – The name of the source deme(s).</p></li>
-<li><p><strong>dest</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the destination deme.</p></li>
-<li><p><strong>proportion</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>)</em>) – At the instant after migration, this is the
+<li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>)</em>) – The name of the source deme(s).</p></li>
+<li><p><strong>dest</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the destination deme.</p></li>
+<li><p><strong>proportion</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>)</em>) – At the instant after migration, this is the
 expected proportion(s) of individuals in the destination deme made up
 of individuals from the source deme(s).</p></li>
-<li><p><strong>time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The time at which migrations occur.</p></li>
+<li><p><strong>time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The time at which migrations occur.</p></li>
 </ul>
 </dd>
 </dl>
@@ -570,24 +570,24 @@ object to use when inspecting a model’s properties.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>description</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – A human readable description of the demography.
+<li><p><strong>description</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – A human readable description of the demography.
 May be <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
-<li><p><strong>time_units</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The units of time used for the demography. This is
+<li><p><strong>time_units</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The units of time used for the demography. This is
 commonly <code class="docutils literal notranslate"><span class="pre">years</span></code> or <code class="docutils literal notranslate"><span class="pre">generations</span></code>, but can be any string.
 This field is intended to be useful for documenting a demography,
 but the actual value provided here should not be relied upon.</p></li>
-<li><p><strong>generation_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The generation time of demes, in units given
+<li><p><strong>generation_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The generation time of demes, in units given
 by the <code class="docutils literal notranslate"><span class="pre">time_units</span></code> parameter. Concretely, dividing all times
 by <code class="docutils literal notranslate"><span class="pre">generation_time</span></code> will convert the graph to have time
 units in generations.  If <code class="docutils literal notranslate"><span class="pre">generation_time</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, the units
 are assumed to be in generations already.
 See also: <a class="reference internal" href="#demes.Graph.in_generations" title="demes.Graph.in_generations"><code class="xref py py-meth docutils literal notranslate"><span class="pre">in_generations()</span></code></a>.</p></li>
-<li><p><strong>doi</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>]</em>) – If the graph describes a published demography,
+<li><p><strong>doi</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – If the graph describes a published demography,
 the DOI(s) should be be given here as a list.</p></li>
-<li><p><strong>demes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference internal" href="#demes.Deme" title="demes.Deme"><em>Deme</em></a><em>]</em>) – The demes in the demography.</p></li>
-<li><p><strong>migrations</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference internal" href="#demes.AsymmetricMigration" title="demes.AsymmetricMigration"><em>AsymmetricMigration</em></a><em>]</em>) – The continuous migrations for
+<li><p><strong>demes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><a class="reference internal" href="#demes.Deme" title="demes.Deme"><em>Deme</em></a><em>]</em>) – The demes in the demography.</p></li>
+<li><p><strong>migrations</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><a class="reference internal" href="#demes.AsymmetricMigration" title="demes.AsymmetricMigration"><em>AsymmetricMigration</em></a><em>]</em>) – The continuous migrations for
 the demographic model.</p></li>
-<li><p><strong>pulses</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference internal" href="#demes.Pulse" title="demes.Pulse"><em>Pulse</em></a><em>]</em>) – The migration pulses for the demography.</p></li>
+<li><p><strong>pulses</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><a class="reference internal" href="#demes.Pulse" title="demes.Pulse"><em>Pulse</em></a><em>]</em>) – The migration pulses for the demography.</p></li>
 </ul>
 </dd>
 </dl>
@@ -602,10 +602,10 @@ the demographic model.</p></li>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>deme_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the deme.</p>
+<dd class="field-odd"><p><strong>deme_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the deme.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the deme is in the graph, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
@@ -624,7 +624,7 @@ the demographic model.</p></li>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>deme_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The name of the deme.</p>
+<dd class="field-odd"><p><strong>deme_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the deme.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference internal" href="#demes.Deme" title="demes.Deme">Deme</a></p>
@@ -666,10 +666,10 @@ the comparison:</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>other</strong> (<a class="reference internal" href="#demes.Graph" title="demes.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a>) – The graph to compare against.</p></li>
-<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The relative tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
-<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The absolute tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
+<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
+<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -700,7 +700,7 @@ lists of <a class="reference internal" href="#demes.Pulse" title="demes.Pulse"><
 <a class="reference internal" href="#demes.Merge" title="demes.Merge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Merge</span></code></a>, and <a class="reference internal" href="#demes.Admix" title="demes.Admix"><code class="xref py py-class docutils literal notranslate"><span class="pre">Admix</span></code></a> objects.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -722,7 +722,7 @@ lists of <a class="reference internal" href="#demes.Pulse" title="demes.Pulse"><
 <code class="sig-name descname"><span class="pre">isclose</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.isclose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.isclose" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns true if the graph and <code class="docutils literal notranslate"><span class="pre">other</span></code> implement essentially
 the same demographic model. Numerical values are compared using the
-<a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a> function, from which this method takes its name.
+<a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a> function, from which this method takes its name.
 Furthermore, the following implementation details are ignored during
 the comparison:</p>
 <blockquote>
@@ -737,17 +737,17 @@ the comparison:</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>other</strong> (<a class="reference internal" href="#demes.Graph" title="demes.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a>) – The graph to compare against.</p></li>
-<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The relative tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
-<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The absolute tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
+<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
+<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>True if the two graphs implement the same model, False otherwise.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -797,7 +797,7 @@ where <code class="docutils literal notranslate"><span class="pre">mm_list</span
 and <code class="docutils literal notranslate"><span class="pre">end_times</span></code> are a list of end times for each matrix.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a>]]], <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a>]]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a>]]], <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -821,7 +821,7 @@ digraph of predecessors can be obtained as follows.</p>
 <dd class="field-odd"><p>A NetworkX compatible dict-of-lists graph of the demes’ predecessors.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>]]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -845,7 +845,7 @@ digraph of successors can be obtained as follows.</p>
 <dd class="field-odd"><p>A NetworkX compatible dict-of-lists graph of the demes’ successors.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a>]]</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)">dict</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -859,15 +859,15 @@ digraph of successors can be obtained as follows.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – A concise string that identifies the deme.</p></li>
-<li><p><strong>description</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – A description of the deme. May be <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
-<li><p><strong>start_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The time at which the deme begins to exist.</p></li>
-<li><p><strong>ancestors</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>]</em>) – List of deme names for the deme’s ancestors.
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – A concise string that identifies the deme.</p></li>
+<li><p><strong>description</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – A description of the deme. May be <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>start_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The time at which the deme begins to exist.</p></li>
+<li><p><strong>ancestors</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – List of deme names for the deme’s ancestors.
 This may be <code class="docutils literal notranslate"><span class="pre">None</span></code>, indicating the deme has no ancestors.</p></li>
-<li><p><strong>proportions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>]</em>) – If <code class="docutils literal notranslate"><span class="pre">ancestors</span></code> is not <code class="docutils literal notranslate"><span class="pre">None</span></code>,
+<li><p><strong>proportions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – If <code class="docutils literal notranslate"><span class="pre">ancestors</span></code> is not <code class="docutils literal notranslate"><span class="pre">None</span></code>,
 this indicates the proportions of ancestry from each ancestor.
 This list has the same length as <code class="docutils literal notranslate"><span class="pre">ancestors</span></code>, and must sum to 1.</p></li>
-<li><p><strong>epochs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference internal" href="#demes.Epoch" title="demes.Epoch"><em>Epoch</em></a><em>]</em>) – A list of epochs, which define the population
+<li><p><strong>epochs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><a class="reference internal" href="#demes.Epoch" title="demes.Epoch"><em>Epoch</em></a><em>]</em>) – A list of epochs, which define the population
 size(s) of the deme. The deme must be created with all epochs listed.</p></li>
 </ul>
 </dd>
@@ -883,10 +883,10 @@ Compares values of the following objects:
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>other</strong> (<a class="reference internal" href="#demes.Deme" title="demes.Deme"><code class="xref py py-class docutils literal notranslate"><span class="pre">Deme</span></code></a>) – The deme to compare against.</p></li>
-<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The relative tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
-<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The absolute tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
+<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
+<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -907,17 +907,17 @@ For more information see <a class="reference internal" href="#demes.Deme.assert_
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>other</strong> (<a class="reference internal" href="#demes.Deme" title="demes.Deme"><code class="xref py py-class docutils literal notranslate"><span class="pre">Deme</span></code></a>) – The deme to compare against.</p></li>
-<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The relative tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
-<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The absolute tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
+<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
+<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>True if the two demes are equivalent, False otherwise.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -928,13 +928,13 @@ comparisons. See documentation for <a class="reference external" href="https://d
 <dd><p>Get the size of the deme at a given time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The time at which the size should be calculated.</p>
+<dd class="field-odd"><p><strong>time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The time at which the size should be calculated.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The deme size.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -958,13 +958,13 @@ start time must be greater than the end time</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>start_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The start time of the epoch.</p></li>
-<li><p><strong>end_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The end time of the epoch (must be specified).</p></li>
-<li><p><strong>start_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Population size at <code class="docutils literal notranslate"><span class="pre">start_time</span></code>.</p></li>
-<li><p><strong>end_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – Population size at <code class="docutils literal notranslate"><span class="pre">end_time</span></code>.
+<li><p><strong>start_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The start time of the epoch.</p></li>
+<li><p><strong>end_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The end time of the epoch (must be specified).</p></li>
+<li><p><strong>start_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Population size at <code class="docutils literal notranslate"><span class="pre">start_time</span></code>.</p></li>
+<li><p><strong>end_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Population size at <code class="docutils literal notranslate"><span class="pre">end_time</span></code>.
 If <code class="docutils literal notranslate"><span class="pre">start_size</span> <span class="pre">!=</span> <span class="pre">end_size</span></code>, the population size changes
 monotonically between the start and end times.</p></li>
-<li><p><strong>size_function</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – <p>The size change function. This is either
+<li><p><strong>size_function</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p>The size change function. This is either
 <code class="docutils literal notranslate"><span class="pre">constant</span></code>, <code class="docutils literal notranslate"><span class="pre">exponential</span></code> or <code class="docutils literal notranslate"><span class="pre">linear</span></code>, though it is possible
 that additional values will be added in the future.</p>
 <blockquote>
@@ -992,8 +992,8 @@ the deme size <span class="math notranslate nohighlight">\(N\)</span> at <span c
 </ul>
 </div></blockquote>
 </p></li>
-<li><p><strong>selfing_rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The selfing rate for this epoch.</p></li>
-<li><p><strong>cloning_rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The cloning rate for this epoch.</p></li>
+<li><p><strong>selfing_rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The selfing rate for this epoch.</p></li>
+<li><p><strong>cloning_rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The cloning rate for this epoch.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1009,10 +1009,10 @@ Compares values of the following attributes:
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>other</strong> (<a class="reference internal" href="#demes.Epoch" title="demes.Epoch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Epoch</span></code></a>) – The epoch to compare against.</p></li>
-<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The relative tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
-<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The absolute tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
+<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
+<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1027,17 +1027,17 @@ the same epoch. For more information see <a class="reference internal" href="#de
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>other</strong> (<a class="reference internal" href="#demes.Epoch" title="demes.Epoch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Epoch</span></code></a>) – The epoch to compare against.</p></li>
-<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The relative tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
-<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The absolute tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
+<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
+<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>True if the two epochs are equivalent, False otherwise.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1063,11 +1063,11 @@ in the dest deme.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The source deme for asymmetric migration.</p></li>
-<li><p><strong>dest</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The destination deme for asymmetric migration.</p></li>
-<li><p><strong>start_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The time at which the migration rate is activated.</p></li>
-<li><p><strong>end_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The time at which the migration rate is deactivated.</p></li>
-<li><p><strong>rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The rate of migration per generation.</p></li>
+<li><p><strong>source</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The source deme for asymmetric migration.</p></li>
+<li><p><strong>dest</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The destination deme for asymmetric migration.</p></li>
+<li><p><strong>start_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The time at which the migration rate is activated.</p></li>
+<li><p><strong>end_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The time at which the migration rate is deactivated.</p></li>
+<li><p><strong>rate</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The rate of migration per generation.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1082,10 +1082,10 @@ Compares values of the following attributes:
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>other</strong> (<a class="reference internal" href="#demes.AsymmetricMigration" title="demes.AsymmetricMigration"><em>AsymmetricMigration</em></a>) – The migration to compare against.</p></li>
-<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The relative tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
-<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The absolute tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
+<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
+<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1100,17 +1100,17 @@ For more information see <a class="reference internal" href="#demes.AsymmetricMi
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>other</strong> (<a class="reference internal" href="#demes.AsymmetricMigration" title="demes.AsymmetricMigration"><em>AsymmetricMigration</em></a>) – The migration to compare against.</p></li>
-<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The relative tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
-<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The absolute tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
+<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
+<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>True if the two epochs are equivalent, False otherwise.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1131,10 +1131,10 @@ the sum of the migrant proportions must sum to less than one.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>sources</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>)</em>) – The source deme(s).</p></li>
-<li><p><strong>dest</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The destination deme.</p></li>
-<li><p><strong>time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The time of migration.</p></li>
-<li><p><strong>proportions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>)</em>) – Immediately following migration, the proportion(s)
+<li><p><strong>sources</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>)</em>) – The source deme(s).</p></li>
+<li><p><strong>dest</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The destination deme.</p></li>
+<li><p><strong>time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The time of migration.</p></li>
+<li><p><strong>proportions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>)</em>) – Immediately following migration, the proportion(s)
 of individuals in the destination deme made up of migrant individuals or
 having parents from the source deme(s).</p></li>
 </ul>
@@ -1151,10 +1151,10 @@ Compares values of the following attributes:
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>other</strong> (<a class="reference internal" href="#demes.Pulse" title="demes.Pulse"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pulse</span></code></a>) – The pulse to compare against.</p></li>
-<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The relative tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
-<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The absolute tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
+<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
+<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1169,17 +1169,17 @@ For more information see <a class="reference internal" href="#demes.Pulse.assert
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>other</strong> (<a class="reference internal" href="#demes.Pulse" title="demes.Pulse"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pulse</span></code></a>) – The pulse to compare against.</p></li>
-<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The relative tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
-<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The absolute tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
+<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
+<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>True if the two pulses are equivalent, False otherwise.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1196,9 +1196,9 @@ is a bit of a misnomer…</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>parent</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The parental deme.</p></li>
-<li><p><strong>children</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>]</em>) – A list of descendant demes.</p></li>
-<li><p><strong>time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The split time.</p></li>
+<li><p><strong>parent</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The parental deme.</p></li>
+<li><p><strong>children</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – A list of descendant demes.</p></li>
+<li><p><strong>time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The split time.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1213,10 +1213,10 @@ Compares values of the following attributes:
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>other</strong> (<a class="reference internal" href="#demes.Split" title="demes.Split"><code class="xref py py-class docutils literal notranslate"><span class="pre">Split</span></code></a>) – The split to compare against.</p></li>
-<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The relative tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
-<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The absolute tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
+<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
+<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1232,17 +1232,17 @@ Compares values of the following attributes:
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>other</strong> (<a class="reference internal" href="#demes.Split" title="demes.Split"><code class="xref py py-class docutils literal notranslate"><span class="pre">Split</span></code></a>) – The split to compare against.</p></li>
-<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The relative tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
-<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The absolute tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
+<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
+<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>True if the two splits are equivalent, False otherwise.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1257,9 +1257,9 @@ deme. The parental deme need not end at that time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>parent</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The parental deme.</p></li>
-<li><p><strong>child</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The descendant deme.</p></li>
-<li><p><strong>time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The branch time.</p></li>
+<li><p><strong>parent</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The parental deme.</p></li>
+<li><p><strong>child</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The descendant deme.</p></li>
+<li><p><strong>time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The branch time.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1274,10 +1274,10 @@ Compares values of the following attributes:
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>other</strong> (<a class="reference internal" href="#demes.Branch" title="demes.Branch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Branch</span></code></a>) – The branch to compare against.</p></li>
-<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The relative tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
-<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The absolute tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
+<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
+<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1292,17 +1292,17 @@ For more information see <a class="reference internal" href="#demes.Branch.asser
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>other</strong> (<a class="reference internal" href="#demes.Branch" title="demes.Branch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Branch</span></code></a>) – The branch to compare against.</p></li>
-<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The relative tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
-<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The absolute tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
+<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
+<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>True if the two branches are equivalent, False otherwise.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1317,11 +1317,11 @@ contribute to a descendant deme.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>parents</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>]</em>) – A list of parental demes.</p></li>
-<li><p><strong>proportions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>]</em>) – A list of ancestry proportions,
+<li><p><strong>parents</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – A list of parental demes.</p></li>
+<li><p><strong>proportions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – A list of ancestry proportions,
 in order of <code class="docutils literal notranslate"><span class="pre">parents</span></code>.</p></li>
-<li><p><strong>child</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The descendant deme.</p></li>
-<li><p><strong>time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The merge time.</p></li>
+<li><p><strong>child</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The descendant deme.</p></li>
+<li><p><strong>time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The merge time.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1336,10 +1336,10 @@ Compares values of the following attributes:
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>other</strong> (<a class="reference internal" href="#demes.Merge" title="demes.Merge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Merge</span></code></a>) – The merge to compare against.</p></li>
-<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The relative tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
-<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The absolute tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
+<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
+<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1354,17 +1354,17 @@ For more information see <a class="reference internal" href="#demes.Merge.assert
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>other</strong> (<a class="reference internal" href="#demes.Merge" title="demes.Merge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Merge</span></code></a>) – The merge to compare against.</p></li>
-<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The relative tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
-<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The absolute tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
+<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
+<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>True if the two merges are equivalent, False otherwise.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1379,11 +1379,11 @@ to a new deme.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>parents</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>]</em>) – A list of source demes.</p></li>
-<li><p><strong>proportions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a><em>]</em>) – A list of ancestry proportions,
+<li><p><strong>parents</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – A list of source demes.</p></li>
+<li><p><strong>proportions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – A list of ancestry proportions,
 in order of <code class="docutils literal notranslate"><span class="pre">parents</span></code>.</p></li>
-<li><p><strong>child</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The admixed deme.</p></li>
-<li><p><strong>time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The admixture time.</p></li>
+<li><p><strong>child</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The admixed deme.</p></li>
+<li><p><strong>time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The admixture time.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1398,10 +1398,10 @@ Compares values of the following attributes:
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>other</strong> (<a class="reference internal" href="#demes.Admix" title="demes.Admix"><code class="xref py py-class docutils literal notranslate"><span class="pre">Admix</span></code></a>) – The admixture to compare against.</p></li>
-<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The relative tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
-<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The absolute tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
+<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
+<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1416,17 +1416,17 @@ For more information see <a class="reference internal" href="#demes.Admix.assert
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>other</strong> (<a class="reference internal" href="#demes.Admix" title="demes.Admix"><code class="xref py py-class docutils literal notranslate"><span class="pre">Admix</span></code></a>) – The admixture to compare against.</p></li>
-<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The relative tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
-<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The absolute tolerance permitted for numerical
-comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.9)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
+<li><p><strong>rel_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The relative tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a></p></li>
+<li><p><strong>abs_tol</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The absolute tolerance permitted for numerical
+comparisons. See documentation for <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>True if the two admixtures are equivalent, False otherwise.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1450,14 +1450,14 @@ These will be converted to more familiar units using the given
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The ms command line.</p></li>
-<li><p><strong>N0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The reference population size (<span class="math notranslate nohighlight">\(N_0\)</span>) used to translate
+<li><p><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The ms command line.</p></li>
+<li><p><strong>N0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The reference population size (<span class="math notranslate nohighlight">\(N_0\)</span>) used to translate
 from coalescent units. For a <code class="docutils literal notranslate"><span class="pre">command</span></code> that specifies a
 <span class="math notranslate nohighlight">\(\theta\)</span> value with the <code class="docutils literal notranslate"><span class="pre">-t</span> <span class="pre">theta</span></code> option,
 this can be calculated as <span class="math notranslate nohighlight">\(N_0 = \theta / (4 \mu L)\)</span>,
 where <span class="math notranslate nohighlight">\(\mu\)</span> is the per-generation mutation rate and
 <span class="math notranslate nohighlight">\(L\)</span> is the length of the sequence being simulated.</p></li>
-<li><p><strong>deme_names</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em>]</em>) – A list of names to use for the demes.
+<li><p><strong>deme_names</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – A list of names to use for the demes.
 If not specified, demes will be named deme1, deme2, etc.</p></li>
 </ul>
 </dd>
@@ -1478,9 +1478,9 @@ If not specified, demes will be named deme1, deme2, etc.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>N0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – The reference population size used to translate into coalescent units.
+<li><p><strong>N0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The reference population size used to translate into coalescent units.
 See <a class="reference internal" href="#demes.from_ms" title="demes.from_ms"><code class="xref py py-func docutils literal notranslate"><span class="pre">from_ms()</span></code></a> for details.</p></li>
-<li><p><strong>samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>)</em>) – Sampling scheme that will be used with the ‘-I’ option. This is ignored
+<li><p><strong>samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>(</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>)</em>) – Sampling scheme that will be used with the ‘-I’ option. This is ignored
 for graphs with only one deme. If not specified, the sampling
 configuration in the returned string will need editing prior to
 simulation.</p></li>
@@ -1490,7 +1490,7 @@ simulation.</p></li>
 <dd class="field-even"><p>The ms command line.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1558,7 +1558,7 @@ simulation.</p></li>
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes 0.1.3.dev59
+            demes 0.1.3.dev61
           </div>
       </p>
     </div>
