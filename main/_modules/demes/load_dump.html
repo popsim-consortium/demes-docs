@@ -119,7 +119,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.1.3.dev63
+  demes 0.1.3.dev65
 </div>
 
 </div>
@@ -293,6 +293,11 @@
         <span class="n">start_time</span> <span class="o">=</span> <span class="n">migration</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;start_time&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">start_time</span> <span class="o">==</span> <span class="n">_INFINITY_STR</span><span class="p">:</span>
             <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">start_time</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">default</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;defaults&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="k">if</span> <span class="n">default</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;migration&quot;</span><span class="p">,</span> <span class="s2">&quot;deme&quot;</span><span class="p">]:</span>
+            <span class="n">start_time</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;defaults&quot;</span><span class="p">][</span><span class="n">default</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;start_time&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">start_time</span> <span class="o">==</span> <span class="n">_INFINITY_STR</span><span class="p">:</span>
+                <span class="n">data</span><span class="p">[</span><span class="s2">&quot;defaults&quot;</span><span class="p">][</span><span class="n">default</span><span class="p">][</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">start_time</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="loads_asdict"><a class="viewcode-back" href="../../api.html#demes.loads_asdict">[docs]</a><span class="k">def</span> <span class="nf">loads_asdict</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
@@ -477,7 +482,7 @@
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes 0.1.3.dev63
+            demes 0.1.3.dev65
           </div>
       </p>
     </div>
