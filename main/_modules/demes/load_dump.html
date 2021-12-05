@@ -119,7 +119,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.1.3.dev70
+  demes 0.2.1.dev2
 </div>
 
 </div>
@@ -208,10 +208,14 @@
 <span class="sd">    just yield polymorph under the assumption it&#39;s a fileobj.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">polymorph</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="k">yield</span> <span class="n">f</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">polymorph</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-        <span class="k">yield</span> <span class="n">polymorph</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">polymorph</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">f</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">f</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">polymorph</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
 
 <span class="c1"># NOTE: The state of Python YAML libraries in 2020 leaves much to be desired.</span>
@@ -510,7 +514,7 @@
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes 0.1.3.dev70
+            demes 0.2.1.dev2
           </div>
       </p>
     </div>
