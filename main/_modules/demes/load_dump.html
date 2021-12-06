@@ -119,7 +119,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.2.1.dev4
+  demes 0.2.1.dev6
 </div>
 
 </div>
@@ -425,6 +425,13 @@
     <span class="k">with</span> <span class="n">_open_file_polymorph</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">ruamel</span><span class="o">.</span><span class="n">yaml</span><span class="o">.</span><span class="n">YAML</span><span class="p">(</span><span class="n">typ</span><span class="o">=</span><span class="s2">&quot;safe&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">yaml</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load_all</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+                <span class="c1"># We forbid null values in the input data.</span>
+                <span class="c1"># See https://github.com/popsim-consortium/demes-spec/issues/76</span>
+                <span class="n">_no_null_values</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                <span class="c1"># The string &quot;Infinity&quot; should only be present in JSON files.</span>
+                <span class="c1"># But YAML is a superset of JSON, so we want the YAML loader to also</span>
+                <span class="c1"># load JSON files without problem.</span>
+                <span class="n">_unstringify_infinities</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
                 <span class="k">yield</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="o">.</span><span class="n">fromdict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
 
 
@@ -514,7 +521,7 @@
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes 0.2.1.dev4
+            demes 0.2.1.dev6
           </div>
       </p>
     </div>
