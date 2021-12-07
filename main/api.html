@@ -22,8 +22,8 @@
       
 
     
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -33,19 +33,19 @@
     
   <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
 
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script >
+    <script>
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
@@ -130,7 +130,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.2.1.dev10
+  demes 0.2.1.dev13
 </div>
 
 </div>
@@ -259,8 +259,8 @@
 <div class="section" id="loading-and-saving-demes-graphs">
 <h2>Loading and saving Demes graphs<a class="headerlink" href="#loading-and-saving-demes-graphs" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt id="demes.load">
-<code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">load</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'yaml'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.load" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.load">
+<span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'yaml'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a graph from a YAML or JSON file.
 The keywords and structure of the input are defined by the
 <a class="reference external" href="https://popsim-consortium.github.io/demes-spec-docs/main/specification.html#sec-spec" title="(in Python)"><span>Specification</span></a>.</p>
@@ -282,8 +282,8 @@ with a <code class="docutils literal notranslate"><span class="pre">read()</span
 </dd></dl>
 
 <dl class="py function">
-<dt id="demes.load_asdict">
-<code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">load_asdict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'yaml'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#load_asdict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.load_asdict" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.load_asdict">
+<span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">load_asdict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'yaml'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#load_asdict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.load_asdict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a YAML or JSON file into a dictionary of nested objects.
 The keywords and structure of the input are defined by the
 <a class="reference external" href="https://popsim-consortium.github.io/demes-spec-docs/main/specification.html#sec-spec" title="(in Python)"><span>Specification</span></a>.</p>
@@ -306,8 +306,8 @@ YAML or JSON input.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="demes.loads">
-<code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">loads</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'yaml'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#loads"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.loads" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.loads">
+<span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">loads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'yaml'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#loads"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.loads" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a graph from a YAML or JSON string.
 The keywords and structure of the input are defined by the
 <a class="reference external" href="https://popsim-consortium.github.io/demes-spec-docs/main/specification.html#sec-spec" title="(in Python)"><span>Specification</span></a>.</p>
@@ -328,8 +328,8 @@ The keywords and structure of the input are defined by the
 </dd></dl>
 
 <dl class="py function">
-<dt id="demes.loads_asdict">
-<code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">loads_asdict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'yaml'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#loads_asdict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.loads_asdict" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.loads_asdict">
+<span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">loads_asdict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">string</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'yaml'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#loads_asdict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.loads_asdict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a YAML or JSON string into a dictionary of nested objects.
 The keywords and structure of the input are defined by the
 <a class="reference external" href="https://popsim-consortium.github.io/demes-spec-docs/main/specification.html#sec-spec" title="(in Python)"><span>Specification</span></a>.</p>
@@ -351,8 +351,8 @@ YAML or JSON input string.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="demes.load_all">
-<code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">load_all</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#load_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.load_all" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.load_all">
+<span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">load_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#load_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.load_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate graphs from a YAML document stream. Documents must be separated by
 the YAML document start indicator, <code class="docutils literal notranslate"><span class="pre">---</span></code>.
 The keywords and structure of each document are defined by the
@@ -366,14 +366,14 @@ with a <code class="docutils literal notranslate"><span class="pre">read()</span
 <dd class="field-even"><p>A generator of graphs.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Generator[<a class="reference internal" href="#demes.Graph" title="demes.Graph">demes.Graph</a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)">None</a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)">None</a>]</p>
+<dd class="field-odd"><p>Generator[<a class="reference internal" href="#demes.Graph" title="demes.demes.Graph">demes.Graph</a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)">None</a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)">None</a>]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt id="demes.dump">
-<code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">dump</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'yaml'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simplified</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#dump"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.dump" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.dump">
+<span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'yaml'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simplified</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#dump"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.dump" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dump the specified graph to a file.
 The keywords and structure of the output are defined by the
 <a class="reference external" href="https://popsim-consortium.github.io/demes-spec-docs/main/specification.html#sec-spec" title="(in Python)"><span>Specification</span></a>.</p>
@@ -392,8 +392,8 @@ a fully-qualified graph.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="demes.dumps">
-<code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">dumps</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'yaml'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simplified</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#dumps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.dumps" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.dumps">
+<span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">dumps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'yaml'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simplified</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#dumps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.dumps" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dump the specified graph to a YAML or JSON string.
 The keywords and structure of the output are defined by the
 <a class="reference external" href="https://popsim-consortium.github.io/demes-spec-docs/main/specification.html#sec-spec" title="(in Python)"><span>Specification</span></a>.</p>
@@ -416,8 +416,8 @@ a fully-qualified graph.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="demes.dump_all">
-<code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">dump_all</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graphs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simplified</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#dump_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.dump_all" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.dump_all">
+<span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">dump_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graphs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simplified</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/load_dump.html#dump_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.dump_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dump the specified graphs to a multi-document YAML file or output stream.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -436,8 +436,8 @@ fully-qualified graphs.</p></li>
 <div class="section" id="building-demes-graphs">
 <h2>Building Demes graphs<a class="headerlink" href="#building-demes-graphs" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="demes.Builder">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">Builder</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'generations'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generation_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Builder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Builder" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Builder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">Builder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'generations'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generation_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Builder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Builder" title="Permalink to this definition">¶</a></dt>
 <dd><p>The Builder provides a set of convenient methods for incrementally
 constructing a deme graph. The state of the graph is stored internally as a
 dictionary of objects following Demes’ data model, and may be converted
@@ -456,8 +456,8 @@ model is not violated.</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="demes.Builder.add_deme">
-<code class="sig-name descname"><span class="pre">add_deme</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ancestors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proportions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Builder.add_deme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Builder.add_deme" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Builder.add_deme">
+<span class="sig-name descname"><span class="pre">add_deme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ancestors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proportions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Builder.add_deme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Builder.add_deme" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a deme. Ancestor demes must be added before their children.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -478,8 +478,8 @@ follows the data model for an epoch.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.Builder.add_migration">
-<code class="sig-name descname"><span class="pre">add_migration</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">*</span></em>, <em class="sig-param"><span class="pre">rate=None</span></em>, <em class="sig-param"><span class="pre">demes=&lt;object</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">source=&lt;object</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">dest=&lt;object</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">start_time=None</span></em>, <em class="sig-param"><span class="pre">end_time=None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Builder.add_migration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Builder.add_migration" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Builder.add_migration">
+<span class="sig-name descname"><span class="pre">add_migration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demes=&lt;object</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source=&lt;object</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest=&lt;object</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_time=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Builder.add_migration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Builder.add_migration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add continuous symmetric migrations between all pairs of demes in a list,
 or alternately, add asymmetric migration from one deme to another.
 Source and destination demes follow the forwards-in-time convention,
@@ -507,8 +507,8 @@ the demes coexist.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.Builder.add_pulse">
-<code class="sig-name descname"><span class="pre">add_pulse</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sources</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proportions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Builder.add_pulse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Builder.add_pulse" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Builder.add_pulse">
+<span class="sig-name descname"><span class="pre">add_pulse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sources</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proportions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Builder.add_pulse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Builder.add_pulse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a pulse of migration at a fixed time.
 Source and destination demes follow the forwards-in-time convention.</p>
 <dl class="field-list simple">
@@ -526,8 +526,8 @@ of individuals from the source deme(s).</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.Builder.fromdict">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">fromdict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Builder.fromdict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Builder.fromdict" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Builder.fromdict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fromdict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Builder.fromdict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Builder.fromdict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make a Builder object from an existing data dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -545,8 +545,8 @@ follow Demes’ data model, as described in the <a class="reference external" hr
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.Builder.resolve">
-<code class="sig-name descname"><span class="pre">resolve</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Builder.resolve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Builder.resolve" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Builder.resolve">
+<span class="sig-name descname"><span class="pre">resolve</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Builder.resolve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Builder.resolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resolve the data dictionary into a Graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -564,8 +564,8 @@ follow Demes’ data model, as described in the <a class="reference external" hr
 <div class="section" id="working-with-demes-graphs">
 <h2>Working with Demes graphs<a class="headerlink" href="#working-with-demes-graphs" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="demes.Graph">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">Graph</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_units</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generation_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">NOTHING</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">NOTHING</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Graph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">Graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_units</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generation_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">NOTHING</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">NOTHING</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph" title="Permalink to this definition">¶</a></dt>
 <dd><p>The Graph class provides a high-level API for working with a demographic
 model. A Graph object matches Demes’ data model, with a small number of
 additional redundant attributes that make the Graph a more convenient
@@ -596,8 +596,8 @@ the demographic model.</p></li>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="demes.Graph.__contains__">
-<code class="sig-name descname"><span class="pre">__contains__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deme_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.__contains__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.__contains__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Graph.__contains__">
+<span class="sig-name descname"><span class="pre">__contains__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deme_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.__contains__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.__contains__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if the graph contains a deme with the specified name.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="o">=</span> <span class="n">demes</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;gutenkunst_ooa.yaml&quot;</span><span class="p">)</span>
 <span class="k">if</span> <span class="s2">&quot;CHB&quot;</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">:</span>
@@ -618,8 +618,8 @@ the demographic model.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.Graph.__getitem__">
-<code class="sig-name descname"><span class="pre">__getitem__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deme_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Graph.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deme_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.__getitem__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the <a class="reference internal" href="#demes.Deme" title="demes.Deme"><code class="xref py py-class docutils literal notranslate"><span class="pre">Deme</span></code></a> with the specified name.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="o">=</span> <span class="n">demes</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;gutenkunst_ooa.yaml&quot;</span><span class="p">)</span>
 <span class="n">yri</span> <span class="o">=</span> <span class="n">graph</span><span class="p">[</span><span class="s2">&quot;YRI&quot;</span><span class="p">]</span>
@@ -640,20 +640,20 @@ the demographic model.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.Graph.asdict">
-<code class="sig-name descname"><span class="pre">asdict</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.asdict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.asdict" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Graph.asdict">
+<span class="sig-name descname"><span class="pre">asdict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.asdict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.asdict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a fully-resolved dict representation of the graph.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.Graph.asdict_simplified">
-<code class="sig-name descname"><span class="pre">asdict_simplified</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.asdict_simplified"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.asdict_simplified" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Graph.asdict_simplified">
+<span class="sig-name descname"><span class="pre">asdict_simplified</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.asdict_simplified"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.asdict_simplified" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a simplified dict representation of the graph.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.Graph.assert_close">
-<code class="sig-name descname"><span class="pre">assert_close</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.assert_close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.assert_close" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Graph.assert_close">
+<span class="sig-name descname"><span class="pre">assert_close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.assert_close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.assert_close" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raises AssertionError if the object is not equal to <code class="docutils literal notranslate"><span class="pre">other</span></code>,
 up to a numerical tolerance.
 Furthermore, the following implementation details are ignored during
@@ -680,8 +680,8 @@ comparisons. See documentation for <a class="reference external" href="https://d
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.Graph.discrete_demographic_events">
-<code class="sig-name descname"><span class="pre">discrete_demographic_events</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.discrete_demographic_events"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.discrete_demographic_events" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Graph.discrete_demographic_events">
+<span class="sig-name descname"><span class="pre">discrete_demographic_events</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.discrete_demographic_events"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.discrete_demographic_events" title="Permalink to this definition">¶</a></dt>
 <dd><p>Classify each discrete demographic event as one of the following:
 <a class="reference internal" href="#demes.Pulse" title="demes.Pulse"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pulse</span></code></a>, <a class="reference internal" href="#demes.Split" title="demes.Split"><code class="xref py py-class docutils literal notranslate"><span class="pre">Split</span></code></a>, <a class="reference internal" href="#demes.Branch" title="demes.Branch"><code class="xref py py-class docutils literal notranslate"><span class="pre">Branch</span></code></a>, <a class="reference internal" href="#demes.Merge" title="demes.Merge"><code class="xref py py-class docutils literal notranslate"><span class="pre">Merge</span></code></a>,
 or <a class="reference internal" href="#demes.Admix" title="demes.Admix"><code class="xref py py-class docutils literal notranslate"><span class="pre">Admix</span></code></a>.
@@ -710,20 +710,20 @@ lists of <a class="reference internal" href="#demes.Pulse" title="demes.Pulse"><
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.Graph.fromdict">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">fromdict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.fromdict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.fromdict" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Graph.fromdict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fromdict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.fromdict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.fromdict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a graph from a dict representation. The inverse of <a class="reference internal" href="#demes.Graph.asdict" title="demes.Graph.asdict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">asdict()</span></code></a>.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.Graph.in_generations">
-<code class="sig-name descname"><span class="pre">in_generations</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.in_generations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.in_generations" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Graph.in_generations">
+<span class="sig-name descname"><span class="pre">in_generations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.in_generations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.in_generations" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a copy of the graph with times in units of generations.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.Graph.isclose">
-<code class="sig-name descname"><span class="pre">isclose</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.isclose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.isclose" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Graph.isclose">
+<span class="sig-name descname"><span class="pre">isclose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.isclose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.isclose" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns true if the graph and <code class="docutils literal notranslate"><span class="pre">other</span></code> implement essentially
 the same demographic model. Numerical values are compared using the
 <a class="reference external" href="https://docs.python.org/3/library/math.html#math.isclose" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">math.isclose()</span></code></a> function, from which this method takes its name.
@@ -757,8 +757,8 @@ comparisons. See documentation for <a class="reference external" href="https://d
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.Graph.migration_matrices">
-<code class="sig-name descname"><span class="pre">migration_matrices</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.migration_matrices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.migration_matrices" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Graph.migration_matrices">
+<span class="sig-name descname"><span class="pre">migration_matrices</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.migration_matrices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.migration_matrices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the migration matrices and the end times that partition them.</p>
 <p>Returns a list of matrices, one for each time interval
 over which migration rates do not change, in time-descending
@@ -807,8 +807,8 @@ and <code class="docutils literal notranslate"><span class="pre">end_times</span
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.Graph.predecessors">
-<code class="sig-name descname"><span class="pre">predecessors</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.predecessors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.predecessors" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Graph.predecessors">
+<span class="sig-name descname"><span class="pre">predecessors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.predecessors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.predecessors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the predecessors (ancestors) for all demes in the graph.
 If <code class="docutils literal notranslate"><span class="pre">graph</span></code> is a <a class="reference internal" href="#demes.Graph" title="demes.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a>, a <a class="reference external" href="https://networkx.org/">NetworkX</a>
 digraph of predecessors can be obtained as follows.</p>
@@ -831,8 +831,8 @@ digraph of predecessors can be obtained as follows.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.Graph.successors">
-<code class="sig-name descname"><span class="pre">successors</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.successors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.successors" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Graph.successors">
+<span class="sig-name descname"><span class="pre">successors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.successors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.successors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the successors (child demes) for all demes in the graph.
 If <code class="docutils literal notranslate"><span class="pre">graph</span></code> is a <a class="reference internal" href="#demes.Graph" title="demes.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a>, a <a class="reference external" href="https://networkx.org/">NetworkX</a>
 digraph of successors can be obtained as follows.</p>
@@ -857,8 +857,8 @@ digraph of successors can be obtained as follows.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt id="demes.Deme">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">Deme</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ancestors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proportions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Deme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Deme" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Deme">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">Deme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ancestors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proportions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Deme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Deme" title="Permalink to this definition">¶</a></dt>
 <dd><p>A collection of individuals that have a common set of population parameters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
@@ -877,8 +877,8 @@ size(s) of the deme. The deme must be created with all epochs listed.</p></li>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="demes.Deme.assert_close">
-<code class="sig-name descname"><span class="pre">assert_close</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Deme.assert_close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Deme.assert_close" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Deme.assert_close">
+<span class="sig-name descname"><span class="pre">assert_close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Deme.assert_close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Deme.assert_close" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raises AssertionError if the object is not equal to <code class="docutils literal notranslate"><span class="pre">other</span></code>,
 up to a numerical tolerance.
 Compares values of the following objects:
@@ -896,15 +896,15 @@ comparisons. See documentation for <a class="reference external" href="https://d
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="demes.Deme.end_time">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">end_time</span></code><a class="headerlink" href="#demes.Deme.end_time" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="demes.Deme.end_time">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">end_time</span></span><a class="headerlink" href="#demes.Deme.end_time" title="Permalink to this definition">¶</a></dt>
 <dd><p>The end time of the deme’s existence.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.Deme.isclose">
-<code class="sig-name descname"><span class="pre">isclose</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Deme.isclose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Deme.isclose" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Deme.isclose">
+<span class="sig-name descname"><span class="pre">isclose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Deme.isclose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Deme.isclose" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns true if the deme is equal to the <code class="docutils literal notranslate"><span class="pre">other</span></code> deme.
 For more information see <a class="reference internal" href="#demes.Deme.assert_close" title="demes.Deme.assert_close"><code class="xref py py-meth docutils literal notranslate"><span class="pre">assert_close()</span></code></a>.</p>
 <dl class="field-list simple">
@@ -927,8 +927,8 @@ comparisons. See documentation for <a class="reference external" href="https://d
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.Deme.size_at">
-<code class="sig-name descname"><span class="pre">size_at</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Deme.size_at"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Deme.size_at" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Deme.size_at">
+<span class="sig-name descname"><span class="pre">size_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Deme.size_at"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Deme.size_at" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the size of the deme at a given time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -943,17 +943,17 @@ comparisons. See documentation for <a class="reference external" href="https://d
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="demes.Deme.time_span">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">time_span</span></code><a class="headerlink" href="#demes.Deme.time_span" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="demes.Deme.time_span">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">time_span</span></span><a class="headerlink" href="#demes.Deme.time_span" title="Permalink to this definition">¶</a></dt>
 <dd><p>The time span over which the deme exists.</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt id="demes.Epoch">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">Epoch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selfing_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cloning_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Epoch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Epoch" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Epoch">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">Epoch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selfing_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cloning_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Epoch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Epoch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Population size parameters for a deme in a specified time period.
 Times follow the forwards-in-time convention (time values increase
 from the present towards the past). The start time of the epoch is
@@ -1002,8 +1002,8 @@ the deme size <span class="math notranslate nohighlight">\(N\)</span> at <span c
 </dd>
 </dl>
 <dl class="py method">
-<dt id="demes.Epoch.assert_close">
-<code class="sig-name descname"><span class="pre">assert_close</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Epoch.assert_close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Epoch.assert_close" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Epoch.assert_close">
+<span class="sig-name descname"><span class="pre">assert_close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Epoch.assert_close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Epoch.assert_close" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raises AssertionError if the object is not equal to <code class="docutils literal notranslate"><span class="pre">other</span></code>,
 up to a numerical tolerance.
 Compares values of the following attributes:
@@ -1023,8 +1023,8 @@ comparisons. See documentation for <a class="reference external" href="https://d
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.Epoch.isclose">
-<code class="sig-name descname"><span class="pre">isclose</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Epoch.isclose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Epoch.isclose" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Epoch.isclose">
+<span class="sig-name descname"><span class="pre">isclose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Epoch.isclose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Epoch.isclose" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns true if the epoch and <code class="docutils literal notranslate"><span class="pre">other</span></code> epoch implement essentially
 the same epoch. For more information see <a class="reference internal" href="#demes.Epoch.assert_close" title="demes.Epoch.assert_close"><code class="xref py py-meth docutils literal notranslate"><span class="pre">assert_close()</span></code></a>.</p>
 <dl class="field-list simple">
@@ -1046,9 +1046,9 @@ comparisons. See documentation for <a class="reference external" href="https://d
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt id="demes.Epoch.time_span">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">time_span</span></code><a class="headerlink" href="#demes.Epoch.time_span" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="demes.Epoch.time_span">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">time_span</span></span><a class="headerlink" href="#demes.Epoch.time_span" title="Permalink to this definition">¶</a></dt>
 <dd><p>The time span of the epoch.</p>
 </dd></dl>
 
@@ -1058,8 +1058,8 @@ comparisons. See documentation for <a class="reference external" href="https://d
 <div class="section" id="continuous-demographic-events">
 <h2>Continuous demographic events<a class="headerlink" href="#continuous-demographic-events" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="demes.AsymmetricMigration">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">AsymmetricMigration</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#AsymmetricMigration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.AsymmetricMigration" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.AsymmetricMigration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">AsymmetricMigration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#AsymmetricMigration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.AsymmetricMigration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameters for continuous asymmetric migration.
 The source and destination demes follow the forwards-in-time convention,
 where migrants are born in the source deme and (potentially) have children
@@ -1076,8 +1076,8 @@ in the dest deme.</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="demes.AsymmetricMigration.assert_close">
-<code class="sig-name descname"><span class="pre">assert_close</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#AsymmetricMigration.assert_close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.AsymmetricMigration.assert_close" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.AsymmetricMigration.assert_close">
+<span class="sig-name descname"><span class="pre">assert_close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#AsymmetricMigration.assert_close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.AsymmetricMigration.assert_close" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raises AssertionError if the object is not equal to <code class="docutils literal notranslate"><span class="pre">other</span></code>,
 up to a numerical tolerance.
 Compares values of the following attributes:
@@ -1096,8 +1096,8 @@ comparisons. See documentation for <a class="reference external" href="https://d
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.AsymmetricMigration.isclose">
-<code class="sig-name descname"><span class="pre">isclose</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#AsymmetricMigration.isclose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.AsymmetricMigration.isclose" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.AsymmetricMigration.isclose">
+<span class="sig-name descname"><span class="pre">isclose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#AsymmetricMigration.isclose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.AsymmetricMigration.isclose" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns true if the migration is equal to the <code class="docutils literal notranslate"><span class="pre">other</span></code> migration.
 For more information see <a class="reference internal" href="#demes.AsymmetricMigration.assert_close" title="demes.AsymmetricMigration.assert_close"><code class="xref py py-meth docutils literal notranslate"><span class="pre">assert_close()</span></code></a>.</p>
 <dl class="field-list simple">
@@ -1125,8 +1125,8 @@ comparisons. See documentation for <a class="reference external" href="https://d
 <div class="section" id="discrete-demographic-events">
 <h2>Discrete demographic events<a class="headerlink" href="#discrete-demographic-events" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="demes.Pulse">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">Pulse</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sources</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proportions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Pulse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Pulse" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Pulse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">Pulse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sources</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proportions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Pulse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Pulse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameters for a pulse of migration from one deme to another.
 Source and destination demes follow the forwards-in-time convention,
 of migrations born in the source deme having children in the dest
@@ -1145,8 +1145,8 @@ having parents from the source deme(s).</p></li>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="demes.Pulse.assert_close">
-<code class="sig-name descname"><span class="pre">assert_close</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Pulse.assert_close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Pulse.assert_close" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Pulse.assert_close">
+<span class="sig-name descname"><span class="pre">assert_close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Pulse.assert_close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Pulse.assert_close" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raises AssertionError if the object is not equal to <code class="docutils literal notranslate"><span class="pre">other</span></code>,
 up to a numerical tolerance.
 Compares values of the following attributes:
@@ -1165,8 +1165,8 @@ comparisons. See documentation for <a class="reference external" href="https://d
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.Pulse.isclose">
-<code class="sig-name descname"><span class="pre">isclose</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Pulse.isclose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Pulse.isclose" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Pulse.isclose">
+<span class="sig-name descname"><span class="pre">isclose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Pulse.isclose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Pulse.isclose" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns true if the pulse is equal to the <code class="docutils literal notranslate"><span class="pre">other</span></code> pulse.
 For more information see <a class="reference internal" href="#demes.Pulse.assert_close" title="demes.Pulse.assert_close"><code class="xref py py-meth docutils literal notranslate"><span class="pre">assert_close()</span></code></a>.</p>
 <dl class="field-list simple">
@@ -1191,8 +1191,8 @@ comparisons. See documentation for <a class="reference external" href="https://d
 </dd></dl>
 
 <dl class="py class">
-<dt id="demes.Split">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">Split</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">children</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Split"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Split" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Split">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">Split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">children</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Split"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Split" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameters for a split event, in which a deme ends at a given time and
 contributes ancestry to an arbitrary number of descendant demes. Note
 that there could be just a single descendant deme, in which case <code class="docutils literal notranslate"><span class="pre">split</span></code>
@@ -1207,8 +1207,8 @@ is a bit of a misnomer…</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="demes.Split.assert_close">
-<code class="sig-name descname"><span class="pre">assert_close</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Split.assert_close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Split.assert_close" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Split.assert_close">
+<span class="sig-name descname"><span class="pre">assert_close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Split.assert_close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Split.assert_close" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raises AssertionError if the object is not equal to <code class="docutils literal notranslate"><span class="pre">other</span></code>,
 up to a numerical tolerance.
 Compares values of the following attributes:
@@ -1227,8 +1227,8 @@ comparisons. See documentation for <a class="reference external" href="https://d
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.Split.isclose">
-<code class="sig-name descname"><span class="pre">isclose</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Split.isclose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Split.isclose" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Split.isclose">
+<span class="sig-name descname"><span class="pre">isclose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Split.isclose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Split.isclose" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns true if the split is equal to the <code class="docutils literal notranslate"><span class="pre">other</span></code> split.
 Compares values of the following attributes:
 <code class="docutils literal notranslate"><span class="pre">parent</span></code>, <code class="docutils literal notranslate"><span class="pre">children</span></code>, <code class="docutils literal notranslate"><span class="pre">time</span></code>.</p>
@@ -1254,8 +1254,8 @@ comparisons. See documentation for <a class="reference external" href="https://d
 </dd></dl>
 
 <dl class="py class">
-<dt id="demes.Branch">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">Branch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">child</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Branch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Branch" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Branch">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">Branch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">child</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Branch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Branch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameters for a branch event, where a new deme branches off from a parental
 deme. The parental deme need not end at that time.</p>
 <dl class="field-list simple">
@@ -1268,8 +1268,8 @@ deme. The parental deme need not end at that time.</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="demes.Branch.assert_close">
-<code class="sig-name descname"><span class="pre">assert_close</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Branch.assert_close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Branch.assert_close" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Branch.assert_close">
+<span class="sig-name descname"><span class="pre">assert_close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Branch.assert_close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Branch.assert_close" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raises AssertionError if the object is not equal to <code class="docutils literal notranslate"><span class="pre">other</span></code>,
 up to a numerical tolerance.
 Compares values of the following attributes:
@@ -1288,8 +1288,8 @@ comparisons. See documentation for <a class="reference external" href="https://d
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.Branch.isclose">
-<code class="sig-name descname"><span class="pre">isclose</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Branch.isclose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Branch.isclose" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Branch.isclose">
+<span class="sig-name descname"><span class="pre">isclose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Branch.isclose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Branch.isclose" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns true if the branch is equal to the <code class="docutils literal notranslate"><span class="pre">other</span></code> branch.
 For more information see <a class="reference internal" href="#demes.Branch.assert_close" title="demes.Branch.assert_close"><code class="xref py py-meth docutils literal notranslate"><span class="pre">assert_close()</span></code></a>.</p>
 <dl class="field-list simple">
@@ -1314,8 +1314,8 @@ comparisons. See documentation for <a class="reference external" href="https://d
 </dd></dl>
 
 <dl class="py class">
-<dt id="demes.Merge">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">Merge</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parents</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proportions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">child</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Merge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Merge" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Merge">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">Merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parents</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proportions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">child</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Merge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Merge" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameters for a merge event, in which two or more demes end at some time and
 contribute to a descendant deme.</p>
 <dl class="field-list simple">
@@ -1330,8 +1330,8 @@ in order of <code class="docutils literal notranslate"><span class="pre">parents
 </dd>
 </dl>
 <dl class="py method">
-<dt id="demes.Merge.assert_close">
-<code class="sig-name descname"><span class="pre">assert_close</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Merge.assert_close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Merge.assert_close" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Merge.assert_close">
+<span class="sig-name descname"><span class="pre">assert_close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Merge.assert_close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Merge.assert_close" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raises AssertionError if the object is not equal to <code class="docutils literal notranslate"><span class="pre">other</span></code>,
 up to a numerical tolerance.
 Compares values of the following attributes:
@@ -1350,8 +1350,8 @@ comparisons. See documentation for <a class="reference external" href="https://d
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.Merge.isclose">
-<code class="sig-name descname"><span class="pre">isclose</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Merge.isclose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Merge.isclose" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Merge.isclose">
+<span class="sig-name descname"><span class="pre">isclose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Merge.isclose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Merge.isclose" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns true if the merge is equal to the <code class="docutils literal notranslate"><span class="pre">other</span></code> merge.
 For more information see <a class="reference internal" href="#demes.Merge.assert_close" title="demes.Merge.assert_close"><code class="xref py py-meth docutils literal notranslate"><span class="pre">assert_close()</span></code></a>.</p>
 <dl class="field-list simple">
@@ -1376,8 +1376,8 @@ comparisons. See documentation for <a class="reference external" href="https://d
 </dd></dl>
 
 <dl class="py class">
-<dt id="demes.Admix">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">Admix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parents</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proportions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">child</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Admix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Admix" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Admix">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">Admix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parents</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proportions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">child</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Admix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Admix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameters for an admixture event, where two or more demes contribute ancestry
 to a new deme.</p>
 <dl class="field-list simple">
@@ -1392,8 +1392,8 @@ in order of <code class="docutils literal notranslate"><span class="pre">parents
 </dd>
 </dl>
 <dl class="py method">
-<dt id="demes.Admix.assert_close">
-<code class="sig-name descname"><span class="pre">assert_close</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Admix.assert_close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Admix.assert_close" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Admix.assert_close">
+<span class="sig-name descname"><span class="pre">assert_close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Admix.assert_close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Admix.assert_close" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raises AssertionError if the object is not equal to <code class="docutils literal notranslate"><span class="pre">other</span></code>,
 up to a numerical tolerance.
 Compares values of the following attributes:
@@ -1412,8 +1412,8 @@ comparisons. See documentation for <a class="reference external" href="https://d
 </dd></dl>
 
 <dl class="py method">
-<dt id="demes.Admix.isclose">
-<code class="sig-name descname"><span class="pre">isclose</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Admix.isclose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Admix.isclose" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.Admix.isclose">
+<span class="sig-name descname"><span class="pre">isclose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abs_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Admix.isclose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Admix.isclose" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns true if the admixture is equal to the <code class="docutils literal notranslate"><span class="pre">other</span></code> admixture.
 For more information see <a class="reference internal" href="#demes.Admix.assert_close" title="demes.Admix.assert_close"><code class="xref py py-meth docutils literal notranslate"><span class="pre">assert_close()</span></code></a>.</p>
 <dl class="field-list simple">
@@ -1441,8 +1441,8 @@ comparisons. See documentation for <a class="reference external" href="https://d
 <div class="section" id="conversion-functions">
 <h2>Conversion functions<a class="headerlink" href="#conversion-functions" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt id="demes.from_ms">
-<code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">from_ms</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deme_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/ms.html#from_ms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.from_ms" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.from_ms">
+<span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">from_ms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deme_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/ms.html#from_ms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.from_ms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert an ms demographic model into a demes graph.</p>
 <p><a class="reference external" href="https://doi.org/10.1093/bioinformatics/18.2.337">Hudson’s ms</a>
 uses coalescent units for times (<span class="math notranslate nohighlight">\(t\)</span>),
@@ -1469,14 +1469,14 @@ If not specified, demes will be named deme1, deme2, etc.</p></li>
 <dd class="field-even"><p>The demes graph.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#demes.Graph" title="demes.Graph">demes.Graph</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="#demes.Graph" title="demes.demes.Graph">demes.Graph</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt id="demes.to_ms">
-<code class="sig-prename descclassname"><span class="pre">demes.</span></code><code class="sig-name descname"><span class="pre">to_ms</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/ms.html#to_ms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.to_ms" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="demes.to_ms">
+<span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">to_ms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/ms.html#to_ms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.to_ms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get ms command line arguments for the graph.</p>
 <p>The order of deme IDs matches the order of demes in the graph.</p>
 <dl class="field-list simple">
@@ -1553,7 +1553,7 @@ simulation.</p></li>
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes 0.2.1.dev10
+            demes 0.2.1.dev13
           </div>
       </p>
     </div>
