@@ -127,7 +127,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.2.1b2.dev2
+  demes 0.2.1b2.dev4
 </div>
 
 </div>
@@ -212,21 +212,26 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id1">
-   0.2.0 - 2021-12-01
+   0.2.1 - 2021-12-07
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   0.1.2 - 2021-06-08
+   0.2.0 - 2021-12-01
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id3">
-   0.1.1 - 2021-04-21
+   0.1.2 - 2021-06-08
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id4">
+   0.1.1 - 2021-04-21
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
    0.1.0 - 2021-04-19
   </a>
  </li>
@@ -264,7 +269,30 @@
   <div class="tex2jax_ignore mathjax_ignore section" id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2>0.2.0 - 2021-12-01<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>0.2.1 - 2021-12-07<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p><strong>New features:</strong></p>
+<ul class="simple">
+<li><p>Support for the <code class="docutils literal notranslate"><span class="pre">metadata</span></code> field at the toplevel of a YAML file.
+The is a dictionary that may contain arbitrary nested data.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/275">#275</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/392">#392</a>).</p></li>
+</ul>
+<p><strong>Bug fixes:</strong></p>
+<ul class="simple">
+<li><p>The string “Infinity” is now accepted when using <code class="docutils literal notranslate"><span class="pre">load_all()</span></code>,
+just like for <code class="docutils literal notranslate"><span class="pre">load()</span></code> and <code class="docutils literal notranslate"><span class="pre">loads()</span></code>.
+This fixes loading fully-resolved models with the CLI.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/394">#394</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/395">#395</a>).</p></li>
+</ul>
+<p><strong>Breaking changes:</strong></p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">demes.hypothesis_strategies.graphs()</span></code> function for generating
+a random <code class="docutils literal notranslate"><span class="pre">Graph</span></code> has been removed. This was buggy and not usable
+as originally intended.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/360">#360</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/397">#397</a>).</p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>0.2.0 - 2021-12-01<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p><strong>New features:</strong></p>
 <ul class="simple">
 <li><p>Add <code class="docutils literal notranslate"><span class="pre">load_all()</span></code>/<code class="docutils literal notranslate"><span class="pre">dump_all()</span></code> to support multi-document YAML.
@@ -298,8 +326,8 @@ end times of the demes involved differ.
 (<a class="reference external" href="https://github.com/apragsdale">&#64;apragsdale</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/384">#384</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/385">#385</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id2">
-<h2>0.1.2 - 2021-06-08<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2>0.1.2 - 2021-06-08<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p><strong>New features</strong>:</p>
 <ul class="simple">
 <li><p>Add <code class="docutils literal notranslate"><span class="pre">Graph.migration_matrices()</span></code> to get the migration matrices for a graph.
@@ -330,13 +358,13 @@ instead use the string “Infinity”.
 <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/311">#311</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id3">
-<h2>0.1.1 - 2021-04-21<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2>0.1.1 - 2021-04-21<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>Remove the “demes” console_scripts entry point.
 This isn’t documented/supported and was left in accidentally.</p>
 </div>
-<div class="section" id="id4">
-<h2>0.1.0 - 2021-04-19<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h2>0.1.0 - 2021-04-19<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p><strong>Breaking changes</strong>:</p>
 <ul class="simple">
 <li><p>The interpretation has been changed for symmetric migrations when the
@@ -453,7 +481,7 @@ release are still possible, but are considered unlikely.</p>
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes 0.2.1b2.dev2
+            demes 0.2.1b2.dev4
           </div>
       </p>
     </div>

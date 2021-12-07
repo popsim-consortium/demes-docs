@@ -128,7 +128,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.2.1b2.dev2
+  demes 0.2.1b2.dev4
 </div>
 
 </div>
@@ -392,10 +392,20 @@ This triggers the <code class="docutils literal notranslate"><span class="pre">w
 the release to <a class="reference external" href="https://test.pypi.org/project/demes/">https://test.pypi.org/project/demes/</a> and can be
 installed with:
 <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">demes</span> <span class="pre">--upgrade</span> <span class="pre">--pre</span> <span class="pre">--extra-index-url</span> <span class="pre">https://test.pypi.org/simple/</span></code>.</p></li>
-<li><p>Create a release in the GitHub UI, based on the tag that was pushed.
+<li><p>Create a release in the GitHub UI, based on the tag that was pushed
+(paste the output of <code class="docutils literal notranslate"><span class="pre">docs/convert_changelog.py</span></code> into the release notes).
 This will trigger the <code class="docutils literal notranslate"><span class="pre">wheel.yaml</span></code> workflow again, and upload the release
 to <a class="reference external" href="http://pypi.org">pypi.org</a>. If you don’t wish to publish a beta release, this step can
 be omitted.</p></li>
+<li><p>Within a few hours, the conda-forge infrastructure will automagically detect
+the new release on PyPI and will make a pull request against the
+<a class="reference external" href="https://github.com/conda-forge/demes-feedstock/">demes-feedstock</a> repository
+to bump the version number. If there have been changes to dependencies,
+the conda recipe may need to be fixed by adding commits onto the bot’s
+pull request. Once satisfied, merge the pull request and the package will
+be conda-installable after a few minutes.
+See the <a class="reference external" href="https://conda-forge.org/docs/maintainer/updating_pkgs.html">conda-forge maintainer docs</a>
+for additional information.</p></li>
 </ol>
 </div>
 </div>
@@ -451,7 +461,7 @@ be omitted.</p></li>
         
             &copy; Copyright 2021.<br/>
           <div class="extra_footer">
-            demes 0.2.1b2.dev2
+            demes 0.2.1b2.dev4
           </div>
       </p>
     </div>
