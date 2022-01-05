@@ -41,7 +41,7 @@
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -128,7 +128,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.2.2.dev13
+  demes 0.2.2.dev15
 </div>
 
 </div>
@@ -171,7 +171,7 @@
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -207,7 +207,7 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
@@ -245,9 +245,49 @@
         </div>
     </div>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+    <!-- Table of contents that is only displayed when printing the page -->
+    <div id="jb-print-docs-body" class="onlyprint">
+        <h1>Quickstart</h1>
+        <!-- Table of contents -->
+        <div id="print-main-content" class="row">
+            <div class="col-12 col-md-12 pl-md-5 pr-md-5">
+            <div id="jb-print-toc">
+                
+                <div>
+                    <h2> Contents </h2>
+                </div>
+                <nav aria-label="Page">
+                    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#loading-a-demes-graph">
+   Loading a Demes graph
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#working-with-a-demes-graph">
+   Working with a Demes graph
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#building-a-demes-graph">
+   Building a Demes graph
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plotting-a-demes-graph">
+   Plotting a Demes graph
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#saving-a-demes-graph">
+   Saving a Demes graph
+  </a>
+ </li>
+</ul>
+
+                </nav>
+            </div>
+            
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="quickstart">
@@ -263,8 +303,8 @@ Out-of-Africa model of human history.</p>
 <div class="card w-100 shadow docutils">
 <div class="card-body docutils">
 <div class="tabbed-set docutils">
-<input checked="checked" id="8917e038-6c53-4775-bfe9-e9d817c694e9" name="2f9598f9-e54d-42ba-8d6b-f3cc691cffbf" type="radio">
-</input><label class="tabbed-label pt-0" for="8917e038-6c53-4775-bfe9-e9d817c694e9">
+<input checked="checked" id="447da6d2-6a60-48fd-89e7-d557ec69c7c5" name="ec587ee0-71a9-400e-a1e2-af057e6fa6ea" type="radio">
+</input><label class="tabbed-label pt-0" for="447da6d2-6a60-48fd-89e7-d557ec69c7c5">
 YAML</label><div class="tabbed-content docutils">
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The Gutenkunst et al. (2009) OOA model.</span><span class="w"></span>
 <span class="nt">doi</span><span class="p">:</span><span class="w"></span>
@@ -311,8 +351,296 @@ YAML</label><div class="tabbed-content docutils">
 </pre></div>
 </div>
 </div>
-<input id="f4125684-cfb9-46ac-af61-2fb49dca5f56" name="2f9598f9-e54d-42ba-8d6b-f3cc691cffbf" type="radio">
-</input><label class="tabbed-label pt-0" for="f4125684-cfb9-46ac-af61-2fb49dca5f56">
+<input id="f9d28256-2b08-4df2-916b-58b7551ce8b1" name="ec587ee0-71a9-400e-a1e2-af057e6fa6ea" type="radio">
+</input><label class="tabbed-label pt-0" for="f9d28256-2b08-4df2-916b-58b7551ce8b1">
+Drawing</label><div class="tabbed-content docutils">
+<div class="cell_output docutils container">
+<img alt="_images/quickstart_2_0.svg" src="_images/quickstart_2_0.svg" /></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>This YAML file can be loaded into Python with the <a class="reference internal" href="api.html#demes.load" title="demes.load"><code class="xref py py-func docutils literal notranslate"><span class="pre">load()</span></code></a> function,
+to obtain a <a class="reference internal" href="api.html#demes.Graph" title="demes.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a> instance (modify the filename as appropriate).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">demes</span>
+
+<span class="n">ooa_graph</span> <span class="o">=</span> <span class="n">demes</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;../examples/gutenkunst_ooa.yaml&quot;</span><span class="p">)</span>
+<span class="nb">isinstance</span><span class="p">(</span><span class="n">ooa_graph</span><span class="p">,</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="working-with-a-demes-graph">
+<h2>Working with a Demes graph<a class="headerlink" href="#working-with-a-demes-graph" title="Permalink to this headline">¶</a></h2>
+<p>The features of the graph can then be inspected. We may ask which demes are
+present in the graph.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Is there a deme labeled CEU in the graph?&quot;</span><span class="p">,</span> <span class="s2">&quot;CEU&quot;</span> <span class="ow">in</span> <span class="n">ooa_graph</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Is there a deme labeled JPT in the graph?&quot;</span><span class="p">,</span> <span class="s2">&quot;JPT&quot;</span> <span class="ow">in</span> <span class="n">ooa_graph</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Which demes are present?&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">ooa_graph</span><span class="o">.</span><span class="n">demes</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Is there a deme labeled CEU in the graph? True
+Is there a deme labeled JPT in the graph? False
+Which demes are present? [&#39;ancestral&#39;, &#39;AMH&#39;, &#39;OOA&#39;, &#39;YRI&#39;, &#39;CEU&#39;, &#39;CHB&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Or look in more detail at a single deme.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ceu</span> <span class="o">=</span> <span class="n">ooa_graph</span><span class="p">[</span><span class="s2">&quot;CEU&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;How many epochs does CEU have?&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ceu</span><span class="o">.</span><span class="n">epochs</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ceu</span><span class="o">.</span><span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>How many epochs does CEU have? 1
+Epoch(start_time=21200.0, end_time=0, start_size=1000, end_size=29725, size_function=&#39;exponential&#39;, selfing_rate=0, cloning_rate=0)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Similarly, we can inspect the interactions defined between demes.
+Note that each symmetric migration defined in the input YAML file has been
+converted into a pair of <a class="reference internal" href="api.html#demes.AsymmetricMigration" title="demes.AsymmetricMigration"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsymmetricMigration</span></code></a> objects.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;number of migrations:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ooa_graph</span><span class="o">.</span><span class="n">migrations</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;migrations: &quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="n">ooa_graph</span><span class="o">.</span><span class="n">migrations</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">migration</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;number of pulses:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ooa_graph</span><span class="o">.</span><span class="n">pulses</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">pulse</span> <span class="ow">in</span> <span class="n">ooa_graph</span><span class="o">.</span><span class="n">pulses</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">pulse</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>number of migrations: 8
+migrations: 
+  AsymmetricMigration(source=&#39;YRI&#39;, dest=&#39;OOA&#39;, start_time=140000.0, end_time=21200.0, rate=0.00025)
+  AsymmetricMigration(source=&#39;OOA&#39;, dest=&#39;YRI&#39;, start_time=140000.0, end_time=21200.0, rate=0.00025)
+  AsymmetricMigration(source=&#39;YRI&#39;, dest=&#39;CEU&#39;, start_time=21200.0, end_time=0, rate=3e-05)
+  AsymmetricMigration(source=&#39;CEU&#39;, dest=&#39;YRI&#39;, start_time=21200.0, end_time=0, rate=3e-05)
+  AsymmetricMigration(source=&#39;YRI&#39;, dest=&#39;CHB&#39;, start_time=21200.0, end_time=0, rate=1.9e-05)
+  AsymmetricMigration(source=&#39;CHB&#39;, dest=&#39;YRI&#39;, start_time=21200.0, end_time=0, rate=1.9e-05)
+  AsymmetricMigration(source=&#39;CEU&#39;, dest=&#39;CHB&#39;, start_time=21200.0, end_time=0, rate=9.6e-05)
+  AsymmetricMigration(source=&#39;CHB&#39;, dest=&#39;CEU&#39;, start_time=21200.0, end_time=0, rate=9.6e-05)
+number of pulses: 0
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="building-a-demes-graph">
+<h2>Building a Demes graph<a class="headerlink" href="#building-a-demes-graph" title="Permalink to this headline">¶</a></h2>
+<p>A demographic model can also be constructed programmatically by instantiating a
+<a class="reference internal" href="api.html#demes.Builder" title="demes.Builder"><code class="xref py py-class docutils literal notranslate"><span class="pre">Builder</span></code></a> object, then adding demes, migrations, and admixture
+pulses via the methods available on this class.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">demes</span><span class="o">.</span><span class="n">Builder</span><span class="p">(</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Gutenkunst et al. (2009) three-population model.&quot;</span><span class="p">,</span>
+    <span class="n">doi</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;10.1371/journal.pgen.1000695&quot;</span><span class="p">],</span>
+    <span class="n">time_units</span><span class="o">=</span><span class="s2">&quot;years&quot;</span><span class="p">,</span>
+    <span class="n">generation_time</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">add_deme</span><span class="p">(</span><span class="s2">&quot;ancestral&quot;</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">end_time</span><span class="o">=</span><span class="mf">220e3</span><span class="p">,</span> <span class="n">start_size</span><span class="o">=</span><span class="mi">7300</span><span class="p">)])</span>
+<span class="n">b</span><span class="o">.</span><span class="n">add_deme</span><span class="p">(</span><span class="s2">&quot;AMH&quot;</span><span class="p">,</span> <span class="n">ancestors</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ancestral&quot;</span><span class="p">],</span> <span class="n">epochs</span><span class="o">=</span><span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">end_time</span><span class="o">=</span><span class="mf">140e3</span><span class="p">,</span> <span class="n">start_size</span><span class="o">=</span><span class="mi">12300</span><span class="p">)])</span>
+<span class="n">b</span><span class="o">.</span><span class="n">add_deme</span><span class="p">(</span><span class="s2">&quot;OOA&quot;</span><span class="p">,</span> <span class="n">ancestors</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;AMH&quot;</span><span class="p">],</span> <span class="n">epochs</span><span class="o">=</span><span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">end_time</span><span class="o">=</span><span class="mf">21.2e3</span><span class="p">,</span> <span class="n">start_size</span><span class="o">=</span><span class="mi">2100</span><span class="p">)])</span>
+<span class="n">b</span><span class="o">.</span><span class="n">add_deme</span><span class="p">(</span><span class="s2">&quot;YRI&quot;</span><span class="p">,</span> <span class="n">ancestors</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;AMH&quot;</span><span class="p">],</span> <span class="n">epochs</span><span class="o">=</span><span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">start_size</span><span class="o">=</span><span class="mi">12300</span><span class="p">)])</span>
+<span class="n">b</span><span class="o">.</span><span class="n">add_deme</span><span class="p">(</span><span class="s2">&quot;CEU&quot;</span><span class="p">,</span> <span class="n">ancestors</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;OOA&quot;</span><span class="p">],</span> <span class="n">epochs</span><span class="o">=</span><span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">start_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">end_size</span><span class="o">=</span><span class="mi">29725</span><span class="p">)])</span>
+<span class="n">b</span><span class="o">.</span><span class="n">add_deme</span><span class="p">(</span><span class="s2">&quot;CHB&quot;</span><span class="p">,</span> <span class="n">ancestors</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;OOA&quot;</span><span class="p">],</span> <span class="n">epochs</span><span class="o">=</span><span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">start_size</span><span class="o">=</span><span class="mi">510</span><span class="p">,</span> <span class="n">end_size</span><span class="o">=</span><span class="mi">54090</span><span class="p">)])</span>
+<span class="n">b</span><span class="o">.</span><span class="n">add_migration</span><span class="p">(</span><span class="n">demes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;YRI&quot;</span><span class="p">,</span> <span class="s2">&quot;OOA&quot;</span><span class="p">],</span> <span class="n">rate</span><span class="o">=</span><span class="mf">25e-5</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">add_migration</span><span class="p">(</span><span class="n">demes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;YRI&quot;</span><span class="p">,</span> <span class="s2">&quot;CEU&quot;</span><span class="p">],</span> <span class="n">rate</span><span class="o">=</span><span class="mf">3e-5</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">add_migration</span><span class="p">(</span><span class="n">demes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;YRI&quot;</span><span class="p">,</span> <span class="s2">&quot;CHB&quot;</span><span class="p">],</span> <span class="n">rate</span><span class="o">=</span><span class="mf">1.9e-5</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">add_migration</span><span class="p">(</span><span class="n">demes</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;CEU&quot;</span><span class="p">,</span> <span class="s2">&quot;CHB&quot;</span><span class="p">],</span> <span class="n">rate</span><span class="o">=</span><span class="mf">9.6e-5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The builder object can then be “resolved” into a <a class="reference internal" href="api.html#demes.Graph" title="demes.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a> using the
+<a class="reference internal" href="api.html#demes.Builder.resolve" title="demes.Builder.resolve"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Builder.resolve()</span></code></a> method. We can check that our implementation
+matches the example we loaded with the <a class="reference internal" href="api.html#demes.Graph.isclose" title="demes.Graph.isclose"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Graph.isclose()</span></code></a> method.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_graph</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+<span class="n">my_graph</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">ooa_graph</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>For some demographic models, using the <a class="reference internal" href="api.html#demes.Builder" title="demes.Builder"><code class="xref py py-class docutils literal notranslate"><span class="pre">Builder</span></code></a> API can be far less
+cumbersome than writing the equivalent YAML file. For example, we can define
+a ring of demes, with migration between adjacent demes, as follows.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">M</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># number of demes</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">demes</span><span class="o">.</span><span class="n">Builder</span><span class="p">(</span>
+    <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;a ring of </span><span class="si">{</span><span class="n">M</span><span class="si">}</span><span class="s2"> demes, with migration between adjacent demes&quot;</span><span class="p">,</span>
+    <span class="n">time_units</span><span class="o">=</span><span class="s2">&quot;generations&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
+    <span class="n">b</span><span class="o">.</span><span class="n">add_deme</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">start_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)])</span>
+    <span class="k">if</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">b</span><span class="o">.</span><span class="n">add_migration</span><span class="p">(</span><span class="n">demes</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">],</span> <span class="n">rate</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">add_migration</span><span class="p">(</span><span class="n">demes</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">M</span> <span class="o">-</span> <span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;deme0&quot;</span><span class="p">],</span> <span class="n">rate</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span>
+<span class="n">ring_graph</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="plotting-a-demes-graph">
+<h2>Plotting a Demes graph<a class="headerlink" href="#plotting-a-demes-graph" title="Permalink to this headline">¶</a></h2>
+<p>The external <a class="reference external" href="https://github.com/grahamgower/demesdraw"><code class="docutils literal notranslate"><span class="pre">demesdraw</span></code></a>
+library offers a way to visualise <a class="reference internal" href="api.html#demes.Graph" title="demes.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code></a> objects, which can be
+a useful way to check that the model is what we expect.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">demesdraw</span>
+
+<span class="n">w</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">demesdraw</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">size_max</span><span class="p">(</span><span class="n">ring_graph</span><span class="p">)</span>
+<span class="c1"># Manually set x-axis coordinates for each deme, to improve spacing.</span>
+<span class="n">positions</span> <span class="o">=</span> <span class="p">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">j</span> <span class="o">*</span> <span class="n">w</span> <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">deme</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ring_graph</span><span class="o">.</span><span class="n">demes</span><span class="p">)}</span>
+<span class="n">demesdraw</span><span class="o">.</span><span class="n">tubes</span><span class="p">(</span><span class="n">ring_graph</span><span class="p">,</span> <span class="n">positions</span><span class="o">=</span><span class="n">positions</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/quickstart_18_0.svg" src="_images/quickstart_18_0.svg" /></div>
+</div>
+</div>
+<div class="section" id="saving-a-demes-graph">
+<h2>Saving a Demes graph<a class="headerlink" href="#saving-a-demes-graph" title="Permalink to this headline">¶</a></h2>
+<p>The graph can be written out to a new YAML file using the <a class="reference internal" href="api.html#demes.dump" title="demes.dump"><code class="xref py py-func docutils literal notranslate"><span class="pre">dump()</span></code></a> function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demes</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">ring_graph</span><span class="p">,</span> <span class="s2">&quot;/tmp/ring.yaml&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </div>
+        </div>
+    </div>
+    <div id="main-content" class="row noprint">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="quickstart">
+<span id="sec-quickstart"></span><h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="loading-a-demes-graph">
+<h2>Loading a Demes graph<a class="headerlink" href="#loading-a-demes-graph" title="Permalink to this headline">¶</a></h2>
+<p>Consider the well-known
+<a class="reference external" href="https://doi.org/10.1371/journal.pgen.1000695">Gutenkunst et al. (2009)</a>
+Out-of-Africa model of human history.</p>
+<div class="sphinx-bs container pb-4 docutils">
+<div class="row docutils">
+<div class="d-flex container docutils">
+<div class="card w-100 shadow docutils">
+<div class="card-body docutils">
+<div class="tabbed-set docutils">
+<input checked="checked" id="447da6d2-6a60-48fd-89e7-d557ec69c7c5" name="ec587ee0-71a9-400e-a1e2-af057e6fa6ea" type="radio">
+</input><label class="tabbed-label pt-0" for="447da6d2-6a60-48fd-89e7-d557ec69c7c5">
+YAML</label><div class="tabbed-content docutils">
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">The Gutenkunst et al. (2009) OOA model.</span><span class="w"></span>
+<span class="nt">doi</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://doi.org/10.1371/journal.pgen.1000695</span><span class="w"></span>
+<span class="nt">time_units</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">years</span><span class="w"></span>
+<span class="nt">generation_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">25</span><span class="w"></span>
+
+<span class="nt">demes</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ancestral</span><span class="w"></span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Equilibrium/root population</span><span class="w"></span>
+<span class="w">  </span><span class="nt">epochs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">end_time</span><span class="p">:</span><span class="w"> </span><span class="nv">220e3</span><span class="p p-Indicator">,</span><span class="nt"> start_size</span><span class="p">:</span><span class="w"> </span><span class="nv">7300</span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AMH</span><span class="w"></span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Anatomically modern humans</span><span class="w"></span>
+<span class="w">  </span><span class="nt">ancestors</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">ancestral</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">  </span><span class="nt">epochs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">end_time</span><span class="p">:</span><span class="w"> </span><span class="nv">140e3</span><span class="p p-Indicator">,</span><span class="nt"> start_size</span><span class="p">:</span><span class="w"> </span><span class="nv">12300</span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OOA</span><span class="w"></span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Bottleneck out-of-Africa population</span><span class="w"></span>
+<span class="w">  </span><span class="nt">ancestors</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">AMH</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">  </span><span class="nt">epochs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">end_time</span><span class="p">:</span><span class="w"> </span><span class="nv">21.2e3</span><span class="p p-Indicator">,</span><span class="nt"> start_size</span><span class="p">:</span><span class="w"> </span><span class="nv">2100</span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">YRI</span><span class="w"></span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Yoruba in Ibadan, Nigeria</span><span class="w"></span>
+<span class="w">  </span><span class="nt">ancestors</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">AMH</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">  </span><span class="nt">epochs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">start_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12300</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CEU</span><span class="w"></span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Utah Residents (CEPH) with Northern and Western European Ancestry</span><span class="w"></span>
+<span class="w">  </span><span class="nt">ancestors</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">OOA</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">  </span><span class="nt">epochs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">start_size</span><span class="p">:</span><span class="w"> </span><span class="nv">1000</span><span class="p p-Indicator">,</span><span class="nt"> end_size</span><span class="p">:</span><span class="w"> </span><span class="nv">29725</span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CHB</span><span class="w"></span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Han Chinese in Beijing, China</span><span class="w"></span>
+<span class="w">  </span><span class="nt">ancestors</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">OOA</span><span class="p p-Indicator">]</span><span class="w"></span>
+<span class="w">  </span><span class="nt">epochs</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">start_size</span><span class="p">:</span><span class="w"> </span><span class="nv">510</span><span class="p p-Indicator">,</span><span class="nt"> end_size</span><span class="p">:</span><span class="w"> </span><span class="nv">54090</span><span class="p p-Indicator">}</span><span class="w"></span>
+
+<span class="nt">migrations</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">demes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">YRI</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">OOA</span><span class="p p-Indicator">],</span><span class="nt"> rate</span><span class="p">:</span><span class="w"> </span><span class="nv">25e-5</span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">demes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">YRI</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">CEU</span><span class="p p-Indicator">],</span><span class="nt"> rate</span><span class="p">:</span><span class="w"> </span><span class="nv">3e-5</span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">demes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">YRI</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">CHB</span><span class="p p-Indicator">],</span><span class="nt"> rate</span><span class="p">:</span><span class="w"> </span><span class="nv">1.9e-5</span><span class="p p-Indicator">}</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">demes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">CEU</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">CHB</span><span class="p p-Indicator">],</span><span class="nt"> rate</span><span class="p">:</span><span class="w"> </span><span class="nv">9.6e-5</span><span class="p p-Indicator">}</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<input id="f9d28256-2b08-4df2-916b-58b7551ce8b1" name="ec587ee0-71a9-400e-a1e2-af057e6fa6ea" type="radio">
+</input><label class="tabbed-label pt-0" for="f9d28256-2b08-4df2-916b-58b7551ce8b1">
 Drawing</label><div class="tabbed-content docutils">
 <div class="cell_output docutils container">
 <img alt="_images/quickstart_2_0.svg" src="_images/quickstart_2_0.svg" /></div>
@@ -552,18 +880,16 @@ a useful way to check that the model is what we expect.</p>
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By PopSim Consortium<br/>
-        
-            &copy; Copyright 2021.<br/>
-          <div class="extra_footer">
-            demes 0.2.2.dev13
-          </div>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By PopSim Consortium<br/>
+    
+        &copy; Copyright 2021.<br/>
+      <div class="extra_footer">
+        demes 0.2.2.dev15
+      </div>
+  </p>
+</footer>
 </main>
 
 

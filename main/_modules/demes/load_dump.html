@@ -41,7 +41,7 @@
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -119,7 +119,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.2.2.dev13
+  demes 0.2.2.dev15
 </div>
 
 </div>
@@ -176,12 +176,347 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
         </div>
     </div>
 </div>
-    <div id="main-content" class="row">
+    <!-- Table of contents that is only displayed when printing the page -->
+    <div id="jb-print-docs-body" class="onlyprint">
+        <h1></h1>
+        <!-- Table of contents -->
+        <div id="print-main-content" class="row">
+            <div class="col-12 col-md-12 pl-md-5 pr-md-5">
+            <div id="jb-print-toc">
+                
+            </div>
+            
+              <div>
+                
+  <h1>Source code for demes.load_dump</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Functions to load and dump graphs in YAML and JSON formats.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">contextlib</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">MutableMapping</span>
+
+<span class="kn">import</span> <span class="nn">ruamel.yaml</span>
+
+<span class="kn">import</span> <span class="nn">demes</span>
+
+
+<span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+<span class="k">def</span> <span class="nf">_open_file_polymorph</span><span class="p">(</span><span class="n">polymorph</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Open polymorph as a path and yield the fileobj. If that fails,</span>
+<span class="sd">    just yield polymorph under the assumption it&#39;s a fileobj.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">polymorph</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">polymorph</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">f</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">f</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">polymorph</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="c1"># NOTE: The state of Python YAML libraries in 2020 leaves much to be desired.</span>
+<span class="c1"># The pyyaml library supports only YAML v1.1, which has some awkward corner</span>
+<span class="c1"># cases that have been fixed in YAML v1.2. A fork of pyaml, ruamel.yaml,</span>
+<span class="c1"># does support YAML v1.2, and introduces a new API for parsing/emitting</span>
+<span class="c1"># with additional features and desirable behaviour.</span>
+<span class="c1"># However, neither pyyaml nor ruamel guarantee API stability, and neither</span>
+<span class="c1"># provide complete reference documentation for their APIs.</span>
+<span class="c1"># The YAML code in demes is limited to the following two functions,</span>
+<span class="c1"># which are hopefully simple enough to not suffer from API instability.</span>
+
+
+<span class="k">def</span> <span class="nf">_load_yaml_asdict</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="k">with</span> <span class="n">ruamel</span><span class="o">.</span><span class="n">yaml</span><span class="o">.</span><span class="n">YAML</span><span class="p">(</span><span class="n">typ</span><span class="o">=</span><span class="s2">&quot;safe&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">yaml</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_dump_yaml_fromdict</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">multidoc</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dump data dict to a YAML file-like object.</span>
+
+<span class="sd">    :param bool multidoc: If True, output the YAML document start line ``---``,</span>
+<span class="sd">        and document end line ``...``, which indicate the beginning and end of</span>
+<span class="sd">        a YAML document respectively. The start indicator is needed when</span>
+<span class="sd">        outputting multiple YAML documents to a single file (or file stream).</span>
+<span class="sd">        The end indicator is not strictly needed, but may be desirable</span>
+<span class="sd">        depending on the underlying communication channel.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">ruamel</span><span class="o">.</span><span class="n">yaml</span><span class="o">.</span><span class="n">YAML</span><span class="p">(</span><span class="n">typ</span><span class="o">=</span><span class="s2">&quot;safe&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">fp</span><span class="p">)</span> <span class="k">as</span> <span class="n">yaml</span><span class="p">:</span>
+        <span class="c1"># Output flow style, but only for collections that consist only</span>
+        <span class="c1"># of scalars (i.e. the leaves in the document tree).</span>
+        <span class="n">yaml</span><span class="o">.</span><span class="n">default_flow_style</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># Don&#39;t emit obscure unicode, output &quot;\Uxxxxxxxx&quot; instead.</span>
+        <span class="c1"># Needed for string equality after round-tripping.</span>
+        <span class="n">yaml</span><span class="o">.</span><span class="n">allow_unicode</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Keep dict insertion order, thank you very much!</span>
+        <span class="n">yaml</span><span class="o">.</span><span class="n">sort_base_mapping_type_on_output</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">multidoc</span><span class="p">:</span>
+            <span class="n">yaml</span><span class="o">.</span><span class="n">explicit_start</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">yaml</span><span class="o">.</span><span class="n">explicit_end</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+
+<span class="n">_INFINITY_STR</span> <span class="o">=</span> <span class="s2">&quot;Infinity&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">_stringify_infinities</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modifies the data dict so infinite values are set to the string &quot;Infinity&quot;.</span>
+
+<span class="sd">    This is done for JSON output, because the JSON spec explicitly does not</span>
+<span class="sd">    provide an encoding for infinity.  The string-valued &quot;Infinity&quot; is likely</span>
+<span class="sd">    to be parsed without problem, and is converted to a float inf by the</span>
+<span class="sd">    following implementations:</span>
+<span class="sd">     * Python: float(&quot;Infinity&quot;)</span>
+<span class="sd">     * JavaScript: parseFloat(&quot;Infinity&quot;)</span>
+<span class="sd">     * C: strtod(&quot;Infinity&quot;, NULL) and atof(&quot;Infinity&quot;)</span>
+<span class="sd">     * R: as.numeric(&quot;Infinity&quot;)</span>
+<span class="sd">     * SLiM/Eidos: asFloat(&quot;Infinity&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="s2">&quot;start_time&quot;</span> <span class="ow">in</span> <span class="n">deme</span> <span class="ow">and</span> <span class="n">math</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">deme</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]):</span>
+            <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_INFINITY_STR</span>
+    <span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;migrations&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="k">if</span> <span class="s2">&quot;start_time&quot;</span> <span class="ow">in</span> <span class="n">migration</span> <span class="ow">and</span> <span class="n">math</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">migration</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]):</span>
+            <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_INFINITY_STR</span>
+
+
+<span class="k">def</span> <span class="nf">_unstringify_infinities</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modifies the data dict so the string &quot;Infinity&quot; is converted to float.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">]:</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">deme</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;start_time&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">start_time</span> <span class="o">==</span> <span class="n">_INFINITY_STR</span><span class="p">:</span>
+            <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">start_time</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;migrations&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">migration</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;start_time&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">start_time</span> <span class="o">==</span> <span class="n">_INFINITY_STR</span><span class="p">:</span>
+            <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">start_time</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">default</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;defaults&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="k">if</span> <span class="n">default</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;migration&quot;</span><span class="p">,</span> <span class="s2">&quot;deme&quot;</span><span class="p">]:</span>
+            <span class="n">start_time</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;defaults&quot;</span><span class="p">][</span><span class="n">default</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;start_time&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">start_time</span> <span class="o">==</span> <span class="n">_INFINITY_STR</span><span class="p">:</span>
+                <span class="n">data</span><span class="p">[</span><span class="s2">&quot;defaults&quot;</span><span class="p">][</span><span class="n">default</span><span class="p">][</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">start_time</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_no_null_values</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks for any null values in the input data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">check_if_None</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> must have a non-null value&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">assert_no_nulls</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">assert_no_nulls</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                        <span class="n">assert_no_nulls</span><span class="p">(</span><span class="n">_</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">check_if_None</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">check_if_None</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+
+    <span class="n">assert_no_nulls</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="loads_asdict"><a class="viewcode-back" href="../../api.html#demes.loads_asdict">[docs]</a><span class="k">def</span> <span class="nf">loads_asdict</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load a YAML or JSON string into a dictionary of nested objects.</span>
+<span class="sd">    The keywords and structure of the input are defined by the</span>
+<span class="sd">    :ref:`spec:sec_spec`.</span>
+
+<span class="sd">    :param str string: The string to be loaded.</span>
+<span class="sd">    :param str format: The format of the input string. Either &quot;yaml&quot; or &quot;json&quot;.</span>
+<span class="sd">    :return: A dictionary of nested objects, with the same data model as the</span>
+<span class="sd">        YAML or JSON input string.</span>
+<span class="sd">    :rtype: dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">load_asdict</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="load_asdict"><a class="viewcode-back" href="../../api.html#demes.load_asdict">[docs]</a><span class="k">def</span> <span class="nf">load_asdict</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load a YAML or JSON file into a dictionary of nested objects.</span>
+<span class="sd">    The keywords and structure of the input are defined by the</span>
+<span class="sd">    :ref:`spec:sec_spec`.</span>
+
+<span class="sd">    :param filename: The path to the file to be loaded, or a file-like object</span>
+<span class="sd">        with a ``read()`` method.</span>
+<span class="sd">    :type filename: Union[str, os.PathLike, FileLike]</span>
+<span class="sd">    :param str format: The format of the input file. Either &quot;yaml&quot; or &quot;json&quot;.</span>
+<span class="sd">    :return: A dictionary of nested objects, with the same data model as the</span>
+<span class="sd">        YAML or JSON input.</span>
+<span class="sd">    :rtype: dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;json&quot;</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">_open_file_polymorph</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;yaml&quot;</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">_open_file_polymorph</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">_load_yaml_asdict</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unknown format: </span><span class="si">{</span><span class="nb">format</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># We forbid null values in the input data.</span>
+    <span class="c1"># See https://github.com/popsim-consortium/demes-spec/issues/76</span>
+    <span class="n">_no_null_values</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="c1"># The string &quot;Infinity&quot; should only be present in JSON files.</span>
+    <span class="c1"># But YAML is a superset of JSON, so we want the YAML loader to also</span>
+    <span class="c1"># load JSON files without problem.</span>
+    <span class="n">_unstringify_infinities</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="loads"><a class="viewcode-back" href="../../api.html#demes.loads">[docs]</a><span class="k">def</span> <span class="nf">loads</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;demes.Graph&quot;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load a graph from a YAML or JSON string.</span>
+<span class="sd">    The keywords and structure of the input are defined by the</span>
+<span class="sd">    :ref:`spec:sec_spec`.</span>
+
+<span class="sd">    :param str string: The string to be loaded.</span>
+<span class="sd">    :param str format: The format of the input string. Either &quot;yaml&quot; or &quot;json&quot;.</span>
+<span class="sd">    :return: A graph.</span>
+<span class="sd">    :rtype: .Graph</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">loads_asdict</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="o">.</span><span class="n">fromdict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../api.html#demes.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;demes.Graph&quot;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load a graph from a YAML or JSON file.</span>
+<span class="sd">    The keywords and structure of the input are defined by the</span>
+<span class="sd">    :ref:`spec:sec_spec`.</span>
+
+<span class="sd">    :param filename: The path to the file to be loaded, or a file-like object</span>
+<span class="sd">        with a ``read()`` method.</span>
+<span class="sd">    :type filename: Union[str, os.PathLike, FileLike]</span>
+<span class="sd">    :param str format: The format of the input file. Either &quot;yaml&quot; or &quot;json&quot;.</span>
+<span class="sd">    :return: A graph.</span>
+<span class="sd">    :rtype: .Graph</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">load_asdict</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="o">.</span><span class="n">fromdict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="load_all"><a class="viewcode-back" href="../../api.html#demes.load_all">[docs]</a><span class="k">def</span> <span class="nf">load_all</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="s2">&quot;demes.Graph&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate graphs from a YAML document stream. Documents must be separated by</span>
+<span class="sd">    the YAML document start indicator, ``---``.</span>
+<span class="sd">    The keywords and structure of each document are defined by the</span>
+<span class="sd">    :ref:`spec:sec_spec`.</span>
+
+<span class="sd">    :param filename: The path to the file to be loaded, or a file-like object</span>
+<span class="sd">        with a ``read()`` method.</span>
+<span class="sd">    :type filename: Union[str, os.PathLike, FileLike]</span>
+<span class="sd">    :return: A generator of graphs.</span>
+<span class="sd">    :rtype: Generator[demes.Graph, None, None]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">_open_file_polymorph</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">ruamel</span><span class="o">.</span><span class="n">yaml</span><span class="o">.</span><span class="n">YAML</span><span class="p">(</span><span class="n">typ</span><span class="o">=</span><span class="s2">&quot;safe&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">yaml</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load_all</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+                <span class="c1"># We forbid null values in the input data.</span>
+                <span class="c1"># See https://github.com/popsim-consortium/demes-spec/issues/76</span>
+                <span class="n">_no_null_values</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                <span class="c1"># The string &quot;Infinity&quot; should only be present in JSON files.</span>
+                <span class="c1"># But YAML is a superset of JSON, so we want the YAML loader to also</span>
+                <span class="c1"># load JSON files without problem.</span>
+                <span class="n">_unstringify_infinities</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                <span class="k">yield</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="o">.</span><span class="n">fromdict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="dumps"><a class="viewcode-back" href="../../api.html#demes.dumps">[docs]</a><span class="k">def</span> <span class="nf">dumps</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dump the specified graph to a YAML or JSON string.</span>
+<span class="sd">    The keywords and structure of the output are defined by the</span>
+<span class="sd">    :ref:`spec:sec_spec`.</span>
+
+<span class="sd">    :param .Graph graph: The graph to dump.</span>
+<span class="sd">    :param str format: The format of the output file. Either &quot;yaml&quot; or &quot;json&quot;.</span>
+<span class="sd">    :param bool simplified: If True, returns a simplified graph. If False, returns</span>
+<span class="sd">        a fully-qualified graph.</span>
+<span class="sd">    :return: The YAML or JSON string.</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
+        <span class="n">dump</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">stream</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="n">simplified</span><span class="p">)</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">string</span></div>
+
+
+<div class="viewcode-block" id="dump"><a class="viewcode-back" href="../../api.html#demes.dump">[docs]</a><span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dump the specified graph to a file.</span>
+<span class="sd">    The keywords and structure of the output are defined by the</span>
+<span class="sd">    :ref:`spec:sec_spec`.</span>
+
+<span class="sd">    :param .Graph graph: The graph to dump.</span>
+<span class="sd">    :param filename: Path to the output file, or a file-like object with a</span>
+<span class="sd">        ``write()`` method.</span>
+<span class="sd">    :type filename: Union[str, os.PathLike, FileLike]</span>
+<span class="sd">    :param str format: The format of the output file. Either &quot;yaml&quot; or &quot;json&quot;.</span>
+<span class="sd">    :param bool simplified: If True, outputs a simplified graph. If False, outputs</span>
+<span class="sd">        a fully-qualified graph.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">simplified</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">asdict_simplified</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">asdict</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;json&quot;</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">_open_file_polymorph</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">_stringify_infinities</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">allow_nan</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="s2">&quot;yaml&quot;</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">_open_file_polymorph</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">_dump_yaml_fromdict</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unknown format: </span><span class="si">{</span><span class="nb">format</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="dump_all"><a class="viewcode-back" href="../../api.html#demes.dump_all">[docs]</a><span class="k">def</span> <span class="nf">dump_all</span><span class="p">(</span><span class="n">graphs</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dump the specified graphs to a multi-document YAML file or output stream.</span>
+
+<span class="sd">    :param graphs: An iterable of graphs to dump.</span>
+<span class="sd">    :param filename: Path to the output file, or a file-like object with a</span>
+<span class="sd">        ``write()`` method.</span>
+<span class="sd">    :type filename: Union[str, os.PathLike, FileLike]</span>
+<span class="sd">    :param bool simplified: If True, outputs simplified graphs. If False, outputs</span>
+<span class="sd">        fully-qualified graphs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">_open_file_polymorph</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">graph</span> <span class="ow">in</span> <span class="n">graphs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">simplified</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">asdict_simplified</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">asdict</span><span class="p">()</span>
+            <span class="n">_dump_yaml_fromdict</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">multidoc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+</pre></div>
+
+              </div>
+              
+            </div>
+        </div>
+    </div>
+    <div id="main-content" class="row noprint">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
         
               <div>
@@ -514,18 +849,16 @@
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By PopSim Consortium<br/>
-        
-            &copy; Copyright 2021.<br/>
-          <div class="extra_footer">
-            demes 0.2.2.dev13
-          </div>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By PopSim Consortium<br/>
+    
+        &copy; Copyright 2021.<br/>
+      <div class="extra_footer">
+        demes 0.2.2.dev15
+      </div>
+  </p>
+</footer>
 </main>
 
 
