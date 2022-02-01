@@ -127,7 +127,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.2.2.dev15
+  demes 0.2.2.dev17
 </div>
 
 </div>
@@ -229,19 +229,20 @@
         </div>
     </div>
 </div>
-    <!-- Table of contents that is only displayed when printing the page -->
-    <div id="jb-print-docs-body" class="onlyprint">
-        <h1>Introduction</h1>
-        <!-- Table of contents -->
-        <div id="print-main-content" class="row">
-            <div class="col-12 col-md-12 pl-md-5 pr-md-5">
-            <div id="jb-print-toc">
-                
-                <div>
-                    <h2> Contents </h2>
-                </div>
-                <nav aria-label="Page">
-                    <ul class="visible nav section-nav flex-column">
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Introduction</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#motivation">
    Motivation
@@ -254,7 +255,9 @@
  </li>
 </ul>
 
-                </nav>
+                        </nav>
+                    </div>
+                </div>
             </div>
             
               <div>
@@ -346,103 +349,8 @@ the <a class="reference external" href="https://github.com/grahamgower/demesdraw
 
               </div>
               
-            </div>
-        </div>
-    </div>
-    <div id="main-content" class="row noprint">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
-              <div>
-                
-  <div class="tex2jax_ignore mathjax_ignore section" id="introduction">
-<span id="sec-introduction"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<p>The <code class="docutils literal notranslate"><span class="pre">demes</span></code> Python package provides an API for defining, parsing, and sharing
-<a class="reference external" href="https://popsim-consortium.github.io/demes-spec-docs/main/introduction.html#sec-intro" title="(in Python)"><span class="xref myst">Demes</span></a> demographic models. Applications can use
-<code class="docutils literal notranslate"><span class="pre">demes</span></code> to parse human-readable <a class="reference external" href="https://popsim-consortium.github.io/demes-spec-docs/main/tutorial.html#sec-tutorial" title="(in Python)"><span class="xref myst">Demes YAML files</span></a>
-into fully-resolved demographic models. In addition, <code class="docutils literal notranslate"><span class="pre">demes</span></code> provides
-convenient data structures to simplify manipulation of demographic models.
-If you find an error in the documentation or a bug in the software,
-please head to our
-<a class="reference external" href="https://github.com/popsim-consortium/demes-python">git repository</a>
-to report an issue or open a pull request.</p>
-<div class="section" id="motivation">
-<h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
-<p>Simulation is central to population genetics studies, and there are many great
-software packages out there for simulating sequencing data or computing expectations of
-diversity statistics under a wide range of demographic scenarios. This requires
-writing a formal description of the demographic model. Generally, each
-simulation software has its own syntax and style for defining the demography.
-Learning curves for new software can be steep and mistakes are easy to make,
-especially for complex demographic scenarios.</p>
-<p>The <a class="reference external" href="https://popsim-consortium.github.io/demes-spec-docs/main/introduction.html#sec-intro" title="(in Python)"><span class="xref myst">Demes Specification</span></a> aims to make defining demographic
-models more intuitive, less prone to error or ambiguity, and readily
-interchangeable between simulation platforms.
-Demographic models, which define populations (or <em>demes</em>), their properties,
-and relationships between them, are by convention written as a
-<a class="reference external" href="https://www.yaml.info/learn/index.html">YAML</a> file.</p>
-</div>
-<div class="section" id="example">
-<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
-<p>The following YAML file implements a two-epoch demographic
-history for a single deme, where the deme doubles in size 100 generations ago.
-See the <a class="reference external" href="https://popsim-consortium.github.io/demes-spec-docs/main/tutorial.html#sec-tutorial" title="(in Python)"><span class="xref myst">Demes tutorial</span></a> for a detailed introduction to
-writing Demes YAML files.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Single-population two-epoch demography.</span><span class="w"></span>
-<span class="nt">time_units</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">generations</span><span class="w"></span>
-<span class="nt">demes</span><span class="p">:</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deme0</span><span class="w"></span>
-<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A deme that doubles in size 100 generations ago.</span><span class="w"></span>
-<span class="w">  </span><span class="nt">epochs</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">start_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span><span class="w"></span>
-<span class="w">      </span><span class="nt">end_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">start_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2000</span><span class="w"></span>
-<span class="w">      </span><span class="nt">end_time</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span><span class="w"></span>
-</pre></div>
-</div>
-<p>The YAML file can be loaded using <code class="docutils literal notranslate"><span class="pre">demes</span></code>, and then visually inspected using
-the <a class="reference external" href="https://github.com/grahamgower/demesdraw"><code class="docutils literal notranslate"><span class="pre">demesdraw</span></code></a> Python package.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">demes</span>
-<span class="kn">import</span> <span class="nn">demesdraw</span>
-
-<span class="n">graph</span> <span class="o">=</span> <span class="n">demes</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;../examples/two_epoch.yaml&quot;</span><span class="p">)</span>
-<span class="n">demesdraw</span><span class="o">.</span><span class="n">tubes</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">inf_ratio</span><span class="o">=</span><span class="mf">0.4</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/introduction_2_0.svg" src="_images/introduction_2_0.svg" /></div>
-</div>
-</div>
-<div class="toctree-wrapper compound">
-</div>
-</div>
-
-    <script type="text/x-thebe-config">
-    {
-        requestKernel: true,
-        binderOptions: {
-            repo: "binder-examples/jupyter-stacks-datascience",
-            ref: "master",
-        },
-        codeMirrorConfig: {
-            theme: "abcdef",
-            mode: "python"
-        },
-        kernelOptions: {
-            kernelName: "python3",
-            path: "./."
-        },
-        predefinedOutput: true
-    }
-    </script>
-    <script>kernelName = 'python3'</script>
-
-              </div>
-              
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'>
     <a class='right-next' id="next-link" href="installation.html" title="next page">
     <div class="prev-next-info">
@@ -452,7 +360,7 @@ the <a class="reference external" href="https://github.com/grahamgower/demesdraw
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
@@ -462,7 +370,7 @@ the <a class="reference external" href="https://github.com/grahamgower/demesdraw
     
         &copy; Copyright 2021.<br/>
       <div class="extra_footer">
-        demes 0.2.2.dev15
+        demes 0.2.2.dev17
       </div>
   </p>
 </footer>
