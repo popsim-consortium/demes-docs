@@ -133,7 +133,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.2.2.dev22
+  demes 0.2.2.dev24
 </div>
 
 </div>
@@ -981,6 +981,9 @@ comparisons. See documentation for <a class="reference external" href="https://d
 <dt class="sig sig-object py" id="demes.Deme.size_at">
 <span class="sig-name descname"><span class="pre">size_at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Deme.size_at"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Deme.size_at" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the size of the deme at a given time.</p>
+<p>If the deme doesn’t exist at the given time, the value 0 is returned.
+If the given time is infinity and the deme has an infinite start_time,
+the deme’s first epoch’s start_size is returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The time at which the size should be calculated.</p>
@@ -1603,7 +1606,7 @@ simulation.</p></li>
     
         &copy; Copyright 2021.<br/>
       <div class="extra_footer">
-        demes 0.2.2.dev22
+        demes 0.2.2.dev24
       </div>
   </p>
 </footer>
