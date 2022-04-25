@@ -45,12 +45,11 @@
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -131,7 +130,7 @@
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.2.2.dev37
+  demes 0.2.2.dev40
 </div>
 
 </div>
@@ -274,7 +273,7 @@ positional arguments:
     parse     Parse models and write them to stdout in canonical form.
     ms        Build a Demes model using ms command line arguments.
 
-optional arguments:
+options:
   -h, --help  show this help message and exit
   --version   show program&#39;s version number and exit
 </pre></div>
@@ -292,7 +291,7 @@ positional arguments:
                        JSON format, but will be parsed as YAML. Multi-document
                        YAML is supported.
 
-optional arguments:
+options:
   -h, --help           show this help message and exit
   -j, --json           Output a JSON-formatted model.
   --ms REFERENCE_SIZE  Output ms command line arguments, using the given
@@ -345,7 +344,7 @@ deme j each generation.
 Please refer to the ms manual for the precise semantics of each command.
 http://home.uchicago.edu/~rhudson1/source/mksamples.html
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
 
 required arguments:
@@ -459,7 +458,7 @@ ms arguments:
     
         &copy; Copyright 2021.<br/>
       <div class="extra_footer">
-        demes 0.2.2.dev37
+        demes 0.2.2.dev40
       </div>
   </p>
 </footer>
