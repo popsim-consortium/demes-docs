@@ -1,0 +1,1274 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>demes.ms &#8212; Demes manual</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Demes manual</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../introduction.html">
+   Introduction
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../quickstart.html">
+   Quickstart
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../api.html">
+   API Reference
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../cli.html">
+   Command line interface
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../development.html">
+   Development
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../CHANGELOG.html">
+   Changelog
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  demes 0.2.2
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/popsim-consortium/demes-python"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/popsim-consortium/demes-python/issues/new?title=Issue%20on%20page%20%2F_modules/demes/ms.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <h1>Source code for demes.ms</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">operator</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">import</span> <span class="nn">attr</span>
+
+<span class="kn">import</span> <span class="nn">demes</span>
+<span class="kn">from</span> <span class="nn">.demes</span> <span class="kn">import</span> <span class="n">finite</span><span class="p">,</span> <span class="n">positive</span><span class="p">,</span> <span class="n">non_negative</span><span class="p">,</span> <span class="n">unit_interval</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">ValueErrorArgumentParser</span><span class="p">(</span><span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An AgumentParser that throws a ValueError instead of exiting.</span>
+<span class="sd">    It would be preferred to catch and reraise TypeError and ValueError</span>
+<span class="sd">    separately, but that isn&#39;t possible without touching ArgumentParser</span>
+<span class="sd">    internals because those errors are caught by parse_known_args(),</span>
+<span class="sd">    which then throws an argparse.ArgumentError.</span>
+<span class="sd">    So we just use ValueError for everything.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">exc</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">exc</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">coerce_nargs</span><span class="p">(</span><span class="n">obj_creator</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return an argparse action that coerces the collected nargs into</span>
+<span class="sd">    data class using the specified class/function ``obj_creator``.</span>
+<span class="sd">    This simplifies the validation of heterogeneously-typed args lists.</span>
+<span class="sd">    If ``append`` is True, the option may be specified multiple times</span>
+<span class="sd">    and each coerced object will be appended to a list.</span>
+
+<span class="sd">    .. code::</span>
+
+<span class="sd">        @attr.define</span>
+<span class="sd">        class Foo</span>
+<span class="sd">            n = attr.ib(converter=int)</span>
+<span class="sd">            x = attr.ib(converter=float)</span>
+
+<span class="sd">        parser.add_argument(</span>
+<span class="sd">            &quot;--foo&quot;,</span>
+<span class="sd">            nargs=2,</span>
+<span class="sd">            action=coerce_nargs(Foo),</span>
+<span class="sd">            ...</span>
+<span class="sd">        )</span>
+
+<span class="sd">        args = parser.parse_args(&quot;--foo 6 1e-5&quot;)</span>
+<span class="sd">        assert isinstance(args.foo, Foo)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">parent_class</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Action</span>
+    <span class="k">if</span> <span class="n">append</span><span class="p">:</span>
+        <span class="n">parent_class</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">_AppendAction</span>
+
+    <span class="k">class</span> <span class="nc">CoerceAction</span><span class="p">(</span><span class="n">parent_class</span><span class="p">):</span>
+        <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">namespace</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">obj_creator</span><span class="p">(</span><span class="o">*</span><span class="n">values</span><span class="p">)</span>
+            <span class="c1"># We save the option strings to later identify which option was</span>
+            <span class="c1"># used to create the object. E.g. -n and -en options both map to</span>
+            <span class="c1"># PopulationSizeChange, but have slightly different semantics.</span>
+            <span class="n">obj</span><span class="o">.</span><span class="n">option_strings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">option_strings</span>
+            <span class="k">if</span> <span class="n">append</span><span class="p">:</span>
+                <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">namespace</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">namespace</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dest</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">CoerceAction</span>
+
+
+<span class="c1">##</span>
+<span class="c1"># Data classes for ms options. These help to separate input validation</span>
+<span class="c1"># from the graph building procedure.</span>
+
+
+<span class="k">def</span> <span class="nf">float_str</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert float to string, for use in command line arguments.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># Use lots of decimal places for negative numbers because argparse</span>
+        <span class="c1"># has problems parsing option args that are negative numbers in</span>
+        <span class="c1"># exponential form.</span>
+        <span class="c1"># https://github.com/popsim-consortium/demes-python/issues/325</span>
+        <span class="c1"># https://bugs.python.org/issue9334</span>
+        <span class="k">return</span> <span class="nb">format</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&quot;.10f&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+
+<span class="nd">@attr</span><span class="o">.</span><span class="n">define</span>
+<span class="k">class</span> <span class="nc">Option</span><span class="p">:</span>
+    <span class="c1"># This attribute is set by CoerceAction.</span>
+    <span class="n">option_strings</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+
+<span class="nd">@attr</span><span class="o">.</span><span class="n">define</span>
+<span class="k">class</span> <span class="nc">Structure</span><span class="p">(</span><span class="n">Option</span><span class="p">):</span>
+    <span class="c1"># -I npop n1 n2 ... [4*N0*m]</span>
+    <span class="n">npop</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">converter</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">positive</span><span class="p">)</span>
+    <span class="n">n</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>  <span class="c1"># samples list: currently ignored</span>
+    <span class="n">rate</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">converter</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">non_negative</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">npop</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;sample configuration doesn&#39;t match number of demes&quot;</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_nargs</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="n">npop</span><span class="p">,</span> <span class="o">*</span><span class="n">n</span> <span class="o">=</span> <span class="n">args</span>
+        <span class="n">rate</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">npop</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">npop</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;-I &#39;npop&#39; (</span><span class="si">{</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">) not an integer&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">==</span> <span class="n">npop</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="o">*</span><span class="n">n</span><span class="p">,</span> <span class="n">rate</span> <span class="o">=</span> <span class="n">n</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">npop</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">rate</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;-I&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">npop</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rate</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="p">[</span><span class="n">float_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rate</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+
+<span class="nd">@attr</span><span class="o">.</span><span class="n">define</span>
+<span class="k">class</span> <span class="nc">Event</span><span class="p">(</span><span class="n">Option</span><span class="p">):</span>
+    <span class="c1"># The first param of every demographic event is the event time.</span>
+    <span class="c1"># For ms options without a time parameter (i.e. those that set the</span>
+    <span class="c1"># initial simulation state), t is just set to zero.</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">converter</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">non_negative</span><span class="p">)</span>
+
+
+<span class="nd">@attr</span><span class="o">.</span><span class="n">define</span>
+<span class="k">class</span> <span class="nc">GrowthRateChange</span><span class="p">(</span><span class="n">Event</span><span class="p">):</span>
+    <span class="c1"># -G alpha</span>
+    <span class="c1"># -eG t alpha</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">converter</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">finite</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;-eG&quot;</span><span class="p">,</span> <span class="n">float_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">)]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;-G&quot;</span><span class="p">]</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">float_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">))</span>
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+
+<span class="nd">@attr</span><span class="o">.</span><span class="n">define</span>
+<span class="k">class</span> <span class="nc">PopulationGrowthRateChange</span><span class="p">(</span><span class="n">Event</span><span class="p">):</span>
+    <span class="c1"># -g i alpha</span>
+    <span class="c1"># -eg t i alpha</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">converter</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">positive</span><span class="p">)</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">converter</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">finite</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;-eg&quot;</span><span class="p">,</span> <span class="n">float_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">)]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;-g&quot;</span><span class="p">]</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">i</span><span class="p">),</span> <span class="n">float_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">)])</span>
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+
+<span class="nd">@attr</span><span class="o">.</span><span class="n">define</span>
+<span class="k">class</span> <span class="nc">SizeChange</span><span class="p">(</span><span class="n">Event</span><span class="p">):</span>
+    <span class="c1"># -eN t x</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">converter</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">non_negative</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;-eN&quot;</span><span class="p">,</span> <span class="n">float_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">),</span> <span class="n">float_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)])</span>
+
+
+<span class="nd">@attr</span><span class="o">.</span><span class="n">define</span>
+<span class="k">class</span> <span class="nc">PopulationSizeChange</span><span class="p">(</span><span class="n">Event</span><span class="p">):</span>
+    <span class="c1"># -n i x</span>
+    <span class="c1"># -en t i x</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">converter</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">positive</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">converter</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">non_negative</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;-en&quot;</span><span class="p">,</span> <span class="n">float_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">)]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;-n&quot;</span><span class="p">]</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">i</span><span class="p">),</span> <span class="n">float_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)])</span>
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+
+<span class="nd">@attr</span><span class="o">.</span><span class="n">define</span>
+<span class="k">class</span> <span class="nc">MigrationRateChange</span><span class="p">(</span><span class="n">Event</span><span class="p">):</span>
+    <span class="c1"># -eM t x</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">converter</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">non_negative</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;-eM&quot;</span><span class="p">,</span> <span class="n">float_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">),</span> <span class="n">float_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)])</span>
+
+
+<span class="nd">@attr</span><span class="o">.</span><span class="n">define</span>
+<span class="k">class</span> <span class="nc">MigrationMatrixEntryChange</span><span class="p">(</span><span class="n">Event</span><span class="p">):</span>
+    <span class="c1"># -m i j rate</span>
+    <span class="c1"># -em t i j rate</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">converter</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">positive</span><span class="p">)</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">converter</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">positive</span><span class="p">)</span>
+    <span class="n">rate</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">converter</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">non_negative</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;-em&quot;</span><span class="p">,</span> <span class="n">float_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">)]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;-m&quot;</span><span class="p">]</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">i</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">j</span><span class="p">),</span> <span class="n">float_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rate</span><span class="p">)])</span>
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+
+<span class="nd">@attr</span><span class="o">.</span><span class="n">define</span>
+<span class="k">class</span> <span class="nc">MigrationMatrixChange</span><span class="p">(</span><span class="n">Event</span><span class="p">):</span>
+    <span class="c1"># -ma M11 M12 M13 ... M21 ...</span>
+    <span class="c1"># -ema t npop M11 M12 M13 ... M21 ...</span>
+    <span class="n">npop</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">converter</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">positive</span><span class="p">)</span>
+    <span class="n">mm_vector</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">M</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert the args vector into a square list-of-lists matrix.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mm_vector</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">npop</span><span class="o">**</span><span class="mi">2</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Must be npop^2=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">npop</span><span class="o">**</span><span class="mi">2</span><span class="si">}</span><span class="s2"> migration matrix entries: &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">mm_vector</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="n">migration_matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">npop</span><span class="p">)]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">npop</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">npop</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">npop</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">j</span> <span class="o">!=</span> <span class="n">k</span><span class="p">:</span>
+                    <span class="n">rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mm_vector</span><span class="p">[</span><span class="n">j</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">npop</span> <span class="o">+</span> <span class="n">k</span><span class="p">]</span>
+
+                    <span class="c1"># Convert to float if possible. Ms ignores migration matrix</span>
+                    <span class="c1"># diagonals, as well as migration entries for &quot;joined&quot; demes.</span>
+                    <span class="c1"># The manual suggests to indicate diagonal elements with:</span>
+                    <span class="c1">#       x&#39;s, or any symbol one chooses to make the matrix</span>
+                    <span class="c1">#       more readable.</span>
+                    <span class="c1"># NaNs will be caught later during graph resolution if we</span>
+                    <span class="c1"># really attempt to use the value.</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">rate</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">rate</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                        <span class="n">rate</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">nan</span>
+
+                    <span class="n">migration_matrix</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">rate</span>
+        <span class="k">return</span> <span class="n">migration_matrix</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_nargs</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="n">t</span><span class="p">,</span> <span class="n">npop</span><span class="p">,</span> <span class="o">*</span><span class="n">mm_vector</span> <span class="o">=</span> <span class="n">args</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">npop</span><span class="p">,</span> <span class="n">mm_vector</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;-ema&quot;</span><span class="p">,</span> <span class="n">float_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">)]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;-ma&quot;</span><span class="p">]</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">npop</span><span class="p">))</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">npop</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">npop</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="n">k</span><span class="p">:</span>
+                    <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">float_str</span><span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+
+<span class="nd">@attr</span><span class="o">.</span><span class="n">define</span>
+<span class="k">class</span> <span class="nc">Split</span><span class="p">(</span><span class="n">Event</span><span class="p">):</span>
+    <span class="c1"># -es t i p</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">converter</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">positive</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">converter</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">unit_interval</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;-es&quot;</span><span class="p">,</span> <span class="n">float_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">i</span><span class="p">),</span> <span class="n">float_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)])</span>
+
+
+<span class="nd">@attr</span><span class="o">.</span><span class="n">define</span>
+<span class="k">class</span> <span class="nc">Join</span><span class="p">(</span><span class="n">Event</span><span class="p">):</span>
+    <span class="c1"># -ej t i j</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">converter</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">positive</span><span class="p">)</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">converter</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">positive</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;-ej&quot;</span><span class="p">,</span> <span class="n">float_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">i</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">j</span><span class="p">)])</span>
+
+
+<span class="k">def</span> <span class="nf">build_parser</span><span class="p">(</span><span class="n">parser</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">parser</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">ValueErrorArgumentParser</span><span class="p">()</span>
+
+    <span class="k">class</span> <span class="nc">LoadFromFile</span><span class="p">(</span><span class="n">argparse</span><span class="o">.</span><span class="n">Action</span><span class="p">):</span>
+        <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">namespace</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">option_string</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="c1"># parse arguments in the file and store them in the target namespace</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">args</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">namespace</span><span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-f&quot;</span><span class="p">,</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;filename&quot;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="n">LoadFromFile</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Insert commands from a file at this point in the command line.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-I&quot;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;structure&quot;</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="n">coerce_nargs</span><span class="p">(</span><span class="n">Structure</span><span class="o">.</span><span class="n">from_nargs</span><span class="p">),</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;num_demes&quot;</span><span class="p">,</span> <span class="s2">&quot;n1&quot;</span><span class="p">),</span>
+        <span class="n">help</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Set the number of demes and the sampling configuration. &quot;</span>
+            <span class="s2">&quot;The arguments are of the form &quot;</span>
+            <span class="s2">&quot;&#39;num_demes n1 n2 ... [4N0m]&#39;, &quot;</span>
+            <span class="s2">&quot;specifying the number of demes, &quot;</span>
+            <span class="s2">&quot;the sample configuration, and optionally, the migration &quot;</span>
+            <span class="s2">&quot;rate for a symmetric island model (in units of 4 * N0). &quot;</span>
+            <span class="s2">&quot;While values must be provided for the sample configuration, &quot;</span>
+            <span class="s2">&quot;they are not used for constructing the Demes model.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-n&quot;</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="n">coerce_nargs</span><span class="p">(</span><span class="k">lambda</span> <span class="o">*</span><span class="n">x</span><span class="p">:</span> <span class="n">PopulationSizeChange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">*</span><span class="n">x</span><span class="p">),</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;initial_state&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">),</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Set the size of deme i to x * N0.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-g&quot;</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="n">coerce_nargs</span><span class="p">(</span><span class="k">lambda</span> <span class="o">*</span><span class="n">x</span><span class="p">:</span> <span class="n">PopulationGrowthRateChange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">*</span><span class="n">x</span><span class="p">),</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;initial_state&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;alpha&quot;</span><span class="p">),</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Set the growth rate of deme i to alpha.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-G&quot;</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="n">coerce_nargs</span><span class="p">(</span><span class="k">lambda</span> <span class="o">*</span><span class="n">x</span><span class="p">:</span> <span class="n">GrowthRateChange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">*</span><span class="n">x</span><span class="p">),</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;initial_state&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;alpha&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Set the growth rate to alpha for all demes.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-m&quot;</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="n">coerce_nargs</span><span class="p">(</span><span class="k">lambda</span> <span class="o">*</span><span class="n">x</span><span class="p">:</span> <span class="n">MigrationMatrixEntryChange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">*</span><span class="n">x</span><span class="p">),</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;initial_state&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;j&quot;</span><span class="p">,</span> <span class="s2">&quot;rate&quot;</span><span class="p">),</span>
+        <span class="n">help</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Sets an entry M[i, j] in the migration matrix to the &quot;</span>
+            <span class="s2">&quot;specified rate. i and j are (1-indexed) deme IDs.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-ma&quot;</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="n">coerce_nargs</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="o">*</span><span class="n">x</span><span class="p">:</span> <span class="n">MigrationMatrixChange</span><span class="o">.</span><span class="n">from_nargs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">*</span><span class="n">x</span><span class="p">),</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">),</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;initial_state&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="s2">&quot;entry&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Sets the migration matrix from the specified vector of values. &quot;</span>
+            <span class="s2">&quot;The entries are in the order M[1, 1], M[1, 2], ..., M[2, 1], &quot;</span>
+            <span class="s2">&quot;M[2, 2], ..., M[N, N], where N is the number of demes. &quot;</span>
+            <span class="s2">&quot;Diagonal entries may be written as &#39;x&#39;.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-eG&quot;</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="n">coerce_nargs</span><span class="p">(</span><span class="n">GrowthRateChange</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;demographic_events&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="s2">&quot;alpha&quot;</span><span class="p">),</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Set the growth rate for all demes to alpha at time t.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-eg&quot;</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="n">coerce_nargs</span><span class="p">(</span><span class="n">PopulationGrowthRateChange</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;demographic_events&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;alpha&quot;</span><span class="p">),</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Set the growth rate of deme i to alpha at time t.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-eN&quot;</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="n">coerce_nargs</span><span class="p">(</span><span class="n">SizeChange</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;demographic_events&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">),</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Set the size of all demes to x * N0 at time t.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-en&quot;</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="n">coerce_nargs</span><span class="p">(</span><span class="n">PopulationSizeChange</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;demographic_events&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">),</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Set the size of deme i to x * N0 at time t.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-eM&quot;</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="n">coerce_nargs</span><span class="p">(</span><span class="n">MigrationRateChange</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;demographic_events&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">),</span>
+        <span class="n">help</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Set the symmetric island model migration rate to &quot;</span>
+            <span class="s2">&quot;&#39;x / (num_demes - 1)&#39; at time t.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-em&quot;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="n">coerce_nargs</span><span class="p">(</span><span class="n">MigrationMatrixEntryChange</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;demographic_events&quot;</span><span class="p">,</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;j&quot;</span><span class="p">,</span> <span class="s2">&quot;rate&quot;</span><span class="p">),</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">help</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Sets the entry M[i, j] in the migration matrix to the &quot;</span>
+            <span class="s2">&quot;specified rate at time t. i and j are (1-indexed) deme IDs.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-ema&quot;</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">action</span><span class="o">=</span><span class="n">coerce_nargs</span><span class="p">(</span><span class="n">MigrationMatrixChange</span><span class="o">.</span><span class="n">from_nargs</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;demographic_events&quot;</span><span class="p">,</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="s2">&quot;entry&quot;</span><span class="p">),</span>
+        <span class="n">help</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Sets the migration matrix from the specified vector of values &quot;</span>
+            <span class="s2">&quot;at time t. &quot;</span>
+            <span class="s2">&quot;The entries are in the order M[1, 1], M[1, 2], ..., M[2, 1], &quot;</span>
+            <span class="s2">&quot;M[2, 2], ..., M[N, N], where N is the number of demes. &quot;</span>
+            <span class="s2">&quot;Diagonal entries may be written as &#39;x&#39;.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-es&quot;</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="n">coerce_nargs</span><span class="p">(</span><span class="n">Split</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;demographic_events&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;p&quot;</span><span class="p">),</span>
+        <span class="n">help</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Split deme i into a new deme, such that the specified &quot;</span>
+            <span class="s2">&quot;proportion p of lineages remains in deme i. The new deme has ID &quot;</span>
+            <span class="s2">&quot;num_demes + 1, and has size N0, growth rate 0, and migration &quot;</span>
+            <span class="s2">&quot;rates to and from the new deme are set to 0. &quot;</span>
+            <span class="s2">&quot;Forwards in time this corresponds to an admixture event with &quot;</span>
+            <span class="s2">&quot;the extinction of the new deme.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;-ej&quot;</span><span class="p">,</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="n">coerce_nargs</span><span class="p">(</span><span class="n">Join</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;demographic_events&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;j&quot;</span><span class="p">),</span>
+        <span class="n">help</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Move all lineages in deme i to j at time t. All migration &quot;</span>
+            <span class="s2">&quot;rates for deme i are set to zero. &quot;</span>
+            <span class="s2">&quot;Forwards in time, this corresponds to a branch event &quot;</span>
+            <span class="s2">&quot;in which lineages in j split into i.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">parser</span>
+
+
+<span class="k">def</span> <span class="nf">build_graph</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">N0</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="p">:</span>
+    <span class="n">num_demes</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="c1"># List of migration matrices in time-descending order (oldest to most recent).</span>
+    <span class="n">mm_list</span> <span class="o">=</span> <span class="p">[[[</span><span class="mf">0.0</span><span class="p">]]]</span>
+    <span class="c1"># End times for each migration matrix.</span>
+    <span class="n">mm_end_times</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span>
+    <span class="c1"># Indexes of demes that have been joined (-ej option).</span>
+    <span class="n">joined</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">structure</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># -I npop n1 n2 .. [rate]</span>
+        <span class="n">num_demes</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">npop</span>
+        <span class="k">if</span> <span class="n">num_demes</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">mm_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="p">[</span>
+                    <span class="n">args</span><span class="o">.</span><span class="n">structure</span><span class="o">.</span><span class="n">rate</span> <span class="o">/</span> <span class="p">(</span><span class="n">num_demes</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">j</span> <span class="o">!=</span> <span class="n">k</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_demes</span><span class="p">)</span>
+                <span class="p">]</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_demes</span><span class="p">)</span>
+            <span class="p">]</span>
+
+    <span class="c1"># Start building the demography.</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">demes</span><span class="o">.</span><span class="n">Builder</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_demes</span><span class="p">):</span>
+        <span class="n">initial_epoch</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">end_size</span><span class="o">=</span><span class="n">N0</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">b</span><span class="o">.</span><span class="n">add_deme</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="p">[</span><span class="n">initial_epoch</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">convert_population_id</span><span class="p">(</span><span class="n">population_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks the specified population ID makes sense and returns</span>
+<span class="sd">        it as a zero-based index into the demes list.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">population_id</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">population_id</span> <span class="o">&gt;</span> <span class="n">num_demes</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Bad population ID &#39;</span><span class="si">{</span><span class="n">population_id</span><span class="si">}</span><span class="s2">&#39;: &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;must be between 1 and num_demes (</span><span class="si">{</span><span class="n">num_demes</span><span class="si">}</span><span class="s2">)&quot;</span>
+            <span class="p">)</span>
+        <span class="n">pid</span> <span class="o">=</span> <span class="n">population_id</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">pid</span> <span class="ow">in</span> <span class="n">joined</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Bad population ID &#39;</span><span class="si">{</span><span class="n">population_id</span><span class="si">}</span><span class="s2">&#39;: &quot;</span>
+                <span class="s2">&quot;population previously joined with -ej&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">pid</span>
+
+    <span class="k">def</span> <span class="nf">epoch_resolve</span><span class="p">(</span><span class="n">deme</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the oldest epoch if it has end_time == time. If not, create a</span>
+<span class="sd">        new oldest epoch with end_time=time. Also resolve sizes by dealing</span>
+<span class="sd">        with the growth_rate attribute (if required).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">epoch</span> <span class="o">=</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;epochs&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span>
+        <span class="n">end_time</span> <span class="o">=</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;end_time&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">start_time</span> <span class="o">&gt;</span> <span class="n">time</span> <span class="o">&gt;=</span> <span class="n">end_time</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;time </span><span class="si">{</span><span class="n">time</span><span class="si">}</span><span class="s2"> outside </span><span class="si">{</span><span class="n">deme</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;s existence interval &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;(start_time=</span><span class="si">{</span><span class="n">start_time</span><span class="si">}</span><span class="s2">, end_time=</span><span class="si">{</span><span class="n">end_time</span><span class="si">}</span><span class="s2">]&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">time</span> <span class="o">&gt;</span> <span class="n">end_time</span><span class="p">:</span>
+            <span class="n">new_epoch</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
+            <span class="c1"># find size at given time</span>
+            <span class="n">growth_rate</span> <span class="o">=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;growth_rate&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">time</span> <span class="o">-</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;end_time&quot;</span><span class="p">]</span>
+            <span class="n">size_at_t</span> <span class="o">=</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;end_size&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">growth_rate</span> <span class="o">*</span> <span class="n">dt</span><span class="p">)</span>
+            <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;start_size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">size_at_t</span>
+            <span class="n">new_epoch</span><span class="p">[</span><span class="s2">&quot;end_size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">size_at_t</span>
+            <span class="n">new_epoch</span><span class="p">[</span><span class="s2">&quot;end_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
+            <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;epochs&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">new_epoch</span><span class="p">)</span>
+            <span class="n">epoch</span> <span class="o">=</span> <span class="n">new_epoch</span>
+
+        <span class="k">return</span> <span class="n">epoch</span>
+
+    <span class="k">def</span> <span class="nf">migration_matrix_at</span><span class="p">(</span><span class="n">time</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the oldest migration matrix if it has end_time == time. If not,</span>
+<span class="sd">        create a new oldest migration matrix with end_time = time.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">migration_matrix</span> <span class="o">=</span> <span class="n">mm_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">time</span> <span class="o">&gt;</span> <span class="n">mm_end_times</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="c1"># We need a new migration matrix.</span>
+            <span class="n">migration_matrix</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">migration_matrix</span><span class="p">)</span>
+            <span class="n">mm_list</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">migration_matrix</span><span class="p">)</span>
+            <span class="n">mm_end_times</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">migration_matrix</span>
+
+    <span class="c1"># Sort demographic events args by the time field.</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">demographic_events</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">operator</span><span class="o">.</span><span class="n">attrgetter</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">))</span>
+    <span class="c1"># Process the initial_state options followed by the demographic_events.</span>
+    <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">events_iter</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">initial_state</span> <span class="o">+</span> <span class="n">args</span><span class="o">.</span><span class="n">demographic_events</span><span class="p">,</span> <span class="n">operator</span><span class="o">.</span><span class="n">attrgetter</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span>
+    <span class="p">):</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">N0</span> <span class="o">*</span> <span class="n">t</span>
+        <span class="n">events_group</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">events_iter</span><span class="p">)</span>
+
+        <span class="c1"># Lineage movements matrix to track -es/ej (Split/Join) events.</span>
+        <span class="c1"># This is used to turn complex sequences of -es/-ej events with the</span>
+        <span class="c1"># same time parameter into more direct ancestry relationships.</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">num_demes</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events_group</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">Split</span><span class="p">))</span>
+        <span class="n">lineage_movements</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_demes</span><span class="p">):</span>
+            <span class="n">lineage_movements</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="c1"># The params gleaned from Split/Join events, which are used to collapse</span>
+        <span class="c1"># ancestry into plain old pulse migrations.</span>
+        <span class="n">split_join_params</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events_group</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">GrowthRateChange</span><span class="p">):</span>
+                <span class="c1"># -G α</span>
+                <span class="c1"># -eG t α</span>
+                <span class="n">growth_rate</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">alpha</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">N0</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">deme</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">]):</span>
+                    <span class="k">if</span> <span class="n">j</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">joined</span><span class="p">:</span>
+                        <span class="n">current_epoch</span> <span class="o">=</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;epochs&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="n">current_growth_rate</span> <span class="o">=</span> <span class="n">current_epoch</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;growth_rate&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">current_growth_rate</span> <span class="o">!=</span> <span class="n">growth_rate</span><span class="p">:</span>
+                            <span class="n">epoch</span> <span class="o">=</span> <span class="n">epoch_resolve</span><span class="p">(</span><span class="n">deme</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+                            <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;growth_rate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">growth_rate</span>
+
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">PopulationGrowthRateChange</span><span class="p">):</span>
+                <span class="c1"># -g i α</span>
+                <span class="c1"># -eg t i α</span>
+                <span class="n">pid</span> <span class="o">=</span> <span class="n">convert_population_id</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">i</span><span class="p">)</span>
+                <span class="n">growth_rate</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">alpha</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">N0</span><span class="p">)</span>
+                <span class="n">deme</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">][</span><span class="n">pid</span><span class="p">]</span>
+                <span class="n">current_epoch</span> <span class="o">=</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;epochs&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">current_growth_rate</span> <span class="o">=</span> <span class="n">current_epoch</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;growth_rate&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">current_growth_rate</span> <span class="o">!=</span> <span class="n">growth_rate</span><span class="p">:</span>
+                    <span class="n">epoch</span> <span class="o">=</span> <span class="n">epoch_resolve</span><span class="p">(</span><span class="n">deme</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+                    <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;growth_rate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">growth_rate</span>
+
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">SizeChange</span><span class="p">):</span>
+                <span class="c1"># -eN t x</span>
+                <span class="n">size</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">N0</span>
+                <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">deme</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">]):</span>
+                    <span class="k">if</span> <span class="n">j</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">joined</span><span class="p">:</span>
+                        <span class="n">current_epoch</span> <span class="o">=</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;epochs&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="n">current_growth_rate</span> <span class="o">=</span> <span class="n">current_epoch</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;growth_rate&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="p">(</span>
+                            <span class="n">current_growth_rate</span> <span class="o">!=</span> <span class="mi">0</span>
+                            <span class="ow">or</span> <span class="n">current_epoch</span><span class="p">[</span><span class="s2">&quot;end_size&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">size</span>
+                        <span class="p">):</span>
+                            <span class="n">epoch</span> <span class="o">=</span> <span class="n">epoch_resolve</span><span class="p">(</span><span class="n">deme</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+                            <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;growth_rate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                            <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;end_size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span>
+
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">PopulationSizeChange</span><span class="p">):</span>
+                <span class="c1"># -n i x</span>
+                <span class="c1"># -en t i x</span>
+                <span class="n">pid</span> <span class="o">=</span> <span class="n">convert_population_id</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">i</span><span class="p">)</span>
+                <span class="n">size</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">N0</span>
+                <span class="n">deme</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">][</span><span class="n">pid</span><span class="p">]</span>
+                <span class="n">current_epoch</span> <span class="o">=</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;epochs&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">current_growth_rate</span> <span class="o">=</span> <span class="n">current_epoch</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;growth_rate&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">current_growth_rate</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">current_epoch</span><span class="p">[</span><span class="s2">&quot;end_size&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">size</span><span class="p">:</span>
+                    <span class="n">epoch</span> <span class="o">=</span> <span class="n">epoch_resolve</span><span class="p">(</span><span class="n">deme</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+                    <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;end_size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span>
+                    <span class="c1"># set growth_rate to 0 for -en option, but not for -n option</span>
+                    <span class="k">if</span> <span class="s2">&quot;-en&quot;</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">option_strings</span><span class="p">:</span>
+                        <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;growth_rate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">MigrationRateChange</span><span class="p">):</span>
+                <span class="c1"># -eM t x</span>
+                <span class="n">mm</span> <span class="o">=</span> <span class="n">migration_matrix_at</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mm</span><span class="p">)):</span>
+                    <span class="k">if</span> <span class="n">j</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">joined</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mm</span><span class="p">)):</span>
+                            <span class="k">if</span> <span class="n">j</span> <span class="o">!=</span> <span class="n">k</span> <span class="ow">and</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">joined</span><span class="p">:</span>
+                                <span class="n">mm</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">x</span> <span class="o">/</span> <span class="p">(</span><span class="n">num_demes</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">MigrationMatrixEntryChange</span><span class="p">):</span>
+                <span class="c1"># -m i j x</span>
+                <span class="c1"># -em t i j x</span>
+                <span class="n">pid_i</span> <span class="o">=</span> <span class="n">convert_population_id</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">i</span><span class="p">)</span>
+                <span class="n">pid_j</span> <span class="o">=</span> <span class="n">convert_population_id</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">j</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">pid_i</span> <span class="o">==</span> <span class="n">pid_j</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot set diagonal elements in migration matrix&quot;</span><span class="p">)</span>
+                <span class="n">mm</span> <span class="o">=</span> <span class="n">migration_matrix_at</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+                <span class="n">mm</span><span class="p">[</span><span class="n">pid_i</span><span class="p">][</span><span class="n">pid_j</span><span class="p">]</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">rate</span>
+
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">MigrationMatrixChange</span><span class="p">):</span>
+                <span class="c1"># -ma M11 M12 M12 ... M21 ...</span>
+                <span class="c1"># -ema t npop M11 M12 M12 ... M21 ...</span>
+                <span class="k">if</span> <span class="s2">&quot;-ma&quot;</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">option_strings</span><span class="p">:</span>
+                    <span class="n">event</span><span class="o">.</span><span class="n">npop</span> <span class="o">=</span> <span class="n">num_demes</span>
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">npop</span> <span class="o">!=</span> <span class="n">num_demes</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;-ema &#39;npop&#39; (</span><span class="si">{</span><span class="n">event</span><span class="o">.</span><span class="n">npop</span><span class="si">}</span><span class="s2">) doesn&#39;t match the current &quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;number of demes (</span><span class="si">{</span><span class="n">num_demes</span><span class="si">}</span><span class="s2">)&quot;</span>
+                    <span class="p">)</span>
+                <span class="n">_</span> <span class="o">=</span> <span class="n">migration_matrix_at</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+                <span class="n">mm</span> <span class="o">=</span> <span class="n">mm_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">M</span><span class="p">)</span>
+                <span class="c1"># Ms ignores matrix entries for demes that were previously joined</span>
+                <span class="c1"># (-ej option), and users may deliberately put invalid values</span>
+                <span class="c1"># here (e.g. &#39;x&#39;). So we explicitly set these rates to zero.</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">joined</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_demes</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="n">j</span> <span class="o">!=</span> <span class="n">k</span><span class="p">:</span>
+                            <span class="n">mm</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                            <span class="n">mm</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">Join</span><span class="p">):</span>
+                <span class="c1"># -ej t i j</span>
+                <span class="c1"># Move all lineages from deme i to deme j at time t.</span>
+                <span class="n">pop_i</span> <span class="o">=</span> <span class="n">convert_population_id</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">i</span><span class="p">)</span>
+                <span class="n">pop_j</span> <span class="o">=</span> <span class="n">convert_population_id</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">j</span><span class="p">)</span>
+
+                <span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">][</span><span class="n">pop_i</span><span class="p">][</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
+                <span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">][</span><span class="n">pop_i</span><span class="p">][</span><span class="s2">&quot;ancestors&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">pop_j</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">lm</span> <span class="ow">in</span> <span class="n">lineage_movements</span><span class="p">:</span>
+                    <span class="n">lm</span><span class="p">[</span><span class="n">pop_j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">lm</span><span class="p">[</span><span class="n">pop_i</span><span class="p">]</span>
+                    <span class="n">lm</span><span class="p">[</span><span class="n">pop_i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">split_join_params</span><span class="p">))):</span>
+                    <span class="k">if</span> <span class="n">h</span> <span class="o">==</span> <span class="n">pop_i</span><span class="p">:</span>
+                        <span class="n">split_join_params</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">pop_j</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+                        <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">split_join_params</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">pop_i</span><span class="p">,</span> <span class="n">pop_j</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+                <span class="n">mm</span> <span class="o">=</span> <span class="n">migration_matrix_at</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+                <span class="c1"># Turn off migrations to/from deme i.</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_demes</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="n">pop_i</span><span class="p">:</span>
+                        <span class="n">mm</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">pop_i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                        <span class="n">mm</span><span class="p">[</span><span class="n">pop_i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+                <span class="c1"># Record pop_i so that this index isn&#39;t used by later events.</span>
+                <span class="n">joined</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pop_i</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">Split</span><span class="p">):</span>
+                <span class="c1"># -es t i p</span>
+                <span class="c1"># Split deme i into a new deme (num_demes + 1),</span>
+                <span class="c1"># with proportion p of lineages remaining in deme i,</span>
+                <span class="c1"># and 1-p moving to the new deme.</span>
+                <span class="n">pid</span> <span class="o">=</span> <span class="n">convert_population_id</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">i</span><span class="p">)</span>
+
+                <span class="c1"># Add new deme.</span>
+                <span class="n">new_pid</span> <span class="o">=</span> <span class="n">num_demes</span>
+                <span class="n">b</span><span class="o">.</span><span class="n">add_deme</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">new_pid</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">start_time</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span>
+                    <span class="n">epochs</span><span class="o">=</span><span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">end_size</span><span class="o">=</span><span class="n">N0</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="n">time</span><span class="p">)],</span>
+                <span class="p">)</span>
+                <span class="k">for</span> <span class="n">lm</span> <span class="ow">in</span> <span class="n">lineage_movements</span><span class="p">:</span>
+                    <span class="k">assert</span> <span class="n">lm</span><span class="p">[</span><span class="n">new_pid</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+                    <span class="n">lm</span><span class="p">[</span><span class="n">new_pid</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">event</span><span class="o">.</span><span class="n">p</span><span class="p">)</span> <span class="o">*</span> <span class="n">lm</span><span class="p">[</span><span class="n">pid</span><span class="p">]</span>
+                    <span class="n">lm</span><span class="p">[</span><span class="n">pid</span><span class="p">]</span> <span class="o">*=</span> <span class="n">event</span><span class="o">.</span><span class="n">p</span>
+                <span class="n">split_join_params</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">pid</span><span class="p">,</span> <span class="n">new_pid</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">event</span><span class="o">.</span><span class="n">p</span><span class="p">))</span>
+
+                <span class="n">num_demes</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                <span class="c1"># Expand each migration matrix with a row and column of zeros.</span>
+                <span class="k">for</span> <span class="n">migration_matrix</span> <span class="ow">in</span> <span class="n">mm_list</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">migration_matrix</span><span class="p">:</span>
+                        <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                    <span class="n">migration_matrix</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="mi">0</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_demes</span><span class="p">)])</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="kc">False</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;unhandled option: </span><span class="si">{</span><span class="n">event</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">split_join_params</span><span class="p">:</span>
+            <span class="n">ancestors</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">proportions</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">o</span><span class="p">,</span> <span class="n">proportion</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lineage_movements</span><span class="p">[</span><span class="n">j</span><span class="p">]):</span>
+                <span class="k">if</span> <span class="n">j</span> <span class="o">!=</span> <span class="n">o</span> <span class="ow">and</span> <span class="n">proportion</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">ancestors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+                    <span class="n">proportions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">proportion</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ancestors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">p_jj</span> <span class="o">=</span> <span class="n">lineage_movements</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">p_jj</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># No ancestry left in j.</span>
+                <span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="s2">&quot;ancestors&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">o</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">ancestors</span><span class="p">]</span>
+                <span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="s2">&quot;proportions&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">proportions</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Some ancestry is retained in j, so we use pulse migrations to</span>
+                <span class="c1"># indicate foreign ancestry.</span>
+                <span class="c1"># The order of pulses will later be reversed such that realised</span>
+                <span class="c1"># ancestry proportions are maintained forwards in time.</span>
+                <span class="n">b</span><span class="o">.</span><span class="n">add_pulse</span><span class="p">(</span>
+                    <span class="n">sources</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">],</span>
+                    <span class="n">dest</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span>
+                    <span class="n">proportions</span><span class="o">=</span><span class="p">[</span><span class="n">p</span><span class="p">],</span>
+                <span class="p">)</span>
+
+    <span class="c1"># Resolve/remove growth_rate in oldest epochs.</span>
+    <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">]:</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">deme</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;start_time&quot;</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+        <span class="n">epoch</span> <span class="o">=</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;epochs&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">growth_rate</span> <span class="o">=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;growth_rate&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">growth_rate</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">math</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">start_time</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">deme</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">: growth rate for infinite-length epoch is invalid&quot;</span>
+                <span class="p">)</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">start_time</span> <span class="o">-</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;end_time&quot;</span><span class="p">]</span>
+            <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;start_size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;end_size&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">dt</span> <span class="o">*</span> <span class="n">growth_rate</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;start_size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;end_size&quot;</span><span class="p">]</span>
+
+    <span class="c1"># Convert migration matrices into migration dictionaries.</span>
+    <span class="n">b</span><span class="o">.</span><span class="n">_add_migrations_from_matrices</span><span class="p">(</span><span class="n">mm_list</span><span class="p">,</span> <span class="n">mm_end_times</span><span class="p">)</span>
+
+    <span class="c1"># Rescale rates so they don&#39;t have units of 4*N0.</span>
+    <span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;migrations&quot;</span><span class="p">]:</span>
+        <span class="n">migration</span><span class="p">[</span><span class="s2">&quot;rate&quot;</span><span class="p">]</span> <span class="o">/=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">N0</span>
+
+    <span class="c1"># Remove demes whose existence time span is zero.</span>
+    <span class="c1"># These can be created by simultaneous -es/-ej commands.</span>
+    <span class="n">b</span><span class="o">.</span><span class="n">_remove_transient_demes</span><span class="p">()</span>
+
+    <span class="c1"># Sort demes by their start time so that ancestors come before descendants.</span>
+    <span class="n">b</span><span class="o">.</span><span class="n">_sort_demes_by_ancestry</span><span class="p">()</span>
+
+    <span class="c1"># Reverse the order of pulses so realised ancestry proportions are correct.</span>
+    <span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;pulses&quot;</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+
+    <span class="n">graph</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">graph</span>
+
+
+<span class="k">def</span> <span class="nf">remap_deme_names</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span> <span class="n">names</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">names</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">demes</span><span class="p">)</span>
+    <span class="n">graph</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">demes</span><span class="p">:</span>
+        <span class="n">deme</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+        <span class="n">deme</span><span class="o">.</span><span class="n">ancestors</span> <span class="o">=</span> <span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="n">ancestor</span><span class="p">]</span> <span class="k">for</span> <span class="n">ancestor</span> <span class="ow">in</span> <span class="n">deme</span><span class="o">.</span><span class="n">ancestors</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">migrations</span><span class="p">:</span>
+        <span class="n">migration</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">migration</span><span class="o">.</span><span class="n">source</span><span class="p">]</span>
+        <span class="n">migration</span><span class="o">.</span><span class="n">dest</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">migration</span><span class="o">.</span><span class="n">dest</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">pulse</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">pulses</span><span class="p">:</span>
+        <span class="n">pulse</span><span class="o">.</span><span class="n">sources</span> <span class="o">=</span> <span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">pulse</span><span class="o">.</span><span class="n">sources</span><span class="p">]</span>
+        <span class="n">pulse</span><span class="o">.</span><span class="n">dest</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">pulse</span><span class="o">.</span><span class="n">dest</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">deme</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">_deme_map</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+        <span class="k">del</span> <span class="n">graph</span><span class="o">.</span><span class="n">_deme_map</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+        <span class="n">graph</span><span class="o">.</span><span class="n">_deme_map</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span> <span class="o">=</span> <span class="n">deme</span>
+    <span class="k">return</span> <span class="n">graph</span>
+
+
+<div class="viewcode-block" id="from_ms"><a class="viewcode-back" href="../../api.html#demes.from_ms">[docs]</a><span class="k">def</span> <span class="nf">from_ms</span><span class="p">(</span>
+    <span class="n">command</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">N0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">deme_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert an ms demographic model into a demes graph.</span>
+
+<span class="sd">    `Hudson&#39;s ms &lt;https://doi.org/10.1093/bioinformatics/18.2.337&gt;`_</span>
+<span class="sd">    uses coalescent units for times (:math:`t`),</span>
+<span class="sd">    population sizes (:math:`x`), and migration rates (:math:`M`).</span>
+<span class="sd">    These will be converted to more familiar units using the given</span>
+<span class="sd">    ``N0`` value (:math:`N_0`) according to the following rules:</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \\text{time (in generations)} &amp;= 4 N_0 t</span>
+
+<span class="sd">        \\text{deme size (haploid individuals)} &amp;= N_0 x</span>
+
+<span class="sd">        \\text{migration rate (per generation)} &amp;= \\frac{M}{4 N_0}</span>
+
+<span class="sd">    :param str command: The ms command line.</span>
+<span class="sd">    :param float N0:</span>
+<span class="sd">        The reference population size (:math:`N_0`) used to translate</span>
+<span class="sd">        from coalescent units. For a ``command`` that specifies a</span>
+<span class="sd">        :math:`\\theta` value with the ``-t theta`` option,</span>
+<span class="sd">        this can be calculated as :math:`N_0 = \\theta / (4 \\mu L)`,</span>
+<span class="sd">        where :math:`\\mu` is the per-generation mutation rate and</span>
+<span class="sd">        :math:`L` is the length of the sequence being simulated.</span>
+<span class="sd">    :param list[str] deme_names: A list of names to use for the demes.</span>
+<span class="sd">        If not specified, demes will be named deme1, deme2, etc.</span>
+
+<span class="sd">    :return: The demes graph.</span>
+<span class="sd">    :rtype: demes.Graph</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">build_parser</span><span class="p">()</span>
+    <span class="n">args</span><span class="p">,</span> <span class="n">unknown</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_known_args</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">unknown</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># TODO: do something better here? Pass unknown args back to user?</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ignoring unknown args: </span><span class="si">{</span><span class="n">unknown</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">graph</span> <span class="o">=</span> <span class="n">build_graph</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">N0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">deme_names</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">deme_names</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">demes</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;graph has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">demes</span><span class="p">)</span><span class="si">}</span><span class="s2"> unique demes, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;but deme_names has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">deme_names</span><span class="p">))</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="n">name_map</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">((</span><span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">deme_names</span><span class="p">))),</span> <span class="n">deme_names</span><span class="p">))</span>
+        <span class="n">graph</span> <span class="o">=</span> <span class="n">remap_deme_names</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">name_map</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">graph</span></div>
+
+
+<div class="viewcode-block" id="to_ms"><a class="viewcode-back" href="../../api.html#demes.to_ms">[docs]</a><span class="k">def</span> <span class="nf">to_ms</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">N0</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get ms command line arguments for the graph.</span>
+
+<span class="sd">    The order of deme IDs matches the order of demes in the graph.</span>
+
+<span class="sd">    :param float N0:</span>
+<span class="sd">        The reference population size used to translate into coalescent units.</span>
+<span class="sd">        See :func:`from_ms` for details.</span>
+<span class="sd">    :param list(int) samples:</span>
+<span class="sd">        Sampling scheme that will be used with the &#39;-I&#39; option. This is ignored</span>
+<span class="sd">        for graphs with only one deme. If not specified, the sampling</span>
+<span class="sd">        configuration in the returned string will need editing prior to</span>
+<span class="sd">        simulation.</span>
+<span class="sd">    :return: The ms command line.</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">graph</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">in_generations</span><span class="p">()</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">num_demes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">demes</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">samples</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span> <span class="o">!=</span> <span class="n">num_demes</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;samples must match the number of demes in the graph&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">num_demes</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">samples</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Output a no-samples configuration. The user must edit this anyway,</span>
+            <span class="c1"># so if they blindly pass this to a simulator, it should complain.</span>
+            <span class="n">samples</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">num_demes</span>
+        <span class="n">structure</span> <span class="o">=</span> <span class="n">Structure</span><span class="o">.</span><span class="n">from_nargs</span><span class="p">(</span><span class="n">num_demes</span><span class="p">,</span> <span class="o">*</span><span class="n">samples</span><span class="p">)</span>
+        <span class="n">cmd</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">structure</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">get_growth_rate</span><span class="p">(</span><span class="n">epoch</span><span class="p">):</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">epoch</span><span class="o">.</span><span class="n">size_function</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span> <span class="s2">&quot;exponential&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;ms only supports constant or exponentially changing population sizes&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">epoch</span><span class="o">.</span><span class="n">end_size</span> <span class="o">!=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">start_size</span><span class="p">:</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">time_span</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">N0</span><span class="p">)</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">epoch</span><span class="o">.</span><span class="n">start_size</span> <span class="o">/</span> <span class="n">epoch</span><span class="o">.</span><span class="n">end_size</span><span class="p">)</span> <span class="o">/</span> <span class="n">dt</span>
+        <span class="k">return</span> <span class="n">ret</span>
+
+    <span class="n">events</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Event</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">deme</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">demes</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">N0</span>
+        <span class="n">growth_rate</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">deme</span><span class="o">.</span><span class="n">epochs</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">size</span> <span class="o">!=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">end_size</span><span class="p">:</span>
+                <span class="n">size</span> <span class="o">=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">end_size</span>
+                <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">PopulationSizeChange</span><span class="p">(</span><span class="n">epoch</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">size</span> <span class="o">/</span> <span class="n">N0</span><span class="p">))</span>
+            <span class="n">alpha</span> <span class="o">=</span> <span class="n">get_growth_rate</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">growth_rate</span> <span class="o">!=</span> <span class="n">alpha</span><span class="p">:</span>
+                <span class="n">growth_rate</span> <span class="o">=</span> <span class="n">alpha</span>
+                <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">PopulationGrowthRateChange</span><span class="p">(</span><span class="n">epoch</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">growth_rate</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="n">epoch</span><span class="o">.</span><span class="n">start_size</span>
+
+    <span class="c1"># Describing either the ancestry of a deme with multiple ancestors,</span>
+    <span class="c1"># or ancestry via a pulse migration, both require the use of -es/-ej to</span>
+    <span class="c1"># first split the deme (or pulse dest) into two and then immediately join</span>
+    <span class="c1"># one lineage to the ancestor (or pulse source). A split event creates</span>
+    <span class="c1"># a new deme with ID equal to the current number of demes plus 1,</span>
+    <span class="c1"># and we must know this ID in order to then join the new deme.</span>
+    <span class="c1"># To obtain correct IDs, we sort the combined list of demes and pulses</span>
+    <span class="c1"># by the deme start time or alternately the pulse time. IDs are then</span>
+    <span class="c1"># sequential with this ordering.</span>
+    <span class="c1"># Pulses are added in reverse order, so that pulses with the same time</span>
+    <span class="c1"># are given the correct backwards-time ordering.</span>
+    <span class="c1"># Pulses occurring at the same time as a deme&#39;s start time are possible,</span>
+    <span class="c1"># and in this case the pulse will come first (backwards in time).</span>
+    <span class="n">demes_and_pulses</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+        <span class="nb">tuple</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">pulses</span><span class="p">))</span> <span class="o">+</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">demes</span><span class="p">),</span>
+        <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">d_p</span><span class="p">:</span> <span class="n">d_p</span><span class="o">.</span><span class="n">start_time</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d_p</span><span class="p">,</span> <span class="n">demes</span><span class="o">.</span><span class="n">Deme</span><span class="p">)</span> <span class="k">else</span> <span class="n">d_p</span><span class="o">.</span><span class="n">time</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">deme_id</span> <span class="o">=</span> <span class="p">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">j</span> <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">deme</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">demes</span><span class="p">,</span> <span class="mi">1</span><span class="p">)}</span>
+
+    <span class="k">for</span> <span class="n">deme_or_pulse</span> <span class="ow">in</span> <span class="n">demes_and_pulses</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">deme_or_pulse</span><span class="p">,</span> <span class="n">demes</span><span class="o">.</span><span class="n">Deme</span><span class="p">):</span>
+            <span class="n">deme</span> <span class="o">=</span> <span class="n">deme_or_pulse</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">ancestor</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">deme</span><span class="o">.</span><span class="n">ancestors</span><span class="p">):</span>
+                <span class="n">anc_id</span> <span class="o">=</span> <span class="n">deme_id</span><span class="p">[</span><span class="n">ancestor</span><span class="p">]</span>
+                <span class="n">proportion</span> <span class="o">=</span> <span class="n">deme</span><span class="o">.</span><span class="n">proportions</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">deme</span><span class="o">.</span><span class="n">proportions</span><span class="p">[</span><span class="n">k</span><span class="p">:])</span>
+                <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">deme</span><span class="o">.</span><span class="n">ancestors</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">assert</span> <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">proportion</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Join</span><span class="p">(</span><span class="n">deme</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="n">deme_id</span><span class="p">[</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="p">],</span> <span class="n">anc_id</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">num_demes</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">new_deme_id</span> <span class="o">=</span> <span class="n">num_demes</span>
+                    <span class="n">e1</span> <span class="o">=</span> <span class="n">Split</span><span class="p">(</span><span class="n">deme</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="n">deme_id</span><span class="p">[</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="p">],</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">proportion</span><span class="p">)</span>
+                    <span class="n">e2</span> <span class="o">=</span> <span class="n">Join</span><span class="p">(</span><span class="n">deme</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span> <span class="n">new_deme_id</span><span class="p">,</span> <span class="n">anc_id</span><span class="p">)</span>
+                    <span class="n">events</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">deme_or_pulse</span><span class="p">,</span> <span class="n">demes</span><span class="o">.</span><span class="n">Pulse</span><span class="p">)</span>
+            <span class="n">pulse</span> <span class="o">=</span> <span class="n">deme_or_pulse</span>
+            <span class="n">num_demes</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">new_deme_id</span> <span class="o">=</span> <span class="n">num_demes</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pulse</span><span class="o">.</span><span class="n">sources</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Currently pulses with only a single source are supported&quot;</span>
+                <span class="p">)</span>
+            <span class="n">e1</span> <span class="o">=</span> <span class="n">Split</span><span class="p">(</span><span class="n">pulse</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">deme_id</span><span class="p">[</span><span class="n">pulse</span><span class="o">.</span><span class="n">dest</span><span class="p">],</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">pulse</span><span class="o">.</span><span class="n">proportions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">e2</span> <span class="o">=</span> <span class="n">Join</span><span class="p">(</span><span class="n">pulse</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">new_deme_id</span><span class="p">,</span> <span class="n">deme_id</span><span class="p">[</span><span class="n">pulse</span><span class="o">.</span><span class="n">sources</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+            <span class="n">events</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">])</span>
+
+    <span class="c1"># Turn migrations off at the start_time. We schedule all start_time</span>
+    <span class="c1"># events first, and then all end_time events. This ensures that events</span>
+    <span class="c1"># for migrations with an end_time that coincides with the start_time of</span>
+    <span class="c1"># another migration will be scheduled later (backwards in time),</span>
+    <span class="c1"># and thus override the rate=0 setting.</span>
+    <span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">migrations</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">migration</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">migration</span><span class="o">.</span><span class="n">start_time</span> <span class="o">!=</span> <span class="n">graph</span><span class="p">[</span><span class="n">migration</span><span class="o">.</span><span class="n">dest</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span>
+            <span class="ow">and</span> <span class="n">migration</span><span class="o">.</span><span class="n">start_time</span> <span class="o">!=</span> <span class="n">graph</span><span class="p">[</span><span class="n">migration</span><span class="o">.</span><span class="n">source</span><span class="p">]</span><span class="o">.</span><span class="n">start_time</span>
+        <span class="p">):</span>
+            <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">MigrationMatrixEntryChange</span><span class="p">(</span>
+                    <span class="n">t</span><span class="o">=</span><span class="n">migration</span><span class="o">.</span><span class="n">start_time</span><span class="p">,</span>
+                    <span class="n">i</span><span class="o">=</span><span class="n">deme_id</span><span class="p">[</span><span class="n">migration</span><span class="o">.</span><span class="n">dest</span><span class="p">],</span>
+                    <span class="n">j</span><span class="o">=</span><span class="n">deme_id</span><span class="p">[</span><span class="n">migration</span><span class="o">.</span><span class="n">source</span><span class="p">],</span>
+                    <span class="n">rate</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+    <span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">migrations</span><span class="p">:</span>
+        <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">MigrationMatrixEntryChange</span><span class="p">(</span>
+                <span class="n">t</span><span class="o">=</span><span class="n">migration</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span>
+                <span class="n">i</span><span class="o">=</span><span class="n">deme_id</span><span class="p">[</span><span class="n">migration</span><span class="o">.</span><span class="n">dest</span><span class="p">],</span>
+                <span class="n">j</span><span class="o">=</span><span class="n">deme_id</span><span class="p">[</span><span class="n">migration</span><span class="o">.</span><span class="n">source</span><span class="p">],</span>
+                <span class="n">rate</span><span class="o">=</span><span class="mi">4</span> <span class="o">*</span> <span class="n">N0</span> <span class="o">*</span> <span class="n">migration</span><span class="o">.</span><span class="n">rate</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="n">events</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">operator</span><span class="o">.</span><span class="n">attrgetter</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">t</span> <span class="o">/=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">N0</span>
+
+    <span class="n">cmd</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span></div>
+</pre></div>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By PopSim Consortium<br/>
+    
+        &copy; Copyright 2021.<br/>
+      <div class="extra_footer">
+        demes 0.2.2
+      </div>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
