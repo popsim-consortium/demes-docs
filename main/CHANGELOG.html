@@ -129,7 +129,7 @@ const thebe_selector_output = ".output, .cell_output"
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.2.2.dev47
+  demes 0.2.2.dev49
 </div>
 
 </div>
@@ -214,26 +214,31 @@ const thebe_selector_output = ".output, .cell_output"
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id1">
-   0.2.1 - 2021-12-07
+   0.2.2 - 2022-04-28
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   0.2.0 - 2021-12-01
+   0.2.1 - 2021-12-07
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id3">
-   0.1.2 - 2021-06-08
+   0.2.0 - 2021-12-01
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id4">
-   0.1.1 - 2021-04-21
+   0.1.2 - 2021-06-08
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id5">
+   0.1.1 - 2021-04-21
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
    0.1.0 - 2021-04-19
   </a>
  </li>
@@ -279,26 +284,31 @@ const thebe_selector_output = ".output, .cell_output"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id1">
-   0.2.1 - 2021-12-07
+   0.2.2 - 2022-04-28
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   0.2.0 - 2021-12-01
+   0.2.1 - 2021-12-07
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id3">
-   0.1.2 - 2021-06-08
+   0.2.0 - 2021-12-01
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id4">
-   0.1.1 - 2021-04-21
+   0.1.2 - 2021-06-08
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id5">
+   0.1.1 - 2021-04-21
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
    0.1.0 - 2021-04-19
   </a>
  </li>
@@ -334,7 +344,32 @@ const thebe_selector_output = ".output, .cell_output"
   <div class="tex2jax_ignore mathjax_ignore section" id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2>0.2.1 - 2021-12-07<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>0.2.2 - 2022-04-28<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Better conformance to the spec. Minor discrepancies between
+demes-python and the reference implementation have been resolved.</p>
+<ul class="simple">
+<li><p>Dropped support for Python 3.6
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/445">#445</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/446">#446</a>)</p></li>
+<li><p>Reject bad defaults, even if they’re not used.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/443">#443</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/430">#430</a>)</p></li>
+<li><p>Set encoding to UTF-8 explicitly. This fixes unicode deme names on Windows.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/430">#430</a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Graph.description</span></code> and <code class="docutils literal notranslate"><span class="pre">Deme.description</span></code> can no longer be <code class="docutils literal notranslate"><span class="pre">None</span></code>.
+A missing description will now be resolved to the empty string.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/429">#429</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/430">#430</a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Graph.generation_time</span></code> can no longer be <code class="docutils literal notranslate"><span class="pre">None</span></code>.
+When <code class="docutils literal notranslate"><span class="pre">time_units</span></code> are generations, a missing <code class="docutils literal notranslate"><span class="pre">generation_time</span></code> will now
+be resolved to 1 and other values are an error.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/429">#429</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/430">#430</a>)</p></li>
+<li><p>Permit selfing_rate + cloning_rate &gt;= 1.
+Both values must be between zero and one (inclusive), but the selfing_rate
+is now defined as conditional on sexual reproduction (which occurs at
+rate <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">-</span> <span class="pre">cloning_rate</span></code>).
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/425">#425</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/423">#423</a>)</p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>0.2.1 - 2021-12-07<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p><strong>New features:</strong></p>
 <ul class="simple">
 <li><p>Support for the <code class="docutils literal notranslate"><span class="pre">metadata</span></code> field at the toplevel of a YAML file.
@@ -356,8 +391,8 @@ as originally intended.
 (<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/360">#360</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/397">#397</a>).</p></li>
 </ul>
 </div>
-<div class="section" id="id2">
-<h2>0.2.0 - 2021-12-01<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2>0.2.0 - 2021-12-01<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p><strong>New features:</strong></p>
 <ul class="simple">
 <li><p>Add <code class="docutils literal notranslate"><span class="pre">load_all()</span></code>/<code class="docutils literal notranslate"><span class="pre">dump_all()</span></code> to support multi-document YAML.
@@ -391,8 +426,8 @@ end times of the demes involved differ.
 (<a class="reference external" href="https://github.com/apragsdale">&#64;apragsdale</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/384">#384</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/385">#385</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id3">
-<h2>0.1.2 - 2021-06-08<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2>0.1.2 - 2021-06-08<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p><strong>New features</strong>:</p>
 <ul class="simple">
 <li><p>Add <code class="docutils literal notranslate"><span class="pre">Graph.migration_matrices()</span></code> to get the migration matrices for a graph.
@@ -423,13 +458,13 @@ instead use the string “Infinity”.
 <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/311">#311</a>)</p></li>
 </ul>
 </div>
-<div class="section" id="id4">
-<h2>0.1.1 - 2021-04-21<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h2>0.1.1 - 2021-04-21<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>Remove the “demes” console_scripts entry point.
 This isn’t documented/supported and was left in accidentally.</p>
 </div>
-<div class="section" id="id5">
-<h2>0.1.0 - 2021-04-19<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h2>0.1.0 - 2021-04-19<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p><strong>Breaking changes</strong>:</p>
 <ul class="simple">
 <li><p>The interpretation has been changed for symmetric migrations when the
@@ -545,7 +580,7 @@ release are still possible, but are considered unlikely.</p>
     
         &copy; Copyright 2021.<br/>
       <div class="extra_footer">
-        demes 0.2.2.dev47
+        demes 0.2.2.dev49
       </div>
   </p>
 </footer>
