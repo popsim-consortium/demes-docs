@@ -128,7 +128,7 @@ const thebe_selector_output = ".output, .cell_output"
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.2.2.dev40
+  demes 0.2.2.dev45
 </div>
 
 </div>
@@ -259,6 +259,11 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;must have 0 &lt;= </span><span class="si">{</span><span class="n">attribute</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> &lt;= 1&quot;</span><span class="p">)</span>
 
 
+<span class="k">def</span> <span class="nf">sum_less_than_one</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">attribute</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> must sum to less than one&quot;</span><span class="p">)</span>
+
+
 <span class="k">def</span> <span class="nf">nonzero_len</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
@@ -303,12 +308,21 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="k">return</span> <span class="kc">True</span>
 
 
-<span class="k">def</span> <span class="nf">validate_item</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">required_type</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
+<span class="n">_DummyAttribute</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;_DummyAttribute&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">validate_item</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">required_type</span><span class="p">,</span> <span class="n">scope</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">required_type</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">scope</span><span class="si">}</span><span class="s2">: field &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; must be a </span><span class="si">{</span><span class="n">required_type</span><span class="si">}</span><span class="s2">; &quot;</span>
             <span class="sa">f</span><span class="s2">&quot;current type is </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
         <span class="p">)</span>
+    <span class="k">if</span> <span class="n">validator</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">validator</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+            <span class="n">validator</span> <span class="o">=</span> <span class="p">[</span><span class="n">validator</span><span class="p">]</span>
+        <span class="n">dummy_attribute</span> <span class="o">=</span> <span class="n">_DummyAttribute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">scope</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">validator</span><span class="p">:</span>
+            <span class="n">v</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">dummy_attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
 
 <span class="c1"># We need to use this trick because None is a meaningful input value for these</span>
@@ -348,6 +362,17 @@ const thebe_selector_output = ".output, .cell_output"
                 <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">scope</span><span class="si">}</span><span class="s2">: unexpected field: &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
                 <span class="sa">f</span><span class="s2">&quot;Allowed fields are: </span><span class="si">{</span><span class="n">allowed_fields</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">check_defaults</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="n">allowed_fields</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">defaults</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed_fields</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">scope</span><span class="si">}</span><span class="s2">: unexpected field: &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Allowed fields are: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">allowed_fields</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="n">required_type</span><span class="p">,</span> <span class="n">validator</span> <span class="o">=</span> <span class="n">allowed_fields</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="n">validate_item</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">required_type</span><span class="p">,</span> <span class="n">scope</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">validator</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">insert_defaults</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">defaults</span><span class="p">):</span>
@@ -1168,7 +1193,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="sd">    A collection of individuals that have a common set of population parameters.</span>
 
 <span class="sd">    :ivar str name: A concise string that identifies the deme.</span>
-<span class="sd">    :ivar str description: A description of the deme. May be ``None``.</span>
+<span class="sd">    :ivar str description: A description of the deme.</span>
 <span class="sd">    :ivar float start_time: The time at which the deme begins to exist.</span>
 <span class="sd">    :ivar list[str] ancestors: List of deme names for the deme&#39;s ancestors.</span>
 <span class="sd">        This may be ``None``, indicating the deme has no ancestors.</span>
@@ -1180,11 +1205,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">name</span><span class="p">:</span> <span class="n">Name</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span><span class="p">])</span>
-    <span class="n">description</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
-        <span class="n">validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">optional</span><span class="p">(</span>
-            <span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">nonzero_len</span><span class="p">]</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">))</span>
     <span class="n">start_time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">positive</span><span class="p">])</span>
     <span class="n">ancestors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
         <span class="n">validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">deep_iterable</span><span class="p">(</span>
@@ -1432,7 +1453,6 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="sd">    object to use when inspecting a model&#39;s properties.</span>
 
 <span class="sd">    :ivar str description: A human readable description of the demography.</span>
-<span class="sd">        May be ``None``.</span>
 <span class="sd">    :ivar str time_units: The units of time used for the demography. This is</span>
 <span class="sd">        commonly ``years`` or ``generations``, but can be any string.</span>
 <span class="sd">        This field is intended to be useful for documenting a demography,</span>
@@ -1452,12 +1472,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="sd">    :ivar list[Pulse] pulses: The migration pulses for the demography.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">description</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">optional</span><span class="p">(</span>
-            <span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">nonzero_len</span><span class="p">]</span>
-        <span class="p">),</span>
-    <span class="p">)</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">))</span>
     <span class="n">time_units</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">nonzero_len</span><span class="p">])</span>
     <span class="n">generation_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Time</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
         <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1494,6 +1509,11 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s1">&#39;if time_units!=&quot;generations&quot;, generation_time must be specified&#39;</span>
             <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">generation_time</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_units</span> <span class="o">==</span> <span class="s2">&quot;generations&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation_time</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># This doesn&#39;t make sense. What units are the generation_time in?</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;time_units==&quot;generations&quot;, but generation_time!=1&#39;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Graph.__getitem__"><a class="viewcode-back" href="../../api.html#demes.Graph.__getitem__">[docs]</a>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deme_name</span><span class="p">:</span> <span class="n">Name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Deme</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -2105,20 +2125,19 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="sd">        Return a copy of the graph with times in units of generations.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">graph</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">generation_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation_time</span>
-        <span class="n">graph</span><span class="o">.</span><span class="n">generation_time</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="n">graph</span><span class="o">.</span><span class="n">time_units</span> <span class="o">!=</span> <span class="s2">&quot;generations&quot;</span> <span class="ow">and</span> <span class="n">generation_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">graph</span><span class="o">.</span><span class="n">time_units</span> <span class="o">=</span> <span class="s2">&quot;generations&quot;</span>
-            <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">demes</span><span class="p">:</span>
-                <span class="n">deme</span><span class="o">.</span><span class="n">start_time</span> <span class="o">/=</span> <span class="n">generation_time</span>
-                <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="n">deme</span><span class="o">.</span><span class="n">epochs</span><span class="p">:</span>
-                    <span class="n">epoch</span><span class="o">.</span><span class="n">start_time</span> <span class="o">/=</span> <span class="n">generation_time</span>
-                    <span class="n">epoch</span><span class="o">.</span><span class="n">end_time</span> <span class="o">/=</span> <span class="n">generation_time</span>
-            <span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">migrations</span><span class="p">:</span>
-                <span class="n">migration</span><span class="o">.</span><span class="n">start_time</span> <span class="o">/=</span> <span class="n">generation_time</span>
-                <span class="n">migration</span><span class="o">.</span><span class="n">end_time</span> <span class="o">/=</span> <span class="n">generation_time</span>
-            <span class="k">for</span> <span class="n">pulse</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">pulses</span><span class="p">:</span>
-                <span class="n">pulse</span><span class="o">.</span><span class="n">time</span> <span class="o">/=</span> <span class="n">generation_time</span>
+        <span class="k">assert</span> <span class="n">graph</span><span class="o">.</span><span class="n">generation_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">demes</span><span class="p">:</span>
+            <span class="n">deme</span><span class="o">.</span><span class="n">start_time</span> <span class="o">/=</span> <span class="n">graph</span><span class="o">.</span><span class="n">generation_time</span>
+            <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="n">deme</span><span class="o">.</span><span class="n">epochs</span><span class="p">:</span>
+                <span class="n">epoch</span><span class="o">.</span><span class="n">start_time</span> <span class="o">/=</span> <span class="n">graph</span><span class="o">.</span><span class="n">generation_time</span>
+                <span class="n">epoch</span><span class="o">.</span><span class="n">end_time</span> <span class="o">/=</span> <span class="n">graph</span><span class="o">.</span><span class="n">generation_time</span>
+        <span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">migrations</span><span class="p">:</span>
+            <span class="n">migration</span><span class="o">.</span><span class="n">start_time</span> <span class="o">/=</span> <span class="n">graph</span><span class="o">.</span><span class="n">generation_time</span>
+            <span class="n">migration</span><span class="o">.</span><span class="n">end_time</span> <span class="o">/=</span> <span class="n">graph</span><span class="o">.</span><span class="n">generation_time</span>
+        <span class="k">for</span> <span class="n">pulse</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">pulses</span><span class="p">:</span>
+            <span class="n">pulse</span><span class="o">.</span><span class="n">time</span> <span class="o">/=</span> <span class="n">graph</span><span class="o">.</span><span class="n">generation_time</span>
+        <span class="n">graph</span><span class="o">.</span><span class="n">time_units</span> <span class="o">=</span> <span class="s2">&quot;generations&quot;</span>
+        <span class="n">graph</span><span class="o">.</span><span class="n">generation_time</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="n">graph</span></div>
 
 <div class="viewcode-block" id="Graph.fromdict"><a class="viewcode-back" href="../../api.html#demes.Graph.fromdict">[docs]</a>    <span class="nd">@classmethod</span>
@@ -2163,7 +2182,30 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="s2">&quot;proportions&quot;</span><span class="p">,</span>
         <span class="p">]</span>
         <span class="n">allowed_fields_deme_inner</span> <span class="o">=</span> <span class="n">allowed_fields_deme</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;defaults&quot;</span><span class="p">,</span> <span class="s2">&quot;epochs&quot;</span><span class="p">]</span>
-        <span class="n">check_allowed</span><span class="p">(</span><span class="n">deme_defaults</span><span class="p">,</span> <span class="n">allowed_fields_deme</span><span class="p">,</span> <span class="s2">&quot;defaults: deme&quot;</span><span class="p">)</span>
+        <span class="n">check_defaults</span><span class="p">(</span>
+            <span class="n">deme_defaults</span><span class="p">,</span>
+            <span class="nb">dict</span><span class="p">(</span>
+                <span class="n">description</span><span class="o">=</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                <span class="n">start_time</span><span class="o">=</span><span class="p">(</span><span class="n">numbers</span><span class="o">.</span><span class="n">Number</span><span class="p">,</span> <span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">positive</span><span class="p">]),</span>
+                <span class="n">ancestors</span><span class="o">=</span><span class="p">(</span>
+                    <span class="nb">list</span><span class="p">,</span>
+                    <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">deep_iterable</span><span class="p">(</span>
+                        <span class="n">member_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">and_</span><span class="p">(</span>
+                            <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span>
+                        <span class="p">),</span>
+                        <span class="n">iterable_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">list</span><span class="p">),</span>
+                    <span class="p">),</span>
+                <span class="p">),</span>
+                <span class="n">proportions</span><span class="o">=</span><span class="p">(</span>
+                    <span class="nb">list</span><span class="p">,</span>
+                    <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">deep_iterable</span><span class="p">(</span>
+                        <span class="n">member_validator</span><span class="o">=</span><span class="n">int_or_float</span><span class="p">,</span>
+                        <span class="n">iterable_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">list</span><span class="p">),</span>
+                    <span class="p">),</span>
+                <span class="p">),</span>
+            <span class="p">),</span>
+            <span class="s2">&quot;defaults.deme&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
 
         <span class="n">migration_defaults</span> <span class="o">=</span> <span class="n">pop_object</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="s2">&quot;migration&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;defaults&quot;</span><span class="p">)</span>
         <span class="n">allowed_fields_migration</span> <span class="o">=</span> <span class="p">[</span>
@@ -2174,13 +2216,62 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="s2">&quot;end_time&quot;</span><span class="p">,</span>
             <span class="s2">&quot;rate&quot;</span><span class="p">,</span>
         <span class="p">]</span>
-        <span class="n">check_allowed</span><span class="p">(</span>
-            <span class="n">migration_defaults</span><span class="p">,</span> <span class="n">allowed_fields_migration</span><span class="p">,</span> <span class="s2">&quot;defaults: migration&quot;</span>
+        <span class="n">check_defaults</span><span class="p">(</span>
+            <span class="n">migration_defaults</span><span class="p">,</span>
+            <span class="nb">dict</span><span class="p">(</span>
+                <span class="n">rate</span><span class="o">=</span><span class="p">(</span><span class="n">numbers</span><span class="o">.</span><span class="n">Number</span><span class="p">,</span> <span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">unit_interval</span><span class="p">]),</span>
+                <span class="n">start_time</span><span class="o">=</span><span class="p">(</span><span class="n">numbers</span><span class="o">.</span><span class="n">Number</span><span class="p">,</span> <span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">non_negative</span><span class="p">]),</span>
+                <span class="n">end_time</span><span class="o">=</span><span class="p">(</span><span class="n">numbers</span><span class="o">.</span><span class="n">Number</span><span class="p">,</span> <span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">]),</span>
+                <span class="n">source</span><span class="o">=</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">valid_deme_name</span><span class="p">),</span>
+                <span class="n">dest</span><span class="o">=</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">valid_deme_name</span><span class="p">),</span>
+                <span class="n">demes</span><span class="o">=</span><span class="p">(</span>
+                    <span class="nb">list</span><span class="p">,</span>
+                    <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">deep_iterable</span><span class="p">(</span>
+                        <span class="n">member_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">and_</span><span class="p">(</span>
+                            <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span>
+                        <span class="p">),</span>
+                        <span class="n">iterable_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">list</span><span class="p">),</span>
+                    <span class="p">),</span>
+                <span class="p">),</span>
+            <span class="p">),</span>
+            <span class="s2">&quot;defaults.migration&quot;</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="n">pulse_defaults</span> <span class="o">=</span> <span class="n">pop_object</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="s2">&quot;pulse&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;defaults&quot;</span><span class="p">)</span>
         <span class="n">allowed_fields_pulse</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sources&quot;</span><span class="p">,</span> <span class="s2">&quot;dest&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;proportions&quot;</span><span class="p">]</span>
-        <span class="n">check_allowed</span><span class="p">(</span><span class="n">pulse_defaults</span><span class="p">,</span> <span class="n">allowed_fields_pulse</span><span class="p">,</span> <span class="s2">&quot;defaults.pulse&quot;</span><span class="p">)</span>
+        <span class="n">check_defaults</span><span class="p">(</span>
+            <span class="n">pulse_defaults</span><span class="p">,</span>
+            <span class="nb">dict</span><span class="p">(</span>
+                <span class="n">sources</span><span class="o">=</span><span class="p">(</span>
+                    <span class="nb">list</span><span class="p">,</span>
+                    <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">and_</span><span class="p">(</span>
+                        <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">deep_iterable</span><span class="p">(</span>
+                            <span class="n">member_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">and_</span><span class="p">(</span>
+                                <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span>
+                            <span class="p">),</span>
+                            <span class="n">iterable_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">list</span><span class="p">),</span>
+                        <span class="p">),</span>
+                        <span class="n">nonzero_len</span><span class="p">,</span>
+                    <span class="p">),</span>
+                <span class="p">),</span>
+                <span class="n">dest</span><span class="o">=</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">valid_deme_name</span><span class="p">),</span>
+                <span class="n">time</span><span class="o">=</span><span class="p">(</span><span class="n">numbers</span><span class="o">.</span><span class="n">Number</span><span class="p">,</span> <span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">positive</span><span class="p">,</span> <span class="n">finite</span><span class="p">]),</span>
+                <span class="n">proportions</span><span class="o">=</span><span class="p">(</span>
+                    <span class="nb">list</span><span class="p">,</span>
+                    <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">deep_iterable</span><span class="p">(</span>
+                        <span class="n">member_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">and_</span><span class="p">(</span>
+                            <span class="n">int_or_float</span><span class="p">,</span> <span class="n">unit_interval</span>
+                        <span class="p">),</span>
+                        <span class="n">iterable_validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">and_</span><span class="p">(</span>
+                            <span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">list</span><span class="p">),</span>
+                            <span class="n">nonzero_len</span><span class="p">,</span>
+                            <span class="n">sum_less_than_one</span><span class="p">,</span>
+                        <span class="p">),</span>
+                    <span class="p">),</span>
+                <span class="p">),</span>
+            <span class="p">),</span>
+            <span class="s2">&quot;defaults.pulse&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
 
         <span class="c1"># epoch defaults may also be specified within a Deme definition.</span>
         <span class="n">global_epoch_defaults</span> <span class="o">=</span> <span class="n">pop_object</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="s2">&quot;epoch&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;defaults&quot;</span><span class="p">)</span>
@@ -2192,22 +2283,33 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="s2">&quot;cloning_rate&quot;</span><span class="p">,</span>
             <span class="s2">&quot;selfing_rate&quot;</span><span class="p">,</span>
         <span class="p">]</span>
-        <span class="n">check_allowed</span><span class="p">(</span><span class="n">global_epoch_defaults</span><span class="p">,</span> <span class="n">allowed_fields_epoch</span><span class="p">,</span> <span class="s2">&quot;defaults: epoch&quot;</span><span class="p">)</span>
+        <span class="n">allowed_epoch_defaults</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">end_time</span><span class="o">=</span><span class="p">(</span><span class="n">numbers</span><span class="o">.</span><span class="n">Number</span><span class="p">,</span> <span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">]),</span>
+            <span class="n">start_size</span><span class="o">=</span><span class="p">(</span><span class="n">numbers</span><span class="o">.</span><span class="n">Number</span><span class="p">,</span> <span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">positive</span><span class="p">,</span> <span class="n">finite</span><span class="p">]),</span>
+            <span class="n">end_size</span><span class="o">=</span><span class="p">(</span><span class="n">numbers</span><span class="o">.</span><span class="n">Number</span><span class="p">,</span> <span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">positive</span><span class="p">,</span> <span class="n">finite</span><span class="p">]),</span>
+            <span class="n">selfing_rate</span><span class="o">=</span><span class="p">(</span><span class="n">numbers</span><span class="o">.</span><span class="n">Number</span><span class="p">,</span> <span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">unit_interval</span><span class="p">]),</span>
+            <span class="n">cloning_rate</span><span class="o">=</span><span class="p">(</span><span class="n">numbers</span><span class="o">.</span><span class="n">Number</span><span class="p">,</span> <span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">unit_interval</span><span class="p">]),</span>
+            <span class="n">size_function</span><span class="o">=</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">check_defaults</span><span class="p">(</span><span class="n">global_epoch_defaults</span><span class="p">,</span> <span class="n">allowed_epoch_defaults</span><span class="p">,</span> <span class="s2">&quot;defaults.epoch&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="s2">&quot;time_units&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;toplevel: required field &#39;time_units&#39; not found&quot;</span><span class="p">)</span>
 
         <span class="n">graph</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
-            <span class="n">description</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+            <span class="n">description</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
             <span class="n">time_units</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;time_units&quot;</span><span class="p">),</span>
             <span class="n">doi</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;doi&quot;</span><span class="p">,</span> <span class="p">[]),</span>
             <span class="n">generation_time</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;generation_time&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
             <span class="n">metadata</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;metadata&quot;</span><span class="p">,</span> <span class="p">{}),</span>
         <span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">deme_data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
-            <span class="n">pop_list</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot;demes&quot;</span><span class="p">,</span> <span class="n">required_type</span><span class="o">=</span><span class="n">MutableMapping</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;toplevel&quot;</span><span class="p">)</span>
-        <span class="p">):</span>
+        <span class="n">demes_list</span> <span class="o">=</span> <span class="n">pop_list</span><span class="p">(</span>
+            <span class="n">data</span><span class="p">,</span> <span class="s2">&quot;demes&quot;</span><span class="p">,</span> <span class="n">required_type</span><span class="o">=</span><span class="n">MutableMapping</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;toplevel&quot;</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">demes_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;toplevel: &#39;demes&#39; must be a non-empty list&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">deme_data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">demes_list</span><span class="p">):</span>
             <span class="k">if</span> <span class="s2">&quot;name&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">deme_data</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;demes[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">]: required field &#39;name&#39; not found&quot;</span><span class="p">)</span>
             <span class="n">deme_name</span> <span class="o">=</span> <span class="n">deme_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
@@ -2218,7 +2320,7 @@ const thebe_selector_output = ".output, .cell_output"
 
             <span class="n">deme</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">_add_deme</span><span class="p">(</span>
                 <span class="n">name</span><span class="o">=</span><span class="n">deme_name</span><span class="p">,</span>
-                <span class="n">description</span><span class="o">=</span><span class="n">deme_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                <span class="n">description</span><span class="o">=</span><span class="n">deme_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
                 <span class="n">start_time</span><span class="o">=</span><span class="n">deme_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;start_time&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
                 <span class="n">ancestors</span><span class="o">=</span><span class="n">deme_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;ancestors&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
                 <span class="n">proportions</span><span class="o">=</span><span class="n">deme_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;proportions&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
@@ -2233,14 +2335,13 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="n">local_epoch_defaults</span> <span class="o">=</span> <span class="n">pop_object</span><span class="p">(</span>
                 <span class="n">local_defaults</span><span class="p">,</span> <span class="s2">&quot;epoch&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="n">scope</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;demes[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: defaults&quot;</span>
             <span class="p">)</span>
-            <span class="n">epoch_defaults</span> <span class="o">=</span> <span class="n">global_epoch_defaults</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            <span class="n">epoch_defaults</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">local_epoch_defaults</span><span class="p">)</span>
-
-            <span class="n">check_allowed</span><span class="p">(</span>
-                <span class="n">epoch_defaults</span><span class="p">,</span>
-                <span class="n">allowed_fields_epoch</span><span class="p">,</span>
+            <span class="n">check_defaults</span><span class="p">(</span>
+                <span class="n">local_epoch_defaults</span><span class="p">,</span>
+                <span class="n">allowed_epoch_defaults</span><span class="p">,</span>
                 <span class="sa">f</span><span class="s2">&quot;demes[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: defaults: epoch&quot;</span><span class="p">,</span>
             <span class="p">)</span>
+            <span class="n">epoch_defaults</span> <span class="o">=</span> <span class="n">global_epoch_defaults</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">epoch_defaults</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">local_epoch_defaults</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">epoch_defaults</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="s2">&quot;epochs&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">deme_data</span><span class="p">:</span>
                 <span class="c1"># This condition would be caught downstream, because start_size</span>
@@ -2258,6 +2359,10 @@ const thebe_selector_output = ".output, .cell_output"
                 <span class="n">required_type</span><span class="o">=</span><span class="n">MutableMapping</span><span class="p">,</span>
                 <span class="n">scope</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;demes[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
             <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;demes[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: &#39;epochs&#39; must be a non-empty list&quot;</span>
+                <span class="p">)</span>
             <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">epoch_data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
                 <span class="n">check_allowed</span><span class="p">(</span>
                     <span class="n">epoch_data</span><span class="p">,</span>
@@ -2273,6 +2378,7 @@ const thebe_selector_output = ".output, .cell_output"
                             <span class="sa">f</span><span class="s2">&quot;demes[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: epochs[</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2">]: &quot;</span>
                             <span class="s2">&quot;required field &#39;end_time&#39; not found&quot;</span>
                         <span class="p">)</span>
+
                 <span class="n">deme</span><span class="o">.</span><span class="n">_add_epoch</span><span class="p">(</span>
                     <span class="n">end_time</span><span class="o">=</span><span class="n">epoch_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;end_time&quot;</span><span class="p">),</span>
                     <span class="n">start_size</span><span class="o">=</span><span class="n">epoch_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;start_size&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
@@ -2281,6 +2387,10 @@ const thebe_selector_output = ".output, .cell_output"
                     <span class="n">selfing_rate</span><span class="o">=</span><span class="n">epoch_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;selfing_rate&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
                     <span class="n">cloning_rate</span><span class="o">=</span><span class="n">epoch_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;cloning_rate&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
                 <span class="p">)</span>
+
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">deme</span><span class="o">.</span><span class="n">epochs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">demes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
 
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">migration_data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
             <span class="n">pop_list</span><span class="p">(</span>
@@ -2348,17 +2458,16 @@ const thebe_selector_output = ".output, .cell_output"
 
         <span class="k">return</span> <span class="n">graph</span></div>
 
-<div class="viewcode-block" id="Graph.asdict"><a class="viewcode-back" href="../../api.html#demes.Graph.asdict">[docs]</a>    <span class="k">def</span> <span class="nf">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<div class="viewcode-block" id="Graph.asdict"><a class="viewcode-back" href="../../api.html#demes.Graph.asdict">[docs]</a>    <span class="k">def</span> <span class="nf">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keep_empty_fields</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a fully-resolved dict representation of the graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">def</span> <span class="nf">filt</span><span class="p">(</span><span class="n">attrib</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">(</span>
-                <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-                <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;__len__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-                <span class="ow">and</span> <span class="n">attrib</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;_deme_map&quot;</span>
-            <span class="p">)</span>
+                <span class="n">keep_empty_fields</span>
+                <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;__len__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
+            <span class="p">)</span> <span class="ow">and</span> <span class="n">attrib</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;_deme_map&quot;</span>
 
         <span class="k">def</span> <span class="nf">coerce_numbers</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
             <span class="c1"># Explicitly convert numeric types to int or float, so that they</span>
@@ -2505,7 +2614,7 @@ const thebe_selector_output = ".output, .cell_output"
 
             <span class="n">data</span><span class="p">[</span><span class="s2">&quot;migrations&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">symmetric</span> <span class="o">+</span> <span class="n">asymmetric</span>
 
-        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">asdict</span><span class="p">()</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">asdict</span><span class="p">(</span><span class="n">keep_empty_fields</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="s2">&quot;migrations&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
             <span class="n">simplify_migration_rates</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -2837,7 +2946,7 @@ const thebe_selector_output = ".output, .cell_output"
     
         &copy; Copyright 2021.<br/>
       <div class="extra_footer">
-        demes 0.2.2.dev40
+        demes 0.2.2.dev45
       </div>
   </p>
 </footer>

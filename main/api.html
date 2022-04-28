@@ -132,7 +132,7 @@ const thebe_selector_output = ".output, .cell_output"
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.2.2.dev40
+  demes 0.2.2.dev45
 </div>
 
 </div>
@@ -615,7 +615,7 @@ follow Demes’ data model, as described in the <a class="reference external" hr
 <h2>Working with Demes graphs<a class="headerlink" href="#working-with-demes-graphs" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="demes.Graph">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">Graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_units</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generation_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">NOTHING</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">NOTHING</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">Graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_units</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generation_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">NOTHING</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">NOTHING</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph" title="Permalink to this definition">¶</a></dt>
 <dd><p>The Graph class provides a high-level API for working with a demographic
 model. A Graph object matches Demes’ data model, with a small number of
 additional redundant attributes that make the Graph a more convenient
@@ -623,8 +623,7 @@ object to use when inspecting a model’s properties.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>description</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – A human readable description of the demography.
-May be <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>description</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – A human readable description of the demography.</p></li>
 <li><p><strong>time_units</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The units of time used for the demography. This is
 commonly <code class="docutils literal notranslate"><span class="pre">years</span></code> or <code class="docutils literal notranslate"><span class="pre">generations</span></code>, but can be any string.
 This field is intended to be useful for documenting a demography,
@@ -691,7 +690,7 @@ the demographic model.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="demes.Graph.asdict">
-<span class="sig-name descname"><span class="pre">asdict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.asdict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.asdict" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">asdict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keep_empty_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Graph.asdict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Graph.asdict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a fully-resolved dict representation of the graph.</p>
 </dd></dl>
 
@@ -908,13 +907,13 @@ digraph of successors can be obtained as follows.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="demes.Deme">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">Deme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ancestors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proportions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Deme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Deme" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">Deme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ancestors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proportions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/demes.html#Deme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.Deme" title="Permalink to this definition">¶</a></dt>
 <dd><p>A collection of individuals that have a common set of population parameters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – A concise string that identifies the deme.</p></li>
-<li><p><strong>description</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – A description of the deme. May be <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>description</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – A description of the deme.</p></li>
 <li><p><strong>start_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – The time at which the deme begins to exist.</p></li>
 <li><p><strong>ancestors</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – List of deme names for the deme’s ancestors.
 This may be <code class="docutils literal notranslate"><span class="pre">None</span></code>, indicating the deme has no ancestors.</p></li>
@@ -1605,7 +1604,7 @@ simulation.</p></li>
     
         &copy; Copyright 2021.<br/>
       <div class="extra_footer">
-        demes 0.2.2.dev40
+        demes 0.2.2.dev45
       </div>
   </p>
 </footer>

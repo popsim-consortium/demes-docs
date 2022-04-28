@@ -128,7 +128,7 @@ const thebe_selector_output = ".output, .cell_output"
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.2.2.dev40
+  demes 0.2.2.dev45
 </div>
 
 </div>
@@ -227,7 +227,8 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="sd">    just yield polymorph under the assumption it&#39;s a fileobj.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">polymorph</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
+        <span class="c1"># We must specify utf8 explicitly for Windows.</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">polymorph</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
         <span class="n">f</span> <span class="o">=</span> <span class="n">polymorph</span>
     <span class="k">try</span><span class="p">:</span>
@@ -337,15 +338,17 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
                 <span class="n">assert_no_nulls</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-                <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-                        <span class="n">assert_no_nulls</span><span class="p">(</span><span class="n">_</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                        <span class="n">assert_no_nulls</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="n">check_if_None</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+                        <span class="n">check_if_None</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">check_if_None</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
 
-    <span class="n">assert_no_nulls</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="c1"># Don&#39;t look inside metadata.</span>
+    <span class="n">data_no_metadata</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s2">&quot;metadata&quot;</span><span class="p">}</span>
+    <span class="n">assert_no_nulls</span><span class="p">(</span><span class="n">data_no_metadata</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="loads_asdict"><a class="viewcode-back" href="../../api.html#demes.loads_asdict">[docs]</a><span class="k">def</span> <span class="nf">loads_asdict</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
@@ -539,7 +542,7 @@ const thebe_selector_output = ".output, .cell_output"
     
         &copy; Copyright 2021.<br/>
       <div class="extra_footer">
-        demes 0.2.2.dev40
+        demes 0.2.2.dev45
       </div>
   </p>
 </footer>
