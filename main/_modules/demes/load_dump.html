@@ -128,7 +128,7 @@ const thebe_selector_output = ".output, .cell_output"
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.2.3.dev11
+  demes 0.2.3.dev13
 </div>
 
 </div>
@@ -209,6 +209,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Functions to load and dump graphs in YAML and JSON formats.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 <span class="kn">import</span> <span class="nn">contextlib</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">io</span>
@@ -354,8 +355,11 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="viewcode-block" id="loads_asdict"><a class="viewcode-back" href="../../api.html#demes.loads_asdict">[docs]</a><span class="k">def</span> <span class="nf">loads_asdict</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load a YAML or JSON string into a dictionary of nested objects.</span>
-<span class="sd">    The keywords and structure of the input are defined by the</span>
-<span class="sd">    :ref:`spec:sec_spec`.</span>
+
+<span class="sd">    The input is *not* resolved, and is *not* validated.</span>
+<span class="sd">    The returned object may be converted into a :class:`Builder`</span>
+<span class="sd">    using :meth:`Builder.fromdict` or converted into a :class:`Graph`</span>
+<span class="sd">    using :meth:`Graph.fromdict`.</span>
 
 <span class="sd">    :param str string: The string to be loaded.</span>
 <span class="sd">    :param str format: The format of the input string. Either &quot;yaml&quot; or &quot;json&quot;.</span>
@@ -370,8 +374,11 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="viewcode-block" id="load_asdict"><a class="viewcode-back" href="../../api.html#demes.load_asdict">[docs]</a><span class="k">def</span> <span class="nf">load_asdict</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load a YAML or JSON file into a dictionary of nested objects.</span>
-<span class="sd">    The keywords and structure of the input are defined by the</span>
-<span class="sd">    :ref:`spec:sec_spec`.</span>
+
+<span class="sd">    The input is *not* resolved, and is *not* validated.</span>
+<span class="sd">    The returned object may be converted into a :class:`Builder`</span>
+<span class="sd">    using :meth:`Builder.fromdict` or converted into a :class:`Graph`</span>
+<span class="sd">    using :meth:`Graph.fromdict`.</span>
 
 <span class="sd">    :param filename: The path to the file to be loaded, or a file-like object</span>
 <span class="sd">        with a ``read()`` method.</span>
@@ -399,7 +406,7 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="k">return</span> <span class="n">data</span></div>
 
 
-<div class="viewcode-block" id="loads"><a class="viewcode-back" href="../../api.html#demes.loads">[docs]</a><span class="k">def</span> <span class="nf">loads</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;demes.Graph&quot;</span><span class="p">:</span>
+<div class="viewcode-block" id="loads"><a class="viewcode-back" href="../../api.html#demes.loads">[docs]</a><span class="k">def</span> <span class="nf">loads</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load a graph from a YAML or JSON string.</span>
 <span class="sd">    The keywords and structure of the input are defined by the</span>
@@ -407,14 +414,14 @@ const thebe_selector_output = ".output, .cell_output"
 
 <span class="sd">    :param str string: The string to be loaded.</span>
 <span class="sd">    :param str format: The format of the input string. Either &quot;yaml&quot; or &quot;json&quot;.</span>
-<span class="sd">    :return: A graph.</span>
-<span class="sd">    :rtype: .Graph</span>
+<span class="sd">    :return: A resolved and validated demographic model.</span>
+<span class="sd">    :rtype: demes.Graph</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">loads_asdict</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="o">.</span><span class="n">fromdict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../api.html#demes.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;demes.Graph&quot;</span><span class="p">:</span>
+<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../api.html#demes.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load a graph from a YAML or JSON file.</span>
 <span class="sd">    The keywords and structure of the input are defined by the</span>
@@ -424,14 +431,14 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="sd">        with a ``read()`` method.</span>
 <span class="sd">    :type filename: Union[str, os.PathLike, FileLike]</span>
 <span class="sd">    :param str format: The format of the input file. Either &quot;yaml&quot; or &quot;json&quot;.</span>
-<span class="sd">    :return: A graph.</span>
-<span class="sd">    :rtype: .Graph</span>
+<span class="sd">    :return: A resolved and validated demographic model.</span>
+<span class="sd">    :rtype: demes.Graph</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">load_asdict</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="o">.</span><span class="n">fromdict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="load_all"><a class="viewcode-back" href="../../api.html#demes.load_all">[docs]</a><span class="k">def</span> <span class="nf">load_all</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="s2">&quot;demes.Graph&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+<div class="viewcode-block" id="load_all"><a class="viewcode-back" href="../../api.html#demes.load_all">[docs]</a><span class="k">def</span> <span class="nf">load_all</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate graphs from a YAML document stream. Documents must be separated by</span>
 <span class="sd">    the YAML document start indicator, ``---``.</span>
@@ -441,7 +448,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="sd">    :param filename: The path to the file to be loaded, or a file-like object</span>
 <span class="sd">        with a ``read()`` method.</span>
 <span class="sd">    :type filename: Union[str, os.PathLike, FileLike]</span>
-<span class="sd">    :return: A generator of graphs.</span>
+<span class="sd">    :return: A generator of resolved and validated demographic models.</span>
 <span class="sd">    :rtype: Generator[demes.Graph, None, None]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="n">_open_file_polymorph</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -463,10 +470,13 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="sd">    The keywords and structure of the output are defined by the</span>
 <span class="sd">    :ref:`spec:sec_spec`.</span>
 
-<span class="sd">    :param .Graph graph: The graph to dump.</span>
+<span class="sd">    :param demes.Graph graph: The graph to dump.</span>
 <span class="sd">    :param str format: The format of the output file. Either &quot;yaml&quot; or &quot;json&quot;.</span>
-<span class="sd">    :param bool simplified: If True, returns a simplified graph. If False, returns</span>
-<span class="sd">        a fully-qualified graph.</span>
+<span class="sd">    :param bool simplified:</span>
+<span class="sd">        If True, returns a string following the :ref:`spec:sec_spec_hdm`,</span>
+<span class="sd">        which has many fields omitted and is thus more compact.</span>
+<span class="sd">        If False, returns a string that is fully-resolved following the</span>
+<span class="sd">        :ref:`spec:sec_spec_mdm`.</span>
 <span class="sd">    :return: The YAML or JSON string.</span>
 <span class="sd">    :rtype: str</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -482,13 +492,16 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="sd">    The keywords and structure of the output are defined by the</span>
 <span class="sd">    :ref:`spec:sec_spec`.</span>
 
-<span class="sd">    :param .Graph graph: The graph to dump.</span>
+<span class="sd">    :param demes.Graph graph: The graph to dump.</span>
 <span class="sd">    :param filename: Path to the output file, or a file-like object with a</span>
 <span class="sd">        ``write()`` method.</span>
 <span class="sd">    :type filename: Union[str, os.PathLike, FileLike]</span>
 <span class="sd">    :param str format: The format of the output file. Either &quot;yaml&quot; or &quot;json&quot;.</span>
-<span class="sd">    :param bool simplified: If True, outputs a simplified graph. If False, outputs</span>
-<span class="sd">        a fully-qualified graph.</span>
+<span class="sd">    :param bool simplified:</span>
+<span class="sd">        If True, the output file follows the :ref:`spec:sec_spec_hdm`,</span>
+<span class="sd">        which has many fields omitted and is thus more compact.</span>
+<span class="sd">        If False, the output file is fully-resolved and follows the</span>
+<span class="sd">        :ref:`spec:sec_spec_mdm`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">simplified</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">asdict_simplified</span><span class="p">()</span>
@@ -514,8 +527,11 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="sd">    :param filename: Path to the output file, or a file-like object with a</span>
 <span class="sd">        ``write()`` method.</span>
 <span class="sd">    :type filename: Union[str, os.PathLike, FileLike]</span>
-<span class="sd">    :param bool simplified: If True, outputs simplified graphs. If False, outputs</span>
-<span class="sd">        fully-qualified graphs.</span>
+<span class="sd">    :param bool simplified:</span>
+<span class="sd">        If True, the output file follows the :ref:`spec:sec_spec_hdm`,</span>
+<span class="sd">        which has many fields omitted and is thus more compact.</span>
+<span class="sd">        If False, the output file is fully-resolved and follows the</span>
+<span class="sd">        :ref:`spec:sec_spec_mdm`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="n">_open_file_polymorph</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">graph</span> <span class="ow">in</span> <span class="n">graphs</span><span class="p">:</span>
@@ -542,7 +558,7 @@ const thebe_selector_output = ".output, .cell_output"
     
         &copy; Copyright 2021.<br/>
       <div class="extra_footer">
-        demes 0.2.3.dev11
+        demes 0.2.3.dev13
       </div>
   </p>
 </footer>

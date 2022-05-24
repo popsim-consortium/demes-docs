@@ -128,7 +128,7 @@ const thebe_selector_output = ".output, .cell_output"
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.2.3.dev11
+  demes 0.2.3.dev13
 </div>
 
 </div>
@@ -1069,6 +1069,20 @@ const thebe_selector_output = ".output, .cell_output"
 
 <span class="sd">        \\text{migration rate (per generation)} &amp;= \\frac{M}{4 N_0}</span>
 
+
+<span class="sd">    .. warning::</span>
+
+<span class="sd">        Several programs exist that implement an ms or ms-like</span>
+<span class="sd">        command line interface. But discrepancies do exist</span>
+<span class="sd">        between ms and its clones for some command line arguments,</span>
+<span class="sd">        and such discrepancies alter the interpretation of the</span>
+<span class="sd">        demographic model.</span>
+<span class="sd">        This function implements the behaviour as described in</span>
+<span class="sd">        Hudson&#39;s ms manual. Command lines constructed for use with</span>
+<span class="sd">        other programs may work as desired, but users are cautioned to</span>
+<span class="sd">        carefully check the appropriate documentation to identify where</span>
+<span class="sd">        discrepancies may exist.</span>
+
 <span class="sd">    :param str command: The ms command line.</span>
 <span class="sd">    :param float N0:</span>
 <span class="sd">        The reference population size (:math:`N_0`) used to translate</span>
@@ -1111,10 +1125,12 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="sd">        The reference population size used to translate into coalescent units.</span>
 <span class="sd">        See :func:`from_ms` for details.</span>
 <span class="sd">    :param list(int) samples:</span>
-<span class="sd">        Sampling scheme that will be used with the &#39;-I&#39; option. This is ignored</span>
-<span class="sd">        for graphs with only one deme. If not specified, the sampling</span>
-<span class="sd">        configuration in the returned string will need editing prior to</span>
-<span class="sd">        simulation.</span>
+<span class="sd">        A list of haploid sample numbers, one for each deme, in the same</span>
+<span class="sd">        order as the order of demes in the graph.</span>
+<span class="sd">        The parameter is ignored for demographic models with only one deme.</span>
+<span class="sd">        The given sampling scheme will be used with the ``-I`` argument.</span>
+<span class="sd">        If not specified, the sampling configuration in the returned string</span>
+<span class="sd">        will need editing prior to use.</span>
 <span class="sd">    :return: The ms command line.</span>
 <span class="sd">    :rtype: str</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1258,7 +1274,7 @@ const thebe_selector_output = ".output, .cell_output"
     
         &copy; Copyright 2021.<br/>
       <div class="extra_footer">
-        demes 0.2.3.dev11
+        demes 0.2.3.dev13
       </div>
   </p>
 </footer>
