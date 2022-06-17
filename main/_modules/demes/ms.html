@@ -128,7 +128,7 @@ const thebe_selector_output = ".output, .cell_output"
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.2.3.dev18
+  demes 0.2.3.dev20
 </div>
 
 </div>
@@ -1065,10 +1065,12 @@ const thebe_selector_output = ".output, .cell_output"
 
 <span class="sd">        \\text{time (in generations)} &amp;= 4 N_0 t</span>
 
-<span class="sd">        \\text{deme size (haploid individuals)} &amp;= N_0 x</span>
+<span class="sd">        \\text{deme size (diploid individuals)} &amp;= N_0 x</span>
 
 <span class="sd">        \\text{migration rate (per generation)} &amp;= \\frac{M}{4 N_0}</span>
 
+<span class="sd">    .. seealso::</span>
+<span class="sd">        The :ref:`sec_cli_ms` command line interface.</span>
 
 <span class="sd">    .. warning::</span>
 
@@ -1082,6 +1084,9 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="sd">        other programs may work as desired, but users are cautioned to</span>
 <span class="sd">        carefully check the appropriate documentation to identify where</span>
 <span class="sd">        discrepancies may exist.</span>
+
+<span class="sd">        The ms manual may be obtained from</span>
+<span class="sd">        http://home.uchicago.edu/~rhudson1/source/mksamples.html</span>
 
 <span class="sd">    :param str command: The ms command line.</span>
 <span class="sd">    :param float N0:</span>
@@ -1120,6 +1125,9 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="sd">    Get ms command line arguments for the graph.</span>
 
 <span class="sd">    The order of deme IDs matches the order of demes in the graph.</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        The ``--ms`` option of the :ref:`sec_cli_parse` command line interface.</span>
 
 <span class="sd">    :param float N0:</span>
 <span class="sd">        The reference population size used to translate into coalescent units.</span>
@@ -1274,7 +1282,7 @@ const thebe_selector_output = ".output, .cell_output"
     
         &copy; Copyright 2021.<br/>
       <div class="extra_footer">
-        demes 0.2.3.dev18
+        demes 0.2.3.dev20
       </div>
   </p>
 </footer>

@@ -132,7 +132,7 @@ const thebe_selector_output = ".output, .cell_output"
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.2.3.dev18
+  demes 0.2.3.dev20
 </div>
 
 </div>
@@ -1620,7 +1620,11 @@ population sizes (<span class="math notranslate nohighlight">\(x\)</span>), and 
 These will be converted to more familiar units using the given
 <code class="docutils literal notranslate"><span class="pre">N0</span></code> value (<span class="math notranslate nohighlight">\(N_0\)</span>) according to the following rules:</p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}\text{time (in generations)} &amp;= 4 N_0 t\\\text{deme size (haploid individuals)} &amp;= N_0 x\\\text{migration rate (per generation)} &amp;= \frac{M}{4 N_0}\end{aligned}\end{align} \]</div>
+\[ \begin{align}\begin{aligned}\text{time (in generations)} &amp;= 4 N_0 t\\\text{deme size (diploid individuals)} &amp;= N_0 x\\\text{migration rate (per generation)} &amp;= \frac{M}{4 N_0}\end{aligned}\end{align} \]</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The <a class="reference internal" href="cli.html#sec-cli-ms"><span class="std std-ref">demes ms</span></a> command line interface.</p>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Several programs exist that implement an ms or ms-like
@@ -1633,6 +1637,8 @@ Hudson’s ms manual. Command lines constructed for use with
 other programs may work as desired, but users are cautioned to
 carefully check the appropriate documentation to identify where
 discrepancies may exist.</p>
+<p>The ms manual may be obtained from
+<a class="reference external" href="http://home.uchicago.edu/~rhudson1/source/mksamples.html">http://home.uchicago.edu/~rhudson1/source/mksamples.html</a></p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1662,6 +1668,10 @@ If not specified, demes will be named deme1, deme2, etc.</p></li>
 <span class="sig-prename descclassname"><span class="pre">demes.</span></span><span class="sig-name descname"><span class="pre">to_ms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/demes/ms.html#to_ms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#demes.to_ms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get ms command line arguments for the graph.</p>
 <p>The order of deme IDs matches the order of demes in the graph.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">--ms</span></code> option of the <a class="reference internal" href="cli.html#sec-cli-parse"><span class="std std-ref">demes parse</span></a> command line interface.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1737,7 +1747,7 @@ will need editing prior to use.</p></li>
     
         &copy; Copyright 2021.<br/>
       <div class="extra_footer">
-        demes 0.2.3.dev18
+        demes 0.2.3.dev20
       </div>
   </p>
 </footer>

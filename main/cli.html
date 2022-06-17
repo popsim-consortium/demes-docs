@@ -130,7 +130,7 @@ const thebe_selector_output = ".output, .cell_output"
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
-  demes 0.2.3.dev18
+  demes 0.2.3.dev20
 </div>
 
 </div>
@@ -263,7 +263,7 @@ const thebe_selector_output = ".output, .cell_output"
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="command-line-interface">
-<h1>Command line interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h1>
+<span id="sec-cli"></span><h1>Command line interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h1>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>usage: demes [-h] [--version] {parse,ms} ...
 
 Demes model parser and converter.
@@ -279,7 +279,7 @@ options:
 </pre></div>
 </div>
 <div class="section" id="demes-parse">
-<h2>demes parse<a class="headerlink" href="#demes-parse" title="Permalink to this headline">¶</a></h2>
+<span id="sec-cli-parse"></span><h2>demes parse<a class="headerlink" href="#demes-parse" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>usage: demes parse [-h] [-j | --ms REFERENCE_SIZE] [-s] filename
 
 Parse models and write them to stdout. YAML is output by default, but JSON or
@@ -317,7 +317,7 @@ options:
 </div>
 </div>
 <div class="section" id="demes-ms">
-<h2>demes ms<a class="headerlink" href="#demes-ms" title="Permalink to this headline">¶</a></h2>
+<span id="sec-cli-ms"></span><h2>demes ms<a class="headerlink" href="#demes-ms" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>usage: demes ms [-h] -N0 REFERENCE_SIZE [-f filename] [-I num_demes [n1 ...]]
                 [-n i x] [-g i alpha] [-G alpha] [-m i j rate]
                 [-ma entry [entry ...]] [-eG t alpha] [-eg t i alpha]
@@ -333,7 +333,7 @@ rates m. These are converted to more familiar units using the reference
 size N0 according to the following rules:
 
  - time (in generations) = 4 * N0 * t,
- - deme size (haploid individuals) = N0 * x,
+ - deme size (diploid individuals) = N0 * x,
  - migration rate (per generation) = m / (4 * N0).
 
 Deme IDs are 1-based, and migration matrix entry M[i, j] is the
@@ -457,7 +457,7 @@ ms arguments:
     
         &copy; Copyright 2021.<br/>
       <div class="extra_footer">
-        demes 0.2.3.dev18
+        demes 0.2.3.dev20
       </div>
   </p>
 </footer>
