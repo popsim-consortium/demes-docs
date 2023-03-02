@@ -144,7 +144,7 @@ const thebe_selector_output = ".output, .cell_output"
              <!-- To handle the deprecated key -->
             
             <div class="navbar_extra_footer">
-            demes 0.2.3.dev45
+            demes 0.2.3.dev50
             </div>
             
         </div>
@@ -356,7 +356,7 @@ title="Open an issue"
     <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
     <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns true if (a_names, a_proportions) and (b_names, b_proportions)</span>
 <span class="sd">    are semantically equivalent. The order of names is ignored, and proportions</span>
 <span class="sd">    are checked for numerical closeness.</span>
@@ -448,7 +448,7 @@ title="Open an issue"
 
 <div class="viewcode-block" id="Epoch"><a class="viewcode-back" href="../../api.html#demes.Epoch">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Epoch</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Population parameters for a deme in a specified time interval.</span>
 
 <span class="sd">    An epoch spans the open-closed time interval ``(start_time, end_time]``,</span>
@@ -525,7 +525,7 @@ title="Open an issue"
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">time_span</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The time span of the epoch.</span>
 
 <span class="sd">        :rtype: float</span>
@@ -539,7 +539,7 @@ title="Open an issue"
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Raises AssertionError if the object is not equal to ``other``,</span>
 <span class="sd">        up to a numerical tolerance.</span>
 <span class="sd">        Compares values of the following attributes:</span>
@@ -594,7 +594,7 @@ title="Open an issue"
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns true if the epoch and ``other`` epoch implement essentially</span>
 <span class="sd">        the same epoch. For more information see :meth:`assert_close`.</span>
 
@@ -620,7 +620,7 @@ title="Open an issue"
 
 <div class="viewcode-block" id="AsymmetricMigration"><a class="viewcode-back" href="../../api.html#demes.AsymmetricMigration">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">AsymmetricMigration</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Continuous asymmetric migration.</span>
 
 <span class="sd">    The source and destination demes follow the forwards-in-time convention,</span>
@@ -657,7 +657,7 @@ title="Open an issue"
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Raises AssertionError if the object is not equal to ``other``,</span>
 <span class="sd">        up to a numerical tolerance.</span>
 <span class="sd">        Compares values of the following attributes:</span>
@@ -693,7 +693,7 @@ title="Open an issue"
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns true if the migration is equal to the ``other`` migration.</span>
 <span class="sd">        For more information see :meth:`assert_close`.</span>
 
@@ -718,7 +718,7 @@ title="Open an issue"
 
 <div class="viewcode-block" id="Pulse"><a class="viewcode-back" href="../../api.html#demes.Pulse">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Pulse</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An instantaneous pulse of migration from one deme to another.</span>
 
 <span class="sd">    Source and destination demes follow the forwards-in-time convention,</span>
@@ -775,7 +775,7 @@ title="Open an issue"
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Raises AssertionError if the object is not equal to ``other``,</span>
 <span class="sd">        up to a numerical tolerance.</span>
 <span class="sd">        Compares values of the following attributes:</span>
@@ -823,7 +823,7 @@ title="Open an issue"
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns true if the pulse is equal to the ``other`` pulse.</span>
 <span class="sd">        For more information see :meth:`assert_close`.</span>
 
@@ -849,7 +849,7 @@ title="Open an issue"
 
 <div class="viewcode-block" id="Split"><a class="viewcode-back" href="../../api.html#demes.Split">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Split</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A split event, in which a deme ends at a given time and</span>
 <span class="sd">    contributes ancestry to an arbitrary number of descendant demes. Note</span>
 <span class="sd">    that there could be just a single descendant deme, in which case ``split``</span>
@@ -891,7 +891,7 @@ title="Open an issue"
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Raises AssertionError if the object is not equal to ``other``,</span>
 <span class="sd">        up to a numerical tolerance.</span>
 <span class="sd">        Compares values of the following attributes:</span>
@@ -923,7 +923,7 @@ title="Open an issue"
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns true if the split is equal to the ``other`` split.</span>
 <span class="sd">        Compares values of the following attributes:</span>
 <span class="sd">        ``parent``, ``children``, ``time``.</span>
@@ -949,7 +949,7 @@ title="Open an issue"
 
 <div class="viewcode-block" id="Branch"><a class="viewcode-back" href="../../api.html#demes.Branch">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Branch</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A branch event, where a new deme branches off from a parental</span>
 <span class="sd">    deme. The parental deme need not end at that time.</span>
 
@@ -977,7 +977,7 @@ title="Open an issue"
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Raises AssertionError if the object is not equal to ``other``,</span>
 <span class="sd">        up to a numerical tolerance.</span>
 <span class="sd">        Compares values of the following attributes:</span>
@@ -1008,7 +1008,7 @@ title="Open an issue"
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns true if the branch is equal to the ``other`` branch.</span>
 <span class="sd">        For more information see :meth:`assert_close`.</span>
 
@@ -1034,7 +1034,7 @@ title="Open an issue"
 
 <div class="viewcode-block" id="Merge"><a class="viewcode-back" href="../../api.html#demes.Merge">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Merge</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A merge event, in which two or more demes end at some time and</span>
 <span class="sd">    contribute to a descendant deme.</span>
 
@@ -1089,7 +1089,7 @@ title="Open an issue"
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Raises AssertionError if the object is not equal to ``other``,</span>
 <span class="sd">        up to a numerical tolerance.</span>
 <span class="sd">        Compares values of the following attributes:</span>
@@ -1131,7 +1131,7 @@ title="Open an issue"
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns true if the merge is equal to the ``other`` merge.</span>
 <span class="sd">        For more information see :meth:`assert_close`.</span>
 
@@ -1157,7 +1157,7 @@ title="Open an issue"
 
 <div class="viewcode-block" id="Admix"><a class="viewcode-back" href="../../api.html#demes.Admix">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Admix</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An admixture event, where two or more demes contribute ancestry</span>
 <span class="sd">    to a new deme.</span>
 
@@ -1212,7 +1212,7 @@ title="Open an issue"
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Raises AssertionError if the object is not equal to ``other``,</span>
 <span class="sd">        up to a numerical tolerance.</span>
 <span class="sd">        Compares values of the following attributes:</span>
@@ -1257,7 +1257,7 @@ title="Open an issue"
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns true if the admixture is equal to the ``other`` admixture.</span>
 <span class="sd">        For more information see :meth:`assert_close`.</span>
 
@@ -1282,7 +1282,7 @@ title="Open an issue"
 
 <div class="viewcode-block" id="Deme"><a class="viewcode-back" href="../../api.html#demes.Deme">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Deme</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A collection of individuals that have a common set of population parameters.</span>
 
 
@@ -1428,7 +1428,7 @@ title="Open an issue"
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Raises AssertionError if the object is not equal to ``other``,</span>
 <span class="sd">        up to a numerical tolerance.</span>
 <span class="sd">        Compares values of the following objects:</span>
@@ -1475,7 +1475,7 @@ title="Open an issue"
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns true if the deme is equal to the ``other`` deme.</span>
 <span class="sd">        For more information see :meth:`assert_close`.</span>
 
@@ -1499,7 +1499,7 @@ title="Open an issue"
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">end_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The end time of the deme&#39;s existence.</span>
 
 <span class="sd">        :rtype: float</span>
@@ -1508,7 +1508,7 @@ title="Open an issue"
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">time_span</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The time span over which the deme exists.</span>
 
 <span class="sd">        :rtype: float</span>
@@ -1516,7 +1516,7 @@ title="Open an issue"
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span>
 
 <div class="viewcode-block" id="Deme.size_at"><a class="viewcode-back" href="../../api.html#demes.Deme.size_at">[docs]</a>    <span class="k">def</span> <span class="nf">size_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the size of the deme at a given time.</span>
 
 <span class="sd">        If the deme doesn&#39;t exist at the given time, the value 0 is returned.</span>
@@ -1555,7 +1555,7 @@ title="Open an issue"
 
 <div class="viewcode-block" id="Graph"><a class="viewcode-back" href="../../api.html#demes.Graph">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Graph</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The Graph class is a resolved and validated representation of a</span>
 <span class="sd">    demographic model.</span>
 
@@ -1615,7 +1615,7 @@ title="Open an issue"
     <span class="n">metadata</span><span class="p">:</span> <span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Mapping</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
         <span class="n">factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">,</span>
         <span class="n">validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span>
-            <span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Mapping</span>  <span class="c1"># type: ignore[misc]</span>
+            <span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Mapping</span>  <span class="c1"># type: ignore[type-abstract]</span>
         <span class="p">),</span>
     <span class="p">)</span>
     <span class="n">demes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Deme</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -1641,7 +1641,7 @@ title="Open an issue"
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;time_units==&quot;generations&quot;, but generation_time!=1&#39;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Graph.__getitem__"><a class="viewcode-back" href="../../api.html#demes.Graph.__getitem__">[docs]</a>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deme_name</span><span class="p">:</span> <span class="n">Name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Deme</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the :class:`.Deme` with the specified name.</span>
 
 <span class="sd">        .. code::</span>
@@ -1657,7 +1657,7 @@ title="Open an issue"
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deme_map</span><span class="p">[</span><span class="n">deme_name</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="Graph.__contains__"><a class="viewcode-back" href="../../api.html#demes.Graph.__contains__">[docs]</a>    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deme_name</span><span class="p">:</span> <span class="n">Name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if the graph contains a deme with the specified name.</span>
 
 <span class="sd">        .. code::</span>
@@ -1682,7 +1682,7 @@ title="Open an issue"
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Raises AssertionError if the object is not equal to ``other``,</span>
 <span class="sd">        up to a numerical tolerance.</span>
 <span class="sd">        Furthermore, the following implementation details are ignored during</span>
@@ -1704,7 +1704,7 @@ title="Open an issue"
         <span class="k">def</span> <span class="nf">assert_sorted_eq</span><span class="p">(</span><span class="n">aa</span><span class="p">,</span> <span class="n">bb</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
             <span class="c1"># Order-agnostic equality check.</span>
             <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">aa</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">bb</span><span class="p">)</span>
-            <span class="k">for</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">aa</span><span class="p">),</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">bb</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">aa</span><span class="p">),</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">bb</span><span class="p">)):</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">a</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
                 <span class="k">except</span> <span class="ne">AssertionError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -1743,7 +1743,7 @@ title="Open an issue"
         <span class="n">rel_tol</span><span class="o">=</span><span class="n">_ISCLOSE_REL_TOL</span><span class="p">,</span>
         <span class="n">abs_tol</span><span class="o">=</span><span class="n">_ISCLOSE_ABS_TOL</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns true if the graph and ``other`` implement essentially</span>
 <span class="sd">        the same demographic model. Numerical values are compared using the</span>
 <span class="sd">        :func:`math.isclose` function, from which this method takes its name.</span>
@@ -1779,7 +1779,7 @@ title="Open an issue"
         <span class="n">proportions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Deme</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a deme to the graph.</span>
 
 <span class="sd">        :param str name: A string identifier for the deme.</span>
@@ -1888,7 +1888,7 @@ title="Open an issue"
     <span class="k">def</span> <span class="nf">_add_symmetric_migration</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">demes</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">AsymmetricMigration</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add continuous symmetric migrations between all pairs of demes in a list.</span>
 
 <span class="sd">        :param list[str] demes: Deme names. Migration is symmetric between all</span>
@@ -1916,7 +1916,7 @@ title="Open an issue"
     <span class="k">def</span> <span class="nf">_add_asymmetric_migration</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsymmetricMigration</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add continuous migration from one deme to another.</span>
 <span class="sd">        Source and destination demes follow the forwards-in-time convention,</span>
 <span class="sd">        so that the migration rate refers to the movement of individuals from</span>
@@ -1958,7 +1958,7 @@ title="Open an issue"
         <span class="k">return</span> <span class="n">migration</span>
 
     <span class="k">def</span> <span class="nf">_add_pulse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">proportions</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Pulse</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a pulse of migration at a fixed time.</span>
 <span class="sd">        Source and destination demes follow the forwards-in-time convention.</span>
 
@@ -2025,7 +2025,7 @@ title="Open an issue"
         <span class="k">return</span> <span class="n">new_pulse</span>
 
 <div class="viewcode-block" id="Graph.migration_matrices"><a class="viewcode-back" href="../../api.html#demes.Graph.migration_matrices">[docs]</a>    <span class="k">def</span> <span class="nf">migration_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]],</span> <span class="n">List</span><span class="p">[</span><span class="n">Number</span><span class="p">]]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the migration matrices and the end times that partition them.</span>
 
 <span class="sd">        Returns a list of matrices, one for each time interval</span>
@@ -2100,7 +2100,7 @@ title="Open an issue"
         <span class="k">return</span> <span class="n">mm_list</span><span class="p">,</span> <span class="n">end_times</span></div>
 
     <span class="k">def</span> <span class="nf">_check_migration_rates</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check that the sum of migration ingress rates doesn&#39;t exceed 1 for any</span>
 <span class="sd">        deme in any interval of time.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -2118,7 +2118,7 @@ title="Open an issue"
             <span class="n">start_time</span> <span class="o">=</span> <span class="n">end_time</span>
 
 <div class="viewcode-block" id="Graph.successors"><a class="viewcode-back" href="../../api.html#demes.Graph.successors">[docs]</a>    <span class="k">def</span> <span class="nf">successors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Name</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Name</span><span class="p">]]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the successors (child demes) for all demes in the graph.</span>
 <span class="sd">        If ``graph`` is a :class:`Graph`, a `NetworkX &lt;https://networkx.org/&gt;`_</span>
 <span class="sd">        digraph of successors can be obtained as follows.</span>
@@ -2145,7 +2145,7 @@ title="Open an issue"
         <span class="k">return</span> <span class="n">succ</span></div>
 
 <div class="viewcode-block" id="Graph.predecessors"><a class="viewcode-back" href="../../api.html#demes.Graph.predecessors">[docs]</a>    <span class="k">def</span> <span class="nf">predecessors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Name</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Name</span><span class="p">]]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the predecessors (ancestors) for all demes in the graph.</span>
 <span class="sd">        If ``graph`` is a :class:`Graph`, a `NetworkX &lt;https://networkx.org/&gt;`_</span>
 <span class="sd">        digraph of predecessors can be obtained as follows.</span>
@@ -2171,7 +2171,7 @@ title="Open an issue"
         <span class="k">return</span> <span class="n">pred</span></div>
 
 <div class="viewcode-block" id="Graph.discrete_demographic_events"><a class="viewcode-back" href="../../api.html#demes.Graph.discrete_demographic_events">[docs]</a>    <span class="k">def</span> <span class="nf">discrete_demographic_events</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Classify each discrete demographic event as one of the following:</span>
 <span class="sd">        :class:`Pulse`, :class:`Split`, :class:`Branch`, :class:`Merge`,</span>
 <span class="sd">        or :class:`Admix`.</span>
@@ -2246,7 +2246,7 @@ title="Open an issue"
         <span class="k">return</span> <span class="n">demo_events</span></div>
 
 <div class="viewcode-block" id="Graph.in_generations"><a class="viewcode-back" href="../../api.html#demes.Graph.in_generations">[docs]</a>    <span class="k">def</span> <span class="nf">in_generations</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Graph</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a copy of the graph with times in units of generations.</span>
 
 <span class="sd">        :return:</span>
@@ -2271,7 +2271,7 @@ title="Open an issue"
 
 <div class="viewcode-block" id="Graph.fromdict"><a class="viewcode-back" href="../../api.html#demes.Graph.fromdict">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">fromdict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Graph</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a graph from a data dictionary.</span>
 
 <span class="sd">        :param dict data:</span>
@@ -2595,7 +2595,7 @@ title="Open an issue"
         <span class="k">return</span> <span class="n">graph</span></div>
 
 <div class="viewcode-block" id="Graph.asdict"><a class="viewcode-back" href="../../api.html#demes.Graph.asdict">[docs]</a>    <span class="k">def</span> <span class="nf">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keep_empty_fields</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a fully-resolved dict representation of the graph.</span>
 
 <span class="sd">        :return:</span>
@@ -2631,7 +2631,7 @@ title="Open an issue"
         <span class="k">return</span> <span class="n">data</span></div>
 
 <div class="viewcode-block" id="Graph.asdict_simplified"><a class="viewcode-back" href="../../api.html#demes.Graph.asdict_simplified">[docs]</a>    <span class="k">def</span> <span class="nf">asdict_simplified</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a simplified dict representation of the graph.</span>
 
 <span class="sd">        :return:</span>
@@ -2640,7 +2640,7 @@ title="Open an issue"
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">def</span> <span class="nf">simplify_epochs</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-            <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Remove epoch start times. Also remove deme start time</span>
 <span class="sd">            if implied by the deme ancestor(s)&#39;s end time(s).</span>
 <span class="sd">            &quot;&quot;&quot;</span>
@@ -2666,7 +2666,7 @@ title="Open an issue"
                         <span class="k">del</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span>
 
         <span class="k">def</span> <span class="nf">simplify_migration_rates</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-            <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Collapse symmetric migration rates, and remove redundant information</span>
 <span class="sd">            about start and end times if they are implied by the time overlap</span>
 <span class="sd">            interval of the demes involved.</span>
@@ -2768,7 +2768,7 @@ title="Open an issue"
 
 
 <div class="viewcode-block" id="Builder"><a class="viewcode-back" href="../../api.html#demes.Builder">[docs]</a><span class="k">class</span> <span class="nc">Builder</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The Builder class provides a set of convenient methods for</span>
 <span class="sd">    incrementally constructing a demographic model.</span>
 
@@ -2792,14 +2792,14 @@ title="Open an issue"
 <div class="viewcode-block" id="Builder.__init__"><a class="viewcode-back" href="../../api.html#demes.Builder.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">time_units</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;generations&quot;</span><span class="p">,</span>
-        <span class="n">generation_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">doi</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">defaults</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">generation_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">doi</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">defaults</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param str description:</span>
 <span class="sd">            A human readable description of the demography.</span>
 <span class="sd">        :param str time_units:</span>
@@ -2833,14 +2833,14 @@ title="Open an issue"
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">ancestors</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">proportions</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">start_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">epochs</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">defaults</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">ancestors</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">proportions</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">start_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">epochs</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">defaults</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Append a deme to the &quot;demes&quot; list field of the data dictionary.</span>
 
 <span class="sd">        If the data dictionary doesn&#39;t contain the &quot;demes&quot; field,</span>
@@ -2883,17 +2883,17 @@ title="Open an issue"
 <div class="viewcode-block" id="Builder.add_migration"><a class="viewcode-back" href="../../api.html#demes.Builder.add_migration">[docs]</a>    <span class="k">def</span> <span class="nf">add_migration</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="c1"># We use a special NO_DEFAULT value here, to distinguish between the user</span>
         <span class="c1"># not specifying anything, and specifying the value None (which may be</span>
         <span class="c1"># necessary to override a &#39;defaults&#39; value set in the data dictionary).</span>
         <span class="n">demes</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="n">NO_DEFAULT</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
         <span class="n">source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">NO_DEFAULT</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
         <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">NO_DEFAULT</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
-        <span class="n">start_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">end_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">start_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">end_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Append a period of continuous migration to the &quot;migrations&quot; list field</span>
 <span class="sd">        of the data dictionary.</span>
 
@@ -2947,12 +2947,12 @@ title="Open an issue"
 <div class="viewcode-block" id="Builder.add_pulse"><a class="viewcode-back" href="../../api.html#demes.Builder.add_pulse">[docs]</a>    <span class="k">def</span> <span class="nf">add_pulse</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
-        <span class="n">sources</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">proportions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">sources</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dest</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">proportions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Append a pulse of migration at a fixed time to the &quot;pulses&quot; list</span>
 <span class="sd">        field of the data dictionary.</span>
 
@@ -2987,7 +2987,7 @@ title="Open an issue"
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pulses&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pulse</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Builder.resolve"><a class="viewcode-back" href="../../api.html#demes.Builder.resolve">[docs]</a>    <span class="k">def</span> <span class="nf">resolve</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Resolve the Builder&#39;s data dictionary into a Graph.</span>
 
 <span class="sd">        :return: The fully-resolved Graph.</span>
@@ -2997,7 +2997,7 @@ title="Open an issue"
 
 <div class="viewcode-block" id="Builder.fromdict"><a class="viewcode-back" href="../../api.html#demes.Builder.fromdict">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">fromdict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">&quot;Builder&quot;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Make a Builder object from an existing data dictionary.</span>
 
 <span class="sd">        :param MutableMapping data:</span>
@@ -3017,7 +3017,7 @@ title="Open an issue"
     <span class="c1"># which are used in the ms conversion code.</span>
 
     <span class="k">def</span> <span class="nf">_sort_demes_by_ancestry</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sort demes by their start time so that ancestors come before descendants.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="s2">&quot;start_time&quot;</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -3025,7 +3025,7 @@ title="Open an issue"
     <span class="k">def</span> <span class="nf">_add_migrations_from_matrices</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">mm_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]],</span> <span class="n">end_times</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert a list of migration matrices into a list of migration dicts.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">mm_list</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">end_times</span><span class="p">)</span>
@@ -3076,7 +3076,7 @@ title="Open an issue"
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;migrations&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">migrations</span>
 
     <span class="k">def</span> <span class="nf">_remove_transient_demes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Remove demes that don&#39;t exist (deme.start_time == deme.end_time).</span>
 
 <span class="sd">        These demes are not valid, but could be created from ms commands where</span>
@@ -3128,7 +3128,7 @@ title="Open an issue"
   
       &copy; Copyright 2021.<br/>
     <div class="extra_footer">
-      demes 0.2.3.dev45
+      demes 0.2.3.dev50
     </div>
 </p>
         </footer>

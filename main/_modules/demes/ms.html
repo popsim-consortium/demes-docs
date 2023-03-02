@@ -144,7 +144,7 @@ const thebe_selector_output = ".output, .cell_output"
              <!-- To handle the deprecated key -->
             
             <div class="navbar_extra_footer">
-            demes 0.2.3.dev45
+            demes 0.2.3.dev50
             </div>
             
         </div>
@@ -270,7 +270,8 @@ title="Open an issue"
               <div>
                 
   <h1>Source code for demes.ms</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">copy</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">argparse</span>
 <span class="kn">import</span> <span class="nn">logging</span>
@@ -288,7 +289,7 @@ title="Open an issue"
 
 
 <span class="k">class</span> <span class="nc">ValueErrorArgumentParser</span><span class="p">(</span><span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An AgumentParser that throws a ValueError instead of exiting.</span>
 <span class="sd">    It would be preferred to catch and reraise TypeError and ValueError</span>
 <span class="sd">    separately, but that isn&#39;t possible without touching ArgumentParser</span>
@@ -303,7 +304,7 @@ title="Open an issue"
 
 
 <span class="k">def</span> <span class="nf">coerce_nargs</span><span class="p">(</span><span class="n">obj_creator</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return an argparse action that coerces the collected nargs into</span>
 <span class="sd">    data class using the specified class/function ``obj_creator``.</span>
 <span class="sd">    This simplifies the validation of heterogeneously-typed args lists.</span>
@@ -353,7 +354,7 @@ title="Open an issue"
 
 
 <span class="k">def</span> <span class="nf">float_str</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert float to string, for use in command line arguments.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -502,7 +503,7 @@ title="Open an issue"
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">M</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert the args vector into a square list-of-lists matrix.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mm_vector</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">npop</span><span class="o">**</span><span class="mi">2</span><span class="p">:</span>
@@ -794,10 +795,10 @@ title="Open an issue"
     <span class="n">b</span> <span class="o">=</span> <span class="n">demes</span><span class="o">.</span><span class="n">Builder</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_demes</span><span class="p">):</span>
         <span class="n">initial_epoch</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">end_size</span><span class="o">=</span><span class="n">N0</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">b</span><span class="o">.</span><span class="n">add_deme</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="p">[</span><span class="n">initial_epoch</span><span class="p">])</span>
+        <span class="n">b</span><span class="o">.</span><span class="n">add_deme</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">j</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="p">[</span><span class="n">initial_epoch</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">convert_population_id</span><span class="p">(</span><span class="n">population_id</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks the specified population ID makes sense and returns</span>
 <span class="sd">        it as a zero-based index into the demes list.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -815,7 +816,7 @@ title="Open an issue"
         <span class="k">return</span> <span class="n">pid</span>
 
     <span class="k">def</span> <span class="nf">epoch_resolve</span><span class="p">(</span><span class="n">deme</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the oldest epoch if it has end_time == time. If not, create a</span>
 <span class="sd">        new oldest epoch with end_time=time. Also resolve sizes by dealing</span>
 <span class="sd">        with the growth_rate attribute (if required).</span>
@@ -844,7 +845,7 @@ title="Open an issue"
         <span class="k">return</span> <span class="n">epoch</span>
 
     <span class="k">def</span> <span class="nf">migration_matrix_at</span><span class="p">(</span><span class="n">time</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the oldest migration matrix if it has end_time == time. If not,</span>
 <span class="sd">        create a new oldest migration matrix with end_time = time.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -978,7 +979,7 @@ title="Open an issue"
                 <span class="n">pop_j</span> <span class="o">=</span> <span class="n">convert_population_id</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">j</span><span class="p">)</span>
 
                 <span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">][</span><span class="n">pop_i</span><span class="p">][</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
-                <span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">][</span><span class="n">pop_i</span><span class="p">][</span><span class="s2">&quot;ancestors&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">pop_j</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
+                <span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">][</span><span class="n">pop_i</span><span class="p">][</span><span class="s2">&quot;ancestors&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">pop_j</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
                 <span class="k">for</span> <span class="n">lm</span> <span class="ow">in</span> <span class="n">lineage_movements</span><span class="p">:</span>
                     <span class="n">lm</span><span class="p">[</span><span class="n">pop_j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">lm</span><span class="p">[</span><span class="n">pop_i</span><span class="p">]</span>
                     <span class="n">lm</span><span class="p">[</span><span class="n">pop_i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
@@ -1009,7 +1010,7 @@ title="Open an issue"
                 <span class="c1"># Add new deme.</span>
                 <span class="n">new_pid</span> <span class="o">=</span> <span class="n">num_demes</span>
                 <span class="n">b</span><span class="o">.</span><span class="n">add_deme</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">new_pid</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">new_pid</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
                     <span class="n">start_time</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span>
                     <span class="n">epochs</span><span class="o">=</span><span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">end_size</span><span class="o">=</span><span class="n">N0</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="n">time</span><span class="p">)],</span>
                 <span class="p">)</span>
@@ -1042,7 +1043,7 @@ title="Open an issue"
             <span class="n">p_jj</span> <span class="o">=</span> <span class="n">lineage_movements</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">p_jj</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="c1"># No ancestry left in j.</span>
-                <span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="s2">&quot;ancestors&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">o</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">ancestors</span><span class="p">]</span>
+                <span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="s2">&quot;ancestors&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">o</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">ancestors</span><span class="p">]</span>
                 <span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="s2">&quot;proportions&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">proportions</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># Some ancestry is retained in j, so we use pulse migrations to</span>
@@ -1050,8 +1051,8 @@ title="Open an issue"
                 <span class="c1"># The order of pulses will later be reversed such that realised</span>
                 <span class="c1"># ancestry proportions are maintained forwards in time.</span>
                 <span class="n">b</span><span class="o">.</span><span class="n">add_pulse</span><span class="p">(</span>
-                    <span class="n">sources</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">],</span>
-                    <span class="n">dest</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">sources</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">k</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">],</span>
+                    <span class="n">dest</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;deme</span><span class="si">{</span><span class="n">j</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
                     <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span>
                     <span class="n">proportions</span><span class="o">=</span><span class="p">[</span><span class="n">p</span><span class="p">],</span>
                 <span class="p">)</span>
@@ -1114,9 +1115,9 @@ title="Open an issue"
     <span class="n">command</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">N0</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">deme_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">deme_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert an ms demographic model into a demes graph.</span>
 
 <span class="sd">    `Hudson&#39;s ms &lt;https://doi.org/10.1093/bioinformatics/18.2.337&gt;`_</span>
@@ -1185,7 +1186,7 @@ title="Open an issue"
 
 
 <div class="viewcode-block" id="to_ms"><a class="viewcode-back" href="../../api.html#demes.to_ms">[docs]</a><span class="k">def</span> <span class="nf">to_ms</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">N0</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get ms command line arguments for the graph.</span>
 
 <span class="sd">    The order of deme IDs matches the order of demes in the graph.</span>
@@ -1348,7 +1349,7 @@ title="Open an issue"
   
       &copy; Copyright 2021.<br/>
     <div class="extra_footer">
-      demes 0.2.3.dev45
+      demes 0.2.3.dev50
     </div>
 </p>
         </footer>

@@ -144,7 +144,7 @@ const thebe_selector_output = ".output, .cell_output"
              <!-- To handle the deprecated key -->
             
             <div class="navbar_extra_footer">
-            demes 0.2.3.dev45
+            demes 0.2.3.dev50
             </div>
             
         </div>
@@ -287,7 +287,7 @@ title="Open an issue"
 
 <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
 <span class="k">def</span> <span class="nf">_open_file_polymorph</span><span class="p">(</span><span class="n">polymorph</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Open polymorph as a path and yield the fileobj. If that fails,</span>
 <span class="sd">    just yield polymorph under the assumption it&#39;s a fileobj.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -320,7 +320,7 @@ title="Open an issue"
 
 
 <span class="k">def</span> <span class="nf">_dump_yaml_fromdict</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">multidoc</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Dump data dict to a YAML file-like object.</span>
 
 <span class="sd">    :param bool multidoc: If True, output the YAML document start line ``---``,</span>
@@ -349,7 +349,7 @@ title="Open an issue"
 
 
 <span class="k">def</span> <span class="nf">_stringify_infinities</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Modifies the data dict so infinite values are set to the string &quot;Infinity&quot;.</span>
 
 <span class="sd">    This is done for JSON output, because the JSON spec explicitly does not</span>
@@ -371,7 +371,7 @@ title="Open an issue"
 
 
 <span class="k">def</span> <span class="nf">_unstringify_infinities</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Modifies the data dict so the string &quot;Infinity&quot; is converted to float.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">]:</span>
@@ -390,7 +390,7 @@ title="Open an issue"
 
 
 <span class="k">def</span> <span class="nf">_no_null_values</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Checks for any null values in the input data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -417,7 +417,7 @@ title="Open an issue"
 
 
 <div class="viewcode-block" id="loads_asdict"><a class="viewcode-back" href="../../api.html#demes.loads_asdict">[docs]</a><span class="k">def</span> <span class="nf">loads_asdict</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load a YAML or JSON string into a dictionary of nested objects.</span>
 
 <span class="sd">    The input is *not* resolved, and is *not* validated.</span>
@@ -436,7 +436,7 @@ title="Open an issue"
 
 
 <div class="viewcode-block" id="load_asdict"><a class="viewcode-back" href="../../api.html#demes.load_asdict">[docs]</a><span class="k">def</span> <span class="nf">load_asdict</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load a YAML or JSON file into a dictionary of nested objects.</span>
 
 <span class="sd">    The input is *not* resolved, and is *not* validated.</span>
@@ -471,7 +471,7 @@ title="Open an issue"
 
 
 <div class="viewcode-block" id="loads"><a class="viewcode-back" href="../../api.html#demes.loads">[docs]</a><span class="k">def</span> <span class="nf">loads</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load a graph from a YAML or JSON string.</span>
 <span class="sd">    The keywords and structure of the input are defined by the</span>
 <span class="sd">    :ref:`spec:sec_spec`.</span>
@@ -486,7 +486,7 @@ title="Open an issue"
 
 
 <div class="viewcode-block" id="load"><a class="viewcode-back" href="../../api.html#demes.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load a graph from a YAML or JSON file.</span>
 <span class="sd">    The keywords and structure of the input are defined by the</span>
 <span class="sd">    :ref:`spec:sec_spec`.</span>
@@ -503,7 +503,7 @@ title="Open an issue"
 
 
 <div class="viewcode-block" id="load_all"><a class="viewcode-back" href="../../api.html#demes.load_all">[docs]</a><span class="k">def</span> <span class="nf">load_all</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate graphs from a YAML document stream. Documents must be separated by</span>
 <span class="sd">    the YAML document start indicator, ``---``.</span>
 <span class="sd">    The keywords and structure of each document are defined by the</span>
@@ -529,7 +529,7 @@ title="Open an issue"
 
 
 <div class="viewcode-block" id="dumps"><a class="viewcode-back" href="../../api.html#demes.dumps">[docs]</a><span class="k">def</span> <span class="nf">dumps</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Dump the specified graph to a YAML or JSON string.</span>
 <span class="sd">    The keywords and structure of the output are defined by the</span>
 <span class="sd">    :ref:`spec:sec_spec`.</span>
@@ -551,7 +551,7 @@ title="Open an issue"
 
 
 <div class="viewcode-block" id="dump"><a class="viewcode-back" href="../../api.html#demes.dump">[docs]</a><span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Dump the specified graph to a file.</span>
 <span class="sd">    The keywords and structure of the output are defined by the</span>
 <span class="sd">    :ref:`spec:sec_spec`.</span>
@@ -584,7 +584,7 @@ title="Open an issue"
 
 
 <div class="viewcode-block" id="dump_all"><a class="viewcode-back" href="../../api.html#demes.dump_all">[docs]</a><span class="k">def</span> <span class="nf">dump_all</span><span class="p">(</span><span class="n">graphs</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">simplified</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Dump the specified graphs to a multi-document YAML file or output stream.</span>
 
 <span class="sd">    :param graphs: An iterable of graphs to dump.</span>
@@ -624,7 +624,7 @@ title="Open an issue"
   
       &copy; Copyright 2021.<br/>
     <div class="extra_footer">
-      demes 0.2.3.dev45
+      demes 0.2.3.dev50
     </div>
 </p>
         </footer>
