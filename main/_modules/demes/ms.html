@@ -149,7 +149,7 @@ const thebe_selector_output = ".output, .cell_output"
              <!-- To handle the deprecated key -->
             
             <div class="navbar_extra_footer">
-            demes 0.2.3.dev58
+            demes 0.2.3.dev65
             </div>
             
         </div>
@@ -1100,19 +1100,7 @@ title="Open an issue"
 
 <span class="k">def</span> <span class="nf">remap_deme_names</span><span class="p">(</span><span class="n">graph</span><span class="p">:</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span> <span class="n">names</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">demes</span><span class="o">.</span><span class="n">Graph</span><span class="p">:</span>
     <span class="k">assert</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">names</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">demes</span><span class="p">)</span>
-    <span class="n">graph</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">demes</span><span class="p">:</span>
-        <span class="n">deme</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
-        <span class="n">deme</span><span class="o">.</span><span class="n">ancestors</span> <span class="o">=</span> <span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="n">ancestor</span><span class="p">]</span> <span class="k">for</span> <span class="n">ancestor</span> <span class="ow">in</span> <span class="n">deme</span><span class="o">.</span><span class="n">ancestors</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">migrations</span><span class="p">:</span>
-        <span class="n">migration</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">migration</span><span class="o">.</span><span class="n">source</span><span class="p">]</span>
-        <span class="n">migration</span><span class="o">.</span><span class="n">dest</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">migration</span><span class="o">.</span><span class="n">dest</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">pulse</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">pulses</span><span class="p">:</span>
-        <span class="n">pulse</span><span class="o">.</span><span class="n">sources</span> <span class="o">=</span> <span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">pulse</span><span class="o">.</span><span class="n">sources</span><span class="p">]</span>
-        <span class="n">pulse</span><span class="o">.</span><span class="n">dest</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">pulse</span><span class="o">.</span><span class="n">dest</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">deme</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">_deme_map</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
-        <span class="k">del</span> <span class="n">graph</span><span class="o">.</span><span class="n">_deme_map</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
-        <span class="n">graph</span><span class="o">.</span><span class="n">_deme_map</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span> <span class="o">=</span> <span class="n">deme</span>
+    <span class="n">graph</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">rename_demes</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">graph</span>
 
 
@@ -1354,7 +1342,7 @@ title="Open an issue"
   
       &copy; Copyright 2021.<br/>
     <div class="extra_footer">
-      demes 0.2.3.dev58
+      demes 0.2.3.dev65
     </div>
 </p>
         </footer>

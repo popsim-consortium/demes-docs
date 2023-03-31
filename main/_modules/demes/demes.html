@@ -149,7 +149,7 @@ const thebe_selector_output = ".output, .cell_output"
              <!-- To handle the deprecated key -->
             
             <div class="navbar_extra_footer">
-            demes 0.2.3.dev58
+            demes 0.2.3.dev65
             </div>
             
         </div>
@@ -282,7 +282,7 @@ title="Open an issue"
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">numbers</span>
 <span class="kn">import</span> <span class="nn">operator</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">MutableMapping</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">MutableMapping</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="kn">import</span> <span class="nn">attr</span>
@@ -2274,6 +2274,38 @@ title="Open an issue"
         <span class="n">graph</span><span class="o">.</span><span class="n">generation_time</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="n">graph</span></div>
 
+<div class="viewcode-block" id="Graph.rename_demes"><a class="viewcode-back" href="../../api.html#demes.Graph.rename_demes">[docs]</a>    <span class="k">def</span> <span class="nf">rename_demes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Graph</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Rename demes according to a dictionary that may contain a partial set of demes.</span>
+
+<span class="sd">        :param dict names:</span>
+<span class="sd">            A dictionary with deme names and new names.</span>
+<span class="sd">        :return:</span>
+<span class="sd">            A demographic model with renamed demes.</span>
+<span class="sd">        :rtype: Graph</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;names is not a dictionary&quot;</span><span class="p">)</span>
+        <span class="n">graph</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">demes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">deme</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+                <span class="n">deme</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">deme</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+            <span class="n">deme</span><span class="o">.</span><span class="n">ancestors</span> <span class="o">=</span> <span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="k">if</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">names</span> <span class="k">else</span> <span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">deme</span><span class="o">.</span><span class="n">ancestors</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">migration</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">migrations</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">migration</span><span class="o">.</span><span class="n">source</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+                <span class="n">migration</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">migration</span><span class="o">.</span><span class="n">source</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">migration</span><span class="o">.</span><span class="n">dest</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+                <span class="n">migration</span><span class="o">.</span><span class="n">dest</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">migration</span><span class="o">.</span><span class="n">dest</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">pulse</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">pulses</span><span class="p">:</span>
+            <span class="n">pulse</span><span class="o">.</span><span class="n">sources</span> <span class="o">=</span> <span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="k">if</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">names</span> <span class="k">else</span> <span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">pulse</span><span class="o">.</span><span class="n">sources</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">pulse</span><span class="o">.</span><span class="n">dest</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+                <span class="n">pulse</span><span class="o">.</span><span class="n">dest</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">pulse</span><span class="o">.</span><span class="n">dest</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">deme</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">_deme_map</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">graph</span><span class="o">.</span><span class="n">_deme_map</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+                <span class="n">graph</span><span class="o">.</span><span class="n">_deme_map</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span> <span class="o">=</span> <span class="n">deme</span>
+        <span class="k">return</span> <span class="n">graph</span></div>
+
 <div class="viewcode-block" id="Graph.fromdict"><a class="viewcode-back" href="../../api.html#demes.Graph.fromdict">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">fromdict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Graph</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -3133,7 +3165,7 @@ title="Open an issue"
   
       &copy; Copyright 2021.<br/>
     <div class="extra_footer">
-      demes 0.2.3.dev58
+      demes 0.2.3.dev65
     </div>
 </p>
         </footer>
