@@ -2674,21 +2674,27 @@ document.write(`
                 <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;__len__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
             <span class="p">)</span> <span class="ow">and</span> <span class="n">attrib</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;_deme_map&quot;</span>
 
-        <span class="k">def</span> <span class="nf">coerce_numbers</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-            <span class="c1"># Explicitly convert numeric types to int or float, so that they</span>
+        <span class="k">def</span> <span class="nf">coerce_types</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+            <span class="c1"># Explicitly convert numeric and string types, so that they</span>
             <span class="c1"># don&#39;t cause problems for the YAML and JSON serialisers.</span>
-            <span class="c1"># E.g. numpy int32/int64 are part of Python&#39;s numeric tower as</span>
+            <span class="c1"># Numpy int32/int64 are part of Python&#39;s numeric tower as</span>
             <span class="c1"># subclasses of numbers.Integral, similarly numpy&#39;s float32/float64</span>
             <span class="c1"># are subclasses of numbers.Real. There are yet other numeric types,</span>
             <span class="c1"># such as the standard library&#39;s decimal.Decimal, which are not part</span>
             <span class="c1"># of the numeric tower, but provide a __float__() method.</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Integral</span><span class="p">):</span>
+            <span class="c1"># Likewise, string subclasses such as numpy.str_ aren&#39;t recognised</span>
+            <span class="c1"># by the YAML serialiser, so we explicitly convert them to str.</span>
+            <span class="c1"># We check for &#39;str&#39; first, because numpy.str_ also has a</span>
+            <span class="c1"># __float__() method.</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Integral</span><span class="p">):</span>
                 <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Real</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;__float__&quot;</span><span class="p">):</span>
                 <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">value</span>
 
-        <span class="n">data</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="n">filt</span><span class="p">,</span> <span class="n">value_serializer</span><span class="o">=</span><span class="n">coerce_numbers</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="n">filt</span><span class="p">,</span> <span class="n">value_serializer</span><span class="o">=</span><span class="n">coerce_types</span><span class="p">)</span>
         <span class="c1"># translate to spec data model</span>
         <span class="k">for</span> <span class="n">deme</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">]:</span>
             <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;epochs&quot;</span><span class="p">]:</span>
@@ -3228,7 +3234,7 @@ By PopSim Consortium
   <div class="footer-item">
     
 <div class="extra_footer">
-  demes 0.2.3.dev79
+  demes 0.2.3.dev81
 </div>
   </div>
   
