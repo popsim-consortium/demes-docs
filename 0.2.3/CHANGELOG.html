@@ -1,0 +1,456 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Changelog &#8212; Demes manual</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/basic_mod.css?v=0.7.0-1" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <script src="_static/js/petite-vue.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Citing Demes" href="CITATION.html" /> 
+  </head><body data-dark_mode_code_blocks="true">
+
+<div id="top_nav">
+    
+
+    <nav>
+        
+            
+        
+
+        <p id="toggle_sidebar">
+            <a href="#" title="Toggle sidebar">|||</a>
+        </p>
+        <h1><a href="index.html" title="Go to homepage">Demes manual</a></h1>
+            <a id="source_link" href="https://github.com/popsim-consortium/demes-python">
+    
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
+            <path fill="white" d="M 244.8,8 C 106.1,8 0,113.3 0,252 c 0,110.9 69.8,205.8 169.5,239.2 12.8,2.3 17.3,-5.6 17.3,-12.1 0,-6.2 -0.3,-40.4 -0.3,-61.4 0,0 -70,15 -84.7,-29.8 0,0 -11.4,-29.1 -27.8,-36.6 0,0 -22.9,-15.7 1.6,-15.4 0,0 24.9,2 38.6,25.8 21.9,38.6 58.6,27.5 72.9,20.9 2.3,-16 8.8,-27.1 16,-33.7 -55.9,-6.2 -112.3,-14.3 -112.3,-110.5 0,-27.5 7.6,-41.3 23.6,-58.9 -2.6,-6.5 -11.1,-33.3 2.6,-67.9 20.9,-6.5 69,27 69,27 20,-5.6 41.5,-8.5 62.8,-8.5 21.3,0 42.8,2.9 62.8,8.5 0,0 48.1,-33.6 69,-27 13.7,34.7 5.2,61.4 2.6,67.9 16,17.7 25.8,31.5 25.8,58.9 0,96.5 -58.9,104.2 -114.8,110.5 9.2,7.9 17,22.9 17,46.4 0,33.7 -0.3,75.4 -0.3,83.6 0,6.5 4.6,14.4 17.3,12.1 C 428.2,457.8 496,362.9 496,252 496,113.3 383.5,8 244.8,8 Z"/>
+        </svg>
+    
+</a>
+        
+
+        <a id="mode_toggle" href="#" @click.prevent="handleClick" :title="mode">
+    <template v-if="mode == 'light'">
+        <svg width="100%" height="100%" viewBox="0 0 79 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g id="mode_light"><rect id="Bounds" x="0" y="-0" width="78.623" height="79.049" style="fill:none;"/><circle cx="39.311" cy="39.524" r="15.734" style="fill:#fff;"/><g id="beams"><g id="beam"><path id="beam1" serif:id="beam" d="M44.212,4.901c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,-0 -4.9,2.196 -4.9,4.901l-0,9.614c-0,2.705 2.196,4.901 4.9,4.901c2.705,0 4.901,-2.196 4.901,-4.901l0,-9.614Z" style="fill:#fff;"/></g><g id="beam2" serif:id="beam"><path id="beam3" serif:id="beam" d="M67.48,18.073c1.913,-1.912 1.913,-5.018 0,-6.931c-1.912,-1.912 -5.018,-1.912 -6.931,0l-6.798,6.799c-1.912,1.912 -1.912,5.018 0,6.931c1.913,1.912 5.018,1.912 6.931,-0l6.798,-6.799Z" style="fill:#fff;"/></g><g id="beam4" serif:id="beam"><path id="beam5" serif:id="beam" d="M25.728,61.108c1.912,-1.913 1.912,-5.018 -0,-6.931c-1.913,-1.913 -5.019,-1.913 -6.931,-0l-6.799,6.798c-1.912,1.913 -1.912,5.019 0,6.931c1.913,1.913 5.019,1.913 6.931,0l6.799,-6.798Z" style="fill:#fff;"/></g><g id="beam6" serif:id="beam"><path id="beam7" serif:id="beam" d="M60.682,54.177c-1.913,-1.913 -5.018,-1.913 -6.931,-0c-1.912,1.913 -1.912,5.018 0,6.931l6.798,6.798c1.913,1.913 5.019,1.913 6.931,0c1.913,-1.912 1.913,-5.018 0,-6.931l-6.798,-6.798Z" style="fill:#fff;"/></g><g id="beam8" serif:id="beam"><path id="beam9" serif:id="beam" d="M4.901,34.623c-2.705,0 -4.901,2.196 -4.901,4.901c0,2.705 2.196,4.901 4.901,4.901l9.614,0c2.705,0 4.901,-2.196 4.901,-4.901c0,-2.705 -2.196,-4.901 -4.901,-4.901l-9.614,0Z" style="fill:#fff;"/></g><g id="beam10" serif:id="beam"><path id="beam11" serif:id="beam" d="M44.212,64.534c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,-0 -4.9,2.196 -4.9,4.901l-0,9.614c-0,2.705 2.196,4.901 4.9,4.901c2.705,-0 4.901,-2.196 4.901,-4.901l0,-9.614Z" style="fill:#fff;"/></g><g id="beam12" serif:id="beam"><path id="beam13" serif:id="beam" d="M18.929,11.142c-1.912,-1.912 -5.018,-1.912 -6.931,0c-1.912,1.913 -1.912,5.019 0,6.931l6.799,6.799c1.912,1.912 5.018,1.912 6.931,-0c1.912,-1.913 1.912,-5.019 -0,-6.931l-6.799,-6.799Z" style="fill:#fff;"/></g><g id="beam14" serif:id="beam"><path id="beam15" serif:id="beam" d="M64.108,34.623c-2.705,0 -4.901,2.196 -4.901,4.901c-0,2.705 2.196,4.901 4.901,4.901l9.614,0c2.705,0 4.901,-2.196 4.901,-4.901c-0,-2.705 -2.196,-4.901 -4.901,-4.901l-9.614,0Z" style="fill:#fff;"/></g></g></g></svg>
+    </template>
+
+    <template v-if="mode == 'dark'">
+        <svg width="100%" height="100%" viewBox="0 0 79 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g id="mode_dark"><rect id="Bounds" x="0" y="-0" width="78.623" height="79.049" style="fill:none;"/><circle cx="39.311" cy="39.524" r="15.734" style="fill:#fff;"/><g id="beams"><g id="beam"><path id="beam1" serif:id="beam" d="M44.212,14.515c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,0 -4.901,2.196 -4.901,4.901c0,2.705 2.197,4.901 4.901,4.901c2.705,0 4.901,-2.196 4.901,-4.901Z" style="fill:#fff;"/></g><g id="beam2" serif:id="beam"><path id="beam3" serif:id="beam" d="M60.662,24.892c1.902,-1.902 1.902,-4.99 0,-6.892l-0.04,-0.039c-1.901,-1.902 -4.989,-1.902 -6.891,-0c-1.901,1.901 -1.901,4.989 0,6.891l0.04,0.04c1.902,1.901 4.989,1.901 6.891,-0Z" style="fill:#fff;"/></g><g id="beam4" serif:id="beam"><path id="beam5" serif:id="beam" d="M25.732,61.103c1.91,-1.91 1.91,-5.011 0,-6.921l-0.009,-0.01c-1.91,-1.91 -5.012,-1.91 -6.921,-0c-1.91,1.91 -1.91,5.011 -0,6.921l0.01,0.01c1.909,1.91 5.011,1.91 6.92,-0Z" style="fill:#fff;"/></g><g id="beam6" serif:id="beam"><path id="beam7" serif:id="beam" d="M60.672,54.167c-1.907,-1.907 -5.004,-1.907 -6.911,0l-0.02,0.02c-1.907,1.907 -1.907,5.004 0,6.911c1.907,1.907 5.004,1.907 6.911,-0l0.02,-0.02c1.907,-1.907 1.907,-5.004 0,-6.911Z" style="fill:#fff;"/></g><g id="beam8" serif:id="beam"><path id="beam9" serif:id="beam" d="M14.52,34.623c-2.702,0 -4.896,2.194 -4.896,4.896l0,0.01c0,2.702 2.194,4.896 4.896,4.896c2.702,0 4.896,-2.194 4.896,-4.896l-0,-0.01c-0,-2.702 -2.194,-4.896 -4.896,-4.896Z" style="fill:#fff;"/></g><g id="beam10" serif:id="beam"><path id="beam11" serif:id="beam" d="M44.212,64.534c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,-0 -4.901,2.196 -4.901,4.901c0,2.704 2.197,4.9 4.901,4.9c2.705,0 4.901,-2.196 4.901,-4.9Z" style="fill:#fff;"/></g><g id="beam12" serif:id="beam"><path id="beam13" serif:id="beam" d="M25.73,17.943c-1.911,-1.911 -5.015,-1.911 -6.926,0l-0.005,0.005c-1.911,1.911 -1.911,5.015 0,6.926c1.911,1.911 5.015,1.911 6.926,0l0.005,-0.005c1.911,-1.911 1.911,-5.014 -0,-6.926Z" style="fill:#fff;"/></g><g id="beam14" serif:id="beam"><path id="beam15" serif:id="beam" d="M64.098,34.623c-2.699,0 -4.891,2.192 -4.891,4.892l-0,0.019c-0,2.699 2.192,4.891 4.891,4.891c2.7,0 4.892,-2.192 4.892,-4.891l0,-0.019c0,-2.7 -2.192,-4.892 -4.892,-4.892Z" style="fill:#fff;"/></g></g></g></svg>
+    </template>
+
+    <template v-if="mode == 'darkest'">
+        <svg width="100%" height="100%" viewBox="0 0 79 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g id="mode_darkest"><rect id="Bounds" x="0" y="-0" width="78.623" height="79.049" style="fill:none;"/><path d="M39.315,23.791c8.684,-0 15.734,7.05 15.734,15.733c0,8.684 -7.05,15.734 -15.734,15.734c-8.683,0 -15.733,-7.05 -15.733,-15.734c-0,-8.683 7.05,-15.733 15.733,-15.733Zm0,4.737c6.069,0 10.997,4.927 10.997,10.996c-0,6.069 -4.928,10.996 -10.997,10.996c-6.068,0 -10.996,-4.927 -10.996,-10.996c0,-6.069 4.928,-10.996 10.996,-10.996Z" style="fill:#fff;"/><g id="beams"><g id="beam"><path id="beam1" serif:id="beam" d="M44.216,14.515c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,0 -4.9,2.196 -4.9,4.901c-0,2.705 2.196,4.901 4.9,4.901c2.705,0 4.901,-2.196 4.901,-4.901Z" style="fill:#fff;"/></g><g id="beam2" serif:id="beam"><path id="beam3" serif:id="beam" d="M60.666,24.892c1.902,-1.902 1.902,-4.99 0,-6.892l-0.04,-0.039c-1.901,-1.902 -4.989,-1.902 -6.891,-0c-1.901,1.901 -1.901,4.989 0,6.891l0.04,0.04c1.902,1.901 4.99,1.901 6.891,-0Z" style="fill:#fff;"/></g><g id="beam4" serif:id="beam"><path id="beam5" serif:id="beam" d="M25.737,61.103c1.909,-1.91 1.909,-5.011 -0,-6.921l-0.01,-0.01c-1.91,-1.91 -5.011,-1.91 -6.921,-0c-1.91,1.91 -1.91,5.011 -0,6.921l0.01,0.01c1.91,1.91 5.011,1.91 6.921,-0Z" style="fill:#fff;"/></g><g id="beam6" serif:id="beam"><path id="beam7" serif:id="beam" d="M60.676,54.167c-1.907,-1.907 -5.004,-1.907 -6.911,0l-0.02,0.02c-1.907,1.907 -1.907,5.004 0,6.911c1.907,1.907 5.004,1.907 6.911,-0l0.02,-0.02c1.907,-1.907 1.907,-5.004 0,-6.911Z" style="fill:#fff;"/></g><g id="beam8" serif:id="beam"><path id="beam9" serif:id="beam" d="M14.524,34.623c-2.702,0 -4.896,2.194 -4.896,4.896l0,0.01c0,2.702 2.194,4.896 4.896,4.896c2.702,0 4.896,-2.194 4.896,-4.896l0,-0.01c0,-2.702 -2.194,-4.896 -4.896,-4.896Z" style="fill:#fff;"/></g><g id="beam10" serif:id="beam"><path id="beam11" serif:id="beam" d="M44.216,64.534c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,-0 -4.9,2.196 -4.9,4.901c-0,2.704 2.196,4.9 4.9,4.9c2.705,0 4.901,-2.196 4.901,-4.9Z" style="fill:#fff;"/></g><g id="beam12" serif:id="beam"><path id="beam13" serif:id="beam" d="M25.734,17.943c-1.911,-1.911 -5.015,-1.911 -6.926,0l-0.005,0.005c-1.911,1.911 -1.911,5.015 0,6.926c1.911,1.911 5.015,1.911 6.926,0l0.005,-0.005c1.911,-1.911 1.911,-5.014 0,-6.926Z" style="fill:#fff;"/></g><g id="beam14" serif:id="beam"><path id="beam15" serif:id="beam" d="M64.103,34.623c-2.7,0 -4.892,2.192 -4.892,4.892l-0,0.019c-0,2.699 2.192,4.891 4.892,4.891c2.699,0 4.891,-2.192 4.891,-4.891l0,-0.019c0,-2.7 -2.192,-4.892 -4.891,-4.892Z" style="fill:#fff;"/></g></g></g></svg>
+    </template>
+</a>
+
+<script>
+(function() {
+    const LOCAL_STORAGE_KEY = 'piccoloThemeMode'
+
+    var initialMode = localStorage.getItem(LOCAL_STORAGE_KEY)
+
+    if (initialMode) {
+        // Make sure the value in local storage is valid
+        if (['light', 'dark', 'darkest'].indexOf(initialMode) == -1) {
+            initialMode = 'light'
+            localStorage.setItem(LOCAL_STORAGE_KEY, initialMode)
+        }
+    } else {
+        // Check if the client prefers dark mode
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            initialMode = 'dark'
+        } else {
+            initialMode = 'light'
+        }
+        localStorage.setItem(LOCAL_STORAGE_KEY, initialMode)
+    }
+
+    document.documentElement.dataset.mode = initialMode
+
+    PetiteVue.createApp({
+        'mode': initialMode,
+        handleClick() {
+            let currentMode = this.mode
+
+            if (currentMode == 'light') {
+                this.mode = 'dark'
+            } else if (currentMode == 'dark') {
+                this.mode = 'darkest'
+            } else if (currentMode == 'darkest') {
+                this.mode = 'light'
+            }
+
+            document.documentElement.dataset.mode = this.mode
+            localStorage.setItem(LOCAL_STORAGE_KEY, this.mode)
+
+            console.log(this.mode)
+        }
+    }).mount('#mode_toggle')
+})()
+</script>
+            <p class="mobile_search_link">
+                <a href="search.html" title="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 65 64" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2">
+                        <path d="M14.873 40.009c-2.315-3.943-3.642-8.532-3.642-13.429C11.231 11.91 23.141 0 37.811 0s26.58 11.91 26.58 26.58-11.91 26.58-26.58 26.58a26.44 26.44 0 0 1-14.277-4.161L9.739 62.794a3.12 3.12 0 0 1-4.413 0L.913 58.382c-1.217-1.218-1.217-3.196 0-4.413l13.96-13.96zM37.811 8.054c10.225 0 18.526 8.301 18.526 18.526s-8.301 18.526-18.526 18.526-18.526-8.301-18.526-18.526S27.586 8.054 37.811 8.054z" fill="#fff" />
+                    </svg>
+                </a>
+            </p>
+        
+
+        <div class="searchbox_wrapper">
+            
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CITATION.html">Citing Demes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="changelog">
+<h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this heading">¶</a></h1>
+<section id="id1">
+<h2>0.2.3 - 2023-05-04<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Fixed the use of numpy strings for deme names.
+(<a class="reference external" href="https://github.com/terhorst">&#64;terhorst</a>, <a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/495">#495</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/505">#505</a>)</p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">Graph.rename_demes()</span></code> method to return a graph with renamed demes.
+(<a class="reference external" href="https://github.com/aabiddanda">&#64;aabiddanda</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/499">#499</a>)</p></li>
+</ul>
+</section>
+<section id="id2">
+<h2>0.2.2 - 2022-04-28<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h2>
+<p>Better conformance to the spec. Minor discrepancies between
+demes-python and the reference implementation have been resolved.</p>
+<ul class="simple">
+<li><p>Dropped support for Python 3.6
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/445">#445</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/446">#446</a>)</p></li>
+<li><p>Reject bad defaults, even if they’re not used.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/443">#443</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/430">#430</a>)</p></li>
+<li><p>Set encoding to UTF-8 explicitly. This fixes unicode deme names on Windows.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/430">#430</a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Graph.description</span></code> and <code class="docutils literal notranslate"><span class="pre">Deme.description</span></code> can no longer be <code class="docutils literal notranslate"><span class="pre">None</span></code>.
+A missing description will now be resolved to the empty string.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/429">#429</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/430">#430</a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Graph.generation_time</span></code> can no longer be <code class="docutils literal notranslate"><span class="pre">None</span></code>.
+When <code class="docutils literal notranslate"><span class="pre">time_units</span></code> are generations, a missing <code class="docutils literal notranslate"><span class="pre">generation_time</span></code> will now
+be resolved to 1 and other values are an error.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/429">#429</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/430">#430</a>)</p></li>
+<li><p>Permit selfing_rate + cloning_rate &gt;= 1.
+Both values must be between zero and one (inclusive), but the selfing_rate
+is now defined as conditional on sexual reproduction (which occurs at
+rate <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">-</span> <span class="pre">cloning_rate</span></code>).
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/425">#425</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/423">#423</a>)</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2>0.2.1 - 2021-12-07<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h2>
+<p><strong>New features:</strong></p>
+<ul class="simple">
+<li><p>Support for the <code class="docutils literal notranslate"><span class="pre">metadata</span></code> field at the toplevel of a YAML file.
+The is a dictionary that may contain arbitrary nested data.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/275">#275</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/392">#392</a>).</p></li>
+</ul>
+<p><strong>Bug fixes:</strong></p>
+<ul class="simple">
+<li><p>The string “Infinity” is now accepted when using <code class="docutils literal notranslate"><span class="pre">load_all()</span></code>,
+just like for <code class="docutils literal notranslate"><span class="pre">load()</span></code> and <code class="docutils literal notranslate"><span class="pre">loads()</span></code>.
+This fixes loading fully-resolved models with the CLI.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/394">#394</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/395">#395</a>).</p></li>
+</ul>
+<p><strong>Breaking changes:</strong></p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">demes.hypothesis_strategies.graphs()</span></code> function for generating
+a random <code class="docutils literal notranslate"><span class="pre">Graph</span></code> has been removed. This was buggy and not usable
+as originally intended.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/360">#360</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/397">#397</a>).</p></li>
+</ul>
+</section>
+<section id="id4">
+<h2>0.2.0 - 2021-12-01<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<p><strong>New features:</strong></p>
+<ul class="simple">
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">load_all()</span></code>/<code class="docutils literal notranslate"><span class="pre">dump_all()</span></code> to support multi-document YAML.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/239">#239</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/335">#335</a>)</p></li>
+<li><p>Add CLI.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/339">#339</a>)</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">to_ms()</span></code> function.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/74">#74</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/354">#354</a>)</p></li>
+<li><p>Allow for “Infinity” as start times for demes and migrations in input
+YAMLs and dicts.
+(<a class="reference external" href="https://github.com/apragsdale">&#64;apragsdale</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/358">#358</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/386">#386</a>)</p></li>
+</ul>
+<p><strong>Breaking changes:</strong></p>
+<ul class="simple">
+<li><p>A pulse event now allows for simultaneous sources and takes arguments
+<code class="docutils literal notranslate"><span class="pre">sources</span></code> and <code class="docutils literal notranslate"><span class="pre">proportions</span></code> instead of <code class="docutils literal notranslate"><span class="pre">source</span></code> and <code class="docutils literal notranslate"><span class="pre">proportion</span></code>. The
+sources and proportions must be provided as a list, even when there is
+only a single source deme.
+(<a class="reference external" href="https://github.com/apragsdale">&#64;apragsdale</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/353">#353</a>)</p></li>
+<li><p>Disallow null values and blank entries in input YAML models.
+(<a class="reference external" href="https://github.com/apragsdale">&#64;apragsdale</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/340">#340</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/387">#387</a>)</p></li>
+</ul>
+<p><strong>Bug fixes:</strong></p>
+<ul class="simple">
+<li><p>Fix various issues in <code class="docutils literal notranslate"><span class="pre">from_ms()</span></code> with <code class="docutils literal notranslate"><span class="pre">-es</span></code>/<code class="docutils literal notranslate"><span class="pre">-ej</span></code> commands.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/350">#350</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/351">#351</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/352">#352</a>)</p></li>
+<li><p>Fix some pulse edge cases when pulse events occur at the same time.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/328">#328</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/357">#357</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/362">#362</a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">todict_simplified()</span></code> now properly handles symmetric migrations when the
+end times of the demes involved differ.
+(<a class="reference external" href="https://github.com/apragsdale">&#64;apragsdale</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/384">#384</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/385">#385</a>)</p></li>
+</ul>
+</section>
+<section id="id5">
+<h2>0.1.2 - 2021-06-08<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h2>
+<p><strong>New features</strong>:</p>
+<ul class="simple">
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">Graph.migration_matrices()</span></code> to get the migration matrices for a graph.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/309">#309</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/320">#320</a>)</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">Deme.size_at()</span></code> to get the size of a deme at a given time.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/312">#312</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/314">#314</a>)</p></li>
+<li><p>Support “linear” as an <code class="docutils literal notranslate"><span class="pre">Epoch.size_function</span></code>.
+(<a class="reference external" href="https://github.com/noscode">&#64;noscode</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/296">#296</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/310">#310</a>)</p></li>
+<li><p>Downstream test code can now use the <code class="docutils literal notranslate"><span class="pre">demes.hypothesis_strategies.graphs()</span></code>
+<a class="reference external" href="https://hypothesis.readthedocs.io/">hypothesis</a> strategy to generate a
+random <code class="docutils literal notranslate"><span class="pre">Graph</span></code>. This is preliminary, and as such is not yet documented,
+but is used for testing internally with some success. The API may change
+in the future in response to requests from downstream application authors.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/217">#217</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/294">#294</a>)</p></li>
+<li><p>The string representation for a graph, <code class="docutils literal notranslate"><span class="pre">Graph.__str__()</span></code>, is now the
+simplified YAML output.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/235">#235</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/293">#293</a>)</p></li>
+</ul>
+<p><strong>Breaking changes</strong>:</p>
+<ul class="simple">
+<li><p>The undocumented msprime and stdpopsim converters have been removed.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/313">#313</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/316">#316</a>)</p></li>
+<li><p>The JSON spec doesn’t allow serialising infinite float values (although the
+Python json library does support this by default). So for JSON output we
+instead use the string “Infinity”.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>,
+<a class="reference external" href="https://github.com/popsim-consortium/demes-spec/issues/70">demes-spec#70</a>,
+<a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/311">#311</a>)</p></li>
+</ul>
+</section>
+<section id="id6">
+<h2>0.1.1 - 2021-04-21<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h2>
+<p>Remove the “demes” console_scripts entry point.
+This isn’t documented/supported and was left in accidentally.</p>
+</section>
+<section id="id7">
+<h2>0.1.0 - 2021-04-19<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h2>
+<p><strong>Breaking changes</strong>:</p>
+<ul class="simple">
+<li><p>The interpretation has been changed for symmetric migrations when the
+<code class="docutils literal notranslate"><span class="pre">start_time</span></code> (and/or <code class="docutils literal notranslate"><span class="pre">end_time</span></code>) is not specified. Symmetric migrations are
+now resolved separately for each pair in the list of participating demes.
+To accommodate this semantic change, the <code class="docutils literal notranslate"><span class="pre">SymmetricMigration</span></code> class has
+been removed, and symmetric migrations are always resolved into pairs of
+<code class="docutils literal notranslate"><span class="pre">AsymmetricMigration</span></code> objects.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/263">#263</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/268">#268</a>)</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">size_function</span></code> field can no longer be an arbitrary string.
+Only the “constant” and “exponential” strings are recognised.
+(<a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/262">#262</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/278">#278</a>)</p></li>
+</ul>
+<p><strong>New features</strong>:</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">from_ms()</span></code> function has been added to convert an ms command line
+into a <code class="docutils literal notranslate"><span class="pre">Graph</span></code>.
+(<a class="reference external" href="https://github.com/jeromekelleher">&#64;jeromekelleher</a>, <a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/74">#74</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/102">#102</a>)</p></li>
+</ul>
+<p><strong>Bug fixes</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Graph.in_generations()</span></code> no longer changes time values for a graph
+when <code class="docutils literal notranslate"><span class="pre">time_units</span> <span class="pre">==</span> <span class="pre">&quot;generations&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">generation_time</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">None</span></code>.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/273">#273</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/274">#274</a>)</p></li>
+</ul>
+</section>
+<section id="a4-2021-03-22">
+<h2>0.1.0a4 - 2021-03-22<a class="headerlink" href="#a4-2021-03-22" title="Permalink to this heading">¶</a></h2>
+<p><strong>Breaking changes</strong>:</p>
+<ul class="simple">
+<li><p>The deme <code class="docutils literal notranslate"><span class="pre">id</span></code> field has been renamed to <code class="docutils literal notranslate"><span class="pre">name</span></code>. This applies to both
+the data model (YAML files) and the <code class="docutils literal notranslate"><span class="pre">Deme</span></code> class.
+(<a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/246">#246</a>, discussion at <a class="reference external" href="https://github.com/popsim-consortium/demes-spec/issues/59">https://github.com/popsim-consortium/demes-spec/issues/59</a>)</p></li>
+</ul>
+<p><strong>Bug fixes</strong>:</p>
+<ul class="simple">
+<li><p>Check for multiple pulses causing ancestry proportion &gt; 1.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/250">#250</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/251">#251</a>)</p></li>
+<li><p>Check selfing_rate + cloning_rate &lt;= 1.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/242">#242</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/251">#251</a>)</p></li>
+<li><p>Check for pulse time edge cases.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/243">#243</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/249">#249</a>)</p></li>
+<li><p>Check sum of migration rates entering a deme are &lt;= 1.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/244">#244</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/249">#249</a>)</p></li>
+<li><p>Fix migration.end_time in convert.from_msprime.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/241">#241</a>)</p></li>
+</ul>
+</section>
+<section id="a3-2021-02-25">
+<h2>0.1.0a3 - 2021-02-25<a class="headerlink" href="#a3-2021-02-25" title="Permalink to this heading">¶</a></h2>
+<p><strong>Bug fixes</strong>:</p>
+<ul class="simple">
+<li><p>Fix <code class="docutils literal notranslate"><span class="pre">Graph.in_generations()</span></code> to also convert the <code class="docutils literal notranslate"><span class="pre">Deme.start_time</span></code> field.
+Thanks to <a class="reference external" href="https://github.com/apragsdale">&#64;apragsdale</a> for reporting the problem.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/224">#224</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/225">#225</a>).</p></li>
+<li><p>Fix <code class="docutils literal notranslate"><span class="pre">assert_close()</span></code> and <code class="docutils literal notranslate"><span class="pre">is_close()</span></code> equality checks to compare the deme
+<code class="docutils literal notranslate"><span class="pre">start_time</span></code>.
+(<a class="reference external" href="https://github.com/grahamgower">&#64;grahamgower</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/issues/224">#224</a>, <a class="reference external" href="https://github.com/popsim-consortium/demes-python/pull/225">#225</a>).</p></li>
+</ul>
+</section>
+<section id="a2-2021-02-24">
+<h2>0.1.0a2 - 2021-02-24<a class="headerlink" href="#a2-2021-02-24" title="Permalink to this heading">¶</a></h2>
+<p>Alpha release for testing. The API and the schema for YAML files have been
+largely agreed upon. Backwards-incompatible changes before the first stable
+release are still possible, but are considered unlikely.</p>
+</section>
+<section id="a1-2020-11-12">
+<h2>0.1.0a1 - 2020-11-12<a class="headerlink" href="#a1-2020-11-12" title="Permalink to this heading">¶</a></h2>
+<p>Initial alpha release to reserve the name ‘demes’ on pypi.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+    
+        <div id="show_right_sidebar">
+            <p><a class="toggle_right_sidebar" href="#"><span class="icon">&lt;</span><span>Page contents<span></a></p>
+        </div>
+
+        <div id="right_sidebar">
+            <p><a class="toggle_right_sidebar" href="#"><span class="icon">&gt;</span><span>Page contents:<span></a></p>
+            <div class="page_toc">
+                <ul>
+<li><a class="reference internal" href="#">Changelog</a><ul>
+<li><a class="reference internal" href="#id1">0.2.3 - 2023-05-04</a></li>
+<li><a class="reference internal" href="#id2">0.2.2 - 2022-04-28</a></li>
+<li><a class="reference internal" href="#id3">0.2.1 - 2021-12-07</a></li>
+<li><a class="reference internal" href="#id4">0.2.0 - 2021-12-01</a></li>
+<li><a class="reference internal" href="#id5">0.1.2 - 2021-06-08</a></li>
+<li><a class="reference internal" href="#id6">0.1.1 - 2021-04-21</a></li>
+<li><a class="reference internal" href="#id7">0.1.0 - 2021-04-19</a></li>
+<li><a class="reference internal" href="#a4-2021-03-22">0.1.0a4 - 2021-03-22</a></li>
+<li><a class="reference internal" href="#a3-2021-02-25">0.1.0a3 - 2021-02-25</a></li>
+<li><a class="reference internal" href="#a2-2021-02-24">0.1.0a2 - 2021-02-24</a></li>
+<li><a class="reference internal" href="#a1-2020-11-12">0.1.0a1 - 2020-11-12</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+    
+
+      <div class="clearer"></div>
+    </div>
+    <div class="button_nav_wrapper">
+        <div class="button_nav">
+            <div class="left">
+                
+                <a href="CITATION.html">
+                    <span class="icon">&lt;</span><span>Citing Demes</span></a>
+                
+            </div>
+
+            <div class="right">
+                
+            </div>
+        </div>
+    </div>
+
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021-2023.
+    </div>
+
+<p id="theme_credit">Styled using the <a href="https://github.com/piccolo-orm/piccolo_theme">Piccolo Theme</a></p>
+  </body>
+</html>
