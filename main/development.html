@@ -182,35 +182,63 @@ of “pull requests” against our
 <p><code class="docutils literal notranslate"><span class="pre">Demes</span></code> aims to have minimal dependencies when used as a library by other
 projects. However, additional dependencies are required during development, as
 developers regularly run the test suite, build the documentation, and assess
-whether their code changes conform to style guidelines. The <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code>
+whether their code changes conform to style guidelines. The <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>
 file in the top-level folder lists all development dependencies, which can
-be installed using <code class="docutils literal notranslate"><span class="pre">pip</span></code>. In the following documentation, we assume the reader
+be installed using <code class="docutils literal notranslate"><span class="pre">uv</span></code>.
+In the following documentation, we assume the reader
 has cloned the source repository and installed the developer requirements as
 follows.</p>
+<p>To install <code class="docutils literal notranslate"><span class="pre">uv</span></code>, take one of the following paths:</p>
+<ul class="simple">
+<li><p>Follow that project’s <a class="reference external" href="https://docs.astral.sh/uv/">documentation</a>.</p></li>
+<li><p>Use the package manager of your choice on your operating system.</p></li>
+</ul>
+<p>Then:</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone the repository.</span>
 git<span class="w"> </span>clone<span class="w"> </span>https://github.com/popsim-consortium/demes-python.git
 <span class="nb">cd</span><span class="w"> </span>demes-python
-<span class="c1"># Create a virtual environment for development.</span>
-python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
-<span class="c1"># Activate the environment.</span>
-<span class="nb">source</span><span class="w"> </span>venv/bin/activate
-<span class="c1"># Install the developer dependencies.</span>
-pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
-<span class="c1"># Generate the version string from the most recent git tag/commit.</span>
-python<span class="w"> </span>setup.py<span class="w"> </span>build
+<span class="c1"># update the demes-spec submodule</span>
+git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--init
+<span class="c1"># Use uv to install dependencies and build the demes package:</span>
+uv<span class="w"> </span>sync<span class="w"> </span>--all-groups
 </pre></div>
 </div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Due to conflicting version dependencies, it may not be possible to install
-all developer requirements on older versions of Python. If you experience
-problems, please install the latest Python version (3.10 at time of writing).</p>
+<p>You may now do things like run the test suite:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests
+</pre></div>
 </div>
+<p>The <code class="docutils literal notranslate"><span class="pre">--all-groups</span></code> flag will install all build dependencies,
+runtime dependencies, and developer dependencies listed in
+<code class="docutils literal notranslate"><span class="pre">dependency-groups</span></code> in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>.
+If you want to only install specific dependency groups, do
+so following the <code class="docutils literal notranslate"><span class="pre">uv</span></code> <a class="reference external" href="https://docs.astral.sh/uv/">documentation</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Non-developer requirements are listed in the <code class="docutils literal notranslate"><span class="pre">install_requires</span></code> section
-of the <code class="docutils literal notranslate"><span class="pre">setup.cfg</span></code> file in the top-level folder of the sources.</p>
+<p>Non-developer requirements are listed in the <code class="docutils literal notranslate"><span class="pre">dependency-groups</span></code> section
+of the <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> file in the top-level folder of the sources.</p>
 </div>
+</section>
+<section id="updating-uv-lock-dependency-management">
+<h2>Updating <code class="docutils literal notranslate"><span class="pre">uv.lock</span></code> (“dependency management”)<a class="headerlink" href="#updating-uv-lock-dependency-management" title="Permalink to this heading">¶</a></h2>
+<p>If any of the following occur in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>, then the contents of <code class="docutils literal notranslate"><span class="pre">uv.lock</span></code>
+may no longer by valid:</p>
+<ul class="simple">
+<li><p>Changing a dependency version number pin</p></li>
+<li><p>Adding/removing a dependency</p></li>
+<li><p>Changing the supported range of Python versions</p></li>
+<li><p>Changing the set of supported operating systems / platforms.</p></li>
+</ul>
+<p>To rebuild the lock file:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>lock
+</pre></div>
+</div>
+<p>Then, commit the new lock file!</p>
+<section id="updating-individual-packages-in-uv-lock">
+<h3>Updating individual packages in <code class="docutils literal notranslate"><span class="pre">uv.lock</span></code><a class="headerlink" href="#updating-individual-packages-in-uv-lock" title="Permalink to this heading">¶</a></h3>
+<p>One may occastionally need to update the locked version of a specific dependency.
+Currently, this happens via arguments to <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">lock</span></code>.
+Counsult the <code class="docutils literal notranslate"><span class="pre">uv</span></code> <a class="reference external" href="https://docs.astral.sh/uv/">documentation</a> for details.</p>
+</section>
 </section>
 <section id="continuous-integration-ci">
 <h2>Continuous integration (CI)<a class="headerlink" href="#continuous-integration-ci" title="Permalink to this heading">¶</a></h2>
@@ -270,6 +298,10 @@ See the <a class="reference external" href="https://pre-commit.com/">pre-commit 
 The CI process uses the <code class="docutils literal notranslate"><span class="pre">pytest</span></code> tool to run the tests, which can also be run
 manually from the top-level folder of the sources.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-v<span class="w"> </span>tests<span class="w"> </span>--cov<span class="o">=</span>demes<span class="w"> </span>--cov-report<span class="o">=</span>term-missing
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>-v<span class="w"> </span>tests<span class="w"> </span>--cov<span class="o">=</span>demes<span class="w"> </span>--cov-report<span class="o">=</span>term-missing
 </pre></div>
 </div>
 <p>This will produce lots of output, indicating which tests passed, and which
@@ -368,6 +400,10 @@ for additional information.</p></li>
                 <ul>
 <li><a class="reference internal" href="#">Development</a><ul>
 <li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#updating-uv-lock-dependency-management">Updating <code class="docutils literal notranslate"><span class="pre">uv.lock</span></code> (“dependency management”)</a><ul>
+<li><a class="reference internal" href="#updating-individual-packages-in-uv-lock">Updating individual packages in <code class="docutils literal notranslate"><span class="pre">uv.lock</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#continuous-integration-ci">Continuous integration (CI)</a></li>
 <li><a class="reference internal" href="#lint-checks">Lint checks</a><ul>
 <li><a class="reference internal" href="#pre-commit">Pre-commit</a></li>

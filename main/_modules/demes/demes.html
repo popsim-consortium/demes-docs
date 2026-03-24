@@ -170,19 +170,19 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="body" role="main">
             
   <h1>Source code for demes.demes</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
-<span class="kn">import</span> <span class="nn">copy</span>
-<span class="kn">import</span> <span class="nn">collections</span>
-<span class="kn">import</span> <span class="nn">itertools</span>
-<span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">import</span> <span class="nn">numbers</span>
-<span class="kn">import</span> <span class="nn">operator</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">MutableMapping</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">collections</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numbers</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">operator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">MutableMapping</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 
-<span class="kn">import</span> <span class="nn">attr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">attr</span>
 
-<span class="kn">from</span> <span class="nn">.load_dump</span> <span class="kn">import</span> <span class="n">dumps</span> <span class="k">as</span> <span class="n">demes_dumps</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.load_dump</span><span class="w"> </span><span class="kn">import</span> <span class="n">dumps</span> <span class="k">as</span> <span class="n">demes_dumps</span>
 
 <span class="n">Number</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
 <span class="n">Name</span> <span class="o">=</span> <span class="nb">str</span>
@@ -197,44 +197,44 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="c1"># Validator functions.</span>
 
 
-<span class="k">def</span> <span class="nf">int_or_float</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">int_or_float</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
     <span class="k">if</span> <span class="p">(</span>
         <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Real</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;__float__&quot;</span><span class="p">)</span>
     <span class="p">)</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">!=</span> <span class="n">value</span><span class="p">:</span>  <span class="c1"># type-agnostic test for NaN</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">attribute</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> must be a number&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">positive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">positive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">attribute</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> must be greater than zero&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">non_negative</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">non_negative</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">attribute</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> must be non-negative&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">finite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">finite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">math</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">attribute</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> must be finite&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">unit_interval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">unit_interval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;must have 0 &lt;= </span><span class="si">{</span><span class="n">attribute</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> &lt;= 1&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">unit_interval_exclusive_lo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">unit_interval_exclusive_lo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;must have 0 &lt; </span><span class="si">{</span><span class="n">attribute</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> &lt;= 1&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">sum_less_than_one</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sum_less_than_one</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">attribute</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> must sum to less than one&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">nonzero_len</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">nonzero_len</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">attribute</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> must be a non-empty string&quot;</span><span class="p">)</span>
@@ -242,7 +242,7 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">attribute</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> must have non-zero length&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">valid_deme_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">valid_deme_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="o">.</span><span class="n">isidentifier</span><span class="p">():</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;Invalid deme name &#39;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&#39;. Names must be valid python identifiers. &quot;</span>
@@ -252,7 +252,7 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">isclose_deme_proportions</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">isclose_deme_proportions</span><span class="p">(</span>
     <span class="n">a_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Name</span><span class="p">],</span>
     <span class="n">a_proportions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Proportion</span><span class="p">],</span>
     <span class="n">b_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Name</span><span class="p">],</span>
@@ -281,7 +281,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="n">_DummyAttribute</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;_DummyAttribute&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
 
 
-<span class="k">def</span> <span class="nf">validate_item</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">required_type</span><span class="p">,</span> <span class="n">scope</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">validate_item</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">required_type</span><span class="p">,</span> <span class="n">scope</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">required_type</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">scope</span><span class="si">}</span><span class="s2">: field &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; must be a </span><span class="si">{</span><span class="n">required_type</span><span class="si">}</span><span class="s2">; &quot;</span>
@@ -300,7 +300,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="n">NO_DEFAULT</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
 
 
-<span class="k">def</span> <span class="nf">pop_item</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">required_type</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">NO_DEFAULT</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pop_item</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">required_type</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">NO_DEFAULT</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
         <span class="n">value</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="n">validate_item</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">required_type</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="n">scope</span><span class="p">)</span>
@@ -311,7 +311,7 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="k">return</span> <span class="n">value</span>
 
 
-<span class="k">def</span> <span class="nf">pop_list</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">NO_DEFAULT</span><span class="p">,</span> <span class="n">required_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pop_list</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">NO_DEFAULT</span><span class="p">,</span> <span class="n">required_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
     <span class="n">value</span> <span class="o">=</span> <span class="n">pop_item</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">,</span> <span class="n">required_type</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">required_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
@@ -319,13 +319,13 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="k">return</span> <span class="n">value</span>
 
 
-<span class="k">def</span> <span class="nf">pop_object</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">NO_DEFAULT</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pop_object</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">NO_DEFAULT</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">pop_item</span><span class="p">(</span>
         <span class="n">data</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">,</span> <span class="n">required_type</span><span class="o">=</span><span class="n">MutableMapping</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="n">scope</span>
     <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">check_allowed</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">allowed_fields</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">check_allowed</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">allowed_fields</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed_fields</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
@@ -334,7 +334,7 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">check_defaults</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="n">allowed_fields</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">check_defaults</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="n">allowed_fields</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">defaults</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed_fields</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
@@ -345,14 +345,14 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="n">validate_item</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">required_type</span><span class="p">,</span> <span class="n">scope</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="n">validator</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">insert_defaults</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">defaults</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">insert_defaults</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">defaults</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">defaults</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
             <span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
 
 <div class="viewcode-block" id="Epoch"><a class="viewcode-back" href="../../api.html#demes.Epoch">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">Epoch</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Epoch</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Population parameters for a deme in a specified time interval.</span>
 
@@ -420,7 +420,7 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">unit_interval</span><span class="p">]</span>
     <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;must have start_time &gt; end_time&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">math</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_size</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_size</span><span class="p">:</span>
@@ -429,7 +429,7 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;start_size != end_size, but size_function is constant&quot;</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">time_span</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">time_span</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The time span of the epoch.</span>
 
@@ -437,7 +437,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span>
 
-<div class="viewcode-block" id="Epoch.assert_close"><a class="viewcode-back" href="../../api.html#demes.Epoch.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
+<div class="viewcode-block" id="Epoch.assert_close"><a class="viewcode-back" href="../../api.html#demes.Epoch.assert_close">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">assert_close</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -492,7 +492,7 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cloning_rate</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">cloning_rate</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Epoch.isclose"><a class="viewcode-back" href="../../api.html#demes.Epoch.isclose">[docs]</a>    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+<div class="viewcode-block" id="Epoch.isclose"><a class="viewcode-back" href="../../api.html#demes.Epoch.isclose">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">isclose</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -524,7 +524,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 <div class="viewcode-block" id="AsymmetricMigration"><a class="viewcode-back" href="../../api.html#demes.AsymmetricMigration">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">AsymmetricMigration</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AsymmetricMigration</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Continuous asymmetric migration.</span>
 
@@ -549,13 +549,13 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="n">end_time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
     <span class="n">rate</span><span class="p">:</span> <span class="n">Rate</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">unit_interval</span><span class="p">])</span>
 
-    <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">dest</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;source and dest cannot be the same deme&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;must have start_time &gt; end_time&quot;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="AsymmetricMigration.assert_close"><a class="viewcode-back" href="../../api.html#demes.AsymmetricMigration.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
+<div class="viewcode-block" id="AsymmetricMigration.assert_close"><a class="viewcode-back" href="../../api.html#demes.AsymmetricMigration.assert_close">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">assert_close</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -591,7 +591,7 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="bp">self</span><span class="o">.</span><span class="n">rate</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">rate</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
         <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for rate </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rate</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">rate</span><span class="si">}</span><span class="s2"> (other).&quot;</span></div>
 
-<div class="viewcode-block" id="AsymmetricMigration.isclose"><a class="viewcode-back" href="../../api.html#demes.AsymmetricMigration.isclose">[docs]</a>    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+<div class="viewcode-block" id="AsymmetricMigration.isclose"><a class="viewcode-back" href="../../api.html#demes.AsymmetricMigration.isclose">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">isclose</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -622,7 +622,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 <div class="viewcode-block" id="Pulse"><a class="viewcode-back" href="../../api.html#demes.Pulse">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">Pulse</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Pulse</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An instantaneous pulse of migration from one deme to another.</span>
 
@@ -664,7 +664,7 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="p">)</span>
     <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">source</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">source</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">dest</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;source (</span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">) cannot be the same as dest&quot;</span><span class="p">)</span>
@@ -675,7 +675,7 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;proportions must sum to less than one&quot;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Pulse.assert_close"><a class="viewcode-back" href="../../api.html#demes.Pulse.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
+<div class="viewcode-block" id="Pulse.assert_close"><a class="viewcode-back" href="../../api.html#demes.Pulse.assert_close">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">assert_close</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -723,7 +723,7 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="bp">self</span><span class="o">.</span><span class="n">sources</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">sources</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">proportions</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Pulse.isclose"><a class="viewcode-back" href="../../api.html#demes.Pulse.isclose">[docs]</a>    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+<div class="viewcode-block" id="Pulse.isclose"><a class="viewcode-back" href="../../api.html#demes.Pulse.isclose">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">isclose</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -755,7 +755,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 <div class="viewcode-block" id="Split"><a class="viewcode-back" href="../../api.html#demes.Split">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">Split</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Split</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A split event, in which a deme ends at a given time and</span>
 <span class="sd">    contributes ancestry to an arbitrary number of descendant demes. Note</span>
@@ -785,13 +785,13 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="p">)</span>
     <span class="n">time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
 
-    <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;child and parent cannot be the same deme&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot repeat children in split&quot;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Split.assert_close"><a class="viewcode-back" href="../../api.html#demes.Split.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
+<div class="viewcode-block" id="Split.assert_close"><a class="viewcode-back" href="../../api.html#demes.Split.assert_close">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">assert_close</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -823,7 +823,7 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for time </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> (other).&quot;</span>
         <span class="k">return</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="Split.isclose"><a class="viewcode-back" href="../../api.html#demes.Split.isclose">[docs]</a>    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+<div class="viewcode-block" id="Split.isclose"><a class="viewcode-back" href="../../api.html#demes.Split.isclose">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">isclose</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -855,7 +855,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 <div class="viewcode-block" id="Branch"><a class="viewcode-back" href="../../api.html#demes.Branch">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">Branch</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Branch</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A branch event, where a new deme branches off from a parental</span>
 <span class="sd">    deme. The parental deme need not end at that time.</span>
@@ -873,11 +873,11 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="n">child</span><span class="p">:</span> <span class="n">Name</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="n">valid_deme_name</span><span class="p">])</span>
     <span class="n">time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
 
-    <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">child</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;child and parent cannot be the same deme&quot;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Branch.assert_close"><a class="viewcode-back" href="../../api.html#demes.Branch.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
+<div class="viewcode-block" id="Branch.assert_close"><a class="viewcode-back" href="../../api.html#demes.Branch.assert_close">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">assert_close</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -908,7 +908,7 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
         <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for time </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> (other).&quot;</span></div>
 
-<div class="viewcode-block" id="Branch.isclose"><a class="viewcode-back" href="../../api.html#demes.Branch.isclose">[docs]</a>    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+<div class="viewcode-block" id="Branch.isclose"><a class="viewcode-back" href="../../api.html#demes.Branch.isclose">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">isclose</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -940,7 +940,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 <div class="viewcode-block" id="Merge"><a class="viewcode-back" href="../../api.html#demes.Merge">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">Merge</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Merge</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A merge event, in which two or more demes end at some time and</span>
 <span class="sd">    contribute to a descendant deme.</span>
@@ -972,14 +972,14 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="n">time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
 
     <span class="nd">@proportions</span><span class="o">.</span><span class="n">validator</span>
-    <span class="k">def</span> <span class="nf">_check_proportions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">_value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_proportions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">_value</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;proportions must sum to 1.0&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">proportion</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">:</span>
             <span class="n">unit_interval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">proportion</span><span class="p">)</span>
             <span class="n">positive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">proportion</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;merge must involve at least two ancestors&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">):</span>
@@ -989,7 +989,7 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot repeat parents in merge&quot;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Merge.assert_close"><a class="viewcode-back" href="../../api.html#demes.Merge.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
+<div class="viewcode-block" id="Merge.assert_close"><a class="viewcode-back" href="../../api.html#demes.Merge.assert_close">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">assert_close</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1031,7 +1031,7 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span>
         <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for time </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> (other).&quot;</span></div>
 
-<div class="viewcode-block" id="Merge.isclose"><a class="viewcode-back" href="../../api.html#demes.Merge.isclose">[docs]</a>    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+<div class="viewcode-block" id="Merge.isclose"><a class="viewcode-back" href="../../api.html#demes.Merge.isclose">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">isclose</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1063,7 +1063,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 <div class="viewcode-block" id="Admix"><a class="viewcode-back" href="../../api.html#demes.Admix">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">Admix</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Admix</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An admixture event, where two or more demes contribute ancestry</span>
 <span class="sd">    to a new deme.</span>
@@ -1095,14 +1095,14 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="n">time</span><span class="p">:</span> <span class="n">Time</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">validator</span><span class="o">=</span><span class="p">[</span><span class="n">int_or_float</span><span class="p">,</span> <span class="n">non_negative</span><span class="p">,</span> <span class="n">finite</span><span class="p">])</span>
 
     <span class="nd">@proportions</span><span class="o">.</span><span class="n">validator</span>
-    <span class="k">def</span> <span class="nf">_check_proportions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">_value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_proportions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">_value</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;proportions must sum to 1.0&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">proportion</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">:</span>
             <span class="n">unit_interval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">proportion</span><span class="p">)</span>
             <span class="n">positive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">proportion</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;admixture must involve at least two ancestors&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">):</span>
@@ -1112,7 +1112,7 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parents</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot repeat parents in admixure&quot;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Admix.assert_close"><a class="viewcode-back" href="../../api.html#demes.Admix.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
+<div class="viewcode-block" id="Admix.assert_close"><a class="viewcode-back" href="../../api.html#demes.Admix.assert_close">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">assert_close</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1157,7 +1157,7 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">,</span>
         <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Failed for time </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2"> (other).&quot;</span></div>
 
-<div class="viewcode-block" id="Admix.isclose"><a class="viewcode-back" href="../../api.html#demes.Admix.isclose">[docs]</a>    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+<div class="viewcode-block" id="Admix.isclose"><a class="viewcode-back" href="../../api.html#demes.Admix.isclose">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">isclose</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1188,7 +1188,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 <div class="viewcode-block" id="Deme"><a class="viewcode-back" href="../../api.html#demes.Deme">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">Deme</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Deme</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A collection of individuals that have a common set of population parameters.</span>
 
@@ -1241,7 +1241,7 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="p">)</span>
 
     <span class="nd">@ancestors</span><span class="o">.</span><span class="n">validator</span>
-    <span class="k">def</span> <span class="nf">_check_ancestors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_attribute</span><span class="p">,</span> <span class="n">_value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_ancestors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_attribute</span><span class="p">,</span> <span class="n">_value</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: duplicate ancestors in </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="si">}</span><span class="s2">&quot;</span>
@@ -1250,7 +1250,7 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: deme cannot be its own ancestor&quot;</span><span class="p">)</span>
 
     <span class="nd">@proportions</span><span class="o">.</span><span class="n">validator</span>
-    <span class="k">def</span> <span class="nf">_check_proportions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">_value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_proportions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">_value</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: ancestry proportions must sum to 1.0&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">proportion</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">:</span>
@@ -1258,7 +1258,7 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="n">positive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">proportion</span><span class="p">)</span>
 
     <span class="nd">@epochs</span><span class="o">.</span><span class="n">validator</span>
-    <span class="k">def</span> <span class="nf">_check_epochs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_attribute</span><span class="p">,</span> <span class="n">_value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_epochs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_attribute</span><span class="p">,</span> <span class="n">_value</span><span class="p">):</span>
         <span class="c1"># check epoch times align</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -1268,7 +1268,7 @@ const thebe_selector_output = ".output, .cell_output"
                         <span class="sa">f</span><span class="s2">&quot;epoch[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">].start_time != epoch[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">-1].end_time&quot;</span>
                     <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># We check the lengths of ancestors and proportions match</span>
         <span class="c1"># after the validators have confirmed that these are indeed lists.</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ancestors</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proportions</span><span class="p">):</span>
@@ -1276,7 +1276,7 @@ const thebe_selector_output = ".output, .cell_output"
                 <span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: ancestors and proportions have different lengths&quot;</span>
             <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_add_epoch</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_epoch</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">end_time</span><span class="p">,</span>
@@ -1325,10 +1325,10 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">e</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;deme </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: epoch[</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="p">)</span><span class="si">}</span><span class="s2">]: invalid epoch&quot;</span>
-            <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Deme.assert_close"><a class="viewcode-back" href="../../api.html#demes.Deme.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
+<div class="viewcode-block" id="Deme.assert_close"><a class="viewcode-back" href="../../api.html#demes.Deme.assert_close">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">assert_close</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1373,9 +1373,9 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">e1</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span><span class="n">e2</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">AssertionError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed for epochs (number </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span></div>
+                <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed for epochs (number </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
 
-<div class="viewcode-block" id="Deme.isclose"><a class="viewcode-back" href="../../api.html#demes.Deme.isclose">[docs]</a>    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+<div class="viewcode-block" id="Deme.isclose"><a class="viewcode-back" href="../../api.html#demes.Deme.isclose">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">isclose</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1405,7 +1405,7 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="k">return</span> <span class="kc">False</span></div>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">end_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">end_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The end time of the deme&#39;s existence.</span>
 
@@ -1414,7 +1414,7 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">end_time</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">time_span</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">time_span</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The time span over which the deme exists.</span>
 
@@ -1422,7 +1422,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span>
 
-<div class="viewcode-block" id="Deme.size_at"><a class="viewcode-back" href="../../api.html#demes.Deme.size_at">[docs]</a>    <span class="k">def</span> <span class="nf">size_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="Deme.size_at"><a class="viewcode-back" href="../../api.html#demes.Deme.size_at">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">size_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the size of the deme at a given time.</span>
 
@@ -1461,7 +1461,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 <div class="viewcode-block" id="Graph"><a class="viewcode-back" href="../../api.html#demes.Graph">[docs]</a><span class="nd">@attr</span><span class="o">.</span><span class="n">s</span><span class="p">(</span><span class="n">auto_attribs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">class</span> <span class="nc">Graph</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Graph</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The Graph class is a resolved and validated representation of a</span>
 <span class="sd">    demographic model.</span>
@@ -1521,9 +1521,7 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="p">)</span>
     <span class="n">metadata</span><span class="p">:</span> <span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Mapping</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span>
         <span class="n">factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">,</span>
-        <span class="n">validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span>
-            <span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Mapping</span>  <span class="c1"># type: ignore[type-abstract]</span>
-        <span class="p">),</span>
+        <span class="n">validator</span><span class="o">=</span><span class="n">attr</span><span class="o">.</span><span class="n">validators</span><span class="o">.</span><span class="n">instance_of</span><span class="p">(</span><span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Mapping</span><span class="p">),</span>
     <span class="p">)</span>
     <span class="n">demes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Deme</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">migrations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">AsymmetricMigration</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">ib</span><span class="p">(</span><span class="n">factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -1536,7 +1534,7 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="n">factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">False</span>
     <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__attrs_post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_units</span> <span class="o">!=</span> <span class="s2">&quot;generations&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">generation_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s1">&#39;if time_units!=&quot;generations&quot;, generation_time must be specified&#39;</span>
@@ -1547,7 +1545,7 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="c1"># This doesn&#39;t make sense. What units are the generation_time in?</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;time_units==&quot;generations&quot;, but generation_time!=1&#39;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Graph.__getitem__"><a class="viewcode-back" href="../../api.html#demes.Graph.__getitem__">[docs]</a>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deme_name</span><span class="p">:</span> <span class="n">Name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Deme</span><span class="p">:</span>
+<div class="viewcode-block" id="Graph.__getitem__"><a class="viewcode-back" href="../../api.html#demes.Graph.__getitem__">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deme_name</span><span class="p">:</span> <span class="n">Name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Deme</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the :class:`.Deme` with the specified name.</span>
 
@@ -1563,7 +1561,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deme_map</span><span class="p">[</span><span class="n">deme_name</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="Graph.__contains__"><a class="viewcode-back" href="../../api.html#demes.Graph.__contains__">[docs]</a>    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deme_name</span><span class="p">:</span> <span class="n">Name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="Graph.__contains__"><a class="viewcode-back" href="../../api.html#demes.Graph.__contains__">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deme_name</span><span class="p">:</span> <span class="n">Name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if the graph contains a deme with the specified name.</span>
 
@@ -1582,7 +1580,7 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="c1"># Use the simplified YAML output as the string representation.</span>
     <span class="fm">__str__</span> <span class="o">=</span> <span class="n">demes_dumps</span>
 
-<div class="viewcode-block" id="Graph.assert_close"><a class="viewcode-back" href="../../api.html#demes.Graph.assert_close">[docs]</a>    <span class="k">def</span> <span class="nf">assert_close</span><span class="p">(</span>
+<div class="viewcode-block" id="Graph.assert_close"><a class="viewcode-back" href="../../api.html#demes.Graph.assert_close">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">assert_close</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1608,7 +1606,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="sd">            comparisons. See documentation for :func:`math.isclose`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">def</span> <span class="nf">assert_sorted_eq</span><span class="p">(</span><span class="n">aa</span><span class="p">,</span> <span class="n">bb</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">assert_sorted_eq</span><span class="p">(</span><span class="n">aa</span><span class="p">,</span> <span class="n">bb</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
             <span class="c1"># Order-agnostic equality check.</span>
             <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">aa</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">bb</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">aa</span><span class="p">),</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">bb</span><span class="p">)):</span>
@@ -1618,8 +1616,8 @@ const thebe_selector_output = ".output, .cell_output"
                     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Deme</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">Deme</span><span class="p">):</span>
                         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span>
                             <span class="sa">f</span><span class="s2">&quot;Failed for </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">b</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
-                        <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
-                    <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed for </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+                        <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+                    <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed for </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
 
         <span class="k">assert</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">is</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span>
@@ -1641,9 +1639,9 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">self_pulse</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span><span class="n">other_pulse</span><span class="p">,</span> <span class="n">rel_tol</span><span class="o">=</span><span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="n">abs_tol</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">AssertionError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed for pulses (number </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span></div>
+                <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed for pulses (number </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
 
-<div class="viewcode-block" id="Graph.isclose"><a class="viewcode-back" href="../../api.html#demes.Graph.isclose">[docs]</a>    <span class="k">def</span> <span class="nf">isclose</span><span class="p">(</span>
+<div class="viewcode-block" id="Graph.isclose"><a class="viewcode-back" href="../../api.html#demes.Graph.isclose">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">isclose</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">other</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -1677,7 +1675,7 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span></div>
 
-    <span class="k">def</span> <span class="nf">_add_deme</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_deme</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">name</span><span class="p">,</span>
@@ -1776,7 +1774,7 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="bp">self</span><span class="o">.</span><span class="n">demes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">deme</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">deme</span>
 
-    <span class="k">def</span> <span class="nf">_check_time_intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deme1</span><span class="p">,</span> <span class="n">deme2</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_time_intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deme1</span><span class="p">,</span> <span class="n">deme2</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
         <span class="n">deme1</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">deme1</span><span class="p">]</span>
         <span class="n">deme2</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">deme2</span><span class="p">]</span>
         <span class="n">time_lo</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">deme1</span><span class="o">.</span><span class="n">end_time</span><span class="p">,</span> <span class="n">deme2</span><span class="o">.</span><span class="n">end_time</span><span class="p">)</span>
@@ -1792,7 +1790,7 @@ const thebe_selector_output = ".output, .cell_output"
                 <span class="p">)</span>
         <span class="k">return</span> <span class="n">time_lo</span><span class="p">,</span> <span class="n">time_hi</span>
 
-    <span class="k">def</span> <span class="nf">_add_symmetric_migration</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_symmetric_migration</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">demes</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">AsymmetricMigration</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1820,7 +1818,7 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="n">migrations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">migration</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">migrations</span>
 
-    <span class="k">def</span> <span class="nf">_add_asymmetric_migration</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_asymmetric_migration</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">start_time</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">end_time</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsymmetricMigration</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1864,7 +1862,7 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="bp">self</span><span class="o">.</span><span class="n">migrations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">migration</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">migration</span>
 
-    <span class="k">def</span> <span class="nf">_add_pulse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">proportions</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Pulse</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_pulse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">sources</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">proportions</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Pulse</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a pulse of migration at a fixed time.</span>
 <span class="sd">        Source and destination demes follow the forwards-in-time convention.</span>
@@ -1931,7 +1929,7 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="bp">self</span><span class="o">.</span><span class="n">pulses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_pulse</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">new_pulse</span>
 
-<div class="viewcode-block" id="Graph.migration_matrices"><a class="viewcode-back" href="../../api.html#demes.Graph.migration_matrices">[docs]</a>    <span class="k">def</span> <span class="nf">migration_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]],</span> <span class="n">List</span><span class="p">[</span><span class="n">Number</span><span class="p">]]:</span>
+<div class="viewcode-block" id="Graph.migration_matrices"><a class="viewcode-back" href="../../api.html#demes.Graph.migration_matrices">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">migration_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]],</span> <span class="n">List</span><span class="p">[</span><span class="n">Number</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the migration matrices and the end times that partition them.</span>
 
@@ -2006,7 +2004,7 @@ const thebe_selector_output = ".output, .cell_output"
                 <span class="n">start_time</span> <span class="o">=</span> <span class="n">end_time</span>
         <span class="k">return</span> <span class="n">mm_list</span><span class="p">,</span> <span class="n">end_times</span></div>
 
-    <span class="k">def</span> <span class="nf">_check_migration_rates</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_migration_rates</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check that the sum of migration ingress rates doesn&#39;t exceed 1 for any</span>
 <span class="sd">        deme in any interval of time.</span>
@@ -2024,7 +2022,7 @@ const thebe_selector_output = ".output, .cell_output"
                     <span class="p">)</span>
             <span class="n">start_time</span> <span class="o">=</span> <span class="n">end_time</span>
 
-<div class="viewcode-block" id="Graph.successors"><a class="viewcode-back" href="../../api.html#demes.Graph.successors">[docs]</a>    <span class="k">def</span> <span class="nf">successors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Name</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Name</span><span class="p">]]:</span>
+<div class="viewcode-block" id="Graph.successors"><a class="viewcode-back" href="../../api.html#demes.Graph.successors">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">successors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Name</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Name</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the successors (child demes) for all demes in the graph.</span>
 <span class="sd">        If ``graph`` is a :class:`Graph`, a `NetworkX &lt;https://networkx.org/&gt;`_</span>
@@ -2051,7 +2049,7 @@ const thebe_selector_output = ".output, .cell_output"
                     <span class="n">succ</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">deme_info</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">succ</span></div>
 
-<div class="viewcode-block" id="Graph.predecessors"><a class="viewcode-back" href="../../api.html#demes.Graph.predecessors">[docs]</a>    <span class="k">def</span> <span class="nf">predecessors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Name</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Name</span><span class="p">]]:</span>
+<div class="viewcode-block" id="Graph.predecessors"><a class="viewcode-back" href="../../api.html#demes.Graph.predecessors">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">predecessors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Name</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Name</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the predecessors (ancestors) for all demes in the graph.</span>
 <span class="sd">        If ``graph`` is a :class:`Graph`, a `NetworkX &lt;https://networkx.org/&gt;`_</span>
@@ -2077,7 +2075,7 @@ const thebe_selector_output = ".output, .cell_output"
                     <span class="n">pred</span><span class="p">[</span><span class="n">deme_info</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">pred</span></div>
 
-<div class="viewcode-block" id="Graph.discrete_demographic_events"><a class="viewcode-back" href="../../api.html#demes.Graph.discrete_demographic_events">[docs]</a>    <span class="k">def</span> <span class="nf">discrete_demographic_events</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]:</span>
+<div class="viewcode-block" id="Graph.discrete_demographic_events"><a class="viewcode-back" href="../../api.html#demes.Graph.discrete_demographic_events">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">discrete_demographic_events</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Any</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Classify each discrete demographic event as one of the following:</span>
 <span class="sd">        :class:`Pulse`, :class:`Split`, :class:`Branch`, :class:`Merge`,</span>
@@ -2152,7 +2150,7 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">demo_events</span></div>
 
-<div class="viewcode-block" id="Graph.in_generations"><a class="viewcode-back" href="../../api.html#demes.Graph.in_generations">[docs]</a>    <span class="k">def</span> <span class="nf">in_generations</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Graph</span><span class="p">:</span>
+<div class="viewcode-block" id="Graph.in_generations"><a class="viewcode-back" href="../../api.html#demes.Graph.in_generations">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">in_generations</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Graph</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a copy of the graph with times in units of generations.</span>
 
@@ -2176,7 +2174,7 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="n">graph</span><span class="o">.</span><span class="n">generation_time</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="n">graph</span></div>
 
-<div class="viewcode-block" id="Graph.rename_demes"><a class="viewcode-back" href="../../api.html#demes.Graph.rename_demes">[docs]</a>    <span class="k">def</span> <span class="nf">rename_demes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Graph</span><span class="p">:</span>
+<div class="viewcode-block" id="Graph.rename_demes"><a class="viewcode-back" href="../../api.html#demes.Graph.rename_demes">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">rename_demes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Graph</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Rename demes according to a dictionary that may contain a partial set of demes.</span>
 
@@ -2209,7 +2207,7 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="k">return</span> <span class="n">graph</span></div>
 
 <div class="viewcode-block" id="Graph.fromdict"><a class="viewcode-back" href="../../api.html#demes.Graph.fromdict">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">fromdict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Graph</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fromdict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Graph</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a graph from a data dictionary.</span>
 
@@ -2506,7 +2504,7 @@ const thebe_selector_output = ".output, .cell_output"
                         <span class="n">end_time</span><span class="o">=</span><span class="n">migration_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;end_time&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
                     <span class="p">)</span>
             <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">e</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;migration[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">]: invalid migration&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+                <span class="k">raise</span> <span class="n">e</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;migration[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">]: invalid migration&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
 
         <span class="n">graph</span><span class="o">.</span><span class="n">_check_migration_rates</span><span class="p">()</span>
 
@@ -2526,14 +2524,14 @@ const thebe_selector_output = ".output, .cell_output"
                     <span class="n">proportions</span><span class="o">=</span><span class="n">pulse_data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;proportions&quot;</span><span class="p">),</span>
                 <span class="p">)</span>
             <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">e</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pulse[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">]: invalid pulse&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+                <span class="k">raise</span> <span class="n">e</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pulse[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">]: invalid pulse&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
 
         <span class="c1"># Sort pulses from oldest to youngest.</span>
         <span class="n">graph</span><span class="o">.</span><span class="n">pulses</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">pulse</span><span class="p">:</span> <span class="n">pulse</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">graph</span></div>
 
-<div class="viewcode-block" id="Graph.asdict"><a class="viewcode-back" href="../../api.html#demes.Graph.asdict">[docs]</a>    <span class="k">def</span> <span class="nf">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keep_empty_fields</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<div class="viewcode-block" id="Graph.asdict"><a class="viewcode-back" href="../../api.html#demes.Graph.asdict">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">asdict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keep_empty_fields</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a fully-resolved dict representation of the graph.</span>
 
@@ -2542,13 +2540,13 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="sd">        :rtype: dict</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">def</span> <span class="nf">filt</span><span class="p">(</span><span class="n">attrib</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">filt</span><span class="p">(</span><span class="n">attrib</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">(</span>
                 <span class="n">keep_empty_fields</span>
                 <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;__len__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
             <span class="p">)</span> <span class="ow">and</span> <span class="n">attrib</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;_deme_map&quot;</span>
 
-        <span class="k">def</span> <span class="nf">coerce_types</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">coerce_types</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
             <span class="c1"># Explicitly convert numeric and string types, so that they</span>
             <span class="c1"># don&#39;t cause problems for the YAML and JSON serialisers.</span>
             <span class="c1"># Numpy int32/int64 are part of Python&#39;s numeric tower as</span>
@@ -2575,7 +2573,7 @@ const thebe_selector_output = ".output, .cell_output"
                 <span class="k">del</span> <span class="n">epoch</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">data</span></div>
 
-<div class="viewcode-block" id="Graph.asdict_simplified"><a class="viewcode-back" href="../../api.html#demes.Graph.asdict_simplified">[docs]</a>    <span class="k">def</span> <span class="nf">asdict_simplified</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<div class="viewcode-block" id="Graph.asdict_simplified"><a class="viewcode-back" href="../../api.html#demes.Graph.asdict_simplified">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">asdict_simplified</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a simplified dict representation of the graph.</span>
 
@@ -2584,7 +2582,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="sd">        :rtype: dict</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">def</span> <span class="nf">simplify_epochs</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">simplify_epochs</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Remove epoch start times. Also remove deme start time</span>
 <span class="sd">            if implied by the deme ancestor(s)&#39;s end time(s).</span>
@@ -2610,7 +2608,7 @@ const thebe_selector_output = ".output, .cell_output"
                     <span class="k">if</span> <span class="bp">self</span><span class="p">[</span><span class="n">deme</span><span class="p">[</span><span class="s2">&quot;ancestors&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">end_time</span> <span class="o">==</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]:</span>
                         <span class="k">del</span> <span class="n">deme</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span>
 
-        <span class="k">def</span> <span class="nf">simplify_migration_rates</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">simplify_migration_rates</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Collapse symmetric migration rates, and remove redundant information</span>
 <span class="sd">            about start and end times if they are implied by the time overlap</span>
@@ -2623,7 +2621,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="sd">            attributes.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
 
-            <span class="k">def</span> <span class="nf">collapse_demes</span><span class="p">(</span><span class="n">pairs</span><span class="p">):</span>
+            <span class="k">def</span><span class="w"> </span><span class="nf">collapse_demes</span><span class="p">(</span><span class="n">pairs</span><span class="p">):</span>
                 <span class="n">all_demes</span> <span class="o">=</span> <span class="p">[]</span>
                 <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_demes</span><span class="p">:</span>
@@ -2712,7 +2710,7 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="k">return</span> <span class="n">data</span></div></div>
 
 
-<div class="viewcode-block" id="Builder"><a class="viewcode-back" href="../../api.html#demes.Builder">[docs]</a><span class="k">class</span> <span class="nc">Builder</span><span class="p">:</span>
+<div class="viewcode-block" id="Builder"><a class="viewcode-back" href="../../api.html#demes.Builder">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Builder</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The Builder class provides a set of convenient methods for</span>
 <span class="sd">    incrementally constructing a demographic model.</span>
@@ -2734,7 +2732,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="sd">            is not violated when the :meth:`.resolve` method is called.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Builder.__init__"><a class="viewcode-back" href="../../api.html#demes.Builder.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<div class="viewcode-block" id="Builder.__init__"><a class="viewcode-back" href="../../api.html#demes.Builder.__init__">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2774,7 +2772,7 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;metadata&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span></div>
 
-<div class="viewcode-block" id="Builder.add_deme"><a class="viewcode-back" href="../../api.html#demes.Builder.add_deme">[docs]</a>    <span class="k">def</span> <span class="nf">add_deme</span><span class="p">(</span>
+<div class="viewcode-block" id="Builder.add_deme"><a class="viewcode-back" href="../../api.html#demes.Builder.add_deme">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">add_deme</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
@@ -2825,7 +2823,7 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">deme</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Builder.add_migration"><a class="viewcode-back" href="../../api.html#demes.Builder.add_migration">[docs]</a>    <span class="k">def</span> <span class="nf">add_migration</span><span class="p">(</span>
+<div class="viewcode-block" id="Builder.add_migration"><a class="viewcode-back" href="../../api.html#demes.Builder.add_migration">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">add_migration</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2889,7 +2887,7 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;migrations&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;migrations&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">migration</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Builder.add_pulse"><a class="viewcode-back" href="../../api.html#demes.Builder.add_pulse">[docs]</a>    <span class="k">def</span> <span class="nf">add_pulse</span><span class="p">(</span>
+<div class="viewcode-block" id="Builder.add_pulse"><a class="viewcode-back" href="../../api.html#demes.Builder.add_pulse">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">add_pulse</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">*</span><span class="p">,</span>
         <span class="n">sources</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2931,7 +2929,7 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pulses&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pulses&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pulse</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Builder.resolve"><a class="viewcode-back" href="../../api.html#demes.Builder.resolve">[docs]</a>    <span class="k">def</span> <span class="nf">resolve</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Builder.resolve"><a class="viewcode-back" href="../../api.html#demes.Builder.resolve">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">resolve</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Resolve the Builder&#39;s data dictionary into a Graph.</span>
 
@@ -2941,7 +2939,7 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="k">return</span> <span class="n">Graph</span><span class="o">.</span><span class="n">fromdict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Builder.fromdict"><a class="viewcode-back" href="../../api.html#demes.Builder.fromdict">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">fromdict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">&quot;Builder&quot;</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fromdict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">&quot;Builder&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Make a Builder object from an existing data dictionary.</span>
 
@@ -2961,13 +2959,13 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="c1"># Below are general-purpose functions that operate on a data dict,</span>
     <span class="c1"># which are used in the ms conversion code.</span>
 
-    <span class="k">def</span> <span class="nf">_sort_demes_by_ancestry</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_sort_demes_by_ancestry</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sort demes by their start time so that ancestors come before descendants.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;demes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="s2">&quot;start_time&quot;</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_add_migrations_from_matrices</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_migrations_from_matrices</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">mm_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]],</span> <span class="n">end_times</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -3020,7 +3018,7 @@ const thebe_selector_output = ".output, .cell_output"
             <span class="n">start_time</span> <span class="o">=</span> <span class="n">end_time</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;migrations&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">migrations</span>
 
-    <span class="k">def</span> <span class="nf">_remove_transient_demes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_remove_transient_demes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Remove demes that don&#39;t exist (deme.start_time == deme.end_time).</span>
 
